@@ -11,7 +11,7 @@
     "dev:vue": "pnpm --filter playground-vue dev",
     "dev:react": "pnpm --filter playground-react dev",
     "build": "pnpm --filter @eosjs/components build",
-    "build:docs": "pnpm --filter @eosjs/components-docs build",
+    "build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
     "format": "ultracite fix",
     "format:check": "ultracite check",
     "format:fix": "ultracite fix",

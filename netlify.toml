@@ -1,0 +1,10 @@
+[build]
+# 构建命令：先构建组件库,再构建文档
+command = "pnpm build:docs"
+
+# 发布目录：Storybook 的静态输出目录
+publish = "docs/storybook-static"
+
+[build.environment]
+# 指定 Node.js 版本
+NODE_VERSION = "20"

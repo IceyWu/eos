@@ -2,12 +2,14 @@
   "name": "@eosjs/components",
   "version": "0.1.0",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/bundle.js",
+  "module": "./dist/bundle.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/bundle.js",
+      "default": "./dist/bundle.js"
     }
   },
   "files": [
@@ -15,9 +17,14 @@
   ],
   "scripts": {
     "dev": "tsc --watch --preserveWatchOutput",
-    "build": "tsc"
+    "build": "npm run build:tsc && npm run build:bundle",
+    "build:tsc": "tsc",
+    "build:bundle": "rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.9.6",
     "typescript": "^5.3.3"
   }
 }
