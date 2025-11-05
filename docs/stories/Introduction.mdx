@@ -1,0 +1,165 @@
+---
+title: 开始/介绍
+---
+
+# Eos UI 组件库
+
+<div style={{ marginBottom: "2rem" }}>
+  <img
+    src="https://img.shields.io/badge/Vue-3.x-brightgreen"
+    alt="Vue"
+    style={{ marginRight: "8px" }}
+  />
+  <img
+    src="https://img.shields.io/badge/React-18.x-blue"
+    alt="React"
+    style={{ marginRight: "8px" }}
+  />
+  <img
+    src="https://img.shields.io/badge/TypeScript-Support-blue"
+    alt="TypeScript"
+    style={{ marginRight: "8px" }}
+  />
+  <img
+    src="https://img.shields.io/badge/Web_Components-Native-orange"
+    alt="Web Components"
+  />
+</div>
+
+一个基于 Web Components 的现代化 UI 组件库，支持 Vue、React 和原生 HTML。
+
+## ✨ 特性
+
+- 🌐 **跨框架支持** - 基于 Web Components，可在 Vue、React、Angular 等任何框架中使用
+- 📦 **开箱即用** - 无需复杂配置，引入即可使用
+- 🎨 **主题定制** - 支持 CSS 变量，轻松定制主题
+- 📱 **响应式设计** - 完美支持移动端和桌面端
+- ⚡ **高性能** - 基于原生 Web Components，性能优异
+- 🔧 **TypeScript** - 完整的 TypeScript 类型支持
+
+## 📦 安装
+
+### NPM
+
+```bash
+npm install @eosjs/components
+```
+
+### Yarn
+
+```bash
+yarn add @eosjs/components
+```
+
+### PNPM
+
+```bash
+pnpm add @eosjs/components
+```
+
+## 🚀 快速开始
+
+### Vue 3
+
+```vue
+<template>
+  <e-carousel autoplay loop :interval="3000">
+    <div>Slide 1</div>
+    <div>Slide 2</div>
+    <div>Slide 3</div>
+  </e-carousel>
+</template>
+
+<script setup>
+import "@eosjs/components";
+import "@eosjs/components/style.css";
+</script>
+```
+
+### React
+
+```jsx
+import React from "react";
+import "@eosjs/components";
+import "@eosjs/components/style.css";
+
+function App() {
+  return (
+    <e-carousel autoplay loop interval={3000}>
+      <div>Slide 1</div>
+      <div>Slide 2</div>
+      <div>Slide 3</div>
+    </e-carousel>
+  );
+}
+```
+
+### HTML
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="node_modules/@eosjs/components/style.css" />
+    <script type="module">
+      import "@eosjs/components";
+    </script>
+  </head>
+  <body>
+    <e-carousel autoplay loop interval="3000">
+      <div>Slide 1</div>
+      <div>Slide 2</div>
+      <div>Slide 3</div>
+    </e-carousel>
+  </body>
+</html>
+```
+
+## 📚 组件列表
+
+### 基础组件
+
+- **Button** - 按钮组件
+- **Input** - 输入框组件
+- **Select** - 下拉选择组件
+
+### 布局组件
+
+- **Grid** - 栅格布局
+- **Layout** - 页面布局
+
+### 数据展示
+
+- **Carousel** - 轮播图组件
+- **Card** - 卡片组件
+- **Table** - 表格组件
+
+### 反馈组件
+
+- **Modal** - 模态框
+- **Notification** - 通知提醒
+- **Loading** - 加载状态
+
+## 🎨 主题定制
+
+Eos UI 支持通过 CSS 变量进行主题定制：
+
+```css
+:root {
+  --carousel-height: 400px;
+  --carousel-transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --progress-bar-height: 3px;
+  --progress-bar-color: rgba(255, 255, 255, 0.3);
+  --progress-bar-active-color: rgba(255, 255, 255, 1);
+  --control-bg: rgba(0, 0, 0, 0.3);
+  --control-hover-bg: rgba(0, 0, 0, 0.5);
+}
+```
+
+## 🤝 贡献
+
+欢迎贡献代码！请查看我们的[贡献指南](https://github.com/eos-ui/eos/blob/main/CONTRIBUTING.md)。
+
+## 📄 许可证
+
+MIT © [Eos UI](https://github.com/eos-ui)

@@ -1,0 +1,18 @@
+{
+	"$schema": "https://ultracite.dev/schema.json",
+	"include": [
+		"packages/**/*.{js,jsx,ts,tsx}",
+		"playground/**/*.{js,jsx,ts,tsx,vue,css}",
+		"*.{js,ts,json,md}"
+	],
+	"exclude": [
+		"node_modules/**",
+		"**/node_modules/**",
+		"**/dist/**",
+		"**/.git/**",
+		"pnpm-lock.yaml",
+		"package-lock.json",
+		"**/*.d.ts",
+		"**/*.map"
+	]
+}

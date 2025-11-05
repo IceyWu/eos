@@ -1,0 +1,29 @@
+{
+  "name": "@eosjs/components-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "dependencies": {
+    "@eosjs/components": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.2",
+    "@storybook/addon-docs": "^10.0.4",
+    "@storybook/addon-links": "^10.0.4",
+    "@storybook/react": "^10.0.4",
+    "@storybook/react-vite": "^10.0.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "storybook": "^10.0.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "playground-html",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3001",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@eosjs/components": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "npm:rolldown-vite@7.1.14"
+  }
+}

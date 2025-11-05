@@ -1,0 +1,278 @@
+---
+title: 开始/快速上手
+---
+
+# 快速上手
+
+本指南将帮助你快速开始使用 Eos UI 组件库。
+
+## 安装
+
+### 使用 NPM
+
+```bash
+npm install @eosjs/components
+```
+
+### 使用 CDN
+
+你也可以通过 CDN 直接使用：
+
+```html
+<!-- 样式 -->
+<link rel="stylesheet" href="https://unpkg.com/@eosjs/components/style.css" />
+
+<!-- 脚本 -->
+<script type="module">
+  import "https://unpkg.com/@eosjs/components";
+</script>
+```
+
+## 在不同框架中使用
+
+### Vue 3 项目
+
+#### 1. 全局注册（推荐）
+
+在 `main.js` 中：
+
+```javascript
+import { createApp } from "vue";
+import App from "./App.vue";
+import "@eosjs/components";
+import "@eosjs/components/style.css";
+
+createApp(App).mount("#app");
+```
+
+#### 2. 在组件中使用
+
+```vue
+<template>
+  <div>
+    <e-carousel autoplay loop>
+      <div v-for="i in 3" :key="i">Slide {{ i }}</div>
+    </e-carousel>
+
+    <e-button @e-click="handleClick"> 点击我 </e-button>
+  </div>
+</template>
+
+<script setup>
+const handleClick = (e) => {
+  console.log("Button clicked:", e.detail);
+};
+</script>
+```
+
+### React 项目
+
+#### 1. 在入口文件引入
+
+在 `index.js` 或 `App.js` 中：
+
+```javascript
+import "@eosjs/components";
+import "@eosjs/components/style.css";
+```
+
+#### 2. TypeScript 类型支持
+
+创建 `eos-components.d.ts`：
+
+```typescript
+declare namespace JSX {
+  interface IntrinsicElements {
+    "e-carousel": React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLElement> & {
+        autoplay?: boolean;
+        interval?: number;
+        loop?: boolean;
+        "show-controls"?: boolean;
+      },
+      HTMLElement
+    >;
+    "e-button": React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLElement> & {
+        onLClick?: (e: CustomEvent) => void;
+      },
+      HTMLElement
+    >;
+  }
+}
+```
+
+#### 3. 在组件中使用
+
+```jsx
+import React, { useRef, useEffect } from "react";
+
+function App() {
+  const carouselRef = useRef(null);
+
+  useEffect(() => {
+    // 可以通过 ref 访问组件方法
+    if (carouselRef.current) {
+      carouselRef.current.play();
+    }
+  }, []);
+
+  const handleButtonClick = (e) => {
+    console.log("Button clicked:", e.detail);
+  };
+
+  return (
+    <div>
+      <e-carousel ref={carouselRef} autoplay loop interval={3000}>
+        <div>Slide 1</div>
+        <div>Slide 2</div>
+        <div>Slide 3</div>
+      </e-carousel>
+
+      <e-button onLClick={handleButtonClick}>点击我</e-button>
+    </div>
+  );
+}
+```
+
+### 原生 HTML
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eos UI Demo</title>
+    <link rel="stylesheet" href="node_modules/@eosjs/components/style.css" />
+  </head>
+  <body>
+    <!-- Carousel 组件 -->
+    <e-carousel id="myCarousel" autoplay loop interval="3000">
+      <div>Slide 1</div>
+      <div>Slide 2</div>
+      <div>Slide 3</div>
+    </e-carousel>
+
+    <!-- Button 组件 -->
+    <e-button id="myButton">点击我</e-button>
+
+    <script type="module">
+      import "@eosjs/components";
+
+      // 获取组件实例
+      const carousel = document.getElementById("myCarousel");
+      const button = document.getElementById("myButton");
+
+      // 监听事件
+      carousel.addEventListener("change", (e) => {
+        console.log("Current slide:", e.detail.currentIndex);
+      });
+
+      button.addEventListener("e-click", (e) => {
+        console.log("Button clicked:", e.detail);
+      });
+
+      // 调用方法
+      setTimeout(() => {
+        carousel.pause();
+      }, 5000);
+    </script>
+  </body>
+</html>
+```
+
+## API 调用
+
+所有 Eos 组件都暴露了方法供编程调用：
+
+### Carousel 组件方法
+
+```javascript
+const carousel = document.querySelector("e-carousel");
+
+// 播放
+carousel.play();
+
+// 暂停
+carousel.pause();
+
+// 切换到指定索引
+carousel.goTo(2);
+
+// 下一个
+carousel.next();
+
+// 上一个
+carousel.prev();
+```
+
+## 事件监听
+
+### Carousel 事件
+
+- `change` - 轮播切换时触发
+- `slide-click` - 点击轮播项时触发
+- `slide-active` - 轮播项激活时触发
+
+### Button 事件
+
+- `e-click` - 点击按钮时触发（自定义事件，避免与原生 click 冲突）
+
+## 样式定制
+
+### 使用 CSS 变量
+
+```css
+/* 全局定制 */
+:root {
+  --carousel-height: 500px;
+  --progress-bar-color: #333;
+  --progress-bar-active-color: #007bff;
+}
+
+/* 单个组件定制 */
+.my-carousel {
+  --carousel-height: 300px;
+  --carousel-transition: 0.3s ease;
+}
+```
+
+### 覆盖默认样式
+
+```css
+/* 自定义按钮样式 */
+e-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
+
+e-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+```
+
+## 常见问题
+
+### Q: 为什么事件名是 `e-click` 而不是 `click`？
+
+A: 为了避免与原生 DOM 事件冲突，我们的自定义事件都使用了 `l-` 前缀。
+
+### Q: 如何在 TypeScript 中获得类型支持？
+
+A: 你需要声明组件的类型定义，可以参考上面的 React TypeScript 示例。
+
+### Q: 支持 SSR 吗？
+
+A: Web Components 在服务端渲染方面有一定限制。建议在客户端渲染时使用。
+
+### Q: 如何按需加载组件？
+
+A: 你可以只导入需要的组件：
+
+```javascript
+import "@eosjs/components/carousel";
+import "@eosjs/components/button";
+```
