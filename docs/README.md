@@ -1,12 +1,12 @@
 # Eos UI 文档系统
 
-基于 Storybook 构建的组件文档系统，支持 Vue、React 和原生 HTML 的代码示例。
+基于 Storybook 构建的组件文档系统，使用 React 框架展示组件示例。
 
 ## 特性
 
 - 📚 **完整的组件文档** - 包含参数说明、使用示例和 API 文档
 - 🎨 **交互式演示** - 实时修改组件属性，查看效果
-- 🌐 **多框架支持** - 提供 Vue 3、React 和 HTML 的代码示例
+- ⚛️ **React 支持** - 基于 React 框架的交互式示例
 - 📝 **MDX 文档** - 支持 Markdown 编写富文本文档
 - 🔍 **自动生成文档** - 从 TypeScript 类型自动生成参数文档
 
@@ -61,8 +61,8 @@ docs/
 创建 `ComponentName.stories.tsx`：
 
 ```typescript
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { h } from 'vue';
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 
 const meta: Meta = {
   title: 'Components/ComponentName',
@@ -79,11 +79,7 @@ export default meta;
 
 // 创建示例
 export const Default: StoryObj = {
-  render: (args) => ({
-    setup() {
-      return () => h('l-component', args);
-    },
-  }),
+  render: (args) => <e-component {...args} />,
 };
 ```
 
@@ -165,14 +161,14 @@ npx gh-pages -d storybook-static
 
 ## 配置说明
 
-### 添加新的框架支持
+### 框架配置
 
-在 `.storybook/main.ts` 中配置：
+当前使用 React 框架，配置在 `.storybook/main.ts` 中：
 
 ```typescript
 const config: StorybookConfig = {
   framework: {
-    name: "@storybook/vue3-vite", // 或 @storybook/react-vite
+    name: "@storybook/react-vite",
     options: {},
   },
 };

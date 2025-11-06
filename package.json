@@ -10,6 +10,7 @@
     "dev:html": "pnpm --filter playground-html dev",
     "dev:vue": "pnpm --filter playground-vue dev",
     "dev:react": "pnpm --filter playground-react dev",
+    "dev:angular": "pnpm --filter playground-angular dev",
     "build": "pnpm --filter @eosjs/components build",
     "build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
     "format": "ultracite fix",

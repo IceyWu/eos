@@ -7,13 +7,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: `
-# Button 按钮组件
-
-基础的按钮组件，支持自定义事件处理�?
-## 特�?
-- 🎨 自定义样�?- 📱 响应式设�? 
-- �?自定义事�?- �?可访问性支�?`,
+        component: 'A simple button component built with Web Components.',
       },
     },
   },
@@ -21,14 +15,15 @@ const meta: Meta = {
   argTypes: {
     text: {
       control: 'text',
-      description: '按钮文本',
+      description: 'Button text content',
       table: {
         type: { summary: 'string' },
+        defaultValue: { summary: 'Click me' },
       },
     },
     disabled: {
       control: 'boolean',
-      description: '是否禁用',
+      description: 'Whether the button is disabled',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
@@ -40,9 +35,8 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// 基础示例
 export const Default: Story = {
-  name: '默认按钮',
+  name: 'Default',
   render: (args: any) => {
     const buttonRef = useRef<any>(null);
     
@@ -52,7 +46,6 @@ export const Default: Story = {
       
       const handleClick = (e: CustomEvent) => {
         console.log('Button clicked:', e.detail);
-        alert(`按钮被点击了！消息：${e.detail.message}`);
       };
       
       button.addEventListener('e-click', handleClick);
@@ -62,27 +55,59 @@ export const Default: Story = {
     return React.createElement('e-button', {
       ref: buttonRef,
       disabled: args.disabled,
-    }, args.text || '点击');
+    }, args.text || 'Click me');
   },
   args: {
-    text: '默认按钮',
+    text: 'Click me',
     disabled: false,
   },
 };
 
-// React 代码示例
-export const ReactExample: Story = {
-  name: 'React 示例',
+export const Multiple: Story = {
+  name: 'Multiple Buttons',
+  render: () => {
+    useEffect(() => {
+      const buttons = document.querySelectorAll('e-button');
+      const handlers = [
+        () => console.log('Primary clicked'),
+        () => console.log('Secondary clicked'),
+        () => console.log('Danger clicked'),
+      ];
+      
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('e-click', handlers[i]);
+      });
+      
+      return () => {
+        buttons.forEach((btn, i) => {
+          btn.removeEventListener('e-click', handlers[i]);
+        });
+      };
+    }, []);
+    
+    return React.createElement('div', { 
+      style: { 
+        display: 'flex', 
+        gap: '12px',
+        flexWrap: 'wrap',
+      } 
+    }, [
+      React.createElement('e-button', { key: '1' }, 'Primary'),
+      React.createElement('e-button', { key: '2' }, 'Secondary'),
+      React.createElement('e-button', { key: '3' }, 'Danger'),
+    ]);
+  },
+};
+
+export const ReactUsage: Story = {
+  name: 'React Usage',
   parameters: {
     docs: {
       source: {
-        language: 'jsx',
-        code: `
-import React, { useState, useEffect, useRef } from 'react';
+        code: `import React, { useEffect, useRef } from 'react';
 import '@eosjs/components';
 
-function ButtonDemo() {
-  const [text, setText] = useState('点击我');
+function App() {
   const buttonRef = useRef(null);
   
   useEffect(() => {
@@ -90,27 +115,15 @@ function ButtonDemo() {
     if (!button) return;
     
     const handleClick = (e) => {
-      console.log('Button clicked:', e.detail.message);
-      setText('已点击！');
-      
-      setTimeout(() => {
-        setText('点击我');
-      }, 2000);
+      console.log('Clicked:', e.detail.message);
     };
     
     button.addEventListener('e-click', handleClick);
     return () => button.removeEventListener('e-click', handleClick);
   }, []);
   
-  return (
-    <e-button ref={buttonRef}>
-      {text}
-    </e-button>
-  );
-}
-
-export default ButtonDemo;
-`,
+  return <e-button ref={buttonRef}>Click me</e-button>;
+}`,
       },
     },
   },
@@ -118,72 +131,82 @@ export default ButtonDemo;
   args: Default.args,
 };
 
-// HTML 代码示例
-export const HTMLExample: Story = {
-  name: 'HTML 示例',
+export const VueUsage: Story = {
+  name: 'Vue Usage',
   parameters: {
     docs: {
       source: {
-        language: 'html',
-        code: `
-<!DOCTYPE html>
+        code: `<template>
+  <e-button @e-click="handleClick">Click me</e-button>
+</template>
+
+<script setup>
+import '@eosjs/components';
+
+const handleClick = (e) => {
+  console.log('Clicked:', e.detail.message);
+};
+</script>`,
+      },
+    },
+  },
+  render: Default.render,
+  args: Default.args,
+};
+
+export const AngularUsage: Story = {
+  name: 'Angular Usage',
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import '@eosjs/components';
+
+@Component({
+  selector: 'app-root',
+  template: '<e-button>Click me</e-button>',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    const button = document.querySelector('e-button');
+    button?.addEventListener('e-click', (e: Event) => {
+      const customEvent = e as CustomEvent;
+      console.log('Clicked:', customEvent.detail.message);
+    });
+  }
+}`,
+      },
+    },
+  },
+  render: Default.render,
+  args: Default.args,
+};
+
+export const HTMLUsage: Story = {
+  name: 'HTML Usage',
+  parameters: {
+    docs: {
+      source: {
+        code: `<!DOCTYPE html>
 <html>
 <head>
   <script type="module">
     import '@eosjs/components';
     
-    // 获取按钮元素
     const button = document.querySelector('e-button');
-    
-    // 添加事件监听
     button.addEventListener('e-click', (e) => {
-      console.log('Button clicked:', e.detail.message);
-      button.textContent = '已点击！';
-      
-      setTimeout(() => {
-        button.textContent = '点击我';
-      }, 2000);
+      console.log('Clicked:', e.detail.message);
     });
   </script>
 </head>
 <body>
-  <e-button>点击我</e-button>
+  <e-button>Click me</e-button>
 </body>
-</html>
-`,
+</html>`,
       },
     },
   },
   render: Default.render,
   args: Default.args,
 };
-
-// 多个按钮示例
-export const Multiple: Story = {
-  name: '多个按钮',
-  render: () => {
-    useEffect(() => {
-      const buttons = document.querySelectorAll('e-button');
-      const handleSubmit = () => alert('提交');
-      const handleCancel = () => alert('取消');
-      const handleDelete = () => alert('删除');
-      
-      buttons[0]?.addEventListener('e-click', handleSubmit);
-      buttons[1]?.addEventListener('e-click', handleCancel);
-      buttons[2]?.addEventListener('e-click', handleDelete);
-      
-      return () => {
-        buttons[0]?.removeEventListener('e-click', handleSubmit);
-        buttons[1]?.removeEventListener('e-click', handleCancel);
-        buttons[2]?.removeEventListener('e-click', handleDelete);
-      };
-    }, []);
-    
-    return React.createElement('div', { style: { display: 'flex', gap: '12px' } }, [
-      React.createElement('e-button', { key: '1' }, '提交'),
-      React.createElement('e-button', { key: '2' }, '取消'),
-      React.createElement('e-button', { key: '3' }, '删除'),
-    ]);
-  },
-};
-

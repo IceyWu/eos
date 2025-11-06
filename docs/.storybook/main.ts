@@ -20,7 +20,9 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
-  docs: {},
+  docs: {
+    autodocs: true,
+  },
   async viteFinal(config) {
     // 确保能正确解析 monorepo 中的 workspace 包
     config.resolve = config.resolve || {};

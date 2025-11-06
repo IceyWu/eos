@@ -9,7 +9,7 @@
 - ✅ **零依赖**: 无需额外的运行时库
 - ✅ **样式隔离**: 使用 Shadow DOM 实现样式封装
 - ✅ **TypeScript**: 完整的类型支持
-- ✅ **可配置前缀**: 组件前缀可配置，默认为 `l-`
+- ✅ **可配置前缀**: 组件前缀可配置，默认为 `e`
 
 ## 项目结构
 
@@ -19,7 +19,8 @@ eos/
 │   └── components/          # 组件库核心包 (@eosjs/components)
 │       ├── src/
 │       │   ├── components/
-│       │   │   └── button/
+│       │   │   ├── button/
+│       │   │   └── carousel/
 │       │   ├── config.ts    # 组件配置（前缀等）
 │       │   └── index.ts
 │       └── package.json
@@ -27,7 +28,8 @@ eos/
 ├── playground/              # 演示环境
 │   ├── html/               # 原生 HTML 演示
 │   ├── vue/                # Vue 3 + TypeScript 演示
-│   └── react/              # React + TypeScript 演示
+│   ├── react/              # React + TypeScript 演示
+│   └── angular/            # Angular + TypeScript 演示
 ├── package.json
 └── pnpm-workspace.yaml
 ```
@@ -64,6 +66,9 @@ pnpm dev:vue
 
 # 运行 React 演示 (http://localhost:3003)
 pnpm dev:react
+
+# 运行 Angular 演示 (http://localhost:3004)
+pnpm dev:angular
 
 # 注意：首次运行前需要先构建组件库
 pnpm build
@@ -151,6 +156,30 @@ function App() {
 }
 ```
 
+### Angular + TypeScript
+
+```typescript
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { registerComponents } from '@eosjs/components';
+
+@Component({
+  selector: 'app-root',
+  template: '<e-button>Click me</e-button>',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    registerComponents();
+    
+    const button = document.querySelector('e-button');
+    button?.addEventListener('e-click', (e: Event) => {
+      const customEvent = e as CustomEvent;
+      console.log(customEvent.detail.message);
+    });
+  }
+}
+```
+
 ## 组件列表
 
 ### e-button
@@ -168,6 +197,46 @@ function App() {
 - `e-click`: 按钮点击时触发
   - `detail.message`: 事件消息 (string)
 
+### e-carousel
+
+类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能。
+
+**标签名**: `e-carousel`
+
+**Attributes**:
+
+- `autoplay`: 是否自动播放（布尔属性）
+- `interval`: 自动播放间隔时间（毫秒），默认 3000，最小值 1000
+- `loop`: 是否循环播放（布尔属性）
+- `show-controls`: 是否显示控制按钮，默认 true
+
+**Slots**:
+
+- `default`: 轮播项内容（通常是图片或视频元素）
+
+**Events**:
+
+- `change`: 切换幻灯片时触发
+  - `detail.currentIndex`: 当前索引 (number)
+  - `detail.previousIndex`: 上一个索引 (number)
+- `slide-click`: 点击幻灯片时触发
+  - `detail.index`: 被点击的幻灯片索引 (number)
+- `slide-active`: 幻灯片激活时触发
+  - `detail.index`: 激活的幻灯片索引 (number)
+  - `detail.slide`: 幻灯片元素
+  - `detail.mediaType`: 媒体类型 (string)
+
+**Methods**:
+
+- `next()`: 切换到下一张
+- `prev()`: 切换到上一张
+- `goTo(index: number)`: 切换到指定索引
+- `play()`: 开始自动播放
+- `pause()`: 暂停自动播放
+- `updateProgress(progress: number)`: 更新当前幻灯片的自定义进度（0-100）
+- `enableCustomProgress()`: 启用自定义进度模式（用于视频）
+- `disableCustomProgress()`: 禁用自定义进度模式
+
 ## 配置
 
 ### 组件前缀
@@ -176,7 +245,7 @@ function App() {
 
 ```typescript
 export const COMPONENT_CONFIG = {
-  prefix: 'l',  // 可以修改为其他前缀
+  prefix: 'e',  // 可以修改为其他前缀
   
   getTagName(componentName: string): string {
     return `${this.prefix}-${componentName}`;
@@ -186,7 +255,7 @@ export const COMPONENT_CONFIG = {
 
 修改 `prefix` 后，所有组件的标签名都会相应改变。例如：
 
-- `prefix: 'l'` → `<e-button>`
+- `prefix: 'e'` → `<e-button>`
 - `prefix: 'eos'` → `<eos-button>`
 - `prefix: 'my'` → `<my-button>`
 
@@ -229,7 +298,7 @@ pnpm build:docs
 
 - **包管理**: pnpm workspace
 - **开发语言**: TypeScript
-- **构建工具**: Vite + tsc
+- **构建工具**: Rollup + tsc
 - **组件技术**: Web Components (Custom Elements v1, Shadow DOM)
 
 ## License

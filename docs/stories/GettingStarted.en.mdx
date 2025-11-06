@@ -1,10 +1,10 @@
-# 快速开始指南
+# Quick Start Guide
 
-几分钟内快速上手 Eos Web Components。
+Get started with Eos Web Components in minutes.
 
-## 安装
+## Installation
 
-选择你喜欢的包管理器：
+Choose your preferred package manager:
 
 ```bash
 npm install @eosjs/components
@@ -18,17 +18,17 @@ yarn add @eosjs/components
 pnpm add @eosjs/components
 ```
 
-## 框架集成
+## Framework Integration
 
 ### React
 
-**1. 导入库**
+**1. Import the library**
 
 ```jsx
 import '@eosjs/components';
 ```
 
-**2. 在 JSX 中使用组件**
+**2. Use components in JSX**
 
 ```jsx
 function App() {
@@ -37,17 +37,17 @@ function App() {
   useEffect(() => {
     const button = buttonRef.current;
     button?.addEventListener('e-click', (e) => {
-      console.log('点击了:', e.detail);
+      console.log('Clicked:', e.detail);
     });
   }, []);
   
-  return <e-button ref={buttonRef}>点击我</e-button>;
+  return <e-button ref={buttonRef}>Click me</e-button>;
 }
 ```
 
-**3. TypeScript 支持（可选）**
+**3. TypeScript support (optional)**
 
-创建 `web-components.d.ts`：
+Create `web-components.d.ts`:
 
 ```typescript
 declare namespace JSX {
@@ -64,33 +64,33 @@ declare namespace JSX {
 
 ### Vue 3
 
-**1. 在 main.js 或组件中导入**
+**1. Import in main.js or component**
 
 ```javascript
 import '@eosjs/components';
 ```
 
-**2. 在模板中使用**
+**2. Use in templates**
 
 ```vue
 <template>
-  <e-button @e-click="handleClick">点击我</e-button>
+  <e-button @e-click="handleClick">Click me</e-button>
   <e-carousel autoplay loop :interval="3000">
-    <div>幻灯片 1</div>
-    <div>幻灯片 2</div>
+    <div>Slide 1</div>
+    <div>Slide 2</div>
   </e-carousel>
 </template>
 
 <script setup>
 const handleClick = (e) => {
-  console.log('点击了:', e.detail);
+  console.log('Clicked:', e.detail);
 };
 </script>
 ```
 
 ### Angular
 
-**1. 在组件中导入**
+**1. Import in component**
 
 ```typescript
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -99,10 +99,10 @@ import '@eosjs/components';
 @Component({
   selector: 'app-root',
   template: `
-    <e-button>点击我</e-button>
+    <e-button>Click me</e-button>
     <e-carousel autoplay loop [attr.interval]="3000">
-      <div>幻灯片 1</div>
-      <div>幻灯片 2</div>
+      <div>Slide 1</div>
+      <div>Slide 2</div>
     </e-carousel>
   `,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -110,19 +110,19 @@ import '@eosjs/components';
 export class AppComponent {}
 ```
 
-**2. 处理事件**
+**2. Handle events**
 
 ```typescript
 ngOnInit() {
   const button = document.querySelector('e-button');
   button?.addEventListener('e-click', (e: Event) => {
     const customEvent = e as CustomEvent;
-    console.log('点击了:', customEvent.detail);
+    console.log('Clicked:', customEvent.detail);
   });
 }
 ```
 
-### 原生 JavaScript
+### Vanilla JavaScript
 
 ```html
 <!DOCTYPE html>
@@ -132,61 +132,61 @@ ngOnInit() {
     import '@eosjs/components';
     
     document.querySelector('e-button').addEventListener('e-click', (e) => {
-      console.log('点击了:', e.detail);
+      console.log('Clicked:', e.detail);
     });
   </script>
 </head>
 <body>
-  <e-button>点击我</e-button>
+  <e-button>Click me</e-button>
   <e-carousel autoplay loop interval="3000">
-    <div>幻灯片 1</div>
-    <div>幻灯片 2</div>
+    <div>Slide 1</div>
+    <div>Slide 2</div>
   </e-carousel>
 </body>
 </html>
 ```
 
-## 组件方法
+## Component Methods
 
-通过 DOM 引用访问组件方法：
+Access component methods via DOM reference:
 
 ```javascript
 const carousel = document.querySelector('e-carousel');
 
-// 控制播放
+// Control playback
 carousel.play();
 carousel.pause();
 
-// 导航
+// Navigate
 carousel.next();
 carousel.prev();
 carousel.goTo(2);
 ```
 
-## 事件处理
+## Event Handling
 
-所有组件都会触发自定义事件：
+All components emit custom events:
 
 ```javascript
-// 按钮事件
+// Button events
 button.addEventListener('e-click', (e) => {
   console.log(e.detail.message);
 });
 
-// 轮播事件
+// Carousel events
 carousel.addEventListener('change', (e) => {
-  console.log('当前:', e.detail.currentIndex);
-  console.log('上一个:', e.detail.previousIndex);
+  console.log('Current:', e.detail.currentIndex);
+  console.log('Previous:', e.detail.previousIndex);
 });
 
 carousel.addEventListener('slide-click', (e) => {
-  console.log('点击了幻灯片:', e.detail.index);
+  console.log('Clicked slide:', e.detail.index);
 });
 ```
 
-## 样式定制
+## Styling
 
-使用 CSS 变量自定义组件：
+Customize components with CSS variables:
 
 ```css
 e-carousel {
@@ -202,8 +202,8 @@ e-button {
 }
 ```
 
-## 下一步
+## Next Steps
 
-- 在组件部分探索 Button 组件
-- 在组件部分探索 Carousel 组件
-- 查看 [GitHub 仓库](https://github.com/IceyWu/eos)
+- Explore Button component in the Components section
+- Explore Carousel component in the Components section
+- Check out the [GitHub repository](https://github.com/IceyWu/eos)

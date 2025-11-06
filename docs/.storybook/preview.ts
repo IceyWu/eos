@@ -17,6 +17,24 @@ const preview: Preview = {
         headingSelector: 'h1, h2, h3',
       },
     },
+    backgrounds: {
+      default: 'light',
+      values: [
+        {
+          name: 'light',
+          value: '#ffffff',
+        },
+        {
+          name: 'dark',
+          value: '#333333',
+        },
+        {
+          name: 'gray',
+          value: '#f5f5f5',
+        },
+      ],
+    },
+    layout: 'padded',
   },
 };
 
