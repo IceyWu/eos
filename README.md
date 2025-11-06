@@ -208,7 +208,10 @@ export class AppComponent implements OnInit {
 - `autoplay`: 是否自动播放（布尔属性）
 - `interval`: 自动播放间隔时间（毫秒），默认 3000，最小值 1000
 - `loop`: 是否循环播放（布尔属性）
-- `show-controls`: 是否显示控制按钮，默认 true
+- `show-navigation`: 是否显示导航按钮（上一个/下一个），默认 true
+- `initial-index`: 初始显示的幻灯片索引，默认 0
+- `indicator-position`: 指示器位置，可选值：`top` | `bottom` | `left` | `right`，默认 `bottom`
+- `indicator-style`: 指示器样式，可选值：`default`（进度条） | `dots`（圆点） | `tiktok`（抖音风格），默认 `default`
 
 **Slots**:
 
