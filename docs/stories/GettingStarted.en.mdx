@@ -41,7 +41,7 @@ function App() {
     });
   }, []);
   
-  return <e-button ref={buttonRef}>Click me</e-button>;
+  return <eos-button ref={buttonRef}>Click me</eos-button>;
 }
 ```
 
@@ -52,8 +52,8 @@ Create `web-components.d.ts`:
 ```typescript
 declare namespace JSX {
   interface IntrinsicElements {
-    'e-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-    'e-carousel': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
+    'eos-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    'eos-carousel': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
       autoplay?: boolean;
       interval?: number;
       loop?: boolean;
@@ -74,11 +74,11 @@ import '@eosjs/components';
 
 ```vue
 <template>
-  <e-button @e-click="handleClick">Click me</e-button>
-  <e-carousel autoplay loop :interval="3000">
+  <eos-button @e-click="handleClick">Click me</eos-button>
+  <eos-carousel autoplay loop :interval="3000">
     <div>Slide 1</div>
     <div>Slide 2</div>
-  </e-carousel>
+  </eos-carousel>
 </template>
 
 <script setup>
@@ -99,11 +99,11 @@ import '@eosjs/components';
 @Component({
   selector: 'app-root',
   template: `
-    <e-button>Click me</e-button>
-    <e-carousel autoplay loop [attr.interval]="3000">
+    <eos-button>Click me</eos-button>
+    <eos-carousel autoplay loop [attr.interval]="3000">
       <div>Slide 1</div>
       <div>Slide 2</div>
-    </e-carousel>
+    </eos-carousel>
   `,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -114,7 +114,7 @@ export class AppComponent {}
 
 ```typescript
 ngOnInit() {
-  const button = document.querySelector('e-button');
+  const button = document.querySelector('eos-button');
   button?.addEventListener('e-click', (e: Event) => {
     const customEvent = e as CustomEvent;
     console.log('Clicked:', customEvent.detail);
@@ -131,17 +131,17 @@ ngOnInit() {
   <script type="module">
     import '@eosjs/components';
     
-    document.querySelector('e-button').addEventListener('e-click', (e) => {
+    document.querySelector('eos-button').addEventListener('e-click', (e) => {
       console.log('Clicked:', e.detail);
     });
   </script>
 </head>
 <body>
-  <e-button>Click me</e-button>
-  <e-carousel autoplay loop interval="3000">
+  <eos-button>Click me</eos-button>
+  <eos-carousel autoplay loop interval="3000">
     <div>Slide 1</div>
     <div>Slide 2</div>
-  </e-carousel>
+  </eos-carousel>
 </body>
 </html>
 ```
@@ -151,7 +151,7 @@ ngOnInit() {
 Access component methods via DOM reference:
 
 ```javascript
-const carousel = document.querySelector('e-carousel');
+const carousel = document.querySelector('eos-carousel');
 
 // Control playback
 carousel.play();
@@ -189,14 +189,14 @@ carousel.addEventListener('slide-click', (e) => {
 Customize components with CSS variables:
 
 ```css
-e-carousel {
+eos-carousel {
   --carousel-height: 500px;
   --progress-bar-color: rgba(0, 0, 0, 0.2);
   --progress-bar-active-color: #007bff;
   --control-bg: rgba(0, 0, 0, 0.5);
 }
 
-e-button {
+eos-button {
   --button-bg: #007bff;
   --button-color: white;
 }

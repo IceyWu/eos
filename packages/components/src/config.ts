@@ -5,9 +5,9 @@ export const COMPONENT_CONFIG = {
 	/**
 	 * 组件前缀
 	 * 所有组件的标签名都会以此前缀开头
-	 * 例如：prefix 为 'e' 时，按钮组件为 'e-button'
+	 * 例如：prefix 为 'eos' 时，按钮组件为 'eos-button'
 	 */
-	prefix: "e",
+	prefix: "eos",
 
 	/**
 	 * 获取完整的组件标签名

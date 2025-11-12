@@ -1,12 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML Demo - Web Component</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eos Components - HTML Playground</title>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 头部 -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="brand">
+                    <span class="brand-icon">⚡</span>
+                    <h1 class="brand-title">Eos Components</h1>
+                </div>
+                <div class="header-info">
+                    <span class="badge">HTML Playground</span>
+                    <span class="version">v0.0.1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主布局 -->
+        <div class="app-content">
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>组件列表</h3>
+                    <p>Component Library</p>
+                </div>
+                
+                <nav class="component-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item active" data-component="button">
+                            <span class="nav-icon">🔘</span>
+                            <span class="nav-label">Button 按钮</span>
+                        </li>
+                        <li class="nav-item" data-component="image">
+                            <span class="nav-icon">🖼️</span>
+                            <span class="nav-label">Image 图片</span>
+                        </li>
+                        <li class="nav-item" data-component="carousel">
+                            <span class="nav-icon">🎠</span>
+                            <span class="nav-label">Carousel 轮播图</span>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <p>基于 Web Components</p>
+                    <p>支持原生 HTML + JavaScript</p>
+                </div>
+            </aside>
+
+            <!-- 主内容区 -->
+            <main class="main-content">
+                <div class="content-wrapper">
+                    <!-- 组件演示区域 -->
+                    <div id="demo-container" class="demo-container">
+                        <!-- 动态加载的组件演示内容 -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 加载脚本 -->
     <script type="module" src="/src/main.js"></script>
-  </body>
+</body>
 </html>

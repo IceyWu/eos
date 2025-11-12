@@ -1,134 +1,334 @@
 <template>
   <div class="component-demo">
-    <h2>Carousel 轮播图组件</h2>
-
-    <div class="demo-block">
-      <h3>基础用法</h3>
-      <div class="demo-content">
-        <e-carousel 
-          autoplay 
-          :interval="3000" 
-          loop 
-          :style="{ '--carousel-height': '300px' }"
-          @change="handleSlideChange"
-        >
-          <div class="carousel-slide gradient-1">
-            <h2>第一张幻灯片</h2>
-            <p>优雅的渐变背景</p>
+    <div class="demo-container">
+      <!-- 基础用法 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><Mouse /></el-icon>
+              <span>基础用法</span>
+            </div>
+            <el-tag size="small" type="info">Basic</el-tag>
           </div>
-          <div class="carousel-slide gradient-2">
-            <h2>第二张幻灯片</h2>
-            <p>流畅的切换动画</p>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>基础的轮播图用法，支持自动播放、循环等特性。</p>
           </div>
-          <div class="carousel-slide gradient-3">
-            <h2>第三张幻灯片</h2>
-            <p>自动播放功能</p>
-          </div>
-          <div class="carousel-slide gradient-4">
-            <h2>第四张幻灯片</h2>
-            <p>无限循环模式</p>
-          </div>
-        </e-carousel>
-        <div class="output">当前索引: {{ currentSlide }}</div>
-      </div>
-    </div>
-
-    <div class="demo-block">
-      <h3>媒体内容轮播</h3>
-      <div class="demo-content">
-        <e-carousel :style="{ '--carousel-height': '400px' }">
-          <div class="media-slide">
-            <img src="https://picsum.photos/800/400?random=1" alt="随机图片 1" />
-            <div class="media-overlay">
-              <h3>美丽的风景</h3>
-              <p>探索大自然的魅力</p>
+          <div class="carousel-demo">
+            <eos-carousel 
+              autoplay 
+              :interval="3000" 
+              loop 
+              :style="{ '--carousel-height': '300px' }"
+              @change="handleSlideChange"
+            >
+              <div class="carousel-slide gradient-1">
+                <h2>第一张幻灯片</h2>
+                <p>优雅的渐变背景</p>
+              </div>
+              <div class="carousel-slide gradient-2">
+                <h2>第二张幻灯片</h2>
+                <p>流畅的切换动画</p>
+              </div>
+              <div class="carousel-slide gradient-3">
+                <h2>第三张幻灯片</h2>
+                <p>自动播放功能</p>
+              </div>
+              <div class="carousel-slide gradient-4">
+                <h2>第四张幻灯片</h2>
+                <p>无限循环模式</p>
+              </div>
+            </eos-carousel>
+            
+            <div class="slide-info">
+              <el-alert 
+                :title="`当前索引: ${currentSlide}`" 
+                type="info" 
+                :closable="false"
+                show-icon
+              />
             </div>
           </div>
-          <div class="media-slide">
-            <img src="https://picsum.photos/800/400?random=2" alt="随机图片 2" />
-            <div class="media-overlay">
-              <h3>城市夜景</h3>
-              <p>繁华都市的灯火</p>
-            </div>
-          </div>
-          <div class="media-slide">
-            <img src="https://picsum.photos/800/400?random=3" alt="随机图片 3" />
-            <div class="media-overlay">
-              <h3>艺术空间</h3>
-              <p>创意与灵感的碰撞</p>
-            </div>
-          </div>
-        </e-carousel>
-      </div>
-    </div>
-
-    <div class="demo-block">
-      <h3>手动控制</h3>
-      <div class="demo-content">
-        <e-carousel 
-          ref="carouselRef" 
-          :style="{ '--carousel-height': '250px' }"
-        >
-          <div class="carousel-slide control-slide-1">
-            <span class="slide-icon">🎨</span>
-            <span>设计</span>
-          </div>
-          <div class="carousel-slide control-slide-2">
-            <span class="slide-icon">💻</span>
-            <span>开发</span>
-          </div>
-          <div class="carousel-slide control-slide-3">
-            <span class="slide-icon">🚀</span>
-            <span>部署</span>
-          </div>
-        </e-carousel>
-        <div class="controls">
-          <button class="control-btn" @click="prevSlide">上一张</button>
-          <button class="control-btn" @click="nextSlide">下一张</button>
-          <button class="control-btn" @click="playCarousel">播放</button>
-          <button class="control-btn" @click="pauseCarousel">暂停</button>
         </div>
-      </div>
+      </el-card>
+
+      <!-- 媒体内容轮播 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><Film /></el-icon>
+              <span>媒体内容轮播</span>
+            </div>
+            <el-tag size="small" type="primary">Media</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>支持图片、视频等媒体内容的轮播展示。</p>
+          </div>
+          <div class="carousel-demo">
+            <eos-carousel :style="{ '--carousel-height': '400px' }">
+              <div class="media-slide">
+                <img src="https://picsum.photos/800/400?random=1" alt="随机图片 1" />
+                <div class="media-overlay">
+                  <h3>美丽的风景</h3>
+                  <p>探索大自然的魅力</p>
+                </div>
+              </div>
+              <div class="media-slide">
+                <img src="https://picsum.photos/800/400?random=2" alt="随机图片 2" />
+                <div class="media-overlay">
+                  <h3>城市夜景</h3>
+                  <p>现代都市的繁华</p>
+                </div>
+              </div>
+              <div class="media-slide">
+                <img src="https://picsum.photos/800/400?random=3" alt="随机图片 3" />
+                <div class="media-overlay">
+                  <h3>海洋世界</h3>
+                  <p>深海的神秘与美丽</p>
+                </div>
+              </div>
+            </eos-carousel>
+          </div>
+        </div>
+      </el-card>
+
+      <!-- 控制选项 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><Setting /></el-icon>
+              <span>控制选项</span>
+            </div>
+            <el-tag size="small" type="warning">Controls</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>丰富的控制选项，支持手动控制和自动播放设置。</p>
+          </div>
+          <div class="control-demo">
+            <el-row :gutter="24">
+              <el-col :span="12">
+                <div class="control-group">
+                  <h4>轮播设置</h4>
+                  <el-space direction="vertical" style="width: 100%" size="large">
+                    <div class="control-item">
+                      <el-switch 
+                        v-model="autoplay" 
+                        active-text="自动播放"
+                        @change="updateCarousel"
+                      />
+                    </div>
+                    <div class="control-item">
+                      <el-switch 
+                        v-model="loop" 
+                        active-text="循环播放"
+                        @change="updateCarousel"
+                      />
+                    </div>
+                    <div class="control-item">
+                      <el-form-item label="播放间隔">
+                        <el-input-number 
+                          v-model="interval" 
+                          :min="1000" 
+                          :max="10000" 
+                          :step="500"
+                          @change="updateCarousel"
+                        />
+                        <span class="unit">毫秒</span>
+                      </el-form-item>
+                    </div>
+                  </el-space>
+                </div>
+              </el-col>
+              
+              <el-col :span="12">
+                <div class="control-group">
+                  <h4>手动控制</h4>
+                  <el-space direction="vertical" style="width: 100%" size="large">
+                    <div class="control-item">
+                      <el-space>
+                        <el-button @click="prevSlide">
+                          <el-icon><ArrowLeft /></el-icon>
+                          上一张
+                        </el-button>
+                        <el-button @click="nextSlide">
+                          <el-icon><ArrowRight /></el-icon>
+                          下一张
+                        </el-button>
+                      </el-space>
+                    </div>
+                    <div class="control-item">
+                      <el-button @click="goToSlide(0)" type="primary" style="width: 100%">
+                        跳转到第一张
+                      </el-button>
+                    </div>
+                  </el-space>
+                </div>
+              </el-col>
+            </el-row>
+            
+            <div class="controlled-carousel">
+              <eos-carousel 
+                ref="controlledCarousel"
+                :autoplay="autoplay"
+                :interval="interval"
+                :loop="loop"
+                :style="{ '--carousel-height': '250px' }"
+              >
+                <div class="carousel-slide" v-for="i in 5" :key="i" :class="`gradient-${i}`">
+                  <h2>第 {{ i }} 张幻灯片</h2>
+                  <p>可控制的轮播内容</p>
+                </div>
+              </eos-carousel>
+            </div>
+          </div>
+        </div>
+      </el-card>
+
+      <!-- API 文档 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><Document /></el-icon>
+              <span>API 文档</span>
+            </div>
+            <el-tag size="small" type="info">API</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <el-tabs v-model="activeTab" type="border-card">
+            <el-tab-pane label="Props" name="props">
+              <el-table :data="propsData" stripe style="width: 100%">
+                <el-table-column prop="name" label="属性名" width="200" />
+                <el-table-column prop="desc" label="说明" />
+                <el-table-column prop="type" label="类型" width="120" />
+                <el-table-column prop="default" label="默认值" width="120" />
+              </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="Events" name="events">
+              <el-table :data="eventsData" stripe style="width: 100%">
+                <el-table-column prop="name" label="事件名" width="200" />
+                <el-table-column prop="desc" label="说明" />
+                <el-table-column prop="params" label="参数" width="200" />
+              </el-table>
+            </el-tab-pane>
+            <el-tab-pane label="Methods" name="methods">
+              <el-table :data="methodsData" stripe style="width: 100%">
+                <el-table-column prop="name" label="方法名" width="200" />
+                <el-table-column prop="desc" label="说明" />
+                <el-table-column prop="params" label="参数" width="200" />
+              </el-table>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
+import { ref } from "vue";
 
 const currentSlide = ref(0);
-const carouselRef = ref<any>(null);
+const autoplay = ref(true);
+const loop = ref(true);
+const interval = ref(3000);
+const activeTab = ref("props");
+const controlledCarousel = ref();
 
 const handleSlideChange = (event: CustomEvent) => {
-  currentSlide.value = event.detail.currentIndex;
+	currentSlide.value = event.detail.index;
+};
+
+const updateCarousel = () => {
+	// 轮播图会自动响应属性变化
 };
 
 const prevSlide = () => {
-  carouselRef.value?.prev();
+	controlledCarousel.value?.prev();
 };
 
 const nextSlide = () => {
-  carouselRef.value?.next();
+	controlledCarousel.value?.next();
 };
 
-const playCarousel = () => {
-  carouselRef.value?.play();
+const goToSlide = (index: number) => {
+	controlledCarousel.value?.goTo(index);
 };
 
-const pauseCarousel = () => {
-  carouselRef.value?.pause();
-};
+// API 数据
+const propsData = [
+	{
+		name: "autoplay",
+		desc: "是否自动播放",
+		type: "boolean",
+		default: "false",
+	},
+	{
+		name: "interval",
+		desc: "自动播放间隔时间",
+		type: "number",
+		default: "3000",
+	},
+	{
+		name: "loop",
+		desc: "是否循环播放",
+		type: "boolean",
+		default: "true",
+	},
+	{
+		name: "height",
+		desc: "轮播图高度",
+		type: "string",
+		default: "300px",
+	},
+];
+
+const eventsData = [
+	{
+		name: "change",
+		desc: "幻灯片切换时触发",
+		params: "CustomEvent<{index: number}>",
+	},
+];
+
+const methodsData = [
+	{
+		name: "prev()",
+		desc: "切换到上一张幻灯片",
+		params: "-",
+	},
+	{
+		name: "next()",
+		desc: "切换到下一张幻灯片",
+		params: "-",
+	},
+	{
+		name: "goTo(index)",
+		desc: "切换到指定索引的幻灯片",
+		params: "index: number",
+	},
+];
 </script>
 
 <style scoped>
 .component-demo {
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -136,78 +336,91 @@ const pauseCarousel = () => {
   }
 }
 
-.component-demo h2 {
-  font-size: 24px;
-  font-weight: 600;
+.demo-container {
+  margin-top: 0;
+}
+
+.demo-card {
   margin-bottom: 24px;
-  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.demo-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.component-demo h2::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border-color), transparent);
-}
-
-.demo-block {
-  background: var(--bg-container);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 24px;
-  overflow: hidden;
-  transition: box-shadow var(--transition-duration) var(--transition-timing);
-}
-
-.demo-block:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.demo-block h3 {
-  font-size: 16px;
+  justify-content: space-between;
   font-weight: 500;
-  padding: 16px 24px;
-  margin: 0;
-  color: var(--text-primary);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-left .el-icon {
+  color: var(--primary-color);
+}
+
+.demo-section {
+  padding: 8px 0;
+}
+
+.section-desc {
+  margin-bottom: 24px;
+  padding: 16px;
   background: var(--bg-body);
-  border-bottom: 1px solid var(--border-color);
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-color);
 }
 
-.demo-content {
-  padding: 24px;
-  background: var(--bg-container);
+.section-desc p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-/* Carousel 样式 */
+.carousel-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.slide-info {
+  max-width: 200px;
+}
+
+/* 轮播图样式 */
 .carousel-slide {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
-  padding: 40px;
   text-align: center;
+  border-radius: 8px;
 }
 
 .carousel-slide h2 {
   font-size: 32px;
-  margin-bottom: 16px;
-  color: white;
-}
-
-.carousel-slide h2::after {
-  display: none;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .carousel-slide p {
   font-size: 18px;
   opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
+/* 渐变背景 */
 .gradient-1 {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
@@ -224,7 +437,11 @@ const pauseCarousel = () => {
   background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 }
 
-/* 媒体轮播 */
+.gradient-5 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+/* 媒体轮播样式 */
 .media-slide {
   position: relative;
   height: 100%;
@@ -242,15 +459,16 @@ const pauseCarousel = () => {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 30px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
   color: white;
+  padding: 30px;
+  text-align: center;
 }
 
 .media-overlay h3 {
   font-size: 24px;
+  font-weight: 600;
   margin-bottom: 8px;
-  color: white;
 }
 
 .media-overlay p {
@@ -258,71 +476,91 @@ const pauseCarousel = () => {
   opacity: 0.9;
 }
 
-/* 控制轮播 */
-.control-slide-1 {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-}
-
-.control-slide-2 {
-  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-}
-
-.control-slide-3 {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #333;
-}
-
-.slide-icon {
-  font-size: 48px;
-  display: block;
-  margin-bottom: 16px;
-}
-
-/* 控制按钮 */
-.controls {
+/* 控制演示样式 */
+.control-demo {
   display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 32px;
 }
 
-.control-btn {
-  padding: 8px 16px;
-  margin: 0;
-  background: var(--bg-container);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1.5714285714285714;
-  transition: all var(--transition-duration) var(--transition-timing);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-weight: 400;
-}
-
-.control-btn:hover {
-  color: var(--primary-color-hover);
-  border-color: var(--primary-color-hover);
-}
-
-.control-btn:active {
-  color: var(--primary-color-active);
-  border-color: var(--primary-color-active);
-}
-
-/* 输出区域 */
-.output {
-  margin-top: 16px;
-  padding: 12px 16px;
+.control-group {
   background: var(--bg-body);
+  padding: 24px;
+  border-radius: 8px;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  font-size: 14px;
+}
+
+.control-group h4 {
+  margin: 0 0 20px;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.control-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.unit {
   color: var(--text-secondary);
-  transition: all var(--transition-duration) var(--transition-timing);
+  font-size: 14px;
+}
+
+.controlled-carousel {
+  margin-top: 20px;
+  padding: 24px;
+  background: var(--bg-body);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+/* Element Plus 组件自定义样式 */
+:deep(.el-card__header) {
+  background: var(--bg-body);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 20px;
+}
+
+:deep(.el-card__body) {
+  padding: 20px;
+}
+
+:deep(.el-form-item__label) {
+  color: var(--text-secondary);
+}
+
+:deep(.el-switch__label) {
+  color: var(--text-primary);
+}
+
+:deep(.el-tabs__header) {
+  margin-bottom: 20px;
+}
+
+:deep(.el-table th) {
+  background: var(--bg-body);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+:deep(.el-table td) {
+  color: var(--text-secondary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .control-demo .el-col {
+    margin-bottom: 16px;
+  }
+  
+  .carousel-slide h2 {
+    font-size: 24px;
+  }
+  
+  .carousel-slide p {
+    font-size: 14px;
+  }
 }
 </style>

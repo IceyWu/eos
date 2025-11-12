@@ -1,0 +1,178 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="指南/介绍" />
+
+# Eos Components
+
+> 现代化的 Web Components 组件库
+
+## 🎯 设计理念
+
+Eos Components 是一个基于 **Web Components** 标准构建的现代化组件库，致力于提供：
+
+- **🌐 框架无关** - 支持 React、Vue、Angular 和原生 HTML
+- **🎨 现代设计** - 遵循 Material Design 和现代 UI 趋势
+- **⚡ 高性能** - 轻量级实现，优秀的运行时性能
+- **🔧 易于使用** - 简洁的 API 设计，完善的 TypeScript 支持
+- **📱 响应式** - 原生支持移动端和桌面端
+
+## ✨ 核心特性
+
+### 🌟 Web Components 标准
+
+基于 W3C Web Components 标准，确保：
+- **原生支持** - 无需额外的运行时依赖
+- **长期稳定** - 基于浏览器原生 API
+- **框架兼容** - 可在任何前端框架中使用
+
+### 🎨 现代化设计系统
+
+- **一致性** - 统一的视觉语言和交互模式
+- **可定制** - 支持主题定制和 CSS 变量
+- **无障碍** - 遵循 WCAG 2.1 无障碍标准
+
+### ⚡ 优秀性能
+
+- **按需加载** - 只加载使用的组件
+- **Tree Shaking** - 支持现代构建工具的优化
+- **轻量级** - 核心库 < 50KB (gzipped)
+
+## 🏗️ 架构设计
+
+### 组件层次结构
+
+```
+Eos Components
+├── 基础组件 (Atoms)
+│   ├── Button - 按钮
+│   ├── Input - 输入框
+│   └── Icon - 图标
+├── 复合组件 (Molecules)
+│   ├── Image - 图片
+│   ├── Card - 卡片
+│   └── Modal - 模态框
+└── 复杂组件 (Organisms)
+    ├── Carousel - 轮播图
+    ├── Table - 表格
+    └── Form - 表单
+```
+
+### 技术栈
+
+- **核心技术**: Web Components (Custom Elements, Shadow DOM)
+- **构建工具**: Vite + TypeScript
+- **样式方案**: CSS-in-JS + CSS Variables
+- **测试框架**: Vitest + Testing Library
+- **文档系统**: Storybook + MDX
+
+## 🎪 组件预览
+
+### Button 按钮
+
+```html
+<!-- 基础用法 -->
+<eos-button>默认按钮</eos-button>
+<eos-button type="primary">主要按钮</eos-button>
+<eos-button type="success">成功按钮</eos-button>
+
+<!-- 状态 -->
+<eos-button disabled>禁用状态</eos-button>
+<eos-button loading>加载中</eos-button>
+```
+
+### Image 图片
+
+```html
+<!-- 基础图片 -->
+<eos-image src="image.jpg" alt="示例图片"></eos-image>
+
+<!-- 圆形图片 -->
+<eos-image src="avatar.jpg" circle></eos-image>
+
+<!-- BlurHash 支持 -->
+<eos-image 
+  src="image.jpg" 
+  blurhash="LFE[@D%ET00%WB%M{t7t7-;t7tR">
+</eos-image>
+```
+
+### Carousel 轮播图
+
+```html
+<!-- 自动播放轮播 -->
+<eos-carousel autoplay interval="3000">
+  <div>幻灯片 1</div>
+  <div>幻灯片 2</div>
+  <div>幻灯片 3</div>
+</eos-carousel>
+```
+
+## 🌍 浏览器支持
+
+| 浏览器 | 版本 | 支持状态 |
+|--------|------|----------|
+| Chrome | ≥ 88 | ✅ 完全支持 |
+| Firefox | ≥ 85 | ✅ 完全支持 |
+| Safari | ≥ 14 | ✅ 完全支持 |
+| Edge | ≥ 88 | ✅ 完全支持 |
+
+## 🚀 快速开始
+
+### 1. 安装
+
+```bash
+# npm
+npm install @eosjs/components
+
+# pnpm
+pnpm add @eosjs/components
+
+# yarn
+yarn add @eosjs/components
+```
+
+### 2. 注册组件
+
+```javascript
+import { registerComponents } from '@eosjs/components';
+
+// 注册所有组件
+registerComponents();
+```
+
+### 3. 使用组件
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eos Components Demo</title>
+</head>
+<body>
+  <eos-button type="primary">Hello Eos!</eos-button>
+  
+  <script type="module">
+    import { registerComponents } from '@eosjs/components';
+    registerComponents();
+  </script>
+</body>
+</html>
+```
+
+## 📚 学习路径
+
+1. **📖 阅读指南** - 了解基本概念和使用方法
+2. **🎪 查看示例** - 浏览组件文档和交互演示
+3. **🛠️ 动手实践** - 在 Playground 中尝试组件
+4. **🏗️ 构建项目** - 在实际项目中集成使用
+
+## 🤝 社区与支持
+
+- **📖 文档** - 完整的使用指南和 API 参考
+- **💬 讨论** - GitHub Discussions 社区交流
+- **🐛 问题反馈** - GitHub Issues 问题追踪
+- **📧 联系我们** - team@eos-components.com
+
+---
+
+准备好开始使用 Eos Components 了吗？查看 [快速开始](./GettingStarted) 指南！

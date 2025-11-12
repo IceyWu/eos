@@ -1,0 +1,183 @@
+/* ===== 基础重置 ===== */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* ===== 自定义属性 (设计令牌) ===== */
+:root {
+	/* 主色系 - 基于 Ant Design */
+	--ant-primary-color: #1677ff;
+	--ant-primary-color-hover: #4096ff;
+	--ant-primary-color-active: #0958d9;
+	--ant-primary-color-bg: #e6f4ff;
+
+	/* 中性色系 */
+	--ant-color-text: rgba(0, 0, 0, 0.88);
+	--ant-color-text-secondary: rgba(0, 0, 0, 0.65);
+	--ant-color-text-tertiary: rgba(0, 0, 0, 0.45);
+	--ant-color-text-quaternary: rgba(0, 0, 0, 0.25);
+
+	/* 背景色系 */
+	--ant-color-bg-container: #ffffff;
+	--ant-color-bg-elevated: #ffffff;
+	--ant-color-bg-layout: #f5f5f5;
+	--ant-color-bg-spotlight: rgba(0, 0, 0, 0.85);
+
+	/* 边框色系 */
+	--ant-color-border: #d9d9d9;
+	--ant-color-border-secondary: #f0f0f0;
+
+	/* 阴影系统 */
+	--ant-shadow-1:
+		0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px
+		4px 0 rgba(0, 0, 0, 0.02);
+	--ant-shadow-2:
+		0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px
+		4px 0 rgba(0, 0, 0, 0.02);
+	--ant-shadow-3: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+
+	/* 圆角系统 */
+	--ant-border-radius: 6px;
+	--ant-border-radius-sm: 4px;
+	--ant-border-radius-lg: 8px;
+
+	/* 间距系统 */
+	--ant-spacing-xs: 4px;
+	--ant-spacing-sm: 8px;
+	--ant-spacing-md: 12px;
+	--ant-spacing: 16px;
+	--ant-spacing-lg: 20px;
+	--ant-spacing-xl: 24px;
+	--ant-spacing-2xl: 32px;
+
+	/* 兼容性变量 */
+	--primary-color: var(--ant-primary-color);
+	--text-primary: var(--ant-color-text);
+	--text-secondary: var(--ant-color-text-secondary);
+	--bg-body: var(--ant-color-bg-layout);
+	--bg-container: var(--ant-color-bg-container);
+	--border-color: var(--ant-color-border);
+	--border-radius: var(--ant-border-radius);
+	--shadow-sm: var(--ant-shadow-1);
+	--shadow-md: var(--ant-shadow-2);
+	--shadow-lg: var(--ant-shadow-3);
+}
+
+/* ===== 全局样式 ===== */
+body {
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+		Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 14px;
+	line-height: 1.5714285714285714;
+	color: var(--text-primary);
+	background: var(--bg-body);
+	min-height: 100vh;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+	min-height: 100vh;
+}
+
+/* ===== 滚动条样式 ===== */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--ant-color-bg-container);
+	border-radius: var(--ant-border-radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--ant-color-border);
+	border-radius: var(--ant-border-radius-sm);
+	transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--ant-color-text-tertiary);
+}
+
+/* ===== 选择文本样式 ===== */
+::selection {
+	background: var(--ant-primary-color-bg);
+	color: var(--ant-primary-color);
+}
+
+/* ===== 焦点样式 ===== */
+:focus-visible {
+	outline: 2px solid var(--ant-primary-color);
+	outline-offset: 2px;
+	border-radius: var(--ant-border-radius-sm);
+}
+
+/* ===== 实用工具类 ===== */
+.text-primary {
+	color: var(--text-primary);
+}
+.text-secondary {
+	color: var(--text-secondary);
+}
+.text-tertiary {
+	color: var(--ant-color-text-tertiary);
+}
+
+.bg-surface {
+	background: var(--bg-container);
+}
+.bg-elevated {
+	background: var(--ant-color-bg-elevated);
+}
+
+.shadow-sm {
+	box-shadow: var(--shadow-sm);
+}
+.shadow-md {
+	box-shadow: var(--shadow-md);
+}
+.shadow-lg {
+	box-shadow: var(--shadow-lg);
+}
+
+.radius-sm {
+	border-radius: var(--ant-border-radius-sm);
+}
+.radius {
+	border-radius: var(--ant-border-radius);
+}
+.radius-lg {
+	border-radius: var(--ant-border-radius-lg);
+}
+
+/* ===== 响应式断点 ===== */
+@media (max-width: 575px) {
+	body {
+		font-size: 13px;
+	}
+}
+
+@media (max-width: 767px) {
+	:root {
+		--ant-spacing-xl: 20px;
+		--ant-spacing-2xl: 24px;
+	}
+}
+
+/* ===== 动画定义 ===== */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

@@ -1,227 +1,193 @@
-export const ImageDemo = {
-  title: 'Image 图片',
-  render: () => `
-    <div class="component-demo">
-      <h2>Image 图片组件</h2>
-      
-      <div class="demo-block">
-        <h3>基础用法</h3>
-        <div class="demo-content image-grid">
-          <div class="image-item">
-            <p>默认加载</p>
-            <e-image 
-              src="https://picsum.photos/200/200?random=1" 
-              alt="示例图片"
-              width="200"
-              height="200">
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>圆形图片</p>
-            <e-image 
-              src="https://picsum.photos/200/200?random=2" 
-              alt="圆形图片"
-              circle
-              width="200"
-              height="200">
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>加载失败</p>
-            <e-image 
-              src="https://invalid-url.com/image.jpg" 
-              alt="加载失败"
-              width="200"
-              height="200">
-            </e-image>
+export class ImageDemo {
+	constructor() {
+		this.imageCounter = 10;
+	}
+
+	render(container) {
+		container.innerHTML = `
+      <div class="demo-card">
+        <div class="card-header">
+          <h2 class="card-title">基础图片</h2>
+          <span class="card-badge">Basic</span>
+        </div>
+        <p class="card-subtitle">展示图片组件的基础用法</p>
+        <div class="card-content">
+          <div class="image-grid">
+            <div class="image-item">
+              <h4>普通图片</h4>
+              <eos-image 
+                src="https://picsum.photos/300/200?random=1" 
+                alt="示例图片"
+                width="300px"
+                height="200px"
+                style="border-radius: 8px;">
+              </eos-image>
+            </div>
+            
+            <div class="image-item">
+              <h4>圆形图片</h4>
+              <eos-image 
+                src="https://picsum.photos/150/150?random=2" 
+                alt="圆形图片"
+                width="150px"
+                height="150px"
+                circle>
+              </eos-image>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="demo-block">
-        <h3>BlurHash 支持</h3>
-        <div class="demo-content image-grid">
-          <div class="image-item">
-            <p>BlurHash 加载预览</p>
-            <e-image 
-              src="https://picsum.photos/400/300?random=blurhash1" 
-              blurhash="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
-              alt="BlurHash 预览"
-              width="200"
-              height="200">
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>仅显示 BlurHash</p>
-            <e-image 
-              blurhash="LKO2:N%2Tw=w]~RBVZRi};RPxuwH"
-              blurhash-only
-              alt="仅 BlurHash"
-              width="200"
-              height="200">
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>带 BlurHash 的慢加载</p>
-            <e-image 
-              src="https://picsum.photos/800/600?random=blurhash2" 
-              blurhash="L6PZfSjE.AyE_3t7t7R**0o#DgR4"
-              alt="慢速加载"
-              width="200"
-              height="200">
-            </e-image>
-          </div>
+      <div class="demo-card">
+        <div class="card-header">
+          <h2 class="card-title">Object-fit 模式</h2>
+          <span class="card-badge" style="background: #ff9800;">Modes</span>
         </div>
-      </div>
-      
-      <div class="demo-block">
-        <h3>自定义插槽</h3>
-        <div class="demo-content image-grid">
-          <div class="image-item">
-            <p>自定义 Loading</p>
-            <e-image 
-              src="https://picsum.photos/200/200?random=loading" 
-              alt="自定义loading"
-              width="200"
-              height="200">
-              <div slot="loading" class="custom-loading">
-                <div class="spinner"></div>
-                <p>精彩即将呈现...</p>
-              </div>
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>自定义 Error</p>
-            <e-image 
-              src="https://invalid-custom-error.com/image.jpg" 
-              alt="自定义错误"
-              width="200"
-              height="200">
-              <div slot="error" class="custom-error">
-                <div class="error-icon">😢</div>
-                <p>图片走丢了</p>
-                <button class="retry-btn">重试</button>
-              </div>
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>骨架屏 Loading</p>
-            <e-image 
-              src="https://picsum.photos/200/200?random=skeleton" 
-              alt="骨架屏"
-              width="200"
-              height="200">
-              <div slot="loading" class="skeleton-loading"></div>
-            </e-image>
-          </div>
-        </div>
-      </div>
-      
-      <div class="demo-block">
-        <h3>Object-fit 模式</h3>
-        <div class="demo-content image-grid">
-          <div class="image-item">
-            <p>Cover</p>
-            <e-image 
-              src="https://picsum.photos/300/200?random=3" 
-              alt="Cover"
-              object-fit="cover"
-              width="150"
-              height="150">
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>Contain</p>
-            <e-image 
-              src="https://picsum.photos/300/200?random=4" 
-              alt="Contain"
-              object-fit="contain"
-              width="150"
-              height="150"
-              style="background: #f0f0f0;">
-            </e-image>
-          </div>
-          
-          <div class="image-item">
-            <p>Fill</p>
-            <e-image 
-              src="https://picsum.photos/300/200?random=5" 
-              alt="Fill"
-              object-fit="fill"
-              width="150"
-              height="150">
-            </e-image>
-          </div>
-        </div>
-      </div>
-      
-      <div class="demo-block">
-        <h3>事件处理</h3>
-        <div class="demo-content">
-          <div class="image-item">
-            <e-image 
-              id="event-image"
-              src="https://picsum.photos/200/200?random=event" 
-              alt="事件测试"
-              width="200"
-              height="200">
-            </e-image>
-            <div class="event-log" id="image-event-log">
-              等待图片加载...
+        <p class="card-subtitle">展示不同的图片填充模式</p>
+        <div class="card-content">
+          <div class="button-group" style="justify-content: center;">
+            <div class="image-item">
+              <eos-image 
+                src="https://picsum.photos/400/300?random=3" 
+                alt="cover 模式"
+                width="120px"
+                height="120px"
+                object-fit="cover"
+                style="border: 1px solid #ddd; border-radius: 8px;">
+              </eos-image>
+              <p style="margin-top: 8px; font-size: 14px; color: #666;">cover</p>
+            </div>
+            
+            <div class="image-item">
+              <eos-image 
+                src="https://picsum.photos/400/300?random=4" 
+                alt="contain 模式"
+                width="120px"
+                height="120px"
+                object-fit="contain"
+                style="border: 1px solid #ddd; border-radius: 8px;">
+              </eos-image>
+              <p style="margin-top: 8px; font-size: 14px; color: #666;">contain</p>
+            </div>
+            
+            <div class="image-item">
+              <eos-image 
+                src="https://picsum.photos/400/300?random=5" 
+                alt="fill 模式"
+                width="120px"
+                height="120px"
+                object-fit="fill"
+                style="border: 1px solid #ddd; border-radius: 8px;">
+              </eos-image>
+              <p style="margin-top: 8px; font-size: 14px; color: #666;">fill</p>
             </div>
           </div>
-          <button id="change-image-btn" class="control-btn">切换图片</button>
-          <button id="load-error-btn" class="control-btn">加载错误图片</button>
         </div>
       </div>
-    </div>
-  `,
-  
-  mounted: () => {
-    const eventImage = document.getElementById("event-image");
-    const eventLog = document.getElementById("image-event-log");
-    const changeBtn = document.getElementById("change-image-btn");
-    const errorBtn = document.getElementById("load-error-btn");
-    let imageCounter = 10;
-    
-    if (eventImage) {
-      eventImage.addEventListener("load", (e) => {
-        eventLog.textContent = `✅ 图片加载成功: ${e.detail.src}`;
-        eventLog.className = "event-log success";
-      });
-      
-      eventImage.addEventListener("error", (e) => {
-        eventLog.textContent = `❌ 图片加载失败: ${e.detail.src}`;
-        eventLog.className = "event-log error";
-      });
-    }
-    
-    if (changeBtn) {
-      changeBtn.addEventListener("click", () => {
-        imageCounter++;
-        eventImage.setAttribute("src", `https://picsum.photos/200/200?random=${imageCounter}`);
-      });
-    }
-    
-    if (errorBtn) {
-      errorBtn.addEventListener("click", () => {
-        eventImage.setAttribute("src", "https://invalid-test-url.com/image.jpg");
-      });
-    }
-  },
-  
-  unmounted: () => {
-    const eventImage = document.getElementById("event-image");
-    if (eventImage) {
-      eventImage.removeEventListener("load", () => {});
-      eventImage.removeEventListener("error", () => {});
-    }
-  }
-};
+
+      <div class="demo-card">
+        <div class="card-header">
+          <h2 class="card-title">事件监听</h2>
+          <span class="card-badge" style="background: #4caf50;">Events</span>
+        </div>
+        <p class="card-subtitle">图片组件支持加载和错误事件监听</p>
+        <div class="card-content">
+          <div class="event-demo">
+            <eos-image 
+              id="event-image"
+              src="https://picsum.photos/300/200?random=${this.imageCounter}"
+              alt="事件测试图片"
+              width="300px"
+              height="200px"
+              style="border: 1px solid #ddd; border-radius: 8px;">
+            </eos-image>
+            
+            <button id="generate-btn" style="
+              margin-top: 16px;
+              padding: 8px 16px;
+              background: #1976d2;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            ">生成新图片</button>
+            
+            <div id="image-message" class="event-message" style="display: none;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="card-header">
+          <h2 class="card-title">BlurHash 支持</h2>
+          <span class="card-badge" style="background: #9c27b0;">Advanced</span>
+        </div>
+        <p class="card-subtitle">支持 BlurHash 模糊预览，提升用户体验</p>
+        <div class="card-content">
+          <div class="button-group" style="justify-content: center;">
+            <div class="image-item">
+              <eos-image 
+                src="https://picsum.photos/200/150?random=6"
+                alt="BlurHash 示例"
+                width="200px"
+                height="150px"
+                blurhash="LyIXL4xYt7j[^-xWt7j[I:oIs;j]"
+                style="border-radius: 8px;">
+              </eos-image>
+              <p style="margin-top: 8px; font-size: 14px; color: #666;">带 BlurHash 预览</p>
+            </div>
+            
+            <div class="image-item">
+              <eos-image 
+                blurhash="LyIXL4xYt7j[^-xWt7j[I:oIs;j]"
+                blurhash-only
+                width="200px"
+                height="150px"
+                style="border-radius: 8px;">
+              </eos-image>
+              <p style="margin-top: 8px; font-size: 14px; color: #666;">仅显示 BlurHash</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+		this.setupEventListeners();
+	}
+
+	setupEventListeners() {
+		const eventImage = document.getElementById("event-image");
+		const generateBtn = document.getElementById("generate-btn");
+		const imageMessage = document.getElementById("image-message");
+
+		if (eventImage) {
+			eventImage.addEventListener("load", () => {
+				imageMessage.textContent = "✓ 图片加载成功";
+				imageMessage.className = "event-message success";
+				imageMessage.style.display = "block";
+
+				setTimeout(() => {
+					imageMessage.style.display = "none";
+				}, 2000);
+			});
+
+			eventImage.addEventListener("error", () => {
+				imageMessage.textContent = "✗ 图片加载失败";
+				imageMessage.className = "event-message error";
+				imageMessage.style.display = "block";
+
+				setTimeout(() => {
+					imageMessage.style.display = "none";
+				}, 2000);
+			});
+		}
+
+		if (generateBtn) {
+			generateBtn.addEventListener("click", () => {
+				this.imageCounter++;
+				eventImage.src = `https://picsum.photos/300/200?random=${this.imageCounter}`;
+				imageMessage.style.display = "none";
+			});
+		}
+	}
+}

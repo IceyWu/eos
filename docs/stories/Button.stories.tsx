@@ -35,10 +35,18 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+interface ButtonElement extends HTMLElement {
+	addEventListener(type: string, listener: (event: CustomEvent) => void): void;
+	removeEventListener(
+		type: string,
+		listener: (event: CustomEvent) => void,
+	): void;
+}
+
 export const Default: Story = {
 	name: "Default",
-	render: (args: any) => {
-		const buttonRef = useRef<any>(null);
+	render: (args: Record<string, unknown>) => {
+		const buttonRef = useRef<ButtonElement>(null);
 
 		useEffect(() => {
 			const button = buttonRef.current;
@@ -53,7 +61,7 @@ export const Default: Story = {
 		}, []);
 
 		return React.createElement(
-			"e-button",
+			"eos-button",
 			{
 				ref: buttonRef,
 				disabled: args.disabled,
@@ -71,7 +79,7 @@ export const Multiple: Story = {
 	name: "Multiple Buttons",
 	render: () => {
 		useEffect(() => {
-			const buttons = document.querySelectorAll("e-button");
+			const buttons = document.querySelectorAll("eos-button");
 			const handlers = [
 				() => console.log("Primary clicked"),
 				() => console.log("Secondary clicked"),
@@ -99,9 +107,9 @@ export const Multiple: Story = {
 				},
 			},
 			[
-				React.createElement("e-button", { key: "1" }, "Primary"),
-				React.createElement("e-button", { key: "2" }, "Secondary"),
-				React.createElement("e-button", { key: "3" }, "Danger"),
+				React.createElement("eos-button", { key: "1" }, "Primary"),
+				React.createElement("eos-button", { key: "2" }, "Secondary"),
+				React.createElement("eos-button", { key: "3" }, "Danger"),
 			],
 		);
 	},
@@ -130,7 +138,7 @@ function App() {
     return () => button.removeEventListener('e-click', handleClick);
   }, []);
   
-  return <e-button ref={buttonRef}>Click me</e-button>;
+  return <eos-button ref={buttonRef}>Click me</eos-button>;
 }`,
 			},
 		},
@@ -145,7 +153,7 @@ export const VueUsage: Story = {
 		docs: {
 			source: {
 				code: `<template>
-  <e-button @e-click="handleClick">Click me</e-button>
+  <eos-button @e-click="handleClick">Click me</eos-button>
 </template>
 
 <script setup>
@@ -172,12 +180,12 @@ import '@eosjs/components';
 
 @Component({
   selector: 'app-root',
-  template: '<e-button>Click me</e-button>',
+  template: '<eos-button>Click me</eos-button>',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent implements OnInit {
   ngOnInit() {
-    const button = document.querySelector('e-button');
+    const button = document.querySelector('eos-button');
     button?.addEventListener('e-click', (e: Event) => {
       const customEvent = e as CustomEvent;
       console.log('Clicked:', customEvent.detail.message);
@@ -202,14 +210,14 @@ export const HTMLUsage: Story = {
   <script type="module">
     import '@eosjs/components';
     
-    const button = document.querySelector('e-button');
+    const button = document.querySelector('eos-button');
     button.addEventListener('e-click', (e) => {
       console.log('Clicked:', e.detail.message);
     });
   </script>
 </head>
 <body>
-  <e-button>Click me</e-button>
+  <eos-button>Click me</eos-button>
 </body>
 </html>`,
 			},

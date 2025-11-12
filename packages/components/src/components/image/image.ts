@@ -4,7 +4,11 @@ import { decode } from "blurhash";
 // 全局图片加载器池，限制并发加载数量
 class ImageLoader {
 	private static instance: ImageLoader;
-	private loadingQueue: Array<{ src: string; resolve: Function; reject: Function }> = [];
+	private loadingQueue: Array<{
+		src: string;
+		resolve: Function;
+		reject: Function;
+	}> = [];
 	private activeLoads = 0;
 	private maxConcurrent = 6; // 浏览器通常限制同域名并发连接数为6
 	private imageCache = new Map<string, HTMLImageElement>();
@@ -30,7 +34,10 @@ class ImageLoader {
 	}
 
 	private processQueue() {
-		while (this.activeLoads < this.maxConcurrent && this.loadingQueue.length > 0) {
+		while (
+			this.activeLoads < this.maxConcurrent &&
+			this.loadingQueue.length > 0
+		) {
 			const task = this.loadingQueue.shift();
 			if (!task) continue;
 
@@ -71,21 +78,24 @@ class BlurhashCache {
 
 	static get(blurhash: string, width: number, height: number): string | null {
 		const key = `${blurhash}_${width}_${height}`;
-		return this.cache.get(key) || null;
+		return BlurhashCache.cache.get(key) || null;
 	}
 
 	static set(blurhash: string, width: number, height: number, dataUrl: string) {
 		const key = `${blurhash}_${width}_${height}`;
-		
+
 		// 简单的 LRU 策略：超过最大缓存时删除最早的
-		if (this.cache.size >= this.maxSize && !this.cache.has(key)) {
-			const firstKey = this.cache.keys().next().value;
+		if (
+			BlurhashCache.cache.size >= BlurhashCache.maxSize &&
+			!BlurhashCache.cache.has(key)
+		) {
+			const firstKey = BlurhashCache.cache.keys().next().value;
 			if (firstKey !== undefined) {
-				this.cache.delete(firstKey);
+				BlurhashCache.cache.delete(firstKey);
 			}
 		}
-		
-		this.cache.set(key, dataUrl);
+
+		BlurhashCache.cache.set(key, dataUrl);
 	}
 }
 
@@ -98,7 +108,7 @@ class LazyLoadObserver {
 		if (!LazyLoadObserver.instance) {
 			LazyLoadObserver.instance = new IntersectionObserver(
 				(entries) => {
-					entries.forEach(entry => {
+					entries.forEach((entry) => {
 						if (entry.isIntersecting) {
 							const callback = LazyLoadObserver.elements.get(entry.target);
 							if (callback) {
@@ -110,21 +120,21 @@ class LazyLoadObserver {
 					});
 				},
 				{
-					rootMargin: '50px' // 提前50px开始加载
-				}
+					rootMargin: "50px", // 提前50px开始加载
+				},
 			);
 		}
 		return LazyLoadObserver.instance;
 	}
 
 	static observe(element: Element, callback: Function) {
-		this.elements.set(element, callback);
-		this.getObserver().observe(element);
+		LazyLoadObserver.elements.set(element, callback);
+		LazyLoadObserver.getObserver().observe(element);
 	}
 
 	static unobserve(element: Element) {
-		this.getObserver().unobserve(element);
-		this.elements.delete(element);
+		LazyLoadObserver.getObserver().unobserve(element);
+		LazyLoadObserver.elements.delete(element);
 	}
 }
 
@@ -316,7 +326,7 @@ export class EosImage extends HTMLElement {
 		`;
 
 		// 缓存 DOM 引用
-		this.img = this.shadowRoot.querySelector('.main-image') as HTMLImageElement;
+		this.img = this.shadowRoot.querySelector(".main-image") as HTMLImageElement;
 		this.isRendered = true;
 	}
 
@@ -325,11 +335,11 @@ export class EosImage extends HTMLElement {
 		this.processBlurhash();
 
 		// 检查是否需要懒加载
-		const loading = this.getAttribute('loading');
-		const isBlurhashOnly = this.hasAttribute('blurhash-only');
-		
+		const loading = this.getAttribute("loading");
+		const isBlurhashOnly = this.hasAttribute("blurhash-only");
+
 		if (!isBlurhashOnly) {
-			if (loading === 'lazy') {
+			if (loading === "lazy") {
 				// 使用 IntersectionObserver 实现懒加载
 				LazyLoadObserver.observe(this, () => this.loadImage());
 			} else {
@@ -347,7 +357,7 @@ export class EosImage extends HTMLElement {
 			clearTimeout(this.loadTimer);
 			this.loadTimer = null;
 		}
-		
+
 		// 取消懒加载观察
 		LazyLoadObserver.unobserve(this);
 	}
@@ -359,36 +369,36 @@ export class EosImage extends HTMLElement {
 	) {
 		if (oldValue !== newValue && this.isRendered) {
 			switch (name) {
-				case 'src':
+				case "src":
 					this.isLoading = true;
 					this.hasError = false;
 					this.updateDisplay();
-					if (!this.hasAttribute('blurhash-only')) {
-						const loading = this.getAttribute('loading');
-						if (loading !== 'lazy') {
+					if (!this.hasAttribute("blurhash-only")) {
+						const loading = this.getAttribute("loading");
+						if (loading !== "lazy") {
 							this.loadImage();
 						}
 					}
 					break;
-				
-				case 'object-fit':
-				case 'width':
-				case 'height':
+
+				case "object-fit":
+				case "width":
+				case "height":
 					this.updateStyles();
 					break;
-				
-				case 'blurhash':
+
+				case "blurhash":
 					this.processBlurhash();
 					this.updateDisplay();
 					break;
-				
-				case 'blurhash-only':
+
+				case "blurhash-only":
 					if (newValue !== null) {
 						this.isLoading = false;
 						this.updateDisplay();
 					}
 					break;
-				
+
 				default:
 					this.updateImageAttributes();
 			}
@@ -396,7 +406,7 @@ export class EosImage extends HTMLElement {
 	}
 
 	private async loadImage() {
-		const src = this.getAttribute('src');
+		const src = this.getAttribute("src");
 		if (!src) {
 			this.hasError = true;
 			this.isLoading = false;
@@ -413,10 +423,10 @@ export class EosImage extends HTMLElement {
 		try {
 			// 使用图片加载器池
 			await this.imageLoader.load(src);
-			
+
 			// 获取延时参数
-			const showDelay = parseInt(this.getAttribute('show-delay') || '0', 10);
-			
+			const showDelay = parseInt(this.getAttribute("show-delay") || "0", 10);
+
 			const showImage = () => {
 				this.isLoading = false;
 				this.hasError = false;
@@ -426,7 +436,7 @@ export class EosImage extends HTMLElement {
 				this.updateDisplay();
 				this.updateImageAttributes();
 				this.dispatchEvent(
-					new CustomEvent('load', {
+					new CustomEvent("load", {
 						detail: { src },
 						bubbles: true,
 						composed: true,
@@ -444,7 +454,7 @@ export class EosImage extends HTMLElement {
 			this.hasError = true;
 			this.updateDisplay();
 			this.dispatchEvent(
-				new CustomEvent('error', {
+				new CustomEvent("error", {
 					detail: { src },
 					bubbles: true,
 					composed: true,
@@ -454,43 +464,43 @@ export class EosImage extends HTMLElement {
 	}
 
 	private processBlurhash() {
-		const blurhash = this.getAttribute('blurhash');
+		const blurhash = this.getAttribute("blurhash");
 		if (!blurhash) {
 			this.blurhashDataUrl = null;
 			return;
 		}
 
 		// 获取解码尺寸
-		const width = parseInt(this.getAttribute('width') || '32');
-		const height = parseInt(this.getAttribute('height') || '32');
+		const width = parseInt(this.getAttribute("width") || "32");
+		const height = parseInt(this.getAttribute("height") || "32");
 		const decodeWidth = Math.min(width, 32);
 		const decodeHeight = Math.min(height, 32);
 
 		// 检查缓存
 		let dataUrl = BlurhashCache.get(blurhash, decodeWidth, decodeHeight);
-		
+
 		if (!dataUrl) {
 			try {
 				// 解码 blurhash
 				const pixels = decode(blurhash, decodeWidth, decodeHeight);
-				
+
 				// 创建 canvas
-				const canvas = document.createElement('canvas');
+				const canvas = document.createElement("canvas");
 				canvas.width = decodeWidth;
 				canvas.height = decodeHeight;
-				
-				const ctx = canvas.getContext('2d');
+
+				const ctx = canvas.getContext("2d");
 				if (ctx) {
 					const imageData = ctx.createImageData(decodeWidth, decodeHeight);
 					imageData.data.set(pixels);
 					ctx.putImageData(imageData, 0, 0);
-					
+
 					dataUrl = canvas.toDataURL();
 					// 缓存结果
 					BlurhashCache.set(blurhash, decodeWidth, decodeHeight, dataUrl);
 				}
 			} catch (error) {
-				console.error('Failed to decode blurhash:', error);
+				console.error("Failed to decode blurhash:", error);
 			}
 		}
 
@@ -500,38 +510,54 @@ export class EosImage extends HTMLElement {
 	private updateDisplay() {
 		if (!this.shadowRoot) return;
 
-		const blurhashPreview = this.shadowRoot.querySelector('.blurhash-preview') as HTMLImageElement;
-		const mainImage = this.shadowRoot.querySelector('.main-image') as HTMLImageElement;
-		const loadingContainer = this.shadowRoot.querySelector('.loading-container') as HTMLElement;
-		const loadingOverlay = this.shadowRoot.querySelector('.loading-overlay') as HTMLElement;
-		const errorContainer = this.shadowRoot.querySelector('.error-container') as HTMLElement;
+		const blurhashPreview = this.shadowRoot.querySelector(
+			".blurhash-preview",
+		) as HTMLImageElement;
+		const mainImage = this.shadowRoot.querySelector(
+			".main-image",
+		) as HTMLImageElement;
+		const loadingContainer = this.shadowRoot.querySelector(
+			".loading-container",
+		) as HTMLElement;
+		const loadingOverlay = this.shadowRoot.querySelector(
+			".loading-overlay",
+		) as HTMLElement;
+		const errorContainer = this.shadowRoot.querySelector(
+			".error-container",
+		) as HTMLElement;
 
 		// 重置所有状态
-		[blurhashPreview, mainImage, loadingContainer, loadingOverlay, errorContainer].forEach(el => {
-			el?.classList.add('hidden');
+		[
+			blurhashPreview,
+			mainImage,
+			loadingContainer,
+			loadingOverlay,
+			errorContainer,
+		].forEach((el) => {
+			el?.classList.add("hidden");
 		});
 
-		const isBlurhashOnly = this.hasAttribute('blurhash-only');
+		const isBlurhashOnly = this.hasAttribute("blurhash-only");
 
 		if (isBlurhashOnly && this.blurhashDataUrl) {
 			// 只显示 blurhash
 			blurhashPreview.src = this.blurhashDataUrl;
-			blurhashPreview.classList.remove('hidden');
+			blurhashPreview.classList.remove("hidden");
 		} else if (this.isLoading) {
 			// 加载状态
 			if (this.blurhashDataUrl) {
 				blurhashPreview.src = this.blurhashDataUrl;
-				blurhashPreview.classList.remove('hidden');
-				loadingOverlay.classList.remove('hidden');
+				blurhashPreview.classList.remove("hidden");
+				loadingOverlay.classList.remove("hidden");
 			} else {
-				loadingContainer.classList.remove('hidden');
+				loadingContainer.classList.remove("hidden");
 			}
 		} else if (this.hasError) {
 			// 错误状态
-			errorContainer.classList.remove('hidden');
+			errorContainer.classList.remove("hidden");
 		} else {
 			// 显示主图片
-			mainImage.classList.remove('hidden');
+			mainImage.classList.remove("hidden");
 		}
 	}
 
@@ -539,9 +565,9 @@ export class EosImage extends HTMLElement {
 		if (!this.shadowRoot) return;
 
 		const host = this.shadowRoot.host as HTMLElement;
-		const width = this.getAttribute('width');
-		const height = this.getAttribute('height');
-		const objectFit = this.getAttribute('object-fit') || 'cover';
+		const width = this.getAttribute("width");
+		const height = this.getAttribute("height");
+		const objectFit = this.getAttribute("object-fit") || "cover";
 
 		// 更新宿主元素尺寸
 		if (width) {
@@ -552,7 +578,7 @@ export class EosImage extends HTMLElement {
 		}
 
 		// 更新所有图片的 object-fit
-		const images = this.shadowRoot.querySelectorAll('.image');
+		const images = this.shadowRoot.querySelectorAll(".image");
 		images.forEach((img: Element) => {
 			(img as HTMLElement).style.objectFit = objectFit;
 		});
@@ -561,17 +587,18 @@ export class EosImage extends HTMLElement {
 	private updateImageAttributes() {
 		if (!this.img) return;
 
-		const alt = this.getAttribute('alt');
-		const crossorigin = this.getAttribute('crossorigin');
+		const alt = this.getAttribute("alt");
+		const crossorigin = this.getAttribute("crossorigin");
 
 		if (alt) this.img.alt = alt;
 		if (crossorigin) this.img.crossOrigin = crossorigin;
 
 		// 同时更新 blurhash 预览的 alt
-		const blurhashPreview = this.shadowRoot?.querySelector('.blurhash-preview') as HTMLImageElement;
+		const blurhashPreview = this.shadowRoot?.querySelector(
+			".blurhash-preview",
+		) as HTMLImageElement;
 		if (blurhashPreview && alt) {
 			blurhashPreview.alt = alt;
 		}
 	}
 }
-

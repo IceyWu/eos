@@ -85,13 +85,13 @@ pnpm build
   <title>Eos Demo</title>
 </head>
 <body>
-  <e-button>Click me</e-button>
+  <eos-button>Click me</eos-button>
 
   <script type="module">
     import { registerComponents } from '@eosjs/components';
     registerComponents();
 
-    document.querySelector('e-button').addEventListener('e-click', (e) => {
+    document.querySelector('eos-button').addEventListener('e-click', (e) => {
       console.log(e.detail.message);
     });
   </script>
@@ -103,7 +103,7 @@ pnpm build
 
 ```vue
 <template>
-  <e-button @e-click="handleClick">Click me</e-button>
+  <eos-button @e-click="handleClick">Click me</eos-button>
 </template>
 
 <script setup lang="ts">
@@ -130,7 +130,7 @@ import { registerComponents } from '@eosjs/components';
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'e-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
+      'eos-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
     }
   }
 }
@@ -152,7 +152,7 @@ function App() {
     };
   }, []);
 
-  return <e-button ref={buttonRef}>Click me</e-button>;
+  return <eos-button ref={buttonRef}>Click me</eos-button>;
 }
 ```
 
@@ -164,14 +164,14 @@ import { registerComponents } from '@eosjs/components';
 
 @Component({
   selector: 'app-root',
-  template: '<e-button>Click me</e-button>',
+  template: '<eos-button>Click me</eos-button>',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent implements OnInit {
   ngOnInit() {
     registerComponents();
     
-    const button = document.querySelector('e-button');
+    const button = document.querySelector('eos-button');
     button?.addEventListener('e-click', (e: Event) => {
       const customEvent = e as CustomEvent;
       console.log(customEvent.detail.message);
@@ -182,11 +182,11 @@ export class AppComponent implements OnInit {
 
 ## 组件列表
 
-### e-button
+### eos-button
 
 一个简单的按钮组件。
 
-**标签名**: `e-button`
+**标签名**: `eos-button`
 
 **Slots**:
 
@@ -197,11 +197,11 @@ export class AppComponent implements OnInit {
 - `e-click`: 按钮点击时触发
   - `detail.message`: 事件消息 (string)
 
-### e-carousel
+### eos-carousel
 
 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能。
 
-**标签名**: `e-carousel`
+**标签名**: `eos-carousel`
 
 **Attributes**:
 
@@ -258,7 +258,7 @@ export const COMPONENT_CONFIG = {
 
 修改 `prefix` 后，所有组件的标签名都会相应改变。例如：
 
-- `prefix: 'e'` → `<e-button>`
+- `prefix: 'e'` → `<eos-button>`
 - `prefix: 'eos'` → `<eos-button>`
 - `prefix: 'my'` → `<my-button>`
 

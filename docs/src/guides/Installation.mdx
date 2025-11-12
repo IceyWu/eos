@@ -1,0 +1,567 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="指南/安装指南" />
+
+# 安装指南
+
+> 详细的安装和配置说明
+
+## 📋 系统要求
+
+### 环境要求
+
+- **Node.js** >= 18.0.0
+- **现代浏览器** 支持 ES2020+ 和 Web Components
+
+### 浏览器兼容性
+
+| 浏览器 | 最低版本 | 推荐版本 | 备注 |
+|--------|----------|----------|------|
+| Chrome | 88+ | 最新版 | ✅ 完全支持 |
+| Firefox | 85+ | 最新版 | ✅ 完全支持 |
+| Safari | 14+ | 最新版 | ✅ 完全支持 |
+| Edge | 88+ | 最新版 | ✅ 完全支持 |
+
+## 📦 安装方式
+
+### 方式一：包管理器安装（推荐）
+
+#### npm
+
+```bash
+npm install @eosjs/components
+```
+
+#### pnpm（推荐）
+
+```bash
+pnpm add @eosjs/components
+```
+
+#### yarn
+
+```bash
+yarn add @eosjs/components
+```
+
+### 方式二：CDN 引入
+
+#### jsDelivr CDN
+
+```html
+<!-- 最新版本 -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@eosjs/components/dist/index.js"></script>
+
+<!-- 指定版本 -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@eosjs/components@1.0.0/dist/index.js"></script>
+
+<!-- 压缩版本 -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@eosjs/components/dist/index.min.js"></script>
+```
+
+#### unpkg CDN
+
+```html
+<!-- 最新版本 -->
+<script type="module" src="https://unpkg.com/@eosjs/components/dist/index.js"></script>
+
+<!-- 指定版本 -->
+<script type="module" src="https://unpkg.com/@eosjs/components@1.0.0/dist/index.js"></script>
+```
+
+### 方式三：下载源码
+
+```bash
+# 克隆仓库
+git clone https://github.com/your-org/eos-components.git
+
+# 进入目录
+cd eos-components
+
+# 安装依赖
+pnpm install
+
+# 构建组件库
+pnpm build
+```
+
+## 🚀 基础配置
+
+### 1. 注册组件
+
+#### 全量注册（推荐）
+
+```javascript
+import { registerComponents } from '@eosjs/components';
+
+// 注册所有组件
+registerComponents();
+```
+
+#### 按需注册
+
+```javascript
+import { 
+  registerButton, 
+  registerImage, 
+  registerCarousel 
+} from '@eosjs/components';
+
+// 只注册需要的组件
+registerButton();
+registerImage();
+registerCarousel();
+```
+
+### 2. TypeScript 配置
+
+如果使用 TypeScript，需要添加类型声明：
+
+#### 创建类型声明文件
+
+```typescript
+// types/eos-components.d.ts
+declare namespace JSX {
+  interface IntrinsicElements {
+    'eos-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+      type?: 'default' | 'primary' | 'success' | 'warning' | 'danger';
+      size?: 'small' | 'medium' | 'large';
+      disabled?: boolean;
+      loading?: boolean;
+      onEClick?: (event: CustomEvent) => void;
+    };
+    
+    'eos-image': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+      src?: string;
+      alt?: string;
+      width?: string | number;
+      height?: string | number;
+      'object-fit'?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none';
+      circle?: boolean;
+      responsive?: boolean;
+      loading?: 'lazy' | 'eager';
+      crossorigin?: 'anonymous' | 'use-credentials';
+      blurhash?: string;
+      'blurhash-only'?: boolean;
+      onLoad?: (event: CustomEvent) => void;
+      onError?: (event: CustomEvent) => void;
+    };
+    
+    'eos-carousel': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+      autoplay?: boolean;
+      interval?: string | number;
+      loop?: boolean;
+      'show-indicators'?: boolean;
+      'show-arrows'?: boolean;
+      onChange?: (event: CustomEvent) => void;
+      onSlideClick?: (event: CustomEvent) => void;
+    };
+  }
+}
+```
+
+#### 更新 tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "types": ["./types/eos-components.d.ts"]
+  },
+  "include": [
+    "types/**/*"
+  ]
+}
+```
+
+## ⚛️ React 项目配置
+
+### Create React App
+
+```bash
+# 创建项目
+npx create-react-app my-app --template typescript
+cd my-app
+
+# 安装组件库
+pnpm add @eosjs/components
+
+# 启动开发服务器
+pnpm start
+```
+
+### Vite + React
+
+```bash
+# 创建项目
+pnpm create vite my-app --template react-ts
+cd my-app
+
+# 安装依赖
+pnpm install
+pnpm add @eosjs/components
+
+# 启动开发服务器
+pnpm dev
+```
+
+### Next.js
+
+```bash
+# 创建项目
+npx create-next-app@latest my-app --typescript
+cd my-app
+
+# 安装组件库
+pnpm add @eosjs/components
+```
+
+#### Next.js 配置
+
+```javascript
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    // 支持 Web Components
+    esmExternals: 'loose'
+  }
+}
+
+module.exports = nextConfig
+```
+
+## 🖖 Vue 项目配置
+
+### Vue CLI
+
+```bash
+# 创建项目
+vue create my-app
+cd my-app
+
+# 安装组件库
+pnpm add @eosjs/components
+
+# 启动开发服务器
+pnpm serve
+```
+
+### Vite + Vue
+
+```bash
+# 创建项目
+pnpm create vue@latest my-app
+cd my-app
+
+# 安装依赖
+pnpm install
+pnpm add @eosjs/components
+
+# 启动开发服务器
+pnpm dev
+```
+
+#### Vue 配置
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          // 将 e- 开头的标签视为自定义元素
+          isCustomElement: (tag) => tag.startsWith('e-')
+        }
+      }
+    })
+  ]
+})
+```
+
+## 🅰️ Angular 项目配置
+
+### Angular CLI
+
+```bash
+# 创建项目
+ng new my-app
+cd my-app
+
+# 安装组件库
+pnpm add @eosjs/components
+
+# 启动开发服务器
+ng serve
+```
+
+#### Angular 配置
+
+```typescript
+// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // 其他配置...
+  ]
+};
+```
+
+```typescript
+// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // 添加这行
+  // ...
+})
+export class AppComponent {
+  // ...
+}
+```
+
+## 🎨 样式配置
+
+### 默认样式
+
+组件库包含默认样式，无需额外配置：
+
+```javascript
+import '@eosjs/components/dist/style.css';
+```
+
+### 自定义主题
+
+#### CSS 变量方式
+
+```css
+/* styles/theme.css */
+:root {
+  /* 主色调 */
+  --eos-primary-color: #1976d2;
+  --eos-primary-hover: #1565c0;
+  --eos-primary-active: #0d47a1;
+  
+  /* 成功色 */
+  --eos-success-color: #4caf50;
+  --eos-success-hover: #43a047;
+  --eos-success-active: #388e3c;
+  
+  /* 警告色 */
+  --eos-warning-color: #ff9800;
+  --eos-warning-hover: #f57c00;
+  --eos-warning-active: #ef6c00;
+  
+  /* 危险色 */
+  --eos-danger-color: #f44336;
+  --eos-danger-hover: #e53935;
+  --eos-danger-active: #d32f2f;
+  
+  /* 字体 */
+  --eos-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --eos-font-size-sm: 12px;
+  --eos-font-size-base: 14px;
+  --eos-font-size-lg: 16px;
+  
+  /* 间距 */
+  --eos-spacing-xs: 4px;
+  --eos-spacing-sm: 8px;
+  --eos-spacing-md: 16px;
+  --eos-spacing-lg: 24px;
+  --eos-spacing-xl: 32px;
+  
+  /* 边框 */
+  --eos-border-radius-sm: 2px;
+  --eos-border-radius-base: 4px;
+  --eos-border-radius-lg: 8px;
+  
+  /* 阴影 */
+  --eos-box-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --eos-box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --eos-box-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+```
+
+#### 暗色主题
+
+```css
+/* styles/dark-theme.css */
+[data-theme="dark"] {
+  --eos-bg-color: #1a1a1a;
+  --eos-bg-color-elevated: #2d2d2d;
+  --eos-text-color: #ffffff;
+  --eos-text-color-secondary: #b3b3b3;
+  --eos-border-color: #404040;
+  
+  /* 调整主色调透明度 */
+  --eos-primary-color: #64b5f6;
+  --eos-success-color: #81c784;
+  --eos-warning-color: #ffb74d;
+  --eos-danger-color: #e57373;
+}
+```
+
+## 🔧 构建工具配置
+
+### Webpack
+
+```javascript
+// webpack.config.js
+module.exports = {
+  // ...
+  resolve: {
+    alias: {
+      '@eosjs/components': path.resolve(__dirname, 'node_modules/@eosjs/components')
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+};
+```
+
+### Rollup
+
+```javascript
+// rollup.config.js
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+
+export default {
+  // ...
+  plugins: [
+    resolve({
+      browser: true,
+      preferBuiltins: false
+    }),
+    commonjs()
+  ]
+};
+```
+
+### Vite
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  optimizeDeps: {
+    include: ['@eosjs/components']
+  }
+});
+```
+
+## 🚀 性能优化
+
+### 按需加载
+
+```javascript
+// 动态导入
+const loadButton = () => import('@eosjs/components/button');
+const loadImage = () => import('@eosjs/components/image');
+
+// 条件加载
+if (needButton) {
+  await loadButton();
+}
+```
+
+### Tree Shaking
+
+确保构建工具支持 ES modules：
+
+```json
+{
+  "type": "module",
+  "sideEffects": false
+}
+```
+
+### 代码分割
+
+```javascript
+// 路由级别的代码分割
+const HomePage = lazy(() => import('./pages/Home'));
+const AboutPage = lazy(() => import('./pages/About'));
+```
+
+## 🔍 故障排除
+
+### 常见问题
+
+#### 1. 组件不显示
+
+**原因**: 未注册组件或注册时机不对
+
+**解决方案**:
+```javascript
+// 确保在使用组件前注册
+import { registerComponents } from '@eosjs/components';
+registerComponents();
+```
+
+#### 2. TypeScript 类型错误
+
+**原因**: 缺少类型声明
+
+**解决方案**: 添加类型声明文件（见上文 TypeScript 配置）
+
+#### 3. 样式不生效
+
+**原因**: 未导入样式文件
+
+**解决方案**:
+```javascript
+import '@eosjs/components/dist/style.css';
+```
+
+#### 4. 构建错误
+
+**原因**: 构建工具配置问题
+
+**解决方案**: 检查构建工具配置，确保支持 ES modules
+
+### 调试技巧
+
+#### 开启调试模式
+
+```javascript
+import { configure } from '@eosjs/components';
+
+configure({
+  debug: true, // 开启调试模式
+  logLevel: 'verbose' // 详细日志
+});
+```
+
+#### 检查组件注册状态
+
+```javascript
+// 检查组件是否已注册
+console.log(customElements.get('eos-button')); // 应该返回构造函数
+```
+
+## 📚 下一步
+
+安装完成后，你可以：
+
+- 📖 查看 [快速开始](./GettingStarted) 了解基础用法
+- 🎪 浏览 [组件文档](../components) 学习具体组件
+- 🛠️ 参考 [最佳实践](./BestPractices) 优化使用体验
+
+---
+
+需要帮助？查看 [常见问题](./FAQ) 或在 [GitHub](https://github.com/your-org/eos-components/issues) 提问。

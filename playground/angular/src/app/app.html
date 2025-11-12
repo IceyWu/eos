@@ -1,346 +1,70 @@
-<!-- Eos Web Components Demo for Angular -->
-
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    box-sizing: border-box;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-
-  .subtitle {
-    font-size: 1.125rem;
-    color: #666;
-    margin-bottom: 3rem;
-  }
-
-  .section {
-    margin-bottom: 3rem;
-  }
-
-  .section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #444;
-  }
-
-  .demo-box {
-    background: #f5f5f5;
-    padding: 2rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-
-  .button-group {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .carousel-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .slide {
-    width: 100%;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: bold;
-    color: white;
-    border-radius: 8px;
-  }
-
-  .slide-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-  .slide-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-  .slide-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-  .slide-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-
-  .event-log {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 1rem;
-    max-height: 200px;
-    overflow-y: auto;
-    font-family: monospace;
-    font-size: 0.875rem;
-  }
-
-  .event-item {
-    padding: 0.25rem 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .event-item:last-child {
-    border-bottom: none;
-  }
-</style>
-
-<div class="container">
-  <h1>🎨 Eos Web Components</h1>
-  <p class="subtitle">Angular + Web Components Demo</p>
-
-  <!-- Image Component Section -->
-  <div class="section">
-    <h2>🖼️ Image Component</h2>
-    
-    <!-- 基础用法 -->
-    <div class="demo-box">
-      <h3>📌 基础用法</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
-        <div style="text-align: center;">
-          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">默认加载</p>
-          <e-image 
-            src="https://picsum.photos/200/200?random=1" 
-            alt="示例图片"
-            width="200"
-            height="200">
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">圆形图片</p>
-          <e-image 
-            src="https://picsum.photos/200/200?random=2" 
-            alt="圆形图片"
-            circle
-            width="200"
-            height="200">
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">加载失败（默认提示）</p>
-          <e-image 
-            src="https://invalid-url.com/image.jpg" 
-            alt="加载失败"
-            width="200"
-            height="200">
-          </e-image>
-        </div>
+<div class="app-container">
+  <!-- 头部工具栏 -->
+  <mat-toolbar class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <mat-icon class="brand-icon">bolt</mat-icon>
+        <span class="brand-title">Eos Components</span>
+      </div>
+      <div class="header-info">
+        <mat-chip-set>
+          <mat-chip color="primary">Angular Playground</mat-chip>
+        </mat-chip-set>
+        <span class="version">v0.0.1</span>
       </div>
     </div>
-    
-    <!-- 自定义插槽 -->
-    <div class="demo-box">
-      <h3>🎨 自定义插槽</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
-        <div style="text-align: center;">
-          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">自定义 Loading</p>
-          <e-image 
-            src="https://picsum.photos/200/200?random=loading" 
-            alt="自定义loading"
-            width="200"
-            height="200">
-            <div slot="loading" style="
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              height: 200px;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white;
-              border-radius: 8px;
-            ">
-              <div style="font-size: 48px; margin-bottom: 10px;">⏳</div>
-              <div>精彩即将呈现...</div>
-            </div>
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">自定义 Error</p>
-          <e-image 
-            src="https://invalid-custom-error.com/image.jpg" 
-            alt="自定义错误"
-            width="200"
-            height="200">
-            <div slot="error" style="
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              height: 200px;
-              background: #ff6b6b;
-              color: white;
-              border-radius: 8px;
-              padding: 20px;
-              box-sizing: border-box;
-            ">
-              <div style="font-size: 48px; margin-bottom: 10px;">😢</div>
-              <div style="margin-bottom: 10px;">图片走丢了</div>
-              <button style="
-                padding: 6px 12px;
-                background: white;
-                color: #ff6b6b;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-              ">重试</button>
-            </div>
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">骨架屏 Loading</p>
-          <style>
-            @keyframes shimmer {
-              0% { background-position: -200% 0; }
-              100% { background-position: 200% 0; }
-            }
-          </style>
-          <e-image 
-            src="https://picsum.photos/200/200?random=skeleton" 
-            alt="骨架屏"
-            width="200"
-            height="200">
-            <div slot="loading" style="
-              width: 200px;
-              height: 200px;
-              background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-              background-size: 200% 100%;
-              animation: shimmer 1.5s infinite;
-              border-radius: 4px;
-            "></div>
-          </e-image>
-        </div>
-      </div>
-    </div>
+  </mat-toolbar>
 
-    <div class="demo-box">
-      <h3>Object-fit 模式</h3>
-      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-        <div style="text-align: center;">
-          <p>Cover</p>
-          <e-image 
-            src="https://picsum.photos/300/200?random=3" 
-            alt="Cover模式"
-            object-fit="cover"
-            width="150"
-            height="150">
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p>Contain</p>
-          <e-image 
-            src="https://picsum.photos/300/200?random=4" 
-            alt="Contain模式"
-            object-fit="contain"
-            width="150"
-            height="150"
-            style="background: #f0f0f0;">
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p>Fill</p>
-          <e-image 
-            src="https://picsum.photos/300/200?random=5" 
-            alt="Fill模式"
-            object-fit="fill"
-            width="150"
-            height="150">
-          </e-image>
-        </div>
+  <!-- 主布局 -->
+  <mat-sidenav-container class="app-content">
+    <!-- 侧边栏 -->
+    <mat-sidenav 
+      mode="side" 
+      opened="true" 
+      class="app-sidenav"
+      fixedInViewport="true">
+      
+      <div class="sidenav-header">
+        <h3>组件列表</h3>
+        <p>Component Library</p>
       </div>
-    </div>
-
-    <div class="demo-box">
-      <h3>不同尺寸单位</h3>
-      <div style="display: flex; gap: 20px; align-items: center;">
-        <div style="text-align: center;">
-          <p>数字 (200)</p>
-          <e-image 
-            src="https://picsum.photos/200/200?random=6" 
-            alt="数字尺寸"
-            width="200"
-            height="200">
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p>rem单位 (10rem)</p>
-          <e-image 
-            src="https://picsum.photos/200/200?random=7" 
-            alt="rem单位"
-            width="10rem"
-            height="10rem">
-          </e-image>
-        </div>
-        
-        <div style="text-align: center;">
-          <p>百分比 (100%)</p>
-          <div style="width: 200px; height: 200px;">
-            <e-image 
-              src="https://picsum.photos/200/200?random=8" 
-              alt="百分比"
-              width="100%"
-              height="100%">
-            </e-image>
-          </div>
-        </div>
+      
+      <mat-nav-list class="component-list">
+        @for (component of components; track component.key) {
+          <mat-list-item 
+            (click)="selectComponent(component.key)"
+            [class.selected]="isSelected(component.key)"
+            class="component-item">
+            <mat-icon matListItemIcon>{{ component.icon }}</mat-icon>
+            <span matListItemTitle>{{ component.label }}</span>
+          </mat-list-item>
+        }
+      </mat-nav-list>
+      
+      <div class="sidenav-footer">
+        <p>基于 Web Components</p>
+        <p>支持 Angular 18 + TypeScript</p>
       </div>
-    </div>
-  </div>
+    </mat-sidenav>
 
-  <!-- Button Component Section -->
-  <div class="section">
-    <h2>Button Component</h2>
-    <div class="demo-box">
-      <div class="button-group">
-        <e-button>Default Button</e-button>
-        <e-button>Click Me!</e-button>
-        <e-button>Submit</e-button>
+    <!-- 主内容区 -->
+    <mat-sidenav-content class="main-content">
+      <div class="content-wrapper">
+        @switch (selectedComponent()) {
+          @case ('button') {
+            <app-button-demo></app-button-demo>
+          }
+          @case ('image') {
+            <app-image-demo></app-image-demo>
+          }
+          @case ('carousel') {
+            <app-carousel-demo></app-carousel-demo>
+          }
+          @default {
+            <app-button-demo></app-button-demo>
+          }
+        }
       </div>
-    </div>
-    <div class="event-log">
-      <h3 style="margin-top: 0;">Event Log:</h3>
-      @for (event of buttonEvents(); track $index) {
-        <div class="event-item">{{ event }}</div>
-      }
-      @empty {
-        <div class="event-item">Click a button to see events...</div>
-      }
-    </div>
-  </div>
-
-  <!-- Carousel Component Section -->
-  <div class="section">
-    <h2>Carousel Component</h2>
-    <div class="carousel-container">
-      <e-carousel autoplay loop interval="3000">
-        <div class="slide slide-1">Slide 1</div>
-        <div class="slide slide-2">Slide 2</div>
-        <div class="slide slide-3">Slide 3</div>
-        <div class="slide slide-4">Slide 4</div>
-      </e-carousel>
-    </div>
-    <div class="event-log" style="margin-top: 1rem;">
-      <h3 style="margin-top: 0;">Carousel Events:</h3>
-      @for (event of carouselEvents(); track $index) {
-        <div class="event-item">{{ event }}</div>
-      }
-      @empty {
-        <div class="event-item">Waiting for carousel events...</div>
-      }
-    </div>
-  </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
-
-<router-outlet />

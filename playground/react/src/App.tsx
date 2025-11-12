@@ -1,5 +1,15 @@
-import { useState, useEffect } from "react";
-import "./App.css";
+import {
+	AppstoreOutlined,
+	InboxOutlined,
+	PictureOutlined,
+	SwapOutlined,
+	ThunderboltOutlined,
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { Button, Empty, Layout, Menu, Space, Tag, Typography } from "antd";
+import type React from "react";
+import { useState } from "react";
+import "./styles.css";
 import "@eosjs/components";
 import { registerComponents } from "@eosjs/components";
 import { ButtonDemo } from "./components/ButtonDemo";
@@ -13,120 +23,211 @@ registerComponents();
 declare global {
 	namespace JSX {
 		interface IntrinsicElements {
-			"e-button": React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement> & {
-					onEClick?: (event: CustomEvent) => void;
-				},
+			"eos-button": React.DetailedHTMLProps<
+				React.HTMLAttributes<HTMLElement>,
 				HTMLElement
-			>;
-			"e-carousel": React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement> & {
-					autoplay?: boolean;
-					interval?: string;
-					loop?: boolean;
-					onChange?: (event: CustomEvent) => void;
-				},
+			> & {
+				type?: string;
+				disabled?: boolean;
+				loading?: boolean;
+				onEClick?: (event: CustomEvent) => void;
+			};
+			"eos-carousel": React.DetailedHTMLProps<
+				React.HTMLAttributes<HTMLElement>,
 				HTMLElement
-			>;
-			"e-image": React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement> & {
-					src?: string;
-					alt?: string;
-					width?: string | number;
-					height?: string | number;
-					"object-fit"?: string;
-					circle?: boolean;
-					responsive?: boolean;
-					loading?: string;
-					crossorigin?: string;
-					blurhash?: string;
-					"blurhash-only"?: boolean;
-					onLoad?: (event: CustomEvent) => void;
-					onError?: (event: CustomEvent) => void;
-				},
+			> & {
+				autoplay?: boolean;
+				interval?: string;
+				loop?: boolean;
+				onChange?: (event: CustomEvent) => void;
+			};
+			"eos-image": React.DetailedHTMLProps<
+				React.HTMLAttributes<HTMLElement>,
 				HTMLElement
-			>;
+			> & {
+				src?: string;
+				alt?: string;
+				width?: string | number;
+				height?: string | number;
+				"object-fit"?: string;
+				circle?: boolean;
+				responsive?: boolean;
+				loading?: string;
+				crossorigin?: string;
+				blurhash?: string;
+				"blurhash-only"?: boolean;
+				onLoad?: (event: CustomEvent) => void;
+				onError?: (event: CustomEvent) => void;
+			};
 		}
 	}
 }
 
-// 组件列表
-const components = [
-	{ id: 'button', name: 'Button 按钮', icon: '🔘', component: ButtonDemo },
-	{ id: 'carousel', name: 'Carousel 轮播图', icon: '🎠', component: CarouselDemo },
-	{ id: 'image', name: 'Image 图片', icon: '🖼️', component: ImageDemo }
-];
+const { Header, Content, Sider } = Layout;
+const { Title, Text } = Typography;
 
-function App() {
-	const [activeComponent, setActiveComponent] = useState('button');
+const App: React.FC = () => {
+	const [selectedKey, setSelectedKey] = useState<string>("button");
 
-	// 根据 URL hash 设置初始组件
-	useEffect(() => {
-		const hash = window.location.hash.slice(1);
-		if (hash && components.find(c => c.id === hash)) {
-			setActiveComponent(hash);
-		}
-
-		// 监听 hash 变化
-		const handleHashChange = () => {
-			const newHash = window.location.hash.slice(1);
-			if (newHash && components.find(c => c.id === newHash)) {
-				setActiveComponent(newHash);
-			}
-		};
-
-		window.addEventListener('hashchange', handleHashChange);
-		return () => window.removeEventListener('hashchange', handleHashChange);
-	}, []);
-
-	const handleNavClick = (componentId: string) => {
-		setActiveComponent(componentId);
-		window.location.hash = componentId;
+	// 处理菜单选择
+	const handleMenuSelect: MenuProps["onClick"] = ({ key }) => {
+		setSelectedKey(key);
 	};
 
-	// 获取当前活动组件
-	const ActiveComponent = components.find(c => c.id === activeComponent)?.component;
+	// 渲染当前选中的组件
+	const renderActiveComponent = () => {
+		switch (selectedKey) {
+			case "button":
+				return <ButtonDemo />;
+			case "image":
+				return <ImageDemo />;
+			case "carousel":
+				return <CarouselDemo />;
+			default:
+				return <ButtonDemo />;
+		}
+	};
+
+	// 菜单项配置
+	const menuItems: MenuProps["items"] = [
+		{
+			key: "button",
+			icon: <AppstoreOutlined />,
+			label: "Button 按钮",
+		},
+		{
+			key: "image",
+			icon: <PictureOutlined />,
+			label: "Image 图片",
+		},
+		{
+			key: "carousel",
+			icon: <SwapOutlined />,
+			label: "Carousel 轮播图",
+		},
+	];
 
 	return (
-		<div className="layout-container">
-			{/* 侧边栏 */}
-			<aside className="sidebar">
-				<div className="sidebar-header">
-					<h1>Eos Components</h1>
-					<span className="badge">React Playground</span>
+		<Layout style={{ height: "100vh", background: "var(--bg-body)" }}>
+			{/* 头部 */}
+			<Header
+				style={{
+					background: "var(--bg-container)",
+					borderBottom: "1px solid var(--border-color)",
+					padding: "0 24px",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+					boxShadow: "var(--shadow-sm)",
+					zIndex: 1000,
+				}}
+			>
+				<div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+					<ThunderboltOutlined
+						style={{ fontSize: "24px", color: "var(--primary-color)" }}
+					/>
+					<Title
+						level={3}
+						style={{
+							margin: 0,
+							color: "var(--text-primary)",
+							fontSize: "20px",
+						}}
+					>
+						Eos Components
+					</Title>
 				</div>
-				<nav className="sidebar-nav">
-					{components.map(comp => (
-						<button
-							key={comp.id}
-							className={`nav-item ${activeComponent === comp.id ? 'active' : ''}`}
-							onClick={() => handleNavClick(comp.id)}
-						>
-							<span className="nav-icon">{comp.icon}</span>
-							<span className="nav-text">{comp.name}</span>
-						</button>
-					))}
-				</nav>
-				<div className="sidebar-footer">
-					<div className="version">v0.0.1</div>
+				<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+					<Tag color="blue">React Playground</Tag>
+					<Text type="secondary" style={{ fontSize: "12px" }}>
+						v0.0.1
+					</Text>
 				</div>
-			</aside>
+			</Header>
 
-			{/* 主内容区 */}
-			<main className="main-content">
-				<div id="demo-container">
-					{ActiveComponent ? (
-						<ActiveComponent />
-					) : (
-						<div className="welcome">
-							<h2>欢迎使用 Eos Components</h2>
-							<p>请从左侧菜单选择一个组件查看演示</p>
+			<Layout style={{ height: "calc(100vh - 64px)" }}>
+				{/* 侧边栏 */}
+				<Sider
+					width={280}
+					style={{
+						background: "var(--bg-container)",
+						borderRight: "1px solid var(--border-color)",
+						boxShadow: "2px 0 8px rgba(0, 0, 0, 0.04)",
+					}}
+				>
+					<div
+						style={{
+							padding: "20px 24px",
+							borderBottom: "1px solid var(--border-color)",
+							background: "var(--ant-color-bg-elevated)",
+						}}
+					>
+						<Title
+							level={5}
+							style={{ margin: "0 0 4px", color: "var(--text-primary)" }}
+						>
+							组件列表
+						</Title>
+						<Text type="secondary" style={{ fontSize: "12px" }}>
+							Component Library
+						</Text>
+					</div>
+
+					<Menu
+						mode="inline"
+						selectedKeys={[selectedKey]}
+						items={menuItems}
+						onClick={handleMenuSelect}
+						style={{
+							borderRight: "none",
+							padding: "12px 16px",
+							background: "var(--bg-container)",
+						}}
+					/>
+
+					<div
+						style={{
+							padding: "16px 24px",
+							borderTop: "1px solid var(--border-color)",
+							background: "var(--ant-color-bg-elevated)",
+							position: "absolute",
+							bottom: 0,
+							left: 0,
+							right: 0,
+						}}
+					>
+						<Space
+							direction="vertical"
+							size="small"
+							style={{ width: "100%", textAlign: "center" }}
+						>
+							<Text type="secondary" style={{ fontSize: "12px" }}>
+								基于 Web Components
+							</Text>
+							<Text type="secondary" style={{ fontSize: "12px" }}>
+								支持 React 19 + TypeScript
+							</Text>
+						</Space>
+					</div>
+				</Sider>
+
+				{/* 主内容区 */}
+				<Content
+					style={{ background: "var(--bg-body)", padding: 0, overflow: "auto" }}
+				>
+					<div style={{ padding: "24px", minHeight: "100%" }}>
+						<div
+							style={{
+								animation: "fadeIn 0.4s ease",
+							}}
+						>
+							{renderActiveComponent()}
 						</div>
-					)}
-				</div>
-			</main>
-		</div>
+					</div>
+				</Content>
+			</Layout>
+		</Layout>
 	);
-}
+};
 
 export default App;

@@ -1,62 +1,121 @@
-import React, { useState } from 'react';
+import { Space, Tag, Typography } from "antd";
+import type React from "react";
+import { useState } from "react";
+
+const { Title, Text } = Typography;
 
 export const ButtonDemo: React.FC = () => {
-  const [clickCount, setClickCount] = useState(0);
-  const [lastClickTime, setLastClickTime] = useState('--:--:--');
-  const [message, setMessage] = useState('');
+	const [clickCount, setClickCount] = useState(0);
+	const [lastClickTime, setLastClickTime] = useState("--:--:--");
 
-  const handleButtonClick = () => {
-    setClickCount(prev => prev + 1);
-    setLastClickTime(new Date().toLocaleTimeString('zh-CN'));
-  };
+	const handleButtonClick = () => {
+		setClickCount((prev) => prev + 1);
+		setLastClickTime(new Date().toLocaleTimeString("zh-CN"));
+	};
 
-  const handleEventDemo = (e: any) => {
-    setMessage(`✓ ${e.detail.message}`);
-    setTimeout(() => setMessage(''), 2000);
-  };
+	return (
+		<div className="component-demo">
+			<Space direction="vertical" size="large" style={{ width: "100%" }}>
+				<div
+					style={{
+						background: "white",
+						padding: "24px",
+						borderRadius: "8px",
+						boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "8px",
+							marginBottom: "16px",
+						}}
+					>
+						<Title level={4} style={{ margin: 0 }}>
+							基础按钮
+						</Title>
+						<Tag color="blue">Basic</Tag>
+					</div>
+					<Text type="secondary">展示基础的按钮组件用法</Text>
+					<div style={{ marginTop: "16px" }}>
+						<Space wrap>
+							<eos-button>默认按钮</eos-button>
+							<eos-button type="primary">主要按钮</eos-button>
+							<eos-button type="success">成功按钮</eos-button>
+							<eos-button type="warning">警告按钮</eos-button>
+							<eos-button type="danger">危险按钮</eos-button>
+						</Space>
+					</div>
+				</div>
 
-  return (
-    <div className="component-demo">
-      <h2>Button 按钮组件</h2>
+				<div
+					style={{
+						background: "white",
+						padding: "24px",
+						borderRadius: "8px",
+						boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "8px",
+							marginBottom: "16px",
+						}}
+					>
+						<Title level={4} style={{ margin: 0 }}>
+							按钮状态
+						</Title>
+						<Tag color="orange">States</Tag>
+					</div>
+					<Text type="secondary">展示按钮的不同状态</Text>
+					<div style={{ marginTop: "16px" }}>
+						<Space wrap>
+							<eos-button>普通状态</eos-button>
+							<eos-button disabled>禁用状态</eos-button>
+							<eos-button loading>加载中</eos-button>
+						</Space>
+					</div>
+				</div>
 
-      <div className="demo-block">
-        <h3>基础用法</h3>
-        <div className="demo-content">
-          <e-button>默认按钮</e-button>
-          <e-button>提交</e-button>
-          <e-button>取消</e-button>
-        </div>
-      </div>
-
-      <div className="demo-block">
-        <h3>事件监听</h3>
-        <div className="demo-content">
-          <e-button onEClick={handleEventDemo}>点击我</e-button>
-          {message && (
-            <div className="output success">{message}</div>
-          )}
-          {!message && (
-            <div className="output">👆 点击按钮查看效果</div>
-          )}
-        </div>
-      </div>
-
-      <div className="demo-block">
-        <h3>计数器演示</h3>
-        <div className="demo-content">
-          <e-button onEClick={handleButtonClick}>点击计数</e-button>
-          <div className="stats">
-            <div className="stat-card">
-              <div className="stat-value">{clickCount}</div>
-              <div className="stat-label">点击次数</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-value">{lastClickTime}</div>
-              <div className="stat-label">最后点击</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+				<div
+					style={{
+						background: "white",
+						padding: "24px",
+						borderRadius: "8px",
+						boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "8px",
+							marginBottom: "16px",
+						}}
+					>
+						<Title level={4} style={{ margin: 0 }}>
+							交互演示
+						</Title>
+						<Tag color="green">Interactive</Tag>
+					</div>
+					<Text type="secondary">点击按钮查看交互效果</Text>
+					<div style={{ marginTop: "16px", textAlign: "center" }}>
+						<eos-button
+							onEClick={handleButtonClick}
+							type="primary"
+							style={{ fontSize: "16px" }}
+						>
+							点击计数: {clickCount}
+						</eos-button>
+						<div style={{ marginTop: "12px" }}>
+							<Text type="secondary">最后点击时间: {lastClickTime}</Text>
+						</div>
+					</div>
+				</div>
+			</Space>
+		</div>
+	);
 };

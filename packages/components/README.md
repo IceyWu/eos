@@ -43,7 +43,7 @@ pnpm add @eosjs/components
   </script>
 </head>
 <body>
-  <e-button>点击我</e-button>
+  <eos-button>点击我</eos-button>
 </body>
 </html>
 ```
@@ -58,7 +58,7 @@ import { registerComponents } from '@eosjs/components';
 registerComponents();
 
 function App() {
-  return <e-button>点击我</e-button>;
+  return <eos-button>点击我</eos-button>;
 }
 ```
 
@@ -73,14 +73,14 @@ registerComponents();
 </script>
 
 <template>
-  <e-button>点击我</e-button>
+  <eos-button>点击我</eos-button>
 </template>
 ```
 
 ## 📚 组件列表
 
-- **Button** (`e-button`) - 按钮组件
-- **Carousel** (`e-carousel`) - 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
+- **Button** (`eos-button`) - 按钮组件
+- **Carousel** (`eos-carousel`) - 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
 - _更多组件开发中..._
 
 ## 📖 文档

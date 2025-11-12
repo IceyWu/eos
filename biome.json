@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -8,14 +8,19 @@
 	"files": {
 		"ignoreUnknown": false,
 		"includes": [
-			"**",
-			"!!**/node_modules",
-			"!!**/dist",
-			"!!**/.git",
-			"!!**/pnpm-lock.yaml",
-			"!!**/package-lock.json",
-			"!!**/*.d.ts",
-			"!!**/*.map"
+			"**/*.js",
+			"**/*.jsx",
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.json",
+			"!**/node_modules",
+			"!**/dist",
+			"!**/.git",
+			"!**/pnpm-lock.yaml",
+			"!**/package-lock.json",
+			"!**/*.d.ts",
+			"!**/*.map",
+			"!docs"
 		]
 	},
 	"formatter": {
@@ -27,7 +32,21 @@
 		"rules": {
 			"recommended": true,
 			"correctness": {
-				"noUnusedVariables": "off"
+				"noUnusedVariables": "off",
+				"noUnusedImports": "off",
+				"noUnusedPrivateClassMembers": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noGlobalIsNan": "off",
+				"useIterableCallbackReturn": "off"
+			},
+			"complexity": {
+				"noBannedTypes": "off",
+				"noStaticOnlyClass": "off"
+			},
+			"style": {
+				"useTemplate": "off"
 			}
 		}
 	},

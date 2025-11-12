@@ -1,62 +1,90 @@
+import { CommonModule } from "@angular/common";
 import {
 	Component,
 	CUSTOM_ELEMENTS_SCHEMA,
 	type OnInit,
 	signal,
 } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterOutlet } from "@angular/router";
 import { registerComponents } from "@eosjs/components";
 
+import { ButtonDemoComponent } from "./components/button-demo.component";
+import { CarouselDemoComponent } from "./components/carousel-demo.component";
+import { ImageDemoComponent } from "./components/image-demo.component";
+
+interface ComponentItem {
+	key: string;
+	label: string;
+	icon: string;
+	component: any;
+}
+
 @Component({
 	selector: "app-root",
-	imports: [RouterOutlet],
+	imports: [
+		RouterOutlet,
+		CommonModule,
+		MatToolbarModule,
+		MatSidenavModule,
+		MatListModule,
+		MatIconModule,
+		MatButtonModule,
+		MatChipsModule,
+		ButtonDemoComponent,
+		ImageDemoComponent,
+		CarouselDemoComponent,
+	],
 	templateUrl: "./app.html",
 	styleUrl: "./app.less",
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App implements OnInit {
-	protected readonly buttonEvents = signal<string[]>([]);
-	protected readonly carouselEvents = signal<string[]>([]);
+	selectedComponent = signal<string>("button");
+
+	components: ComponentItem[] = [
+		{
+			key: "button",
+			label: "Button 按钮",
+			icon: "smart_button",
+			component: ButtonDemoComponent,
+		},
+		{
+			key: "image",
+			label: "Image 图片",
+			icon: "image",
+			component: ImageDemoComponent,
+		},
+		{
+			key: "carousel",
+			label: "Carousel 轮播图",
+			icon: "view_carousel",
+			component: CarouselDemoComponent,
+		},
+	];
 
 	ngOnInit() {
 		// Register Eos Web Components
 		registerComponents();
-
-		// Setup event listeners after a short delay to ensure components are registered
-		setTimeout(() => {
-			this.setupEventListeners();
-		}, 100);
 	}
 
-	private setupEventListeners() {
-		// Listen to button click events
-		const buttons = document.querySelectorAll("e-button");
-		buttons.forEach((button, index) => {
-			button.addEventListener("e-click", ((e: CustomEvent) => {
-				const timestamp = new Date().toLocaleTimeString();
-				const message = `[${timestamp}] Button ${index + 1} clicked: ${e.detail.message}`;
-				this.buttonEvents.update((events) => [message, ...events].slice(0, 10));
-			}) as EventListener);
-		});
+	selectComponent(key: string) {
+		this.selectedComponent.set(key);
+	}
 
-		// Listen to carousel events
-		const carousel = document.querySelector("e-carousel");
-		if (carousel) {
-			carousel.addEventListener("change", ((e: CustomEvent) => {
-				const timestamp = new Date().toLocaleTimeString();
-				const message = `[${timestamp}] Slide changed: ${e.detail.previousIndex} → ${e.detail.currentIndex}`;
-				this.carouselEvents.update((events) =>
-					[message, ...events].slice(0, 10),
-				);
-			}) as EventListener);
+	getCurrentComponent() {
+		const current = this.components.find(
+			(comp) => comp.key === this.selectedComponent(),
+		);
+		return current?.component || ButtonDemoComponent;
+	}
 
-			carousel.addEventListener("slide-click", ((e: CustomEvent) => {
-				const timestamp = new Date().toLocaleTimeString();
-				const message = `[${timestamp}] Slide ${e.detail.index} clicked`;
-				this.carouselEvents.update((events) =>
-					[message, ...events].slice(0, 10),
-				);
-			}) as EventListener);
-		}
+	isSelected(key: string): boolean {
+		return this.selectedComponent() === key;
 	}
 }

@@ -235,7 +235,7 @@ export const Default: Story = {
 						},
 					},
 					React.createElement(
-						"e-carousel",
+						"eos-carousel",
 						{
 							autoplay: args.autoplay,
 							interval: args.interval,
@@ -298,7 +298,7 @@ export const Default: Story = {
 		docs: {
 			source: {
 				code: `
-<e-carousel
+<eos-carousel
   autoplay
   loop
   interval="3000"
@@ -312,7 +312,7 @@ export const Default: Story = {
   <div>Slide 3</div>
   <div>Slide 4</div>
   <div>Slide 5</div>
-</e-carousel>
+</eos-carousel>
         `,
 			},
 		},

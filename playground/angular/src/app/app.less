@@ -1,0 +1,191 @@
+// 全局变量
+@primary-color: #1976d2;
+@bg-body: #f5f5f5;
+@bg-container: #ffffff;
+@border-color: #e0e0e0;
+@text-primary: #333333;
+@text-secondary: #666666;
+@shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: @bg-body;
+}
+
+// 头部工具栏
+.app-header {
+  background: @bg-container !important;
+  border-bottom: 1px solid @border-color;
+  box-shadow: @shadow-sm;
+  z-index: 1000;
+  
+  .header-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    .brand-icon {
+      font-size: 24px;
+      color: @primary-color;
+    }
+    
+    .brand-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: @text-primary;
+    }
+  }
+  
+  .header-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    .version {
+      font-size: 12px;
+      color: @text-secondary;
+    }
+  }
+}
+
+// 主内容区
+.app-content {
+  flex: 1;
+  height: calc(100vh - 64px);
+}
+
+// 侧边栏
+.app-sidenav {
+  width: 280px;
+  background: @bg-container;
+  border-right: 1px solid @border-color;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+  
+  .sidenav-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid @border-color;
+    background: #fafafa;
+    
+    h3 {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: @text-primary;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 12px;
+      color: @text-secondary;
+    }
+  }
+  
+  .component-list {
+    padding: 12px 16px;
+    
+    .component-item {
+      border-radius: 8px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: #f5f5f5;
+      }
+      
+      &.selected {
+        background-color: #e3f2fd;
+        color: @primary-color;
+        
+        mat-icon {
+          color: @primary-color;
+        }
+      }
+      
+      mat-icon {
+        color: @text-secondary;
+      }
+    }
+  }
+  
+  .sidenav-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 24px;
+    border-top: 1px solid @border-color;
+    background: #fafafa;
+    text-align: center;
+    
+    p {
+      margin: 4px 0;
+      font-size: 12px;
+      color: @text-secondary;
+    }
+  }
+}
+
+// 主内容区
+.main-content {
+  background: @bg-body;
+  overflow: auto;
+  
+  .content-wrapper {
+    padding: 24px;
+    min-height: 100%;
+    animation: fadeIn 0.4s ease;
+  }
+}
+
+// 动画
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .app-sidenav {
+    width: 240px;
+  }
+  
+  .header-info {
+    .version {
+      display: none;
+    }
+  }
+  
+  .content-wrapper {
+    padding: 16px;
+  }
+}
+
+// Material Design 覆盖
+::ng-deep {
+  .mat-mdc-list-item {
+    --mdc-list-list-item-container-height: 48px;
+  }
+  
+  .mat-mdc-chip-set {
+    .mat-mdc-chip {
+      --mdc-chip-container-height: 24px;
+      font-size: 12px;
+    }
+  }
+}
