@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlurHash Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #666;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .image-item {
+            text-align: center;
+        }
+        
+        .image-item h3 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 BlurHash 功能测试</h1>
+        
+        <div class="description">
+            <strong>BlurHash</strong> 是一种紧凑的图片占位符表示方法，可以在图片加载前显示一个美观的模糊预览。
+            <br><br>
+            <strong>使用方法：</strong>
+            <ul>
+                <li><code>blurhash</code> 属性：设置 BlurHash 字符串，在图片加载时显示模糊预览</li>
+                <li><code>blurhash-only</code> 属性：仅显示 BlurHash，不加载实际图片</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h2>1. 带 BlurHash 预览的图片加载</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <h3>风景照片</h3>
+                    <e-image 
+                        src="https://picsum.photos/400/300?random=1" 
+                        blurhash="LGF5]+Yk^6#M@-5c,1J5@[or[Q6."
+                        alt="风景"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+                
+                <div class="image-item">
+                    <h3>城市建筑</h3>
+                    <e-image 
+                        src="https://picsum.photos/400/300?random=2" 
+                        blurhash="L5H2EC=PM+yV0g-mq.wG9c010J}I"
+                        alt="城市"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+                
+                <div class="image-item">
+                    <h3>自然风光</h3>
+                    <e-image 
+                        src="https://picsum.photos/400/300?random=3" 
+                        blurhash="LKO2?U%2Tw=w]~RBVZRi};RPxuwH"
+                        alt="自然"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>2. 仅显示 BlurHash（不加载实际图片）</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <h3>紫色渐变</h3>
+                    <e-image 
+                        blurhash="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+                        blurhash-only
+                        alt="紫色渐变"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+                
+                <div class="image-item">
+                    <h3>蓝绿色调</h3>
+                    <e-image 
+                        blurhash="LGFFaXYk^6#M@-5c,1J5@[or[Q6."
+                        blurhash-only
+                        alt="蓝绿色"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+                
+                <div class="image-item">
+                    <h3>暖色调</h3>
+                    <e-image 
+                        blurhash="L6PZfSi_.AyE_3t7t7R**0o#DgR4"
+                        blurhash-only
+                        alt="暖色"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>3. 慢速加载演示（模拟网速慢的情况）</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <h3>大图片加载</h3>
+                    <e-image 
+                        src="https://picsum.photos/1920/1080?random=slow" 
+                        blurhash="L~O|]KWBs.j[_4WBf6ayxuj[ayj["
+                        alt="大图片"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+                
+                <div class="image-item">
+                    <h3>高清图片</h3>
+                    <e-image 
+                        src="https://picsum.photos/2000/1500?random=hd" 
+                        blurhash="LKN]Rv%2Tw=w]~RBVZRi};RPxuwH"
+                        alt="高清"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>4. 圆形图片 + BlurHash</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <h3>圆形头像</h3>
+                    <e-image 
+                        src="https://picsum.photos/200/200?random=avatar" 
+                        blurhash="L5H2EC=PM+yV0g-mq.wG9c010J}I"
+                        circle
+                        alt="头像"
+                        width="200"
+                        height="200">
+                    </e-image>
+                </div>
+                
+                <div class="image-item">
+                    <h3>仅 BlurHash 圆形</h3>
+                    <e-image 
+                        blurhash="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+                        blurhash-only
+                        circle
+                        alt="圆形 BlurHash"
+                        width="200"
+                        height="200">
+                    </e-image>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>5. 错误处理 + BlurHash</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <h3>加载失败但有 BlurHash</h3>
+                    <e-image 
+                        src="https://invalid-url-test.com/image.jpg" 
+                        blurhash="L6PZfSi_.AyE_3t7t7R**0o#DgR4"
+                        alt="失败"
+                        width="300"
+                        height="225">
+                    </e-image>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { registerComponents } from '@eosjs/components';
+        registerComponents();
+    </script>
+</body>
+</html>

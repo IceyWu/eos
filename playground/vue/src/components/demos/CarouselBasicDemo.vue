@@ -31,31 +31,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const currentSlide = ref(0);
 
 const carouselItems = ref([
-  {
-    title: "Slide 1",
-    style: "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
-  },
-  {
-    title: "Slide 2",
-    style: "background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
-  },
-  {
-    title: "Slide 3",
-    style: "background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
-  },
-  {
-    title: "Slide 4",
-    style: "background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
-  },
+	{
+		title: "Slide 1",
+		style:
+			"background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
+	},
+	{
+		title: "Slide 2",
+		style:
+			"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
+	},
+	{
+		title: "Slide 3",
+		style:
+			"background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
+	},
+	{
+		title: "Slide 4",
+		style:
+			"background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold;",
+	},
 ]);
 
 const handleCarouselChange = (e: CustomEvent) => {
-  currentSlide.value = e.detail.currentIndex;
+	currentSlide.value = e.detail.currentIndex;
 };
 </script>
 

@@ -16,7 +16,15 @@ export class EosCarousel extends HTMLElement {
 
 	// 定义可观察的属性
 	static get observedAttributes() {
-		return ["autoplay", "interval", "loop", "show-navigation", "initial-index", "indicator-position", "indicator-style"];
+		return [
+			"autoplay",
+			"interval",
+			"loop",
+			"show-navigation",
+			"initial-index",
+			"indicator-position",
+			"indicator-style",
+		];
 	}
 
 	// 属性 getter
@@ -74,7 +82,13 @@ export class EosCarousel extends HTMLElement {
 	}
 
 	get indicatorPosition(): "top" | "bottom" | "left" | "right" {
-		return (this.getAttribute("indicator-position") as "top" | "bottom" | "left" | "right") || "bottom";
+		return (
+			(this.getAttribute("indicator-position") as
+				| "top"
+				| "bottom"
+				| "left"
+				| "right") || "bottom"
+		);
 	}
 
 	set indicatorPosition(value: "top" | "bottom" | "left" | "right") {
@@ -82,7 +96,10 @@ export class EosCarousel extends HTMLElement {
 	}
 
 	get indicatorStyle(): "default" | "dots" | "tiktok" {
-		return (this.getAttribute("indicator-style") as "default" | "dots" | "tiktok") || "default";
+		return (
+			(this.getAttribute("indicator-style") as "default" | "dots" | "tiktok") ||
+			"default"
+		);
 	}
 
 	set indicatorStyle(value: "default" | "dots" | "tiktok") {
@@ -638,8 +655,11 @@ export class EosCarousel extends HTMLElement {
 			const offset = -this.currentIndex * 100;
 			container.style.transform = `translateX(${offset}%)`;
 
-				// 更新 CSS 变量以同步动画时长
-			(this.shadowRoot?.host as HTMLElement)?.style.setProperty("--interval", `${this.interval}ms`);
+			// 更新 CSS 变量以同步动画时长
+			(this.shadowRoot?.host as HTMLElement)?.style.setProperty(
+				"--interval",
+				`${this.interval}ms`,
+			);
 		}
 	}
 
@@ -649,12 +669,13 @@ export class EosCarousel extends HTMLElement {
 
 		progressBar.innerHTML = "";
 		const isDots = this.indicatorStyle === "dots";
-		const isVertical = this.indicatorPosition === "left" || this.indicatorPosition === "right";
-		
+		const isVertical =
+			this.indicatorPosition === "left" || this.indicatorPosition === "right";
+
 		for (let i = 0; i < this.totalSlides; i++) {
 			const segment = document.createElement("div");
 			segment.className = "progress-segment";
-			
+
 			// 添加点击事件，允许用户点击进度条跳转
 			segment.addEventListener("click", () => {
 				this.pause(); // 用户交互时暂停自动播放
@@ -663,7 +684,7 @@ export class EosCarousel extends HTMLElement {
 
 			if (i === this.currentIndex) {
 				segment.classList.add("active");
-				
+
 				// dots样式不需要进度动画
 				if (!isDots) {
 					// 使用自定义进度或自动播放动画
@@ -804,10 +825,11 @@ export class EosCarousel extends HTMLElement {
 			if (currentSlide) {
 				this.dispatchEvent(
 					new CustomEvent("slide-active", {
-						detail: { 
-							index, 
+						detail: {
+							index,
 							slide: currentSlide,
-							mediaType: currentSlide.getAttribute("data-media-type") || "image"
+							mediaType:
+								currentSlide.getAttribute("data-media-type") || "image",
 						},
 						bubbles: true,
 						composed: true,
@@ -862,16 +884,20 @@ export class EosCarousel extends HTMLElement {
 	updateProgress(progress: number) {
 		this.customProgress = Math.max(0, Math.min(100, progress));
 		this.useCustomProgress = true;
-		
+
 		// 更新进度条显示
 		const progressBar = this.shadowRoot?.querySelector(".progress-bar");
 		if (progressBar) {
 			const segments = progressBar.querySelectorAll(".progress-segment");
 			const currentSegment = segments[this.currentIndex];
 			if (currentSegment) {
-				const fill = currentSegment.querySelector(".progress-fill.custom") as HTMLElement;
+				const fill = currentSegment.querySelector(
+					".progress-fill.custom",
+				) as HTMLElement;
 				if (fill) {
-					const isVertical = this.indicatorPosition === "left" || this.indicatorPosition === "right";
+					const isVertical =
+						this.indicatorPosition === "left" ||
+						this.indicatorPosition === "right";
 					if (isVertical) {
 						fill.style.height = `${this.customProgress}%`;
 					} else {
@@ -880,7 +906,7 @@ export class EosCarousel extends HTMLElement {
 				}
 			}
 		}
-		
+
 		// 当进度达到 100% 时，自动切换到下一个
 		if (this.customProgress >= 100) {
 			setTimeout(() => {

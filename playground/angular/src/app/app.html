@@ -95,6 +95,210 @@
   <h1>🎨 Eos Web Components</h1>
   <p class="subtitle">Angular + Web Components Demo</p>
 
+  <!-- Image Component Section -->
+  <div class="section">
+    <h2>🖼️ Image Component</h2>
+    
+    <!-- 基础用法 -->
+    <div class="demo-box">
+      <h3>📌 基础用法</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        <div style="text-align: center;">
+          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">默认加载</p>
+          <e-image 
+            src="https://picsum.photos/200/200?random=1" 
+            alt="示例图片"
+            width="200"
+            height="200">
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">圆形图片</p>
+          <e-image 
+            src="https://picsum.photos/200/200?random=2" 
+            alt="圆形图片"
+            circle
+            width="200"
+            height="200">
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">加载失败（默认提示）</p>
+          <e-image 
+            src="https://invalid-url.com/image.jpg" 
+            alt="加载失败"
+            width="200"
+            height="200">
+          </e-image>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 自定义插槽 -->
+    <div class="demo-box">
+      <h3>🎨 自定义插槽</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        <div style="text-align: center;">
+          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">自定义 Loading</p>
+          <e-image 
+            src="https://picsum.photos/200/200?random=loading" 
+            alt="自定义loading"
+            width="200"
+            height="200">
+            <div slot="loading" style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              height: 200px;
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              color: white;
+              border-radius: 8px;
+            ">
+              <div style="font-size: 48px; margin-bottom: 10px;">⏳</div>
+              <div>精彩即将呈现...</div>
+            </div>
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">自定义 Error</p>
+          <e-image 
+            src="https://invalid-custom-error.com/image.jpg" 
+            alt="自定义错误"
+            width="200"
+            height="200">
+            <div slot="error" style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              height: 200px;
+              background: #ff6b6b;
+              color: white;
+              border-radius: 8px;
+              padding: 20px;
+              box-sizing: border-box;
+            ">
+              <div style="font-size: 48px; margin-bottom: 10px;">😢</div>
+              <div style="margin-bottom: 10px;">图片走丢了</div>
+              <button style="
+                padding: 6px 12px;
+                background: white;
+                color: #ff6b6b;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              ">重试</button>
+            </div>
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p style="margin-bottom: 10px; color: #666; font-size: 14px;">骨架屏 Loading</p>
+          <style>
+            @keyframes shimmer {
+              0% { background-position: -200% 0; }
+              100% { background-position: 200% 0; }
+            }
+          </style>
+          <e-image 
+            src="https://picsum.photos/200/200?random=skeleton" 
+            alt="骨架屏"
+            width="200"
+            height="200">
+            <div slot="loading" style="
+              width: 200px;
+              height: 200px;
+              background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+              background-size: 200% 100%;
+              animation: shimmer 1.5s infinite;
+              border-radius: 4px;
+            "></div>
+          </e-image>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-box">
+      <h3>Object-fit 模式</h3>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <p>Cover</p>
+          <e-image 
+            src="https://picsum.photos/300/200?random=3" 
+            alt="Cover模式"
+            object-fit="cover"
+            width="150"
+            height="150">
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p>Contain</p>
+          <e-image 
+            src="https://picsum.photos/300/200?random=4" 
+            alt="Contain模式"
+            object-fit="contain"
+            width="150"
+            height="150"
+            style="background: #f0f0f0;">
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p>Fill</p>
+          <e-image 
+            src="https://picsum.photos/300/200?random=5" 
+            alt="Fill模式"
+            object-fit="fill"
+            width="150"
+            height="150">
+          </e-image>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-box">
+      <h3>不同尺寸单位</h3>
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <div style="text-align: center;">
+          <p>数字 (200)</p>
+          <e-image 
+            src="https://picsum.photos/200/200?random=6" 
+            alt="数字尺寸"
+            width="200"
+            height="200">
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p>rem单位 (10rem)</p>
+          <e-image 
+            src="https://picsum.photos/200/200?random=7" 
+            alt="rem单位"
+            width="10rem"
+            height="10rem">
+          </e-image>
+        </div>
+        
+        <div style="text-align: center;">
+          <p>百分比 (100%)</p>
+          <div style="width: 200px; height: 200px;">
+            <e-image 
+              src="https://picsum.photos/200/200?random=8" 
+              alt="百分比"
+              width="100%"
+              height="100%">
+            </e-image>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Button Component Section -->
   <div class="section">
     <h2>Button Component</h2>

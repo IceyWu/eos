@@ -1,36 +1,36 @@
 {
-  "name": "eos",
-  "version": "0.1.1",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "pnpm --filter @eosjs/components dev",
-    "dev:all": "pnpm -r --parallel --filter \"@eosjs/components\" --filter \"playground-*\" dev",
-    "dev:docs": "pnpm --filter @eosjs/components-docs dev",
-    "dev:html": "pnpm --filter playground-html dev",
-    "dev:vue": "pnpm --filter playground-vue dev",
-    "dev:react": "pnpm --filter playground-react dev",
-    "dev:angular": "pnpm --filter playground-angular dev",
-    "build": "pnpm --filter @eosjs/components build",
-    "build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
-    "format": "ultracite fix",
-    "format:check": "ultracite check",
-    "format:fix": "ultracite fix",
-    "changelog": "changelogen --output CHANGELOG.md",
-    "release": "pnpm build && pnpm changelog && pnpm publish -r",
-    "version": "changelogen --bump",
-    "version:patch": "changelogen --bump --patch",
-    "version:minor": "changelogen --bump --minor",
-    "version:major": "changelogen --bump --major"
-  },
-  "devDependencies": {
-    "changelogen": "^0.6.2",
-    "typescript": "^5.3.3",
-    "ultracite": "^6.2.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "vite": "npm:rolldown-vite@7.1.14"
-    }
-  }
+	"name": "eos",
+	"version": "0.1.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "pnpm --filter @eosjs/components dev",
+		"dev:all": "pnpm -r --parallel --filter \"@eosjs/components\" --filter \"playground-*\" dev",
+		"dev:docs": "pnpm --filter @eosjs/components-docs dev",
+		"dev:html": "pnpm --filter playground-html dev",
+		"dev:vue": "pnpm --filter playground-vue dev",
+		"dev:react": "pnpm --filter playground-react dev",
+		"dev:angular": "pnpm --filter playground-angular dev",
+		"build": "pnpm --filter @eosjs/components build",
+		"build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
+		"format": "ultracite fix",
+		"format:check": "ultracite check",
+		"format:fix": "ultracite fix",
+		"changelog": "changelogen --output CHANGELOG.md",
+		"release": "pnpm build && pnpm changelog && pnpm publish -r",
+		"version": "changelogen --bump",
+		"version:patch": "changelogen --bump --patch",
+		"version:minor": "changelogen --bump --minor",
+		"version:major": "changelogen --bump --major"
+	},
+	"devDependencies": {
+		"changelogen": "^0.6.2",
+		"typescript": "^5.3.3",
+		"ultracite": "^6.2.1"
+	},
+	"pnpm": {
+		"overrides": {
+			"vite": "npm:rolldown-vite@7.1.14"
+		}
+	}
 }

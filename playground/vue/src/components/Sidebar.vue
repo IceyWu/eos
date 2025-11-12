@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  activeSection?: string
+	activeSection?: string;
 }>();
 </script>
 

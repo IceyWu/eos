@@ -44,27 +44,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const clickCount = ref(0);
 const lastClickTime = ref("--:--:--");
 const buttonText = ref("动态按钮");
 
 const incrementCounter = () => {
-  clickCount.value++;
-  lastClickTime.value = new Date().toLocaleTimeString("zh-CN");
+	clickCount.value++;
+	lastClickTime.value = new Date().toLocaleTimeString("zh-CN");
 };
 
 const handleClick = (e: CustomEvent) => {
-  console.log('Button clicked:', e.detail.message);
+	console.log("Button clicked:", e.detail.message);
 };
 
 const buttonTexts = ["动态按钮", "已更改", "再次更改", "Vue 响应式"];
 let textIndex = 0;
 
 const changeButtonText = () => {
-  textIndex = (textIndex + 1) % buttonTexts.length;
-  buttonText.value = buttonTexts[textIndex];
+	textIndex = (textIndex + 1) % buttonTexts.length;
+	buttonText.value = buttonTexts[textIndex];
 };
 </script>
 

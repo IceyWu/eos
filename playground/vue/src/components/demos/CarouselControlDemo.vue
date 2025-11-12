@@ -39,16 +39,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const manualCarousel = ref<any>(null);
 
 const playCarousel = () => {
-  manualCarousel.value?.play();
+	manualCarousel.value?.play();
 };
 
 const pauseCarousel = () => {
-  manualCarousel.value?.pause();
+	manualCarousel.value?.pause();
 };
 </script>
 

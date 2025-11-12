@@ -202,7 +202,7 @@
         import '@eosjs/components';
         
         // 切换导航按钮显示/隐藏
-        window.toggleNavigation = function(show) {
+        window.toggleNavigation = (show) => {
             const carousel = document.getElementById('nav-demo');
             if (carousel) {
                 carousel.setAttribute('show-navigation', show ? 'true' : 'false');
@@ -210,7 +210,7 @@
         };
         
         // 动态创建带有不同初始索引的轮播图
-        window.createCarouselWithIndex = function(index) {
+        window.createCarouselWithIndex = (index) => {
             const container = document.getElementById('initial-index-container');
             container.innerHTML = '';
             
