@@ -37,23 +37,23 @@
         </div>
       </el-card>
 
-      <!-- BlurHash 支持 -->
+      <!-- BlurHash 占位符 -->
       <el-card class="demo-card" shadow="never">
         <template #header>
           <div class="card-header">
             <div class="header-left">
               <el-icon><MagicStick /></el-icon>
-              <span>BlurHash 支持</span>
+              <span>BlurHash 占位符</span>
             </div>
-            <el-tag size="small" type="primary">BlurHash</el-tag>
+            <el-tag size="small" type="primary">Placeholder</el-tag>
           </div>
         </template>
         <div class="demo-section">
           <div class="section-desc">
-            <p>支持 BlurHash 模糊预览，提升用户体验。</p>
+            <p>使用 BlurHash 作为占位符，在图片加载时显示模糊预览。</p>
           </div>
           <el-row :gutter="24">
-            <el-col :span="8" v-for="(item, index) in blurhashImages" :key="index">
+            <el-col :span="8" v-for="(item, index) in placeholderImages" :key="index">
               <div class="image-item">
                 <div class="image-title">
                   <el-text type="info">{{ item.title }}</el-text>
@@ -61,9 +61,47 @@
                 <div class="image-wrapper">
                   <eos-image 
                     :src="item.src"
-                    :blurhash="item.blurhash"
-                    :blurhash-only="item.blurhashOnly"
+                    :src-type="item.srcType"
+                    :placeholder="item.placeholder"
+                    :placeholder-type="item.placeholderType"
                     :alt="item.alt"
+                    width="200"
+                    height="200">
+                  </eos-image>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-card>
+
+      <!-- BlurHash 直接显示 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><Picture /></el-icon>
+              <span>BlurHash 直接显示</span>
+            </div>
+            <el-tag size="small" type="success">Direct</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>直接显示 BlurHash 解码后的图片，无需加载过程，适合纯装饰性图片。</p>
+          </div>
+          <el-row :gutter="24">
+            <el-col :span="8" v-for="(item, index) in blurhashDirectImages" :key="index">
+              <div class="image-item">
+                <div class="image-title">
+                  <el-text type="info">{{ item.title }}</el-text>
+                </div>
+                <div class="image-wrapper">
+                  <eos-image 
+                    :src="item.blurhash"
+                    src-type="blurhash"
+                    :alt="item.alt"
+                    :circle="item.circle"
                     width="200"
                     height="200">
                   </eos-image>
@@ -209,6 +247,83 @@
         </div>
       </el-card>
 
+      <!-- 综合示例 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><Tools /></el-icon>
+              <span>综合示例</span>
+            </div>
+            <el-tag size="small" type="danger">Advanced</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>展示多种参数组合的实际应用场景。</p>
+          </div>
+          <el-row :gutter="24">
+            <el-col :span="8">
+              <div class="image-item">
+                <div class="image-title">
+                  <el-text type="info">头像加载</el-text>
+                </div>
+                <div class="image-wrapper">
+                  <eos-image 
+                    src="https://i.pravatar.cc/200?img=3"
+                    src-type="url"
+                    placeholder="L4SPj[4n00_3?b%MD$Rj~q%MM{of"
+                    placeholder-type="blurhash"
+                    alt="用户头像"
+                    circle
+                    width="120"
+                    height="120"
+                    object-fit="cover">
+                  </eos-image>
+                </div>
+              </div>
+            </el-col>
+            
+            <el-col :span="8">
+              <div class="image-item">
+                <div class="image-title">
+                  <el-text type="info">Banner 图</el-text>
+                </div>
+                <div class="image-wrapper">
+                  <eos-image 
+                    src="https://picsum.photos/400/150?random=banner"
+                    src-type="url"
+                    placeholder="LGF5]+Yk^6#M@-5c,1J5@[or[Q6."
+                    placeholder-type="blurhash"
+                    alt="Banner"
+                    width="300"
+                    height="120"
+                    object-fit="cover">
+                  </eos-image>
+                </div>
+              </div>
+            </el-col>
+
+            <el-col :span="8">
+              <div class="image-item">
+                <div class="image-title">
+                  <el-text type="info">装饰图案</el-text>
+                </div>
+                <div class="image-wrapper">
+                  <eos-image 
+                    src="L~I#+9xuRjj[_4t7aej[xvWBofae"
+                    src-type="blurhash"
+                    alt="装饰图案"
+                    width="120"
+                    height="120">
+                  </eos-image>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-card>
+
       <!-- 事件处理 -->
       <el-card class="demo-card" shadow="never">
         <template #header>
@@ -292,28 +407,53 @@ const basicImages = [
 	},
 ];
 
-// BlurHash 图片数据
-const blurhashImages = [
+// 占位符图片数据
+const placeholderImages = [
 	{
-		title: "BlurHash 预览",
-		src: "https://picsum.photos/400/300?random=blurhash1",
-		blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj",
-		blurhashOnly: false,
-		alt: "BlurHash 预览",
+		title: "URL 占位符",
+		src: "https://picsum.photos/400/300?random=ph1",
+		srcType: "url",
+		placeholder: "https://via.placeholder.com/200x200/cccccc/666666?text=Loading",
+		placeholderType: "url",
+		alt: "URL 占位符",
 	},
 	{
-		title: "仅显示 BlurHash",
-		src: "",
-		blurhash: "LKO2:N%2Tw=w]~RBVZRi};RPxuwH",
-		blurhashOnly: true,
-		alt: "仅 BlurHash",
+		title: "BlurHash 占位符",
+		src: "https://picsum.photos/400/300?random=ph2",
+		srcType: "url",
+		placeholder: "LEHV6nWB2yk8pyo0adR*.7kCMdnj",
+		placeholderType: "blurhash",
+		alt: "BlurHash 占位符",
 	},
 	{
-		title: "慢加载 BlurHash",
-		src: "https://picsum.photos/800/600?random=blurhash2",
-		blurhash: "L6PZfSjE.AyE_3t7t7R**0o#DgR4",
-		blurhashOnly: false,
+		title: "慢加载 + BlurHash",
+		src: "https://picsum.photos/800/600?random=ph3",
+		srcType: "url",
+		placeholder: "L6PZfSjE.AyE_3t7t7R**0o#DgR4",
+		placeholderType: "blurhash",
 		alt: "慢速加载",
+	},
+];
+
+// BlurHash 直接显示数据
+const blurhashDirectImages = [
+	{
+		title: "紫色渐变",
+		blurhash: "LKO2:N%2Tw=w]~RBVZRi};RPxuwH",
+		alt: "紫色渐变",
+		circle: false,
+	},
+	{
+		title: "橙色渐变（圆形）",
+		blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj",
+		alt: "橙色渐变",
+		circle: true,
+	},
+	{
+		title: "蓝绿渐变",
+		blurhash: "L6PZfSjE.AyE_3t7t7R**0o#DgR4",
+		alt: "蓝绿渐变",
+		circle: false,
 	},
 ];
 

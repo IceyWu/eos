@@ -1,7 +1,7 @@
 import { formatSize } from "@eos/utils";
 import { decode } from "blurhash";
 
-// 全局图片加载器池，限制并发加载数量
+// 全局图片加载器池,限制并发加载数量
 class ImageLoader {
 	private static instance: ImageLoader;
 	private loadingQueue: Array<{
@@ -140,30 +140,40 @@ class LazyLoadObserver {
 
 /**
  * 优化的 EosImage 组件
- * 支持加载状态、错误处理、BlurHash、懒加载和资源池管理
+ * 
+ * 新的参数系统：
+ * - src: 图片资源，可以是 URL 或 blurhash
+ * - src-type: 'url' | 'blurhash' - 指定 src 的类型
+ * - placeholder: 占位资源，可以是 URL 或 blurhash
+ * - placeholder-type: 'url' | 'blurhash' - 指定 placeholder 的类型
+ * 
+ * 逻辑：
+ * 1. 如果 src-type 是 'blurhash'，直接显示解码后的图片，不显示 loading 状态
+ * 2. 如果 src-type 是 'url'，显示 placeholder 作为 loading 占位符
  */
 export class EosImage extends HTMLElement {
 	private img: HTMLImageElement | null = null;
 	private isLoading = true;
 	private hasError = false;
-	private blurhashDataUrl: string | null = null;
+	private placeholderDataUrl: string | null = null;
+	private srcDataUrl: string | null = null;
 	private loadTimer: number | null = null;
 	private imageLoader = ImageLoader.getInstance();
 	private isRendered = false;
-	private pendingLoad = false;
 
 	// 监听的属性
 	static get observedAttributes() {
 		return [
 			"src",
+			"src-type",
 			"alt",
 			"width",
 			"height",
 			"loading",
 			"crossorigin",
 			"object-fit",
-			"blurhash",
-			"blurhash-only",
+			"placeholder",
+			"placeholder-type",
 			"show-delay",
 		];
 	}
@@ -202,13 +212,9 @@ export class EosImage extends HTMLElement {
 					animation: fadeIn 0.3s ease-in;
 				}
 
-				.blurhash-preview {
+				.placeholder-image {
 					filter: blur(0);
 					transform: scale(1.1);
-				}
-
-				.blurhash-image {
-					filter: blur(0);
 				}
 
 				.loading-overlay {
@@ -288,8 +294,8 @@ export class EosImage extends HTMLElement {
 				.hidden { display: none !important; }
 			</style>
 			<div class="container">
-				<!-- BlurHash 预览 -->
-				<img class="image blurhash-preview hidden" alt="">
+				<!-- 占位符图片 -->
+				<img class="image placeholder-image hidden" alt="">
 				
 				<!-- 主图片 -->
 				<img class="image main-image hidden" alt="">
@@ -304,7 +310,7 @@ export class EosImage extends HTMLElement {
 					</slot>
 				</div>
 				
-				<!-- 加载遮罩（用于 blurhash 模式） -->
+				<!-- 加载遮罩（用于有占位符时） -->
 				<div class="loading-overlay hidden">
 					<slot name="loading"></slot>
 				</div>
@@ -332,22 +338,25 @@ export class EosImage extends HTMLElement {
 
 	connectedCallback() {
 		this.updateStyles();
-		this.processBlurhash();
+		this.processPlaceholder();
+		this.processSource();
 
 		// 检查是否需要懒加载
 		const loading = this.getAttribute("loading");
-		const isBlurhashOnly = this.hasAttribute("blurhash-only");
+		const srcType = this.getAttribute("src-type") || "url";
 
-		if (!isBlurhashOnly) {
+		// 如果 src 是 blurhash，直接显示，不需要加载
+		if (srcType === "blurhash") {
+			this.isLoading = false;
+			this.updateDisplay();
+		} else {
+			// URL 类型需要加载
 			if (loading === "lazy") {
 				// 使用 IntersectionObserver 实现懒加载
 				LazyLoadObserver.observe(this, () => this.loadImage());
 			} else {
 				this.loadImage();
 			}
-		} else {
-			this.isLoading = false;
-			this.updateDisplay();
 		}
 	}
 
@@ -370,13 +379,22 @@ export class EosImage extends HTMLElement {
 		if (oldValue !== newValue && this.isRendered) {
 			switch (name) {
 				case "src":
+				case "src-type":
 					this.isLoading = true;
 					this.hasError = false;
-					this.updateDisplay();
-					if (!this.hasAttribute("blurhash-only")) {
+					this.processSource();
+					const srcType = this.getAttribute("src-type") || "url";
+
+					// blurhash 类型直接显示，不加载
+					if (srcType === "blurhash") {
+						this.isLoading = false;
+						this.updateDisplay();
+					} else {
 						const loading = this.getAttribute("loading");
 						if (loading !== "lazy") {
 							this.loadImage();
+						} else {
+							this.updateDisplay();
 						}
 					}
 					break;
@@ -385,18 +403,16 @@ export class EosImage extends HTMLElement {
 				case "width":
 				case "height":
 					this.updateStyles();
-					break;
-
-				case "blurhash":
-					this.processBlurhash();
-					this.updateDisplay();
-					break;
-
-				case "blurhash-only":
-					if (newValue !== null) {
-						this.isLoading = false;
-						this.updateDisplay();
+					if (name === "width" || name === "height") {
+						this.processPlaceholder();
+						this.processSource();
 					}
+					break;
+
+				case "placeholder":
+				case "placeholder-type":
+					this.processPlaceholder();
+					this.updateDisplay();
 					break;
 
 				default:
@@ -463,12 +479,11 @@ export class EosImage extends HTMLElement {
 		}
 	}
 
-	private processBlurhash() {
-		const blurhash = this.getAttribute("blurhash");
-		if (!blurhash) {
-			this.blurhashDataUrl = null;
-			return;
-		}
+	/**
+	 * 解码 blurhash 字符串为 data URL
+	 */
+	private decodeBlurhash(blurhash: string): string | null {
+		if (!blurhash) return null;
 
 		// 获取解码尺寸
 		const width = parseInt(this.getAttribute("width") || "32");
@@ -504,14 +519,57 @@ export class EosImage extends HTMLElement {
 			}
 		}
 
-		this.blurhashDataUrl = dataUrl;
+		return dataUrl;
 	}
 
+	/**
+	 * 处理占位符资源
+	 */
+	private processPlaceholder() {
+		const placeholder = this.getAttribute("placeholder");
+		const placeholderType = this.getAttribute("placeholder-type") || "url";
+
+		if (!placeholder) {
+			this.placeholderDataUrl = null;
+			return;
+		}
+
+		if (placeholderType === "blurhash") {
+			this.placeholderDataUrl = this.decodeBlurhash(placeholder);
+		} else {
+			// URL 类型直接使用
+			this.placeholderDataUrl = placeholder;
+		}
+	}
+
+	/**
+	 * 处理主图资源
+	 */
+	private processSource() {
+		const src = this.getAttribute("src");
+		const srcType = this.getAttribute("src-type") || "url";
+
+		if (!src) {
+			this.srcDataUrl = null;
+			return;
+		}
+
+		if (srcType === "blurhash") {
+			this.srcDataUrl = this.decodeBlurhash(src);
+		} else {
+			// URL 类型保留原始值
+			this.srcDataUrl = src;
+		}
+	}
+
+	/**
+	 * 更新显示状态
+	 */
 	private updateDisplay() {
 		if (!this.shadowRoot) return;
 
-		const blurhashPreview = this.shadowRoot.querySelector(
-			".blurhash-preview",
+		const placeholderImage = this.shadowRoot.querySelector(
+			".placeholder-image",
 		) as HTMLImageElement;
 		const mainImage = this.shadowRoot.querySelector(
 			".main-image",
@@ -528,7 +586,7 @@ export class EosImage extends HTMLElement {
 
 		// 重置所有状态
 		[
-			blurhashPreview,
+			placeholderImage,
 			mainImage,
 			loadingContainer,
 			loadingOverlay,
@@ -537,30 +595,40 @@ export class EosImage extends HTMLElement {
 			el?.classList.add("hidden");
 		});
 
-		const isBlurhashOnly = this.hasAttribute("blurhash-only");
+		const srcType = this.getAttribute("src-type") || "url";
 
-		if (isBlurhashOnly && this.blurhashDataUrl) {
-			// 只显示 blurhash
-			blurhashPreview.src = this.blurhashDataUrl;
-			blurhashPreview.classList.remove("hidden");
-		} else if (this.isLoading) {
-			// 加载状态
-			if (this.blurhashDataUrl) {
-				blurhashPreview.src = this.blurhashDataUrl;
-				blurhashPreview.classList.remove("hidden");
+		// 错误状态
+		if (this.hasError) {
+			errorContainer.classList.remove("hidden");
+			return;
+		}
+
+		// 如果 src 是 blurhash，直接显示解码后的图片
+		if (srcType === "blurhash" && this.srcDataUrl) {
+			mainImage.src = this.srcDataUrl;
+			mainImage.classList.remove("hidden");
+			return;
+		}
+
+		// URL 加载状态
+		if (this.isLoading) {
+			// 显示占位符
+			if (this.placeholderDataUrl) {
+				placeholderImage.src = this.placeholderDataUrl;
+				placeholderImage.classList.remove("hidden");
 				loadingOverlay.classList.remove("hidden");
 			} else {
 				loadingContainer.classList.remove("hidden");
 			}
-		} else if (this.hasError) {
-			// 错误状态
-			errorContainer.classList.remove("hidden");
 		} else {
-			// 显示主图片
+			// 显示主图片（URL 类型加载完成）
 			mainImage.classList.remove("hidden");
 		}
 	}
 
+	/**
+	 * 更新样式
+	 */
 	private updateStyles() {
 		if (!this.shadowRoot) return;
 
@@ -584,6 +652,9 @@ export class EosImage extends HTMLElement {
 		});
 	}
 
+	/**
+	 * 更新图片属性
+	 */
 	private updateImageAttributes() {
 		if (!this.img) return;
 
@@ -593,12 +664,12 @@ export class EosImage extends HTMLElement {
 		if (alt) this.img.alt = alt;
 		if (crossorigin) this.img.crossOrigin = crossorigin;
 
-		// 同时更新 blurhash 预览的 alt
-		const blurhashPreview = this.shadowRoot?.querySelector(
-			".blurhash-preview",
+		// 同时更新占位符图片的 alt
+		const placeholderImage = this.shadowRoot?.querySelector(
+			".placeholder-image",
 		) as HTMLImageElement;
-		if (blurhashPreview && alt) {
-			blurhashPreview.alt = alt;
+		if (placeholderImage && alt) {
+			placeholderImage.alt = alt;
 		}
 	}
 }
