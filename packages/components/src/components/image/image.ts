@@ -6,8 +6,8 @@ class ImageLoader {
 	private static instance: ImageLoader;
 	private loadingQueue: Array<{
 		src: string;
-		resolve: Function;
-		reject: Function;
+		resolve: (img: HTMLImageElement) => void;
+		reject: (error: Error) => void;
 	}> = [];
 	private activeLoads = 0;
 	private maxConcurrent = 6; // 浏览器通常限制同域名并发连接数为6
@@ -152,7 +152,14 @@ class LazyLoadObserver {
  * 2. 如果 src-type 是 'url'，显示 placeholder 作为 loading 占位符
  */
 export class EosImage extends HTMLElement {
-	private img: HTMLImageElement | null = null;
+	// 配置常量
+	private static readonly CONFIG = {
+		MAX_BLURHASH_SIZE: 32,
+		SHOW_DELAY_DEFAULT: 0,
+		FADE_DURATION: 300
+	} as const;
+
+	// 状态管理
 	private isLoading = true;
 	private hasError = false;
 	private placeholderDataUrl: string | null = null;
@@ -160,6 +167,13 @@ export class EosImage extends HTMLElement {
 	private loadTimer: number | null = null;
 	private imageLoader = ImageLoader.getInstance();
 	private isRendered = false;
+
+	// DOM 元素缓存
+	private img: HTMLImageElement | null = null;
+	private placeholderImage: HTMLImageElement | null = null;
+	private loadingContainer: HTMLElement | null = null;
+	private loadingOverlay: HTMLElement | null = null;
+	private errorContainer: HTMLElement | null = null;
 
 	// 监听的属性
 	static get observedAttributes() {
@@ -331,8 +345,12 @@ export class EosImage extends HTMLElement {
 			</div>
 		`;
 
-		// 缓存 DOM 引用
+		// 缓存所有 DOM 元素引用
 		this.img = this.shadowRoot.querySelector(".main-image") as HTMLImageElement;
+		this.placeholderImage = this.shadowRoot.querySelector(".placeholder-image") as HTMLImageElement;
+		this.loadingContainer = this.shadowRoot.querySelector(".loading-container") as HTMLElement;
+		this.loadingOverlay = this.shadowRoot.querySelector(".loading-overlay") as HTMLElement;
+		this.errorContainer = this.shadowRoot.querySelector(".error-container") as HTMLElement;
 		this.isRendered = true;
 	}
 
@@ -369,6 +387,19 @@ export class EosImage extends HTMLElement {
 
 		// 取消懒加载观察
 		LazyLoadObserver.unobserve(this);
+		
+		// 清理事件监听器
+		if (this.img) {
+			this.img.onerror = null;
+			this.img.onload = null;
+		}
+		
+		// 清理 DOM 引用
+		this.img = null;
+		this.placeholderImage = null;
+		this.loadingContainer = null;
+		this.loadingOverlay = null;
+		this.errorContainer = null;
 	}
 
 	attributeChangedCallback(
@@ -441,7 +472,7 @@ export class EosImage extends HTMLElement {
 			await this.imageLoader.load(src);
 
 			// 获取延时参数
-			const showDelay = parseInt(this.getAttribute("show-delay") || "0", 10);
+			const showDelay = parseInt(this.getAttribute("show-delay") || String(EosImage.CONFIG.SHOW_DELAY_DEFAULT), 10);
 
 			const showImage = () => {
 				this.isLoading = false;
@@ -486,10 +517,10 @@ export class EosImage extends HTMLElement {
 		if (!blurhash) return null;
 
 		// 获取解码尺寸
-		const width = parseInt(this.getAttribute("width") || "32");
-		const height = parseInt(this.getAttribute("height") || "32");
-		const decodeWidth = Math.min(width, 32);
-		const decodeHeight = Math.min(height, 32);
+		const width = parseInt(this.getAttribute("width") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE));
+		const height = parseInt(this.getAttribute("height") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE));
+		const decodeWidth = Math.min(width, EosImage.CONFIG.MAX_BLURHASH_SIZE);
+		const decodeHeight = Math.min(height, EosImage.CONFIG.MAX_BLURHASH_SIZE);
 
 		// 检查缓存
 		let dataUrl = BlurhashCache.get(blurhash, decodeWidth, decodeHeight);
@@ -516,6 +547,12 @@ export class EosImage extends HTMLElement {
 				}
 			} catch (error) {
 				console.error("Failed to decode blurhash:", error);
+				// 发送 BlurHash 解码错误事件
+				this.dispatchEvent(new CustomEvent("blurhash-error", {
+					detail: { error, blurhash },
+					bubbles: true,
+					composed: true,
+				}));
 			}
 		}
 
@@ -566,47 +603,40 @@ export class EosImage extends HTMLElement {
 	 * 更新显示状态
 	 */
 	private updateDisplay() {
-		if (!this.shadowRoot) return;
-
-		const placeholderImage = this.shadowRoot.querySelector(
-			".placeholder-image",
-		) as HTMLImageElement;
-		const mainImage = this.shadowRoot.querySelector(
-			".main-image",
-		) as HTMLImageElement;
-		const loadingContainer = this.shadowRoot.querySelector(
-			".loading-container",
-		) as HTMLElement;
-		const loadingOverlay = this.shadowRoot.querySelector(
-			".loading-overlay",
-		) as HTMLElement;
-		const errorContainer = this.shadowRoot.querySelector(
-			".error-container",
-		) as HTMLElement;
+		if (!this.shadowRoot || !this.placeholderImage || !this.img || 
+			!this.loadingContainer || !this.loadingOverlay || !this.errorContainer) {
+			return;
+		}
 
 		// 重置所有状态
 		[
-			placeholderImage,
-			mainImage,
-			loadingContainer,
-			loadingOverlay,
-			errorContainer,
+			this.placeholderImage,
+			this.img,
+			this.loadingContainer,
+			this.loadingOverlay,
+			this.errorContainer,
 		].forEach((el) => {
 			el?.classList.add("hidden");
 		});
 
 		const srcType = this.getAttribute("src-type") || "url";
 
-		// 错误状态
-		if (this.hasError) {
-			errorContainer.classList.remove("hidden");
+		// 如果 src 是 blurhash，直接显示解码后的图片，忽略错误状态
+		if (srcType === "blurhash" && this.srcDataUrl) {
+			// 强制重置错误状态，因为 BlurHash 不应该有加载错误
+			this.hasError = false;
+			
+			// 清除图片的事件监听器，避免 onerror 被触发
+			this.img.onerror = null;
+			this.img.onload = null;
+			this.img.src = this.srcDataUrl;
+			this.img.classList.remove("hidden");
 			return;
 		}
 
-		// 如果 src 是 blurhash，直接显示解码后的图片
-		if (srcType === "blurhash" && this.srcDataUrl) {
-			mainImage.src = this.srcDataUrl;
-			mainImage.classList.remove("hidden");
+		// 错误状态（仅对 URL 类型有效）
+		if (this.hasError && srcType === "url") {
+			this.errorContainer.classList.remove("hidden");
 			return;
 		}
 
@@ -614,15 +644,15 @@ export class EosImage extends HTMLElement {
 		if (this.isLoading) {
 			// 显示占位符
 			if (this.placeholderDataUrl) {
-				placeholderImage.src = this.placeholderDataUrl;
-				placeholderImage.classList.remove("hidden");
-				loadingOverlay.classList.remove("hidden");
+				this.placeholderImage.src = this.placeholderDataUrl;
+				this.placeholderImage.classList.remove("hidden");
+				this.loadingOverlay.classList.remove("hidden");
 			} else {
-				loadingContainer.classList.remove("hidden");
+				this.loadingContainer.classList.remove("hidden");
 			}
 		} else {
 			// 显示主图片（URL 类型加载完成）
-			mainImage.classList.remove("hidden");
+			this.img.classList.remove("hidden");
 		}
 	}
 
