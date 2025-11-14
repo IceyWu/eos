@@ -13,7 +13,7 @@ class ImageLoader {
 	private maxConcurrent = 6; // 浏览器通常限制同域名并发连接数为6
 	private imageCache = new Map<string, HTMLImageElement>();
 	private maxCacheSize = 50; // 限制缓存大小，避免内存泄漏
-	
+
 	// 动态调整并发数
 	private adaptiveConcurrency = true;
 	private lastPerformanceCheck = 0;
@@ -41,7 +41,7 @@ class ImageLoader {
 	private processQueue() {
 		// 动态调整并发数（针对大量图片优化）
 		this.adjustConcurrency();
-		
+
 		while (
 			this.activeLoads < this.maxConcurrent &&
 			this.loadingQueue.length > 0
@@ -98,7 +98,7 @@ class ImageLoader {
 			this.imageCache.delete(src);
 		} else {
 			// 清理所有图片的事件监听器
-			this.imageCache.forEach(img => {
+			this.imageCache.forEach((img) => {
 				img.onload = null;
 				img.onerror = null;
 			});
@@ -115,9 +115,9 @@ class ImageLoader {
 		if (now - this.lastPerformanceCheck < 5000) return;
 
 		this.lastPerformanceCheck = now;
-		
+
 		// 检测页面上的图片组件数量
-		const imageCount = document.querySelectorAll('eos-image').length;
+		const imageCount = document.querySelectorAll("eos-image").length;
 		const queueSize = this.loadingQueue.length;
 
 		if (imageCount > 100 || queueSize > 20) {
@@ -237,8 +237,8 @@ class LazyLoadObserver {
 		LazyLoadObserver.rafId = requestAnimationFrame(() => {
 			// 执行所有待处理的回调
 			const callbacks = LazyLoadObserver.pendingCallbacks.splice(0);
-			callbacks.forEach(callback => callback());
-			
+			callbacks.forEach((callback) => callback());
+
 			LazyLoadObserver.rafId = null;
 		});
 	}
@@ -246,13 +246,13 @@ class LazyLoadObserver {
 
 /**
  * 优化的 EosImage 组件
- * 
+ *
  * 新的参数系统：
  * - src: 图片资源，可以是 URL 或 blurhash
  * - src-type: 'url' | 'blurhash' - 指定 src 的类型
  * - placeholder: 占位资源，可以是 URL 或 blurhash
  * - placeholder-type: 'url' | 'blurhash' - 指定 placeholder 的类型
- * 
+ *
  * 逻辑：
  * 1. 如果 src-type 是 'blurhash'，直接显示解码后的图片，不显示 loading 状态
  * 2. 如果 src-type 是 'url'，显示 placeholder 作为 loading 占位符
@@ -262,7 +262,7 @@ export class EosImage extends HTMLElement {
 	private static readonly CONFIG = {
 		MAX_BLURHASH_SIZE: 32,
 		SHOW_DELAY_DEFAULT: 0,
-		FADE_DURATION: 300
+		FADE_DURATION: 300,
 	} as const;
 
 	// 状态管理
@@ -467,10 +467,18 @@ export class EosImage extends HTMLElement {
 
 		// 缓存所有 DOM 元素引用
 		this.img = this.shadowRoot.querySelector(".main-image") as HTMLImageElement;
-		this.placeholderImage = this.shadowRoot.querySelector(".placeholder-image") as HTMLImageElement;
-		this.loadingContainer = this.shadowRoot.querySelector(".loading-container") as HTMLElement;
-		this.loadingOverlay = this.shadowRoot.querySelector(".loading-overlay") as HTMLElement;
-		this.errorContainer = this.shadowRoot.querySelector(".error-container") as HTMLElement;
+		this.placeholderImage = this.shadowRoot.querySelector(
+			".placeholder-image",
+		) as HTMLImageElement;
+		this.loadingContainer = this.shadowRoot.querySelector(
+			".loading-container",
+		) as HTMLElement;
+		this.loadingOverlay = this.shadowRoot.querySelector(
+			".loading-overlay",
+		) as HTMLElement;
+		this.errorContainer = this.shadowRoot.querySelector(
+			".error-container",
+		) as HTMLElement;
 		this.isRendered = true;
 	}
 
@@ -489,13 +497,13 @@ export class EosImage extends HTMLElement {
 
 		// 取消懒加载观察
 		LazyLoadObserver.unobserve(this);
-		
+
 		// 清理事件监听器
 		if (this.img) {
 			this.img.onerror = null;
 			this.img.onload = null;
 		}
-		
+
 		// 清理 DOM 引用
 		this.img = null;
 		this.placeholderImage = null;
@@ -590,11 +598,13 @@ export class EosImage extends HTMLElement {
 	private loadingScheduled = false;
 	private scheduleImageLoading() {
 		if (this.loadingScheduled) return;
-		
+
 		this.loadingScheduled = true;
 		// 使用 requestIdleCallback 或 setTimeout 延迟处理
-		const schedule = (window as any).requestIdleCallback || ((fn: Function) => setTimeout(fn, 0));
-		
+		const schedule =
+			(window as any).requestIdleCallback ||
+			((fn: Function) => setTimeout(fn, 0));
+
 		schedule(() => {
 			this.loadingScheduled = false;
 			this.handleImageLoading();
@@ -621,7 +631,11 @@ export class EosImage extends HTMLElement {
 			await this.imageLoader.load(src);
 
 			// 获取延时参数
-			const showDelay = parseInt(this.getAttribute("show-delay") || String(EosImage.CONFIG.SHOW_DELAY_DEFAULT), 10);
+			const showDelay = parseInt(
+				this.getAttribute("show-delay") ||
+					String(EosImage.CONFIG.SHOW_DELAY_DEFAULT),
+				10,
+			);
 
 			const showImage = () => {
 				this.isLoading = false;
@@ -666,8 +680,12 @@ export class EosImage extends HTMLElement {
 		if (!blurhash) return null;
 
 		// 获取解码尺寸
-		const width = parseInt(this.getAttribute("width") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE));
-		const height = parseInt(this.getAttribute("height") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE));
+		const width = parseInt(
+			this.getAttribute("width") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE),
+		);
+		const height = parseInt(
+			this.getAttribute("height") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE),
+		);
 		const decodeWidth = Math.min(width, EosImage.CONFIG.MAX_BLURHASH_SIZE);
 		const decodeHeight = Math.min(height, EosImage.CONFIG.MAX_BLURHASH_SIZE);
 
@@ -700,11 +718,13 @@ export class EosImage extends HTMLElement {
 			} catch (error) {
 				console.error("Failed to decode blurhash:", error);
 				// 发送 BlurHash 解码错误事件
-				this.dispatchEvent(new CustomEvent("blurhash-error", {
-					detail: { error, blurhash },
-					bubbles: true,
-					composed: true,
-				}));
+				this.dispatchEvent(
+					new CustomEvent("blurhash-error", {
+						detail: { error, blurhash },
+						bubbles: true,
+						composed: true,
+					}),
+				);
 			}
 		}
 
@@ -755,8 +775,14 @@ export class EosImage extends HTMLElement {
 	 * 更新显示状态
 	 */
 	private updateDisplay() {
-		if (!this.shadowRoot || !this.placeholderImage || !this.img || 
-			!this.loadingContainer || !this.loadingOverlay || !this.errorContainer) {
+		if (
+			!this.shadowRoot ||
+			!this.placeholderImage ||
+			!this.img ||
+			!this.loadingContainer ||
+			!this.loadingOverlay ||
+			!this.errorContainer
+		) {
 			return;
 		}
 
@@ -784,7 +810,7 @@ export class EosImage extends HTMLElement {
 		if (srcType === "blurhash" && this.srcDataUrl) {
 			// 强制重置错误状态，因为 BlurHash 不应该有加载错误
 			this.hasError = false;
-			
+
 			// 清除图片的事件监听器，避免 onerror 被触发
 			this.img.onerror = null;
 			this.img.onload = null;
@@ -826,7 +852,7 @@ export class EosImage extends HTMLElement {
 		} else {
 			// 显示主图片（URL 类型加载完成）
 			this.img.classList.remove("hidden");
-			
+
 			// 处理填充模式下的背景显示
 			if (placeholderFill && this.placeholderDataUrl) {
 				// 填充模式：确保placeholder继续作为背景显示
@@ -835,7 +861,7 @@ export class EosImage extends HTMLElement {
 				// 非填充模式：确保placeholder不显示，只显示主图片
 				this.placeholderImage.classList.add("hidden");
 			}
-			
+
 			// 隐藏加载相关的元素
 			this.loadingOverlay.classList.add("hidden");
 			this.loadingContainer.classList.add("hidden");

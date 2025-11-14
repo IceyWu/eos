@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import "./style.css";
+import ElementPlus from "element-plus";
 // import { registerComponents } from "@eosjs/components";
 import { registerComponents } from "../../../packages/components/src/index";
-import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";

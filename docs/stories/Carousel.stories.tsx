@@ -1,25 +1,79 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "@eosjs/components";
 
-const meta: Meta = {
-	title: "Components/Carousel",
+// Carousel 组件属性接口
+interface CarouselProps {
+	autoplay?: boolean;
+	interval?: number;
+	loop?: boolean;
+	'show-navigation'?: boolean;
+	'initial-index'?: number;
+	'indicator-position'?: 'top' | 'bottom' | 'left' | 'right';
+	'indicator-style'?: 'default' | 'dots' | 'tiktok';
+}
+
+// 扩展 JSX 类型
+declare global {
+	namespace JSX {
+		interface IntrinsicElements {
+			'eos-carousel': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & CarouselProps;
+		}
+	}
+}
+
+const meta: Meta<CarouselProps> = {
+	title: "组件/Carousel 轮播图",
 	parameters: {
 		layout: "centered",
 		docs: {
 			description: {
 				component: `
-# Carousel Component
+# Carousel 轮播图组件
 
-A powerful and flexible carousel component with multiple indicator styles, positions, and interactive features.
+一个功能强大且灵活的轮播图组件，支持多种指示器样式、位置和交互特性。
 
-## Features
-- 🎨 **Multiple Styles**: Default progress bars, dots, or TikTok-style indicators
-- 📍 **Flexible Positioning**: Place indicators on any side (top, bottom, left, right)
-- ⚡ **Auto-play Support**: Configurable intervals with play/pause control
-- 🖱️ **Interactive**: Touch swipe, keyboard navigation, and click navigation
-- 🎯 **Initial Index**: Start from any slide
-- ♾️ **Loop Mode**: Seamless infinite scrolling
+## 核心特性
+
+- **🎨 多样式指示器**: 支持进度条、圆点、抖音风格等指示器
+- **📍 灵活定位**: 指示器可放置在任意边（上、下、左、右）
+- **⚡ 自动播放**: 可配置间隔时间的自动播放功能
+- **🖱️ 丰富交互**: 支持触摸滑动、键盘导航、点击导航
+- **🎯 初始位置**: 可从任意幻灯片开始播放
+- **♾️ 循环模式**: 无缝无限滚动
+- **📱 触摸友好**: 完整的移动端触摸手势支持
+- **🔧 事件系统**: 完整的生命周期和交互事件
+
+## 属性说明
+
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| \`autoplay\` | boolean | false | 是否自动播放 |
+| \`interval\` | number | 3000 | 自动播放间隔时间（毫秒）|
+| \`loop\` | boolean | false | 是否启用循环模式 |
+| \`show-navigation\` | boolean | true | 是否显示导航按钮 |
+| \`initial-index\` | number | 0 | 初始显示的幻灯片索引 |
+| \`indicator-position\` | 'top' \\| 'bottom' \\| 'left' \\| 'right' | 'bottom' | 指示器位置 |
+| \`indicator-style\` | 'default' \\| 'dots' \\| 'tiktok' | 'default' | 指示器样式 |
+
+## CSS 自定义属性
+
+\`\`\`css
+eos-carousel {
+  --carousel-height: 400px;           /* 轮播图高度 */
+  --progress-bar-color: #e0e0e0;      /* 进度条背景色 */
+  --progress-bar-active-color: #007bff; /* 进度条激活色 */
+  --control-bg: rgba(0,0,0,0.5);     /* 控制按钮背景 */
+  --control-color: white;             /* 控制按钮颜色 */
+  --dot-size: 8px;                    /* 圆点大小 */
+  --tiktok-bar-width: 3px;           /* TikTok风格进度条宽度 */
+}
+\`\`\`
+
+## 事件
+
+- \`change\`: 幻灯片切换时触发，包含当前和上一个索引
+- \`slide-click\`: 幻灯片被点击时触发，包含索引信息
         `,
 			},
 		},
@@ -28,7 +82,7 @@ A powerful and flexible carousel component with multiple indicator styles, posit
 	argTypes: {
 		autoplay: {
 			control: "boolean",
-			description: "Enable autoplay",
+			description: "启用自动播放",
 			table: {
 				type: { summary: "boolean" },
 				defaultValue: { summary: "false" },
@@ -36,7 +90,7 @@ A powerful and flexible carousel component with multiple indicator styles, posit
 		},
 		interval: {
 			control: { type: "number", min: 1000, max: 10000, step: 500 },
-			description: "Autoplay interval in milliseconds",
+			description: "自动播放间隔时间（毫秒）",
 			table: {
 				type: { summary: "number" },
 				defaultValue: { summary: "3000" },
@@ -44,42 +98,42 @@ A powerful and flexible carousel component with multiple indicator styles, posit
 		},
 		loop: {
 			control: "boolean",
-			description: "Enable loop mode",
+			description: "启用循环模式",
 			table: {
 				type: { summary: "boolean" },
 				defaultValue: { summary: "false" },
 			},
 		},
-		showNavigation: {
+		'show-navigation': {
 			control: "boolean",
-			description: "Show navigation buttons (prev/next)",
+			description: "显示导航按钮（上一页/下一页）",
 			table: {
 				type: { summary: "boolean" },
 				defaultValue: { summary: "true" },
 			},
 		},
-		initialIndex: {
+		'initial-index': {
 			control: { type: "number", min: 0, max: 10, step: 1 },
-			description: "Initial slide index",
+			description: "初始显示的幻灯片索引",
 			table: {
 				type: { summary: "number" },
 				defaultValue: { summary: "0" },
 			},
 		},
-		indicatorPosition: {
+		'indicator-position': {
 			control: { type: "select", options: ["top", "bottom", "left", "right"] },
-			description: "Position of the indicator bars",
+			description: "指示器位置",
 			table: {
-				type: { summary: "top | bottom | left | right" },
-				defaultValue: { summary: "bottom" },
+				type: { summary: "'top' | 'bottom' | 'left' | 'right'" },
+				defaultValue: { summary: "'bottom'" },
 			},
 		},
-		indicatorStyle: {
+		'indicator-style': {
 			control: { type: "select", options: ["default", "dots", "tiktok"] },
-			description: "Style of the indicator bars",
+			description: "指示器样式",
 			table: {
-				type: { summary: "default | dots | tiktok" },
-				defaultValue: { summary: "default" },
+				type: { summary: "'default' | 'dots' | 'tiktok'" },
+				defaultValue: { summary: "'default'" },
 			},
 		},
 	},
@@ -179,142 +233,108 @@ const createSlide = (slideData: (typeof slides)[0], index: number) =>
 	);
 
 export const Default: Story = {
-	name: "🎮 Playground",
-	render: (args: any) => {
-		return React.createElement(
-			"div",
-			{
-				style: {
-					width: "800px",
-					maxWidth: "90vw",
-					margin: "0 auto",
-					borderRadius: "12px",
-					overflow: "hidden",
-					boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-					background: "#fff",
-				},
-			},
-			[
-				// Header
-				React.createElement(
-					"div",
-					{
-						key: "header",
-						style: {
-							padding: "20px",
-							background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-							color: "white",
-							textAlign: "center",
-						},
-					},
-					[
-						React.createElement(
-							"h3",
-							{
-								style: { margin: 0, fontSize: "20px", fontWeight: "600" },
-							},
-							"Carousel Component Demo",
-						),
-						React.createElement(
-							"p",
-							{
-								style: { margin: "5px 0 0", opacity: 0.9, fontSize: "14px" },
-							},
-							"Use the controls below to explore different configurations",
-						),
-					],
-				),
-				// Carousel container
-				React.createElement(
-					"div",
-					{
-						key: "carousel-container",
-						style: {
-							position: "relative",
-							background: "#f5f5f5",
-						},
-					},
-					React.createElement(
-						"eos-carousel",
-						{
-							autoplay: args.autoplay,
-							interval: args.interval,
-							loop: args.loop,
-							"show-navigation": args.showNavigation,
-							"initial-index": args.initialIndex,
-							"indicator-position": args.indicatorPosition,
-							"indicator-style": args.indicatorStyle,
-							style: {
-								"--carousel-height": "450px",
-								"--progress-bar-color": "rgba(255, 255, 255, 0.3)",
-								"--progress-bar-active-color": "rgba(255, 255, 255, 1)",
-							} as any,
-						},
-						slides.map((slide, index) => createSlide(slide, index)),
-					),
-				),
-				// Info footer
-				React.createElement(
-					"div",
-					{
-						key: "footer",
-						style: {
-							padding: "15px 20px",
-							background: "#f9f9f9",
-							borderTop: "1px solid #e0e0e0",
-							fontSize: "12px",
-							color: "#666",
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "center",
-						},
-					},
-					[
-						React.createElement(
-							"span",
-							{ key: "tip" },
-							"💡 Try different indicator styles and positions using the controls",
-						),
-						React.createElement(
-							"span",
-							{ key: "keyboard" },
-							"⌨️ Use arrow keys to navigate",
-						),
-					],
-				),
-			],
-		);
-	},
+	name: '基础用法',
 	args: {
 		autoplay: true,
 		interval: 3000,
 		loop: true,
-		showNavigation: true,
-		initialIndex: 0,
-		indicatorPosition: "bottom",
-		indicatorStyle: "default",
+		'show-navigation': true,
+		'initial-index': 0,
+		'indicator-position': 'bottom',
+		'indicator-style': 'default',
 	},
-	parameters: {
-		docs: {
-			source: {
-				code: `
-<eos-carousel
-  autoplay
-  loop
-  interval="3000"
-  show-navigation
-  initial-index="0"
-  indicator-position="bottom"
-  indicator-style="default"
->
-  <div>Slide 1</div>
-  <div>Slide 2</div>
-  <div>Slide 3</div>
-  <div>Slide 4</div>
-  <div>Slide 5</div>
-</eos-carousel>
-        `,
-			},
-		},
+	render: (args: any) => {
+		const [currentSlide, setCurrentSlide] = useState(0);
+		const [events, setEvents] = useState<string[]>([]);
+
+		useEffect(() => {
+			const carousel = document.querySelector('eos-carousel');
+			if (!carousel) return;
+
+			const handleChange = (e: CustomEvent) => {
+				setCurrentSlide(e.detail.currentIndex);
+				setEvents(prev => [...prev.slice(-4), `切换到幻灯片 ${e.detail.currentIndex + 1}`]);
+			};
+
+			const handleSlideClick = (e: CustomEvent) => {
+				setEvents(prev => [...prev.slice(-4), `点击了幻灯片 ${e.detail.index + 1}`]);
+			};
+
+			carousel.addEventListener('change', handleChange);
+			carousel.addEventListener('slide-click', handleSlideClick);
+
+			return () => {
+				carousel.removeEventListener('change', handleChange);
+				carousel.removeEventListener('slide-click', handleSlideClick);
+			};
+		}, []);
+
+		return (
+			<div style={{ padding: '20px' }}>
+				<h3>轮播图组件演示</h3>
+				<p>使用右侧控件调整各种参数体验不同配置</p>
+
+				<div style={{ width: '600px', maxWidth: '100%', margin: '20px 0' }}>
+					<eos-carousel
+						autoplay={args.autoplay}
+						interval={args.interval}
+						loop={args.loop}
+						show-navigation={args['show-navigation']}
+						initial-index={args['initial-index']}
+						indicator-position={args['indicator-position']}
+						indicator-style={args['indicator-style']}
+						style={{ height: '300px' }}
+					>
+						{slides.map((slide, index) =>
+							React.createElement('div', {
+								key: index,
+								style: {
+									background: slide.gradient,
+									height: '100%',
+									display: 'flex',
+									flexDirection: 'column',
+									alignItems: 'center',
+									justifyContent: 'center',
+									color: 'white',
+									fontSize: '24px',
+									fontWeight: 'bold',
+									textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+								}
+							}, [
+								React.createElement('div', { key: 'icon', style: { fontSize: '48px', marginBottom: '10px' } }, slide.icon),
+								React.createElement('h2', { key: 'title', style: { margin: 0, marginBottom: '5px' } }, slide.title),
+								React.createElement('p', { key: 'subtitle', style: { margin: 0, fontSize: '16px', opacity: 0.9 } }, slide.subtitle),
+							])
+						)}
+					</eos-carousel>
+				</div>
+
+				<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+					<div style={{ padding: '15px', background: '#f8f9fa', borderRadius: '8px' }}>
+						<h4>当前状态</h4>
+						<p><strong>当前幻灯片:</strong> {currentSlide + 1} / {slides.length}</p>
+						<p><strong>总计:</strong> {slides.length} 张幻灯片</p>
+					</div>
+					<div style={{ padding: '15px', background: '#f8f9fa', borderRadius: '8px' }}>
+						<h4>最近事件</h4>
+						<div style={{ fontSize: '14px', color: '#666' }}>
+							{events.length === 0 ? '暂无事件' : events.map((event, i) =>
+								React.createElement('div', { key: i }, event)
+							)}
+						</div>
+					</div>
+				</div>
+
+				<div style={{ marginTop: '20px', padding: '15px', background: '#e7f3ff', borderRadius: '8px' }}>
+					<h4>💡 交互提示</h4>
+					<ul style={{ margin: 0, paddingLeft: '20px' }}>
+						<li>使用左右箭头键进行导航</li>
+						<li>点击幻灯片查看点击事件</li>
+						<li>在移动设备上支持触摸滑动</li>
+						<li>尝试不同的指示器样式和位置</li>
+					</ul>
+				</div>
+			</div>
+		);
 	},
 };
