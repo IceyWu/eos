@@ -13,7 +13,7 @@
 ## 🔢 版本管理
 
 所有包的版本号会自动保持同步：
-- `@eos/utils`
+- `@eosjs/utils`
 - `@eosjs/components` 
 - `@eosjs/components-docs`
 
@@ -77,7 +77,7 @@ pnpm release
 
 1. **检查 npm 包**
    ```bash
-   npm view @eos/utils version
+   npm view @eosjs/utils version
    npm view @eosjs/components version
    ```
 
@@ -97,7 +97,7 @@ pnpm release
 ```bash
 # 撤销 npm 发布（24小时内）
 npm unpublish @eosjs/components@x.x.x
-npm unpublish @eos/utils@x.x.x
+npm unpublish @eosjs/utils@x.x.x
 
 # 或者发布修复版本
 pnpm version:patch
@@ -109,5 +109,5 @@ pnpm release
 查看发布信息：
 ```bash
 npm info @eosjs/components
-npm info @eos/utils
+npm info @eosjs/utils
 ```

@@ -1,4 +1,4 @@
-import { formatSize } from "@eos/utils";
+import { formatSize } from "@eosjs/utils";
 import { decode } from "blurhash";
 
 // 全局图片加载器池,限制并发加载数量

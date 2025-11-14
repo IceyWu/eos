@@ -1,21 +1,21 @@
-# @eos/utils
+# @eosjs/utils
 
 Utility functions for Eos Web Components library.
 
 ## 📦 Installation
 
 ```bash
-npm install @eos/utils
+npm install @eosjs/utils
 # or
-pnpm add @eos/utils
+pnpm add @eosjs/utils
 # or
-yarn add @eos/utils
+yarn add @eosjs/utils
 ```
 
 ## 🚀 Usage
 
 ```typescript
-import { /* utility functions */ } from '@eos/utils';
+import { /* utility functions */ } from '@eosjs/utils';
 
 // Example usage will be added as utilities are implemented
 ```
