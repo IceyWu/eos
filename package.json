@@ -21,14 +21,14 @@
 		"format:check": "ultracite check",
 		"format:fix": "ultracite fix",
 		"changelog": "changelogen --output CHANGELOG.md",
-		"version:sync": "pnpm version:update-all && pnpm changelog",
+		"changelog:release": "changelogen --release --output CHANGELOG.md",
 		"version:update-all": "node scripts/sync-versions.js",
+		"version:sync": "pnpm version:update-all && pnpm changelog:release",
 		"release": "pnpm version:sync && pnpm build:all && pnpm publish -r --no-git-checks --registry https://registry.npmjs.org --access public",
 		"release:dry": "pnpm version:sync && pnpm build:all && pnpm publish -r --dry-run --registry https://registry.npmjs.org --access public",
-		"version": "changelogen --bump",
-		"version:patch": "changelogen --bump --patch && pnpm version:update-all",
-		"version:minor": "changelogen --bump --minor && pnpm version:update-all",
-		"version:major": "changelogen --bump --major && pnpm version:update-all"
+		"version:patch": "changelogen --bump --patch && pnpm version:update-all && pnpm changelog:release",
+		"version:minor": "changelogen --bump --minor && pnpm version:update-all && pnpm changelog:release",
+		"version:major": "changelogen --bump --major && pnpm version:update-all && pnpm changelog:release"
 	},
 	"devDependencies": {
 		"changelogen": "^0.6.2",
