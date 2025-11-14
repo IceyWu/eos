@@ -37,6 +37,86 @@
         </div>
       </el-card>
 
+      <!-- 懒加载演示 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><View /></el-icon>
+              <span>懒加载</span>
+            </div>
+            <el-tag size="small" type="success">Lazy Loading</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>图片懒加载功能，只有当图片进入视口时才开始加载，优化页面性能。</p>
+          </div>
+          <el-row :gutter="24">
+            <el-col :span="8" v-for="(item, index) in lazyImages" :key="index">
+              <div class="image-item">
+                <div class="image-title">
+                  <el-text type="info">{{ item.title }}</el-text>
+                </div>
+                <div class="image-wrapper" :style="{ marginBottom: item.spacing }">
+                  <eos-image 
+                    :src="item.src"
+                    :alt="item.alt"
+                    :loading="item.loading"
+                    :placeholder="item.placeholder"
+                    :placeholder-type="item.placeholderType"
+                    width="200"
+                    height="200">
+                  </eos-image>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-card>
+
+      <!-- Placeholder Fill 演示 -->
+      <el-card class="demo-card" shadow="never">
+        <template #header>
+          <div class="card-header">
+            <div class="header-left">
+              <el-icon><FullScreen /></el-icon>
+              <span>Placeholder Fill</span>
+            </div>
+            <el-tag size="small" type="primary">Fill Mode</el-tag>
+          </div>
+        </template>
+        <div class="demo-section">
+          <div class="section-desc">
+            <p>placeholder-fill 模式对比：控制占位符是否作为背景填充，避免图片留白。</p>
+          </div>
+          <el-row :gutter="24">
+            <el-col :span="12" v-for="(item, index) in fillImages" :key="index">
+              <div class="image-item">
+                <div class="image-title">
+                  <el-text type="info">{{ item.title }}</el-text>
+                  <el-tag size="small" :type="item.placeholderFill ? 'success' : 'info'">
+                    {{ item.placeholderFill ? 'Fill 开启' : 'Fill 关闭' }}
+                  </el-tag>
+                </div>
+                <div class="image-wrapper">
+                  <eos-image 
+                    :src="item.src"
+                    :alt="item.alt"
+                    :placeholder="item.placeholder"
+                    :placeholder-type="item.placeholderType"
+                    :placeholder-fill="item.placeholderFill"
+                    :object-fit="item.objectFit"
+                    width="400"
+                    height="200">
+                  </eos-image>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-card>
+
       <!-- BlurHash 占位符 -->
       <el-card class="demo-card" shadow="never">
         <template #header>
@@ -64,6 +144,7 @@
                     :src-type="item.srcType"
                     :placeholder="item.placeholder"
                     :placeholder-type="item.placeholderType"
+                    :show-delay="item.showDelay"
                     :alt="item.alt"
                     width="200"
                     height="200">
@@ -112,103 +193,6 @@
         </div>
       </el-card>
 
-      <!-- 自定义插槽 -->
-      <el-card class="demo-card" shadow="never">
-        <template #header>
-          <div class="card-header">
-            <div class="header-left">
-              <el-icon><Setting /></el-icon>
-              <span>自定义插槽</span>
-            </div>
-            <el-tag size="small" type="warning">Slots</el-tag>
-          </div>
-        </template>
-        <div class="demo-section">
-          <div class="section-desc">
-            <p>支持自定义加载和错误状态的插槽内容。</p>
-          </div>
-          <el-row :gutter="24">
-            <el-col :span="8">
-              <div class="image-item">
-                <div class="image-title">
-                  <el-text type="info">自定义 Loading</el-text>
-                </div>
-                <div class="image-wrapper">
-                  <eos-image 
-                    :src="delayedImageSrc"
-                    alt="自定义loading"
-                    width="200"
-                    height="200">
-                    <template #loading>
-                      <div class="custom-loading-slot">
-                        <el-loading-spinner />
-                        <el-text color="white" size="small">精彩即将呈现...</el-text>
-                      </div>
-                    </template>
-                  </eos-image>
-                </div>
-                <div class="image-actions">
-                  <el-button 
-                    @click="loadDelayedImage" 
-                    size="small" 
-                    type="primary">
-                    加载图片
-                  </el-button>
-                </div>
-              </div>
-            </el-col>
-            
-            <el-col :span="8">
-              <div class="image-item">
-                <div class="image-title">
-                  <el-text type="info">自定义 Error</el-text>
-                </div>
-                <div class="image-wrapper">
-                  <eos-image 
-                    src="https://invalid-custom-error.com/image.jpg" 
-                    alt="自定义错误"
-                    width="200"
-                    height="200">
-                    <template #error>
-                      <div class="custom-error-slot">
-                        <el-icon size="32" color="white"><Crying /></el-icon>
-                        <el-text color="white" size="small">图片加载失败</el-text>
-                      </div>
-                    </template>
-                  </eos-image>
-                </div>
-              </div>
-            </el-col>
-
-            <el-col :span="8">
-              <div class="image-item">
-                <div class="image-title">
-                  <el-text type="info">骨架屏 Loading</el-text>
-                </div>
-                <div class="image-wrapper">
-                  <eos-image 
-                    :src="skeletonImageSrc"
-                    alt="骨架屏"
-                    width="200"
-                    height="200">
-                    <template #loading>
-                      <el-skeleton :rows="5" animated />
-                    </template>
-                  </eos-image>
-                </div>
-                <div class="image-actions">
-                  <el-button 
-                    @click="loadSkeletonImage" 
-                    size="small" 
-                    type="primary">
-                    加载图片
-                  </el-button>
-                </div>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
 
       <!-- Object-fit 模式 -->
       <el-card class="demo-card" shadow="never">
@@ -389,13 +373,13 @@ import { ref } from "vue";
 const basicImages = [
 	{
 		title: "默认加载",
-		src: "https://picsum.photos/200/200?random=1",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_300",
 		alt: "示例图片",
 		circle: false,
 	},
 	{
 		title: "圆形图片",
-		src: "https://picsum.photos/200/200?random=2",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482347927.jpg?x-oss-process=image/resize,l_300",
 		alt: "圆形图片",
 		circle: true,
 	},
@@ -407,31 +391,85 @@ const basicImages = [
 	},
 ];
 
-// 占位符图片数据
-const placeholderImages = [
+// 懒加载图片数据
+const lazyImages = [
 	{
-		title: "URL 占位符",
-		src: "https://picsum.photos/400/300?random=ph1",
-		srcType: "url",
-		placeholder: "https://via.placeholder.com/200x200/cccccc/666666?text=Loading",
-		placeholderType: "url",
-		alt: "URL 占位符",
+		title: "立即加载",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_400",
+		alt: "立即加载",
+		loading: "",
+		placeholder: "LTI6A^?wayRPyGD$j[t8oMj?WBay",
+		placeholderType: "blurhash",
+		spacing: "0",
 	},
 	{
+		title: "懒加载 - 向下滚动查看",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482347927.jpg?x-oss-process=image/resize,l_400",
+		alt: "懒加载图片",
+		loading: "lazy",
+		placeholder: "LDKeAr8^4oxu0-8_V?xu~W%g%MtR",
+		placeholderType: "blurhash",
+		spacing: "150vh",
+	},
+	{
+		title: "更多懒加载",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_400",
+		alt: "更多懒加载",
+		loading: "lazy",
+		placeholder: "LTI6A^?wayRPyGD$j[t8oMj?WBay",
+		placeholderType: "blurhash",
+		spacing: "100vh",
+	},
+];
+
+// Placeholder Fill 对比数据
+const fillImages = [
+	{
+		title: "关闭 Placeholder Fill",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482347927.jpg?x-oss-process=image/resize,l_400",
+		alt: "关闭填充",
+		placeholder: "LDKeAr8^4oxu0-8_V?xu~W%g%MtR",
+		placeholderType: "blurhash",
+		placeholderFill: false,
+		objectFit: "contain",
+	},
+	{
+		title: "开启 Placeholder Fill",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482347927.jpg?x-oss-process=image/resize,l_400",
+		alt: "开启填充",
+		placeholder: "LDKeAr8^4oxu0-8_V?xu~W%g%MtR",
+		placeholderType: "blurhash",
+		placeholderFill: true,
+		objectFit: "contain",
+	},
+];
+
+// 占位符图片数据  
+const placeholderImages = [
+	{
 		title: "BlurHash 占位符",
-		src: "https://picsum.photos/400/300?random=ph2",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_400",
 		srcType: "url",
-		placeholder: "LEHV6nWB2yk8pyo0adR*.7kCMdnj",
+		placeholder: "LTI6A^?wayRPyGD$j[t8oMj?WBay",
 		placeholderType: "blurhash",
 		alt: "BlurHash 占位符",
 	},
 	{
-		title: "慢加载 + BlurHash",
-		src: "https://picsum.photos/800/600?random=ph3",
+		title: "延迟加载效果",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482347927.jpg?x-oss-process=image/resize,l_400",
 		srcType: "url",
-		placeholder: "L6PZfSjE.AyE_3t7t7R**0o#DgR4",
+		placeholder: "LDKeAr8^4oxu0-8_V?xu~W%g%MtR",
 		placeholderType: "blurhash",
-		alt: "慢速加载",
+		alt: "延迟加载",
+		showDelay: 2000,
+	},
+	{
+		title: "快速加载",
+		src: "https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_400",
+		srcType: "url", 
+		placeholder: "LTI6A^?wayRPyGD$j[t8oMj?WBay",
+		placeholderType: "blurhash",
+		alt: "快速加载",
 	},
 ];
 
@@ -483,11 +521,9 @@ const objectFitImages = [
 ];
 
 // 响应式数据
-const imageSrc = ref("https://picsum.photos/200/200?random=10");
+const imageSrc = ref("https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_300");
 const imageMessage = ref("");
 const imageMessageType = ref<"success" | "error" | "warning" | "info">("info");
-const delayedImageSrc = ref("");
-const skeletonImageSrc = ref("");
 let imageCounter = 10;
 
 // 事件处理函数
@@ -509,25 +545,11 @@ const handleImageError = (event: CustomEvent) => {
 
 const changeImage = () => {
 	imageCounter++;
-	imageSrc.value = `https://picsum.photos/200/200?random=${imageCounter}`;
+	imageSrc.value = `https://lpalette.oss-accelerate.aliyuncs.com/nestTest/1/1761482348818.jpg?x-oss-process=image/resize,l_300&random=${imageCounter}`;
 };
 
 const loadInvalidImage = () => {
 	imageSrc.value = "https://invalid-test-url.com/image.jpg";
-};
-
-const loadDelayedImage = () => {
-	delayedImageSrc.value = "";
-	setTimeout(() => {
-		delayedImageSrc.value = `https://picsum.photos/200/200?random=delayed${Date.now()}`;
-	}, 2000);
-};
-
-const loadSkeletonImage = () => {
-	skeletonImageSrc.value = "";
-	setTimeout(() => {
-		skeletonImageSrc.value = `https://picsum.photos/200/200?random=skeleton${Date.now()}`;
-	}, 3000);
 };
 </script>
 
@@ -655,32 +677,6 @@ const loadSkeletonImage = () => {
   width: 100%;
 }
 
-/* 自定义插槽样式 */
-.custom-loading-slot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 8px;
-  gap: 12px;
-}
-
-.custom-error-slot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  background: #ff6b6b;
-  color: white;
-  border-radius: 8px;
-  padding: 20px;
-  gap: 8px;
-}
-
 /* Element Plus 组件自定义样式 */
 :deep(.el-card__header) {
   background: var(--bg-body);
@@ -690,20 +686,6 @@ const loadSkeletonImage = () => {
 
 :deep(.el-card__body) {
   padding: 20px;
-}
-
-:deep(.el-loading-spinner) {
-  margin-bottom: 8px;
-}
-
-:deep(.el-skeleton) {
-  width: 200px;
-  height: 200px;
-  padding: 16px;
-}
-
-:deep(.el-skeleton__item) {
-  border-radius: 4px;
 }
 
 /* 响应式设计 */
