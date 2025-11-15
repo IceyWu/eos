@@ -3,13 +3,7 @@
 	"changelog": "@changesets/cli/changelog",
 	"commit": false,
 	"fixed": [],
-	"linked": [
-		[
-			"@eosjs/utils",
-			"@eosjs/components",
-			"@eosjs/components-docs"
-		]
-	],
+	"linked": [["@eosjs/utils", "@eosjs/components", "@eosjs/components-docs"]],
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
