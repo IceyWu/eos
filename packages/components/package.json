@@ -1,6 +1,6 @@
 {
 	"name": "@eosjs/components",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"type": "module",
 	"main": "./dist/bundle.js",
 	"module": "./dist/bundle.js",

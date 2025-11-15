@@ -1,6 +1,6 @@
 {
 	"name": "@eosjs/utils",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"description": "Utility functions for Eos Web Components",
 	"type": "module",
 	"main": "dist/index.js",
