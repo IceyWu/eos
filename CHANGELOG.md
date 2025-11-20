@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.1.6
+
+[compare changes](https://github.com/IceyWu/eos/compare/v0.1.4...v0.1.6)
+
+### 💅 Refactors
+
+- 重构 EosImage 事件系统，支持 React 属性绑定 ([ffa9dec](https://github.com/IceyWu/eos/commit/ffa9dec))
+
+### ❤️ Contributors
+
+- IceyWu ([@Life-Palette](https://github.com/Life-Palette))
+
 ## v0.1.4
 
 
