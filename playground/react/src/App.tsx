@@ -56,8 +56,9 @@ declare global {
 				crossorigin?: string;
 				blurhash?: string;
 				"blurhash-only"?: boolean;
-				onLoad?: (event: CustomEvent) => void;
-				onError?: (event: CustomEvent) => void;
+				onImageLoad?: (event: CustomEvent) => void;
+				onImageError?: (event: CustomEvent) => void;
+				onImageProgress?: (event: CustomEvent) => void;
 			};
 		}
 	}

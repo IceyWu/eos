@@ -8,6 +8,7 @@ class ImageLoader {
 		src: string;
 		resolve: (img: HTMLImageElement) => void;
 		reject: (error: Error) => void;
+		onProgress?: (loaded: number, total: number) => void;
 	}> = [];
 	private activeLoads = 0;
 	private maxConcurrent = 6; // 浏览器通常限制同域名并发连接数为6
@@ -25,15 +26,22 @@ class ImageLoader {
 		return ImageLoader.instance;
 	}
 
-	async load(src: string): Promise<HTMLImageElement> {
+	async load(
+		src: string,
+		onProgress?: (loaded: number, total: number) => void,
+	): Promise<HTMLImageElement> {
 		// 检查缓存
 		const cached = this.imageCache.get(src);
 		if (cached) {
+			// 缓存命中，立即触发 100% 进度
+			if (onProgress) {
+				onProgress(1, 1);
+			}
 			return Promise.resolve(cached);
 		}
 
 		return new Promise((resolve, reject) => {
-			this.loadingQueue.push({ src, resolve, reject });
+			this.loadingQueue.push({ src, resolve, reject, onProgress });
 			this.processQueue();
 		});
 	}
@@ -50,9 +58,64 @@ class ImageLoader {
 			if (!task) continue;
 
 			this.activeLoads++;
-			const img = new Image();
 
+			// 使用 fetch 支持进度追踪
+			if (task.onProgress) {
+				this.loadWithProgress(task);
+			} else {
+				// 无进度回调时使用传统方式
+				this.loadWithImage(task);
+			}
+		}
+	}
+
+	// 使用 fetch API 加载图片，支持进度追踪
+	private async loadWithProgress(task: {
+		src: string;
+		resolve: (img: HTMLImageElement) => void;
+		reject: (error: Error) => void;
+		onProgress?: (loaded: number, total: number) => void;
+	}) {
+		try {
+			const response = await fetch(task.src);
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const contentLength = response.headers.get("content-length");
+			const total = contentLength ? parseInt(contentLength, 10) : 0;
+			let loaded = 0;
+
+			const reader = response.body?.getReader();
+			if (!reader) {
+				throw new Error("ReadableStream not supported");
+			}
+
+			const chunks: Uint8Array[] = [];
+
+			while (true) {
+				const { done, value } = await reader.read();
+
+				if (done) break;
+
+				chunks.push(value);
+				loaded += value.length;
+
+				// 触发进度回调
+				if (task.onProgress) {
+					task.onProgress(loaded, total || loaded);
+				}
+			}
+
+			// 合并所有数据块
+			const blob = new Blob(chunks as BlobPart[]);
+			const objectURL = URL.createObjectURL(blob);
+
+			// 创建图片对象
+			const img = new Image();
 			img.onload = () => {
+				URL.revokeObjectURL(objectURL);
 				this.activeLoads--;
 				this.addToCache(task.src, img);
 				task.resolve(img);
@@ -60,13 +123,42 @@ class ImageLoader {
 			};
 
 			img.onerror = () => {
+				URL.revokeObjectURL(objectURL);
 				this.activeLoads--;
 				task.reject(new Error(`Failed to load image: ${task.src}`));
 				this.processQueue();
 			};
 
-			img.src = task.src;
+			img.src = objectURL;
+		} catch (error) {
+			this.activeLoads--;
+			task.reject(error instanceof Error ? error : new Error(String(error)));
+			this.processQueue();
 		}
+	}
+
+	// 传统方式加载图片（无进度追踪）
+	private loadWithImage(task: {
+		src: string;
+		resolve: (img: HTMLImageElement) => void;
+		reject: (error: Error) => void;
+	}) {
+		const img = new Image();
+
+		img.onload = () => {
+			this.activeLoads--;
+			this.addToCache(task.src, img);
+			task.resolve(img);
+			this.processQueue();
+		};
+
+		img.onerror = () => {
+			this.activeLoads--;
+			task.reject(new Error(`Failed to load image: ${task.src}`));
+			this.processQueue();
+		};
+
+		img.src = task.src;
 	}
 
 	// LRU缓存管理
@@ -281,6 +373,11 @@ export class EosImage extends HTMLElement {
 	private loadingOverlay: HTMLElement | null = null;
 	private errorContainer: HTMLElement | null = null;
 
+	// 事件处理器属性（支持 React 的 onImageLoad/onImageError）
+	public onimageload: ((event: CustomEvent) => void) | null = null;
+	public onimageerror: ((event: CustomEvent) => void) | null = null;
+	public onimageprogress: ((event: CustomEvent) => void) | null = null;
+
 	// 监听的属性
 	static get observedAttributes() {
 		return [
@@ -428,26 +525,26 @@ export class EosImage extends HTMLElement {
 				.hidden { display: none !important; }
 			</style>
 			<div class="container">
-				<!-- 占位符图片 -->
-				<img class="image placeholder-image hidden" alt="">
-				
 				<!-- 主图片 -->
-				<img class="image main-image hidden" alt="">
+				<img class="image main-image hidden" />
+				
+				<!-- 占位符图片 -->
+				<img class="image placeholder-image hidden" />
 				
 				<!-- 加载状态 -->
-				<div class="loading-container hidden">
-					<slot name="loading">
-						<div class="default-loading">
-							<div class="spinner"></div>
-							<span>加载中...</span>
-						</div>
-					</slot>
-				</div>
-				
-				<!-- 加载遮罩（用于有占位符时） -->
-				<div class="loading-overlay hidden">
-					<slot name="loading"></slot>
-				</div>
+			<div class="loading-container hidden">
+				<slot name="loading">
+					<div class="default-loading">
+						<div class="spinner"></div>
+						<span>加载中...</span>
+					</div>
+				</slot>
+			</div>
+			
+			<!-- 加载遮罩（用于有占位符时） -->
+			<div class="loading-overlay hidden">
+				<slot name="loading"></slot>
+			</div>
 				
 				<!-- 错误状态 -->
 				<div class="error-container hidden">
@@ -627,8 +724,21 @@ export class EosImage extends HTMLElement {
 		}
 
 		try {
-			// 使用图片加载器池
-			await this.imageLoader.load(src);
+			// 使用图片加载器池，带进度回调
+			await this.imageLoader.load(src, (loaded, total) => {
+				// 分发进度事件
+				const progressEvent = new CustomEvent("imageProgress", {
+					detail: { loaded, total, src },
+					bubbles: true,
+					composed: true,
+				});
+				this.dispatchEvent(progressEvent);
+
+				// 调用 onimageprogress 处理器（支持 React）
+				if (this.onimageprogress) {
+					this.onimageprogress(progressEvent);
+				}
+			});
 
 			// 获取延时参数
 			const showDelay = parseInt(
@@ -645,13 +755,18 @@ export class EosImage extends HTMLElement {
 				}
 				this.updateDisplay();
 				this.updateImageAttributes();
-				this.dispatchEvent(
-					new CustomEvent("load", {
-						detail: { src },
-						bubbles: true,
-						composed: true,
-					}),
-				);
+				// 分发加载成功事件
+				const loadEvent = new CustomEvent("imageLoad", {
+					detail: { src },
+					bubbles: true,
+					composed: true,
+				});
+				this.dispatchEvent(loadEvent);
+
+				// 调用 onimageload 处理器（支持 React）
+				if (this.onimageload) {
+					this.onimageload(loadEvent);
+				}
 			};
 
 			if (showDelay > 0) {
@@ -663,13 +778,18 @@ export class EosImage extends HTMLElement {
 			this.isLoading = false;
 			this.hasError = true;
 			this.updateDisplay();
-			this.dispatchEvent(
-				new CustomEvent("error", {
-					detail: { src },
-					bubbles: true,
-					composed: true,
-				}),
-			);
+			// 分发加载失败事件
+			const errorEvent = new CustomEvent("imageError", {
+				detail: { src },
+				bubbles: true,
+				composed: true,
+			});
+			this.dispatchEvent(errorEvent);
+
+			// 调用 onimageerror 处理器（支持 React）
+			if (this.onimageerror) {
+				this.onimageerror(errorEvent);
+			}
 		}
 	}
 

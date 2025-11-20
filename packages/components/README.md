@@ -36,23 +36,23 @@ pnpm add @eosjs/components
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <script type="module">
-    import { registerComponents } from '@eosjs/components';
-    registerComponents();
-  </script>
-</head>
-<body>
-  <eos-button>点击我</eos-button>
-</body>
+  <head>
+    <script type="module">
+      import { registerComponents } from "@eosjs/components";
+      registerComponents();
+    </script>
+  </head>
+  <body>
+    <eos-button>点击我</eos-button>
+  </body>
 </html>
 ```
 
 ### React
 
 ```jsx
-import { useEffect } from 'react';
-import { registerComponents } from '@eosjs/components';
+import { useEffect } from "react";
+import { registerComponents } from "@eosjs/components";
 
 // 在应用入口注册一次
 registerComponents();
@@ -66,7 +66,7 @@ function App() {
 
 ```vue
 <script setup>
-import { registerComponents } from '@eosjs/components';
+import { registerComponents } from "@eosjs/components";
 
 // 在应用入口注册一次
 registerComponents();
@@ -81,6 +81,7 @@ registerComponents();
 
 - **Button** (`eos-button`) - 按钮组件
 - **Carousel** (`eos-carousel`) - 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
+- **Image** (`eos-image`) - 功能强大的图片组件，支持懒加载、BlurHash 占位符、多种加载策略等
 - _更多组件开发中..._
 
 ## 📖 文档

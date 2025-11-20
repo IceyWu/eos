@@ -10,7 +10,9 @@ export const ImageDemo: React.FC = () => {
 		"loading" | "loaded" | "error"
 	>("loading");
 	const [outputMessage, setOutputMessage] = useState("");
+	const [progress, setProgress] = useState({ loaded: 0, total: 0, percent: 0 });
 	const timeoutRef = useRef<number | null>(null);
+	const imageRef = useRef<HTMLElement | null>(null);
 
 	// 清理定时器
 	useEffect(() => {
@@ -28,7 +30,7 @@ export const ImageDemo: React.FC = () => {
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 		}
-		timeoutRef.current = setTimeout(() => setOutputMessage(""), 2000);
+		timeoutRef.current = window.setTimeout(() => setOutputMessage(""), 2000);
 	};
 
 	const handleImageError = () => {
@@ -38,13 +40,36 @@ export const ImageDemo: React.FC = () => {
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 		}
-		timeoutRef.current = setTimeout(() => setOutputMessage(""), 2000);
+		timeoutRef.current = window.setTimeout(() => setOutputMessage(""), 2000);
 	};
+
+	const handleImageProgress = (e: CustomEvent) => {
+		const { loaded, total } = e.detail;
+		const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+		setProgress({ loaded, total, percent });
+	};
+
+	// 设置图片事件处理器（通过属性，不是 addEventListener）
+	useEffect(() => {
+		const element = imageRef.current as any;
+		if (!element) return;
+
+		element.onimageload = handleImageLoad;
+		element.onimageerror = handleImageError;
+		element.onimageprogress = handleImageProgress;
+
+		return () => {
+			element.onimageload = null;
+			element.onimageerror = null;
+			element.onimageprogress = null;
+		};
+	}, [imageCounter]); // 依赖 imageCounter，确保每次图片变化都重新绑定
 
 	const generateNewImage = () => {
 		setImageCounter((prev) => prev + 1);
 		setLoadingState("loading");
 		setOutputMessage("");
+		setProgress({ loaded: 0, total: 0, percent: 0 });
 	};
 
 	return (
@@ -193,34 +218,133 @@ export const ImageDemo: React.FC = () => {
 						</Title>
 						<Tag color="green">Events</Tag>
 					</div>
-					<Text type="secondary">图片组件支持加载和错误事件监听</Text>
-					<div style={{ marginTop: "16px", textAlign: "center" }}>
-						<Space
-							direction="vertical"
-							size="middle"
-							style={{ alignItems: "center" }}
-						>
-							<eos-image
-								src={`https://picsum.photos/300/200?random=${imageCounter}`}
-								alt="事件测试图片"
-								width="300px"
-								height="200px"
-								onLoad={handleImageLoad}
-								onError={handleImageError}
+					<Text type="secondary">
+						图片组件支持加载进度追踪和事件监听，点击按钮查看加载进度
+					</Text>
+					<div style={{ marginTop: "16px" }}>
+						<Space direction="vertical" size="middle" style={{ width: "100%" }}>
+							{/* 图片展示区 */}
+							<div style={{ textAlign: "center" }}>
+								<eos-image
+									ref={imageRef}
+									src={`https://picsum.photos/300/200?random=${imageCounter}`}
+									alt="事件测试图片"
+									width="300px"
+									height="200px"
+									style={{
+										border: "1px solid #d9d9d9",
+										borderRadius: "8px",
+									}}
+								/>
+							</div>
+
+							{/* 进度信息卡片 - 始终显示 */}
+							<div
 								style={{
+									background: "#f5f5f5",
 									border: "1px solid #d9d9d9",
 									borderRadius: "8px",
+									padding: "16px",
+									minHeight: "100px",
 								}}
-							/>
-							<Button type="primary" onClick={generateNewImage}>
-								生成新图片
-							</Button>
+							>
+								<div
+									style={{
+										marginBottom: "12px",
+										fontWeight: "bold",
+										color: "#1890ff",
+									}}
+								>
+									📊 加载进度信息
+								</div>
+
+								{/* 加载状态显示 */}
+								<div style={{ marginBottom: "8px" }}>
+									<Text strong>状态：</Text>
+									<Tag
+										color={
+											loadingState === "loading"
+												? "processing"
+												: loadingState === "loaded"
+													? "success"
+													: "error"
+										}
+										style={{ marginLeft: "8px" }}
+									>
+										{loadingState === "loading"
+											? "加载中..."
+											: loadingState === "loaded"
+												? "加载成功"
+												: "加载失败"}
+									</Tag>
+								</div>
+
+								{/* 进度详情 */}
+								{progress.total > 0 && (
+									<div style={{ marginTop: "12px" }}>
+										<div
+											style={{
+												display: "flex",
+												justifyContent: "space-between",
+												marginBottom: "8px",
+												fontSize: "14px",
+											}}
+										>
+											<Text>进度：{progress.percent}%</Text>
+											<Text type="secondary">
+												{(progress.loaded / 1024).toFixed(1)}KB /{" "}
+												{(progress.total / 1024).toFixed(1)}KB
+											</Text>
+										</div>
+										<div
+											style={{
+												height: "6px",
+												background: "#e0e0e0",
+												borderRadius: "3px",
+												overflow: "hidden",
+											}}
+										>
+											<div
+												style={{
+													height: "100%",
+													background:
+														loadingState === "loaded" ? "#52c41a" : "#1890ff",
+													borderRadius: "3px",
+													width: `${progress.percent}%`,
+													transition: "all 0.3s ease",
+												}}
+											/>
+										</div>
+									</div>
+								)}
+
+								{/* 提示信息 */}
+								{!progress.total && loadingState === "loading" && (
+									<Text type="secondary" style={{ fontSize: "12px" }}>
+										等待加载开始...
+									</Text>
+								)}
+							</div>
+
+							{/* 操作按钮 */}
+							<div style={{ textAlign: "center" }}>
+								<Button
+									type="primary"
+									size="large"
+									onClick={generateNewImage}
+									loading={loadingState === "loading"}
+								>
+									{loadingState === "loading" ? "加载中..." : "生成新图片"}
+								</Button>
+							</div>
+
+							{/* 成功/失败消息 */}
 							{outputMessage && (
 								<Alert
 									message={outputMessage}
 									type={loadingState === "error" ? "error" : "success"}
 									showIcon
-									style={{ maxWidth: "300px" }}
+									closable
 								/>
 							)}
 						</Space>

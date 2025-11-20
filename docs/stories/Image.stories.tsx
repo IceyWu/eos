@@ -67,9 +67,52 @@ const meta: Meta<ImageProps> = {
 
 ## 事件
 
-- \`load\`: 图片加载成功时触发
-- \`error\`: 图片加载失败时触发  
+- \`imageLoad\`: 图片加载成功时触发，事件详情包含 \`{ src }\`
+- \`imageError\`: 图片加载失败时触发，事件详情包含 \`{ src }\`
+- \`imageProgress\`: 图片加载进度更新时触发，事件详情包含 \`{ loaded, total, src }\`
 - \`blurhash-error\`: BlurHash 解码失败时触发
+
+### React 中使用事件
+
+在 React 中，需要使用 \`ref\` 和 \`useEffect\` 来绑定事件处理器：
+
+\`\`\`tsx
+const imageRef = useRef<HTMLElement | null>(null);
+const [progress, setProgress] = useState({ loaded: 0, total: 0, percent: 0 });
+
+useEffect(() => {
+  const element = imageRef.current as any;
+  if (!element) return;
+
+  element.onimageload = (e: CustomEvent) => {
+    console.log('图片加载成功', e.detail);
+  };
+  
+  element.onimageerror = (e: CustomEvent) => {
+    console.error('图片加载失败', e.detail);
+  };
+
+  element.onimageprogress = (e: CustomEvent) => {
+    const { loaded, total } = e.detail;
+    const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+    setProgress({ loaded, total, percent });
+    console.log(\`加载进度: \${percent}%\`);
+  };
+
+  return () => {
+    element.onimageload = null;
+    element.onimageerror = null;
+    element.onimageprogress = null;
+  };
+}, []);
+
+// JSX
+<eos-image ref={imageRef} src="..." />
+
+// 显示进度
+<div>加载进度: {progress.percent}%</div>
+<div>{(progress.loaded / 1024).toFixed(1)}KB / {(progress.total / 1024).toFixed(1)}KB</div>
+\`\`\`
         `
             }
         }

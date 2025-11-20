@@ -21,6 +21,7 @@ export const CarouselDemo: React.FC = () => {
 	const carouselRef = useRef<any>(null);
 
 	const handleSlideChange = (e: any) => {
+		console.log("🎠 Carousel onChange 事件触发！", e.detail);
 		setCurrentSlide(e.detail.currentIndex);
 	};
 
