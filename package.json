@@ -1,6 +1,6 @@
 {
 	"name": "eos",
-	"version": "0.1.6",
+	"version": "0.1.5",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -16,10 +16,9 @@
 		"build:utils": "pnpm --filter @eosjs/utils build",
 		"build:components": "pnpm --filter @eosjs/components build",
 		"build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
-		"build:all": "pnpm build:utils && pnpm build:components && pnpm build:docs",
+		"build:all": "pnpm build:docs",
 		"format": "ultracite fix",
 		"format:check": "ultracite check",
-		"format:fix": "ultracite fix",
 		"changelog": "changelogen --output CHANGELOG.md",
 		"changelog:release": "changelogen --release --output CHANGELOG.md",
 		"version:update-all": "node scripts/sync-versions.js",
@@ -31,9 +30,10 @@
 		"version:major": "changelogen --bump --major && pnpm version:update-all && pnpm changelog:release"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^2.4.4",
 		"changelogen": "^0.6.2",
-		"typescript": "^5.3.3",
-		"ultracite": "^6.2.1"
+		"typescript": "^5.9.3",
+		"ultracite": "^7.2.3"
 	},
 	"pnpm": {
 		"overrides": {

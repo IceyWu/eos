@@ -228,7 +228,7 @@ export class CarouselDemo {
 
 		if (intervalInput) {
 			intervalInput.addEventListener("change", (e) => {
-				this.interval = parseInt(e.target.value);
+				this.interval = parseInt(e.target.value, 10);
 				this.updateCarouselSettings();
 			});
 		}

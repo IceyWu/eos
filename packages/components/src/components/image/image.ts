@@ -214,10 +214,10 @@ class ImageLoader {
 
 		if (imageCount > 100 || queueSize > 20) {
 			// 大量图片场景：降低并发数，避免内存压力
-			this.maxConcurrent = Math.max(2, Math.min(4, this.maxConcurrent));
+			this.maxConcurrent = 2;
 		} else if (imageCount > 50 || queueSize > 10) {
 			// 中等图片场景：适中并发数
-			this.maxConcurrent = Math.max(3, Math.min(5, this.maxConcurrent));
+			this.maxConcurrent = 4;
 		} else {
 			// 少量图片场景：恢复默认并发数
 			this.maxConcurrent = 6;
@@ -256,10 +256,7 @@ class BlurhashCache {
 
 	// Canvas 池管理
 	static getCanvas(): HTMLCanvasElement {
-		if (BlurhashCache.canvasPool.length > 0) {
-			return BlurhashCache.canvasPool.pop()!;
-		}
-		return document.createElement("canvas");
+		return BlurhashCache.canvasPool.pop() ?? document.createElement("canvas");
 	}
 
 	static returnCanvas(canvas: HTMLCanvasElement) {
@@ -802,9 +799,11 @@ export class EosImage extends HTMLElement {
 		// 获取解码尺寸
 		const width = parseInt(
 			this.getAttribute("width") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE),
+			10,
 		);
 		const height = parseInt(
 			this.getAttribute("height") || String(EosImage.CONFIG.MAX_BLURHASH_SIZE),
+			10,
 		);
 		const decodeWidth = Math.min(width, EosImage.CONFIG.MAX_BLURHASH_SIZE);
 		const decodeHeight = Math.min(height, EosImage.CONFIG.MAX_BLURHASH_SIZE);

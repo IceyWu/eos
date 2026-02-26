@@ -1,6 +1,6 @@
 import { Alert, Button, Space, Tag, Typography } from "antd";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const { Title, Text } = Typography;
 
@@ -23,7 +23,7 @@ export const ImageDemo: React.FC = () => {
 		};
 	}, []);
 
-	const handleImageLoad = () => {
+	const handleImageLoad = useCallback(() => {
 		setLoadingState("loaded");
 		setOutputMessage("✓ 图片加载成功");
 
@@ -31,9 +31,9 @@ export const ImageDemo: React.FC = () => {
 			clearTimeout(timeoutRef.current);
 		}
 		timeoutRef.current = window.setTimeout(() => setOutputMessage(""), 2000);
-	};
+	}, []);
 
-	const handleImageError = () => {
+	const handleImageError = useCallback(() => {
 		setLoadingState("error");
 		setOutputMessage("✗ 图片加载失败");
 
@@ -41,13 +41,13 @@ export const ImageDemo: React.FC = () => {
 			clearTimeout(timeoutRef.current);
 		}
 		timeoutRef.current = window.setTimeout(() => setOutputMessage(""), 2000);
-	};
+	}, []);
 
-	const handleImageProgress = (e: CustomEvent) => {
+	const handleImageProgress = useCallback((e: CustomEvent) => {
 		const { loaded, total } = e.detail;
 		const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
 		setProgress({ loaded, total, percent });
-	};
+	}, []);
 
 	// 设置图片事件处理器（通过属性，不是 addEventListener）
 	useEffect(() => {
@@ -63,7 +63,7 @@ export const ImageDemo: React.FC = () => {
 			element.onimageerror = null;
 			element.onimageprogress = null;
 		};
-	}, [imageCounter]); // 依赖 imageCounter，确保每次图片变化都重新绑定
+	}, [handleImageError, handleImageLoad, handleImageProgress]); // 依赖 imageCounter，确保每次图片变化都重新绑定
 
 	const generateNewImage = () => {
 		setImageCounter((prev) => prev + 1);

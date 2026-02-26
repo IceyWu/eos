@@ -15,7 +15,7 @@ export const COMPONENT_CONFIG = {
 	 * @returns 完整的标签名
 	 */
 	getTagName(componentName: string): string {
-		return `${this.prefix}-${componentName}`;
+		return `${COMPONENT_CONFIG.prefix}-${componentName}`;
 	},
 };
 

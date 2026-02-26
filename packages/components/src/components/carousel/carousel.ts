@@ -19,6 +19,9 @@ export class EosCarousel extends HTMLElement {
 	private progressDuration: number = 0;
 	private progressCallback: (() => void) | null = null;
 
+	// 记录已绑定 click 事件的 slide，避免重复绑定
+	private boundClickSlides = new WeakSet<Element>();
+
 	// 定义可观察的属性
 	static get observedAttributes() {
 		return [
@@ -174,11 +177,17 @@ export class EosCarousel extends HTMLElement {
 		const slot = this.shadowRoot?.querySelector("slot");
 		if (slot) {
 			const slides = slot.assignedElements();
-			slides.forEach((slide, index) => {
+			slides.forEach((slide, _index) => {
+				// 跳过已绑定过的 slide，避免重复绑定
+				if (this.boundClickSlides.has(slide)) return;
+				this.boundClickSlides.add(slide);
 				slide.addEventListener("click", () => {
+					const currentSlides = slot.assignedElements();
+					const currentIndex = currentSlides.indexOf(slide);
+					if (currentIndex === -1) return;
 					this.dispatchEvent(
 						new CustomEvent("slide-click", {
-							detail: { index },
+							detail: { index: currentIndex },
 							bubbles: true,
 							composed: true,
 						}),

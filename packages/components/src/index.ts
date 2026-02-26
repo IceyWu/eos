@@ -1,12 +1,9 @@
-export { EosButton } from "./components/button/button";
-export { EosCarousel } from "./components/carousel/carousel";
-export { EosImage } from "./components/image/image";
-export { COMPONENT_CONFIG } from "./config";
-
 import { EosButton } from "./components/button/button";
 import { EosCarousel } from "./components/carousel/carousel";
 import { EosImage } from "./components/image/image";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
+
+export { EosButton, EosCarousel, EosImage, COMPONENT_CONFIG };
 
 /**
  * 组件注册表
