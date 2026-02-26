@@ -1,43 +1,43 @@
 {
-	"name": "eos",
-	"version": "0.1.5",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "pnpm --filter @eosjs/components dev",
-		"dev:utils": "pnpm --filter @eosjs/utils dev",
-		"dev:all": "pnpm -r --parallel --filter \"@eosjs/components\" --filter \"@eosjs/utils\" --filter \"playground-*\" dev",
-		"dev:docs": "pnpm --filter @eosjs/components-docs dev",
-		"dev:html": "pnpm --filter playground-html dev",
-		"dev:vue": "pnpm --filter playground-vue dev",
-		"dev:react": "pnpm --filter playground-react dev",
-		"dev:angular": "pnpm --filter playground-angular dev",
-		"build": "pnpm build:utils && pnpm --filter @eosjs/components build",
-		"build:utils": "pnpm --filter @eosjs/utils build",
-		"build:components": "pnpm --filter @eosjs/components build",
-		"build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
-		"build:all": "pnpm build:docs",
-		"format": "ultracite fix",
-		"format:check": "ultracite check",
-		"changelog": "changelogen --output CHANGELOG.md",
-		"changelog:release": "changelogen --release --output CHANGELOG.md",
-		"version:update-all": "node scripts/sync-versions.js",
-		"version:sync": "pnpm version:update-all && pnpm changelog:release",
-		"release": "pnpm version:sync && pnpm build:all && pnpm publish -r --no-git-checks --registry https://registry.npmjs.org --access public",
-		"release:dry": "pnpm version:sync && pnpm build:all && pnpm publish -r --dry-run --registry https://registry.npmjs.org --access public",
-		"version:patch": "changelogen --bump --patch && pnpm version:update-all && pnpm changelog:release",
-		"version:minor": "changelogen --bump --minor && pnpm version:update-all && pnpm changelog:release",
-		"version:major": "changelogen --bump --major && pnpm version:update-all && pnpm changelog:release"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.4",
-		"changelogen": "^0.6.2",
-		"typescript": "^5.9.3",
-		"ultracite": "^7.2.3"
-	},
-	"pnpm": {
-		"overrides": {
-			"vite": "npm:rolldown-vite@7.1.14"
-		}
-	}
+  "name": "eos",
+  "version": "0.1.5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @eosjs/components dev",
+    "dev:utils": "pnpm --filter @eosjs/utils dev",
+    "dev:all": "pnpm -r --parallel --filter \"@eosjs/components\" --filter \"@eosjs/utils\" --filter \"playground-*\" dev",
+    "dev:docs": "pnpm --filter @eosjs/components-docs dev",
+    "dev:html": "pnpm --filter playground-html dev",
+    "dev:vue": "pnpm --filter playground-vue dev",
+    "dev:react": "pnpm --filter playground-react dev",
+    "dev:angular": "pnpm --filter playground-angular dev",
+    "build": "pnpm build:utils && pnpm --filter @eosjs/components build",
+    "build:utils": "pnpm --filter @eosjs/utils build",
+    "build:components": "pnpm --filter @eosjs/components build",
+    "build:docs": "pnpm build && pnpm --filter @eosjs/components-docs build",
+    "build:all": "pnpm build:docs",
+    "format": "ultracite fix",
+    "format:check": "ultracite check",
+    "changelog": "changelogen --output CHANGELOG.md",
+    "changelog:release": "changelogen --release --output CHANGELOG.md",
+    "version:update-all": "node scripts/sync-versions.js",
+    "version:sync": "pnpm version:update-all && pnpm changelog:release",
+    "release": "pnpm version:sync && pnpm build:all && pnpm publish -r --no-git-checks --registry https://registry.npmjs.org --access public",
+    "release:dry": "pnpm version:sync && pnpm build:all && pnpm publish -r --dry-run --registry https://registry.npmjs.org --access public",
+    "version:patch": "changelogen --bump --patch && pnpm version:update-all && pnpm changelog:release",
+    "version:minor": "changelogen --bump --minor && pnpm version:update-all && pnpm changelog:release",
+    "version:major": "changelogen --bump --major && pnpm version:update-all && pnpm changelog:release"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "changelogen": "^0.6.2",
+    "typescript": "^5.9.3",
+    "ultracite": "^7.2.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@7.3.1"
+    }
+  }
 }

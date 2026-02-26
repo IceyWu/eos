@@ -1,39 +1,39 @@
 {
-	"name": "@eosjs/components",
-	"version": "0.1.5",
-	"type": "module",
-	"main": "./dist/bundle.js",
-	"module": "./dist/bundle.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/bundle.js",
-			"default": "./dist/bundle.js"
-		}
-	},
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"dev": "tsc --watch --preserveWatchOutput",
-		"build": "pnpm run build:tsc && pnpm run build:bundle",
-		"build:tsc": "tsc",
-		"build:bundle": "rollup -c"
-	},
-	"dependencies": {
-		"@eosjs/utils": "workspace:*",
-		"blurhash": "^2.0.5"
-	},
-	"devDependencies": {
-		"@rollup/plugin-node-resolve": "^15.2.3",
-		"@rollup/plugin-terser": "^0.4.4",
-		"@rollup/plugin-typescript": "^11.1.6",
-		"rollup": "^4.9.6",
-		"typescript": "^5.3.3"
-	},
-	"publishConfig": {
-		"access": "public",
-		"registry": "https://registry.npmjs.org/"
-	}
+  "name": "@eosjs/components",
+  "version": "0.1.5",
+  "type": "module",
+  "main": "./dist/bundle.js",
+  "module": "./dist/bundle.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/bundle.js",
+      "default": "./dist/bundle.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput",
+    "build": "pnpm run build:tsc && pnpm run build:bundle",
+    "build:tsc": "tsc",
+    "build:bundle": "rollup -c"
+  },
+  "dependencies": {
+    "@eosjs/utils": "workspace:*",
+    "blurhash": "^2.0.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "rollup": "^4.59.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
