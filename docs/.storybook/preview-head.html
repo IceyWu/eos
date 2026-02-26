@@ -1,0 +1,373 @@
+<!-- 引入 Inter 字体 -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+<style>
+    /* ===== 全局字体 ===== */
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== Docs 页面排版优化 ===== */
+    .sbdocs-wrapper {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+        max-width: 100% !important;
+        padding: 32px 48px !important;
+    }
+
+    .sbdocs h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 12px;
+        margin-bottom: 24px;
+        line-height: 1.3;
+    }
+
+    .sbdocs h2 {
+        font-size: 1.375rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-top: 40px;
+        margin-bottom: 16px;
+        padding-left: 10px;
+        border-left: 3px solid #6366f1;
+    }
+
+    .sbdocs h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #334155;
+        margin-top: 28px;
+        margin-bottom: 12px;
+    }
+
+    .sbdocs p {
+        color: #475569;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+
+    /* ===== 代码块样式 ===== */
+    .sbdocs code,
+    .sbdocs-preview code {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+        font-size: 0.85em;
+        background: #f1f5f9;
+        color: #6366f1;
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .sbdocs pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+    }
+
+    .sbdocs pre {
+        background: #1a1e2e !important;
+        border-radius: 10px !important;
+        border: 1px solid #2d3250 !important;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ===== Prism 深色主题 token 覆盖（One Dark 风格）===== */
+    .prismjs,
+    .prismjs code,
+    pre[class*="language-"],
+    pre[class*="language-"] code {
+        color: #abb2bf !important;
+        background: #1a1e2e !important;
+        font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+        font-size: 0.875rem !important;
+        line-height: 1.65 !important;
+        padding: 20px 24px !important;
+    }
+
+    /* 普通文字 */
+    .token.plain,
+    pre[class*="language-"] .token {
+        color: #abb2bf !important;
+    }
+
+    /* 关键字：purple */
+    .token.keyword,
+    .token.keyword.module,
+    .token.keyword.control-flow {
+        color: #c678dd !important;
+    }
+
+    /* 字符串：green */
+    .token.string,
+    .token.attr-value,
+    .token.template-string {
+        color: #98c379 !important;
+    }
+
+    /* 函数名：blue */
+    .token.function,
+    .token.function-variable,
+    .token.method {
+        color: #61afef !important;
+    }
+
+    /* 类名：yellow */
+    .token.class-name,
+    .token.maybe-class-name {
+        color: #e5c07b !important;
+    }
+
+    /* 数字：orange */
+    .token.number,
+    .token.boolean,
+    .token.constant {
+        color: #d19a66 !important;
+    }
+
+    /* 注释：gray italic */
+    .token.comment,
+    .token.block-comment,
+    .token.prolog,
+    .token.doctype {
+        color: #5c6370 !important;
+        font-style: italic !important;
+    }
+
+    /* 运算符、标点 */
+    .token.operator,
+    .token.punctuation {
+        color: #abb2bf !important;
+    }
+
+    /* 属性名：red */
+    .token.property,
+    .token.attr-name,
+    .token.selector {
+        color: #e06c75 !important;
+    }
+
+    /* 变量 */
+    .token.variable,
+    .token.parameter {
+        color: #e06c75 !important;
+    }
+
+    /* 标签名：red */
+    .token.tag {
+        color: #e06c75 !important;
+    }
+
+    /* 内置对象：cyan */
+    .token.builtin,
+    .token.symbol {
+        color: #56b6c2 !important;
+    }
+
+    /* 正则 */
+    .token.regex {
+        color: #56b6c2 !important;
+    }
+
+    /* ===== 表格样式（属性说明表格）===== */
+    .sbdocs table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
+        margin: 16px 0;
+    }
+
+    .sbdocs table thead tr {
+        background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    }
+
+    .sbdocs table thead th {
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        padding: 12px 16px !important;
+        text-align: left;
+        letter-spacing: 0.02em;
+    }
+
+    .sbdocs table tbody tr {
+        transition: background 0.15s ease;
+    }
+
+    .sbdocs table tbody tr:hover {
+        background: #f8fafc !important;
+    }
+
+    .sbdocs table tbody tr:nth-child(even) {
+        background: #fafbfc;
+    }
+
+    .sbdocs table tbody td {
+        padding: 11px 16px !important;
+        color: #475569 !important;
+        font-size: 0.875rem !important;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+
+    .sbdocs table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* ===== Controls 面板（ArgTable）===== */
+    .docblock-argstable {
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .docblock-argstable-head tr {
+        background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%) !important;
+    }
+
+    .docblock-argstable-head th {
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        padding: 12px 16px !important;
+        font-size: 0.8rem !important;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border: none !important;
+    }
+
+    .docblock-argstable-body tr {
+        transition: background 0.15s ease;
+    }
+
+    .docblock-argstable-body tr:hover {
+        background: #f8faff !important;
+    }
+
+    .docblock-argstable-body td {
+        padding: 12px 16px !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    /* 属性名样式 */
+    .docblock-argstable-body td:first-child span {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #6366f1;
+        background: #eef2ff;
+        padding: 2px 8px;
+        border-radius: 4px;
+    }
+
+    /* ===== Story Canvas 容器 ===== */
+    .sbdocs-preview {
+        border-radius: 12px !important;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    /* ===== 标签/Badge 样式 ===== */
+    .sbdocs mark {
+        background: #eef2ff;
+        color: #6366f1;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+
+    /* ===== 列表样式 ===== */
+    .sbdocs ul {
+        padding-left: 20px;
+    }
+
+    .sbdocs ul li {
+        color: #475569;
+        line-height: 1.8;
+        margin-bottom: 4px;
+    }
+
+    .sbdocs ul li::marker {
+        color: #6366f1;
+    }
+
+    /* ===== Story Canvas 工具栏（Show code 区域）===== */
+    .docblock-source {
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        margin-top: 12px !important;
+        border: 1px solid #1e293b !important;
+    }
+
+    /* ===== Canvas 区域预览容器 ===== */
+    .sbdocs-preview .docs-story {
+        background: #f8fafc !important;
+        padding: 32px !important;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* ===== 隐藏底部版本通知（如果存在于 iframe 中）===== */
+    [data-item-id="whats-new"] {
+        display: none !important;
+    }
+
+    /* ===== Controls 面板底部的 Reset 按钮 ===== */
+    button[class*="ResetButton"],
+    button[title="Reset controls"] {
+        border-radius: 6px !important;
+        color: #6366f1 !important;
+        border-color: #6366f1 !important;
+    }
+
+    /* ===== Controls 面板输入框美化 ===== */
+    .docblock-argstable input[type="text"],
+    .docblock-argstable input[type="number"],
+    .docblock-argstable select {
+        border-radius: 6px !important;
+        border-color: #e2e8f0 !important;
+        font-size: 0.85rem !important;
+        padding: 5px 10px !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+    .docblock-argstable input[type="text"]:focus,
+    .docblock-argstable input[type="number"]:focus,
+    .docblock-argstable select:focus {
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15) !important;
+        outline: none !important;
+    }
+
+    /* ===== Checkbox 美化 ===== */
+    .docblock-argstable input[type="checkbox"] {
+        accent-color: #6366f1;
+        width: 16px;
+        height: 16px;
+    }
+
+    /* ===== Addons 面板 tab 美化（Controls / Actions / ...）===== */
+    div[class*="AddonPanel"] button[role="tab"] {
+        font-weight: 500 !important;
+        letter-spacing: 0.01em !important;
+    }
+
+    /* ===== 整体滚动条 ===== */
+    .os-scrollbar-handle {
+        background: #cbd5e1 !important;
+    }
+</style>

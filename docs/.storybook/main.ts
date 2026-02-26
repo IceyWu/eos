@@ -25,6 +25,10 @@ const config: StorybookConfig = {
 	docs: {
 		autodocs: true,
 	},
+	// 关闭新手引导检查清单
+	features: {
+		onboarding: false,
+	},
 	async viteFinal(config) {
 		// 确保能正确解析 monorepo 中的 workspace 包
 		config.resolve = config.resolve || {};
