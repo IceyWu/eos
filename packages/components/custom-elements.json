@@ -4,6 +4,45 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "EosButton 组件\n一个简单的按钮组件",
+          "name": "EosButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "handleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "privacy": "private"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "eos-button",
+          "customElement": true,
+          "modulePath": "src/components/button/button.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosButton",
+          "declaration": {
+            "name": "EosButton",
+            "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/carousel/carousel.ts",
       "declarations": [
         {
@@ -154,6 +193,15 @@
               },
               "privacy": "private",
               "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "isSlideLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
             },
             {
               "kind": "field",
@@ -436,6 +484,22 @@
             },
             {
               "kind": "method",
+              "name": "setSlideLoading",
+              "parameters": [
+                {
+                  "name": "loading",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "设置当前 slide 为加载中状态（波纹动画）\n调用 startSlideProgress 时会自动结束加载状态",
+              "type": {
+                "text": "setSlideLoading(loading: boolean) => void"
+              }
+            },
+            {
+              "kind": "method",
               "name": "startSlideProgress",
               "parameters": [
                 {
@@ -593,45 +657,6 @@
           "declaration": {
             "name": "EosCarousel",
             "module": "src/components/carousel/carousel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/button/button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "EosButton 组件\n一个简单的按钮组件",
-          "name": "EosButton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "handleClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "render",
-              "privacy": "private"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "eos-button",
-          "customElement": true,
-          "modulePath": "src/components/button/button.ts"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosButton",
-          "declaration": {
-            "name": "EosButton",
-            "module": "src/components/button/button.ts"
           }
         }
       ]

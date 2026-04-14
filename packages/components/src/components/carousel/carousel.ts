@@ -40,6 +40,9 @@ export class EosCarousel extends HTMLElement {
 	private progressDuration: number = 0;
 	private progressCallback: (() => void) | null = null;
 
+	// 加载状态：当前 slide 资源是否正在加载
+	private isSlideLoading: boolean = false;
+
 	// 记录已绑定 click 事件的 slide，避免重复绑定
 	private boundClickSlides = new WeakSet<Element>();
 
@@ -619,6 +622,27 @@ export class EosCarousel extends HTMLElement {
           to { height: 100%; }
         }
 
+        /* ── 加载中波纹动画 ────────────────────────────────── */
+        @keyframes loadingRipple {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+
+        .progress-segment.active.loading {
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 255, 255, 0.15) 100%
+          ) !important;
+          background-size: 200% 100% !important;
+          animation: loadingRipple 1.5s ease-in-out infinite !important;
+        }
+
+        .progress-segment.active.loading .progress-fill {
+          display: none;
+        }
+
         /* ── 虚拟化三槽渲染 ────────────────────────────────── */
         :host([data-virtual]) .slides-container {
           display: block;
@@ -1011,12 +1035,16 @@ export class EosCarousel extends HTMLElement {
 			const segment = segments[i];
 			if (!segment) continue;
 
-			segment.classList.remove("active", "passed", "animating", "completed");
+			segment.classList.remove("active", "passed", "animating", "completed", "loading");
 
 			if (i === this.currentIndex) {
 				segment.classList.add("active");
 				if (!isDots) {
-					if (this.useCustomProgress) {
+					if (this.isSlideLoading) {
+						// 资源加载中：波纹动画
+						segment.classList.add("loading");
+						segment.querySelector(".progress-fill.custom")?.remove();
+					} else if (this.useCustomProgress) {
 						segment.classList.add("animating");
 						let fill = segment.querySelector<HTMLElement>(
 							".progress-fill.custom",
@@ -1143,6 +1171,7 @@ export class EosCarousel extends HTMLElement {
 
 		// 停止之前的进度
 		this.stopSlideProgress();
+		this.isSlideLoading = false;
 
 		// 重置自定义进度（必须在 renderProgressBar 之前）
 		this.customProgress = 0;
@@ -1221,12 +1250,29 @@ export class EosCarousel extends HTMLElement {
 	}
 
 	/**
+	 * 设置当前 slide 为加载中状态（波纹动画）
+	 * 调用 startSlideProgress 时会自动结束加载状态
+	 */
+	setSlideLoading(loading: boolean) {
+		this.isSlideLoading = loading;
+		if (loading) {
+			// 加载中时停止任何正在进行的进度动画
+			this.stopSlideProgress();
+			this.useCustomProgress = false;
+			this.customProgress = 0;
+		}
+		this.renderProgressBar();
+	}
+
+	/**
 	 * 开始当前 slide 的进度倒计时
 	 * @param options.duration 持续时间（毫秒），默认使用 interval
 	 * @param options.onComplete 完成回调函数
 	 */
 	startSlideProgress(options?: { duration?: number; onComplete?: () => void }) {
 		this.stopSlideProgress();
+		// 结束加载状态
+		this.isSlideLoading = false;
 
 		const duration = options?.duration ?? this.interval;
 		this.progressCallback = options?.onComplete || null;

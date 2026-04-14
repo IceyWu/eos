@@ -1,4 +1,4 @@
-import type { EosCarousel, EosButton, EosImage } from "@eosjs/components";
+import type { EosButton, EosCarousel, EosImage } from "@eosjs/components";
 
 /**
  * This type can be used to create scoped tags for your components.
@@ -72,6 +72,15 @@ type BaseProps<T extends HTMLElement> = {
 
 type BaseEvents = {};
 
+export type EosButtonProps = {};
+
+export type EosButtonSolidJsProps = {
+  /** Set the innerHTML of the element */
+  innerHTML?: string;
+  /** Set the textContent of the element */
+  textContent?: string | number;
+};
+
 export type EosCarouselProps = {
   /** 是否自动播放 */
   autoplay?: unknown;
@@ -142,15 +151,6 @@ export type EosCarouselSolidJsProps = {
   /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
   "on:change"?: (e: CustomEvent) => void;
 
-  /** Set the innerHTML of the element */
-  innerHTML?: string;
-  /** Set the textContent of the element */
-  textContent?: string | number;
-};
-
-export type EosButtonProps = {};
-
-export type EosButtonSolidJsProps = {
   /** Set the innerHTML of the element */
   innerHTML?: string;
   /** Set the textContent of the element */
@@ -251,6 +251,12 @@ export type EosImageSolidJsProps = {
 
 export type CustomElements = {
   /**
+   * EosButton 组件
+   * 一个简单的按钮组件
+   */
+  "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
+
+  /**
    * EosCarousel 组件
    * 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
    *
@@ -290,6 +296,8 @@ export type CustomElements = {
    * - `prev() => void`: undefined
    * - `goTo(index: number) => void`: undefined
    * - `play() => void`: undefined
+   * - `setSlideLoading(loading: boolean) => void`: 设置当前 slide 为加载中状态（波纹动画）
+   * 调用 startSlideProgress 时会自动结束加载状态
    * - `startSlideProgress(options?: { duration?: number; onComplete?: () => void }, options.duration, options.onComplete) => void`: 开始当前 slide 的进度倒计时
    * - `stopSlideProgress() => void`: undefined
    * - `pause() => void`: undefined
@@ -298,12 +306,6 @@ export type CustomElements = {
   "eos-carousel": Partial<
     EosCarouselProps & BaseProps<EosCarousel> & BaseEvents
   >;
-
-  /**
-   * EosButton 组件
-   * 一个简单的按钮组件
-   */
-  "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
 
   /**
    * 优化的 EosImage 组件
@@ -342,6 +344,14 @@ export type CustomElements = {
 
 export type CustomElementsSolidJs = {
   /**
+   * EosButton 组件
+   * 一个简单的按钮组件
+   */
+  "eos-button": Partial<
+    EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
+  >;
+
+  /**
    * EosCarousel 组件
    * 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
    *
@@ -381,6 +391,8 @@ export type CustomElementsSolidJs = {
    * - `prev() => void`: undefined
    * - `goTo(index: number) => void`: undefined
    * - `play() => void`: undefined
+   * - `setSlideLoading(loading: boolean) => void`: 设置当前 slide 为加载中状态（波纹动画）
+   * 调用 startSlideProgress 时会自动结束加载状态
    * - `startSlideProgress(options?: { duration?: number; onComplete?: () => void }, options.duration, options.onComplete) => void`: 开始当前 slide 的进度倒计时
    * - `stopSlideProgress() => void`: undefined
    * - `pause() => void`: undefined
@@ -391,14 +403,6 @@ export type CustomElementsSolidJs = {
       EosCarouselSolidJsProps &
       BaseProps<EosCarousel> &
       BaseEvents
-  >;
-
-  /**
-   * EosButton 组件
-   * 一个简单的按钮组件
-   */
-  "eos-button": Partial<
-    EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
   >;
 
   /**
