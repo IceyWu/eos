@@ -12,18 +12,6 @@ interface CarouselProps {
   "indicator-style"?: "default" | "dots" | "tiktok";
 }
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "eos-carousel": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > &
-        CarouselProps;
-    }
-  }
-}
-
 const meta: Meta<CarouselProps> = {
   title: "组件/Carousel 轮播图",
   parameters: {

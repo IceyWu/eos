@@ -30,10 +30,10 @@
     "version:major": "changelogen --bump --major && pnpm version:update-all && pnpm changelog:release"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.4",
+    "@biomejs/biome": "^2.4.11",
     "changelogen": "^0.6.2",
-    "typescript": "^5.9.3",
-    "ultracite": "^7.2.3"
+    "typescript": "^6.0.2",
+    "ultracite": "^7.5.7"
   },
   "pnpm": {
     "overrides": {

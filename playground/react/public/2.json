@@ -1,0 +1,4548 @@
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "sec_uid": "hbg-Pnfm9EpbSnrPNjsouA",
+        "title": "人需要拥有一些安静无所事事的日子来松弛自己",
+        "content": "<p>人需要拥有一些安静无所事事的日子来松弛自己</p>",
+        "is_pinned": false,
+        "created_at": "2026-02-14T22:12:28.121+08:00",
+        "updated_at": "2026-02-14T22:12:28.163+08:00",
+        "user": {
+            "sec_uid": "mkIo6X4FryYKOcUzuz4Kew",
+            "lp_id": "LP_8806386288",
+            "username": "IceyWu",
+            "mobile": "18882076569",
+            "email": "3128006406@qq.com",
+            "avatar_file": {
+                "sec_uid": "8aJsMT7dMB99_iYsqUpR3w",
+                "name": "1724328552511.jpg",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "025533fd940acd9e6187de35b9e83444",
+                "size": 832729,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/3dbf3d24-dd0e-4edc-9cf8-a13afcea3810.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/3dbf3d24-dd0e-4edc-9cf8-a13afcea3810.jpg",
+                "width": 1680,
+                "height": 1680,
+                "blurhash": "LYN0}600~q%LIT9Ft7IoIV-;-pxu",
+                "is_private": true,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "832729"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1680"
+                    },
+                    "ImageHeight": {
+                        "value": "1680"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2024-08-22T20:09:12.186+08:00",
+                "updated_at": "2025-12-02T17:02:12.477+08:00",
+                "transcoding_task_id": null
+            },
+            "sex": 0,
+            "city": "成都",
+            "signature": "YOLO",
+            "website": "https://iceywu.cn",
+            "freezed": false,
+            "created_at": "2023-07-19T21:54:43.978+08:00",
+            "updated_at": "2026-04-12T14:11:33.329+08:00"
+        },
+        "tags": [
+            {
+                "id": 1,
+                "title": "推荐",
+                "created_at": "2026-04-12T09:59:05+08:00",
+                "updated_at": "2026-04-12T09:59:05+08:00"
+            }
+        ],
+        "files": [
+            {
+                "sec_uid": "7kdjzrp7GiKz3i9qbzKIjw",
+                "name": "DSCF1497.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "f34e970faa56eedd4f71c23870027417",
+                "size": 2254218,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/185a57da-a4d7-41e4-aadf-d53e5ddea192.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/185a57da-a4d7-41e4-aadf-d53e5ddea192.jpg",
+                "width": 1280,
+                "height": 1920,
+                "blurhash": "LVF6Rvofogaz%%fQayj[WBWCWBj[",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "2254218"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1280"
+                    },
+                    "ImageHeight": {
+                        "value": "1920"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:19.519+08:00",
+                "updated_at": "2026-02-14T22:12:26.124+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "FNdOpu9sybUIyZn47mHMVw",
+                "name": "DSCF1685.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "c43f0da5f3b913c04360b3dff5439f96",
+                "size": 2386090,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/ba9099e6-7061-4cfb-b1d3-8473c0a4fb98.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/ba9099e6-7061-4cfb-b1d3-8473c0a4fb98.jpg",
+                "width": 1920,
+                "height": 1280,
+                "blurhash": "LaEy[Jazj]jt~qjsjZbH%1bHayjs",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "2386090"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1920"
+                    },
+                    "ImageHeight": {
+                        "value": "1280"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:10:49.016+08:00",
+                "updated_at": "2026-02-14T22:12:26.15+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "YFO_XeFKeBjqfoksfOfflw",
+                "name": "DSCF1692.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "1362ee351527915d69fa9ffc6b602668",
+                "size": 5710374,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/63a255df-9aad-42ac-bad2-e9020c9847fd.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/63a255df-9aad-42ac-bad2-e9020c9847fd.jpg",
+                "width": 3888,
+                "height": 2592,
+                "blurhash": "LIDT3JIoI;WBlV%2t7ofX9aesSoL",
+                "is_private": false,
+                "lng": 122.30996388888889,
+                "lat": 37.41376916666667,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "环翠区",
+                "address": "山东省威海市环翠区泊于镇黄石圈",
+                "altitude": 17,
+                "taken_at": "2026-02-12T23:15:37+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/800",
+                "iso": 160,
+                "focal_length": "50",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3636"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "8"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 15:15:37"
+                    },
+                    "FileSize": {
+                        "value": "5710374"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "2912 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "1673 1565"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "3888"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "66"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "5000/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "1700/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 24' 49.569\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "2592"
+                    },
+                    "ImageNumber": {
+                        "value": "1626"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "8"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/8000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 18' 35.870\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "7/1 14/1 12/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "908/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "3888"
+                    },
+                    "PixelYDimension": {
+                        "value": "2592"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 15:15:37"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 15:15:37"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "967/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "0"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "66"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3606"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "66"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "-55/10"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "75"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4292"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "9397"
+                    }
+                },
+                "created_at": "2026-02-14T22:10:55.999+08:00",
+                "updated_at": "2026-02-14T22:12:26.098+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "f9lqWP0bKQKRG0_JdROJuw",
+                "name": "DSCF1693.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "4a16c0d03586f1bcd6f9cedf85b0b0e5",
+                "size": 2259590,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/324ae849-df37-4650-8751-43d2ea9be07a.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/324ae849-df37-4650-8751-43d2ea9be07a.jpg",
+                "width": 1280,
+                "height": 1920,
+                "blurhash": "LdEy#+t7j]j[~qoej[j[ofayayjt",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "2259590"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1280"
+                    },
+                    "ImageHeight": {
+                        "value": "1920"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:40.097+08:00",
+                "updated_at": "2026-02-14T22:12:26.065+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "Z0cT6QrpkVlfG1gjYjXRHQ",
+                "name": "DSCF1694.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "0ebebae5f871fd7dc6ed1f1bc35ee7f8",
+                "size": 18424018,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/0666847d-f621-4f2a-88e2-24812dac34f6.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/0666847d-f621-4f2a-88e2-24812dac34f6.jpg",
+                "width": 7728,
+                "height": 5152,
+                "blurhash": "LiFF]do#WAj[~XWBj[ayogWBkCay",
+                "is_private": false,
+                "lng": 122.30996388888889,
+                "lat": 37.41376916666667,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "环翠区",
+                "address": "山东省威海市环翠区泊于镇黄石圈",
+                "altitude": 17,
+                "taken_at": "2026-02-12T23:18:28+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/680",
+                "iso": 160,
+                "focal_length": "27.9",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3624"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "0"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 15:18:28"
+                    },
+                    "FileSize": {
+                        "value": "18424018"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "2889 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "6017 2575"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "7728"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "77"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "2790/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "1700/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 24' 49.569\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "5152"
+                    },
+                    "ImageNumber": {
+                        "value": "1628"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/6800"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 18' 35.870\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "7/1 14/1 12/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "904/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "7728"
+                    },
+                    "PixelYDimension": {
+                        "value": "5152"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 15:18:28"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 15:18:28"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "948/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "0"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "77"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3594"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "77"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "0/10"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "42"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4276"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "7548"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:43.584+08:00",
+                "updated_at": "2026-02-14T22:12:26.171+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "sa_BPfVubLoRzONqvP6A5g",
+                "name": "DSCF1407.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "868fa3f8d06841201ecc404f4c49d368",
+                "size": 17357069,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/17cab0c6-c0cf-473f-8ba6-5a9dc81ee37f.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/17cab0c6-c0cf-473f-8ba6-5a9dc81ee37f.jpg",
+                "width": 7728,
+                "height": 5152,
+                "blurhash": "L7Ad~3xus:n~pfofjsjsNGayaef6",
+                "is_private": false,
+                "lng": 122.41242638888889,
+                "lat": 37.40843916666667,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市港西镇环海路那香海国家4A级景区",
+                "altitude": null,
+                "taken_at": "2026-02-12T19:21:31+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/1800",
+                "iso": 160,
+                "focal_length": "50",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "4152"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "0"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 11:21:31"
+                    },
+                    "FileSize": {
+                        "value": "17357069"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "7200/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "4263 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "4302 1882"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "7728"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "26"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "5000/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "0/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 24' 30.381\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "5152"
+                    },
+                    "ImageNumber": {
+                        "value": "1345"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/18000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 24' 44.735\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "3/1 21/1 22/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "1015/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "7728"
+                    },
+                    "PixelYDimension": {
+                        "value": "5152"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 11:21:31"
+                    },
+                    "FaceElementTypes": {
+                        "value": "19 23 23 19 23 23 23 19 20 23 23"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 11:21:31"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "1088/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "11"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "26"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "4122"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "26"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "92/10"
+                    },
+                    "FaceElementPositions": {
+                        "value": "4503 1281 5202 2150 3574 3410 4333 4025 2620 2999 3246 3276 5892 2527 6361 3106 4347 4220 5046 4618 2584 3470 3138 3940 3260 4329 4116 4860 6351 2660 6893 3179 6713 2854 6856 2998 1690 3059 2328 3432 6037 4329 6591 4678"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "75"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4804"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "7427"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:25.589+08:00",
+                "updated_at": "2026-02-14T22:12:26.262+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "8EYs5wmCNi0Ffe2bsTiiEw",
+                "name": "DSCF1414.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "8ca212698df8f2974e98ce74c466bba4",
+                "size": 17908312,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/1f267991-9bb8-4a5e-8fef-0a18e086f89d.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/1f267991-9bb8-4a5e-8fef-0a18e086f89d.jpg",
+                "width": 7728,
+                "height": 5152,
+                "blurhash": "LLEfZ*M|0L-o0.t7%2RjjFs.%1R+",
+                "is_private": false,
+                "lng": 122.41257416666667,
+                "lat": 37.40840222222222,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市港西镇环海路那香海国家4A级景区",
+                "altitude": null,
+                "taken_at": "2026-02-12T19:25:08+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/2400",
+                "iso": 160,
+                "focal_length": "28.7",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3760"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "0"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 11:25:08"
+                    },
+                    "FileSize": {
+                        "value": "17908312"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "3197 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "2636 3822"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "7728"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "48"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "2870/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "0/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 24' 30.248\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "5152"
+                    },
+                    "ImageNumber": {
+                        "value": "1352"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/24000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 24' 45.267\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "3/1 24/1 13/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "1081/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "7728"
+                    },
+                    "PixelYDimension": {
+                        "value": "5152"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 11:25:08"
+                    },
+                    "FaceElementTypes": {
+                        "value": "19"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 11:25:08"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "1128/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "1"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "48"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3730"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "48"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "42/10"
+                    },
+                    "FaceElementPositions": {
+                        "value": "1316 2660 3959 5017"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "43"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4404"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "9424"
+                    }
+                },
+                "created_at": "2026-02-14T22:11:27.783+08:00",
+                "updated_at": "2026-02-14T22:12:26.158+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "uVu7Wpsi4LEESHYy1qF73Q",
+                "name": "DSCF1415.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "a25be48651b8454c7c03a690fcffae18",
+                "size": 2291304,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/011b2a01-d030-4111-8b28-5b6eb9dfb53d.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/011b2a01-d030-4111-8b28-5b6eb9dfb53d.jpg",
+                "width": 1280,
+                "height": 1920,
+                "blurhash": "L8Am;}xaCmkXH[WVF2nh-UT0Imrq",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "2291304"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1280"
+                    },
+                    "ImageHeight": {
+                        "value": "1920"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:27.31+08:00",
+                "updated_at": "2026-02-14T22:12:26.189+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "VRVpbx7m0Y3J41oSPczuFw",
+                "name": "DSCF1420.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "9f1935cc8a47dc13678f3e4cc40f3fb4",
+                "size": 4587232,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/aaf18fdc-862f-4953-a7d0-cf42684f9527.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/aaf18fdc-862f-4953-a7d0-cf42684f9527.jpg",
+                "width": 3888,
+                "height": 2592,
+                "blurhash": "LQE{U-Rk0Ls:OGoeR+j[Mxj[-:WB",
+                "is_private": false,
+                "lng": 122.4125813888889,
+                "lat": 37.40835611111111,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市港西镇环海路那香海国家4A级景区",
+                "altitude": null,
+                "taken_at": "2026-02-12T19:49:37+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/2000",
+                "iso": 160,
+                "focal_length": "50",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3636"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "8"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 11:49:37"
+                    },
+                    "FileSize": {
+                        "value": "4587232"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "2910 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "1943 755"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "3888"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "89"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "5000/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "0/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 24' 30.082\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "2592"
+                    },
+                    "ImageNumber": {
+                        "value": "1358"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/20000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 24' 45.293\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "3/1 24/1 20/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "1107/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "3888"
+                    },
+                    "PixelYDimension": {
+                        "value": "2592"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 11:49:37"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 11:49:37"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "1107/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "0"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "89"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3606"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "89"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "-11/10"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "75"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4292"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "9368"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:28.624+08:00",
+                "updated_at": "2026-02-14T22:12:26.2+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "bNoVFqCYbOVIzqVLaM46hQ",
+                "name": "DSCF1421.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "4810f089f6970eb99a5ee5750ec91d33",
+                "size": 2423325,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/33191197-e63c-4c6f-9f93-d8d6676a4f24.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/33191197-e63c-4c6f-9f93-d8d6676a4f24.jpg",
+                "width": 1280,
+                "height": 1920,
+                "blurhash": "LHJ*Yb?G0fS5B@xtIpNGE2Io%Lof",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "2423325"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1280"
+                    },
+                    "ImageHeight": {
+                        "value": "1920"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:30.009+08:00",
+                "updated_at": "2026-02-14T22:12:26.193+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "AL330Fgrmvckn6N2U5GNDw",
+                "name": "DSCF1443.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "4cd9f48736134e71815baa8e9017ee0c",
+                "size": 3026767,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/59595da1-90fa-4d5a-a15e-d223b8070ac3.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/59595da1-90fa-4d5a-a15e-d223b8070ac3.jpg",
+                "width": 1280,
+                "height": 1920,
+                "blurhash": "L7Ct9Exu.AV@cHROo~t89aROR*kC",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "3026767"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1280"
+                    },
+                    "ImageHeight": {
+                        "value": "1920"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:11:49.687+08:00",
+                "updated_at": "2026-02-14T22:12:26.357+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "XuOynJyUTDeMwW8aQJpZUg",
+                "name": "DSCF1483.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "30ad32720f0f86a20bf60e990e27449f",
+                "size": 9623255,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/c8ceed3f-8594-415f-97f7-7748dabf5ca6.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/c8ceed3f-8594-415f-97f7-7748dabf5ca6.jpg",
+                "width": 5472,
+                "height": 3648,
+                "blurhash": "LJC%p#t7o#R*?waeaeoLNGWCf5oe",
+                "is_private": false,
+                "lng": 122.545945,
+                "lat": 37.39852055555556,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市成山镇环海路",
+                "altitude": 6,
+                "taken_at": "2026-02-12T20:42:51+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/1500",
+                "iso": 160,
+                "focal_length": "50",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3772"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "8"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 12:42:51"
+                    },
+                    "FileSize": {
+                        "value": "9623255"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "3231 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "3632 1929"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "5472"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "60"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "5000/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "600/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 23' 54.674\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "3648"
+                    },
+                    "ImageNumber": {
+                        "value": "1421"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/15000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 32' 45.402\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "4/1 42/1 52/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "993/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "5472"
+                    },
+                    "PixelYDimension": {
+                        "value": "3648"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 12:42:51"
+                    },
+                    "FaceElementTypes": {
+                        "value": "23"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 12:42:51"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "1059/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "1"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "60"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3742"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "60"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "25/10"
+                    },
+                    "FaceElementPositions": {
+                        "value": "3001 1746 4008 2361"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "75"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4420"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "7841"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:31.121+08:00",
+                "updated_at": "2026-02-14T22:12:26.24+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "eKuPuVTwwa6O3thAe1jXKg",
+                "name": "DSCF1514.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "82c85e771a8eecb63d5cd1385a458282",
+                "size": 17288429,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/2bedcbe9-b9f7-41e3-ae51-18193c446572.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/2bedcbe9-b9f7-41e3-ae51-18193c446572.jpg",
+                "width": 7728,
+                "height": 5152,
+                "blurhash": "LWGSZTxvM{og.ARjofWBIojZayf5",
+                "is_private": false,
+                "lng": 122.54593833333332,
+                "lat": 37.398517222222225,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市成山镇环海路",
+                "altitude": 6,
+                "taken_at": "2026-02-12T20:56:25+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "4",
+                "exposure_time": "1/2000",
+                "iso": 160,
+                "focal_length": "27.9",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3994"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "400/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "0"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 12:56:25"
+                    },
+                    "FileSize": {
+                        "value": "17288429"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "3798 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "3863 2575"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "7728"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "54"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "2790/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "600/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 23' 54.662\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "5152"
+                    },
+                    "ImageNumber": {
+                        "value": "1451"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/20000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 32' 45.378\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "4/1 43/1 0/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "400/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacePositions": {
+                        "value": "6194 2225 7183 3191"
+                    },
+                    "FacesDetected": {
+                        "value": "1"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "995/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "7"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "7728"
+                    },
+                    "PixelYDimension": {
+                        "value": "5152"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 12:56:25"
+                    },
+                    "FaceElementTypes": {
+                        "value": "8 19 7 1"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "2"
+                    },
+                    "SceneRecognition": {
+                        "value": "256"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 12:56:25"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "1105/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "4"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "54"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3964"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "54"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "43/10"
+                    },
+                    "FaceElementPositions": {
+                        "value": "6194 2225 7183 3191 217 145 1169 639 5614 2225 7653 5138 6158 2648 6640 3154"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "42"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4644"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "7950"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:33.519+08:00",
+                "updated_at": "2026-02-14T22:12:26.39+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "e4Yl6iGsbFpPkqLGZ7NskA",
+                "name": "DSCF1612.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "9e1e00b9a8d1677d893b92353311b7e6",
+                "size": 4813665,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/39cb0acb-f9b5-4af8-abd7-19485f3666ba.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/39cb0acb-f9b5-4af8-abd7-19485f3666ba.jpg",
+                "width": 3888,
+                "height": 2592,
+                "blurhash": "LTH.Tr%MxuM{_4M{Rjt7M{ayayj[",
+                "is_private": false,
+                "lng": 122.54268277777777,
+                "lat": 37.399631388888885,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市成山镇环海路",
+                "altitude": 1,
+                "taken_at": "2026-02-12T21:19:35+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "5.6",
+                "exposure_time": "1/950",
+                "iso": 160,
+                "focal_length": "50",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3772"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "560/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "8"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 13:19:35"
+                    },
+                    "FileSize": {
+                        "value": "4813665"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "0/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "3224 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "1943 1295"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "3888"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "27"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "5000/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "100/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 23' 58.673\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "2592"
+                    },
+                    "ImageNumber": {
+                        "value": "1546"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "1"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/9500"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 32' 33.658\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "5/1 19/1 33/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "500/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacesDetected": {
+                        "value": "0"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "994/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "8"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "3888"
+                    },
+                    "PixelYDimension": {
+                        "value": "2592"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 13:19:35"
+                    },
+                    "FaceElementTypes": {
+                        "value": "14"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "1"
+                    },
+                    "SceneRecognition": {
+                        "value": "512"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 13:19:35"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "999/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "1"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "27"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3742"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "27"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "35/10"
+                    },
+                    "FaceElementPositions": {
+                        "value": "2095 1198 3497 2584"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "75"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4420"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "9569"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:34.548+08:00",
+                "updated_at": "2026-02-14T22:12:26.397+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "TzUCq63sU_suPNw8bu36ZQ",
+                "name": "DSCF1656.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "e33741543c6308be3baa2264e4dd9bf0",
+                "size": 17377160,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/2a2d530b-1bb7-4328-bd9e-08941b8c27c7.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/2a2d530b-1bb7-4328-bd9e-08941b8c27c7.jpg",
+                "width": 7728,
+                "height": 5152,
+                "blurhash": "LnIX?cj[oft6?wayWVR*M|j[axay",
+                "is_private": false,
+                "lng": 122.54261916666667,
+                "lat": 37.399609166666664,
+                "country": "中国",
+                "country_code": "CN",
+                "province": "山东省",
+                "city": "威海市",
+                "district": "荣成市",
+                "address": "山东省威海市荣成市成山镇环海路",
+                "altitude": 1,
+                "taken_at": "2026-02-12T21:27:45+08:00",
+                "device_make": "FUJIFILM",
+                "device_model": "X-T50",
+                "lens_model": "XF16-50mmF2.8-4.8 R LM WR",
+                "f_number": "4",
+                "exposure_time": "1/1700",
+                "iso": 160,
+                "focal_length": "26.3",
+                "exif_raw": {
+                    "Make": {
+                        "value": "FUJIFILM"
+                    },
+                    "Color": {
+                        "value": "32768"
+                    },
+                    "Flash": {
+                        "value": "0"
+                    },
+                    "Model": {
+                        "value": "X-T50"
+                    },
+                    "Artist": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "GPSTag": {
+                        "value": "3988"
+                    },
+                    "Offset": {
+                        "value": "2306"
+                    },
+                    "Clarity": {
+                        "value": "0"
+                    },
+                    "ExifTag": {
+                        "value": "1138"
+                    },
+                    "FNumber": {
+                        "value": "400/100"
+                    },
+                    "Quality": {
+                        "value": "FINE   "
+                    },
+                    "Version": {
+                        "value": "48 49 51 48"
+                    },
+                    "CropMode": {
+                        "value": "0"
+                    },
+                    "DateTime": {
+                        "value": "2026:02:12 13:27:45"
+                    },
+                    "FileSize": {
+                        "value": "17377160"
+                    },
+                    "FilmMode": {
+                        "value": "2048"
+                    },
+                    "GPSSpeed": {
+                        "value": "3600/10"
+                    },
+                    "LensMake": {
+                        "value": "FUJIFILM"
+                    },
+                    "SlowSync": {
+                        "value": "0"
+                    },
+                    "Software": {
+                        "value": "Digital Camera X-T50 Ver1.32"
+                    },
+                    "ByteOrder": {
+                        "value": "II"
+                    },
+                    "Copyright": {
+                        "value": "                                                                                                                                                                                                                                                               "
+                    },
+                    "FlashMode": {
+                        "value": "32768"
+                    },
+                    "FocusArea": {
+                        "value": "1"
+                    },
+                    "FocusMode": {
+                        "value": "0"
+                    },
+                    "LensModel": {
+                        "value": "XF16-50mmF2.8-4.8 R LM WR"
+                    },
+                    "MakerNote": {
+                        "value": "3771 bytes undefined data"
+                    },
+                    "SceneType": {
+                        "value": "1"
+                    },
+                    "Sharpness": {
+                        "value": "32768"
+                    },
+                    "ColorSpace": {
+                        "value": "1"
+                    },
+                    "Continuous": {
+                        "value": "0"
+                    },
+                    "FileSource": {
+                        "value": "3"
+                    },
+                    "FocusPoint": {
+                        "value": "3863 2575"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "7728"
+                    },
+                    "OffsetTime": {
+                        "value": "+08:00"
+                    },
+                    "ShadowTone": {
+                        "value": "0"
+                    },
+                    "SubSecTime": {
+                        "value": "46"
+                    },
+                    "BlurWarning": {
+                        "value": "0"
+                    },
+                    "Compression": {
+                        "value": "6"
+                    },
+                    "ExifVersion": {
+                        "value": "48 50 51 50"
+                    },
+                    "FocalLength": {
+                        "value": "2630/100"
+                    },
+                    "GPSAltitude": {
+                        "value": "100/100"
+                    },
+                    "GPSLatitude": {
+                        "value": "37deg 23' 58.593\" "
+                    },
+                    "GPSMapDatum": {
+                        "value": "WGS-84"
+                    },
+                    "GPSSpeedRef": {
+                        "value": "K"
+                    },
+                    "ImageHeight": {
+                        "value": "5152"
+                    },
+                    "ImageNumber": {
+                        "value": "1590"
+                    },
+                    "LightSource": {
+                        "value": "0"
+                    },
+                    "Orientation": {
+                        "value": "8"
+                    },
+                    "PictureMode": {
+                        "value": "0"
+                    },
+                    "ShutterType": {
+                        "value": "0"
+                    },
+                    "XResolution": {
+                        "value": "72/1"
+                    },
+                    "YResolution": {
+                        "value": "72/1"
+                    },
+                    "DriveSetting": {
+                        "value": "0"
+                    },
+                    "DynamicRange": {
+                        "value": "1"
+                    },
+                    "ExposureMode": {
+                        "value": "0"
+                    },
+                    "ExposureTime": {
+                        "value": "10/17000"
+                    },
+                    "FocusSetting": {
+                        "value": "16401"
+                    },
+                    "FocusWarning": {
+                        "value": "0"
+                    },
+                    "GPSDateStamp": {
+                        "value": "2026:02:12"
+                    },
+                    "GPSLongitude": {
+                        "value": "122deg 32' 33.429\" "
+                    },
+                    "GPSTimeStamp": {
+                        "value": "5/1 23/1 46/1"
+                    },
+                    "GPSVersionID": {
+                        "value": "2 3 0 0"
+                    },
+                    "MeteringMode": {
+                        "value": "5"
+                    },
+                    "SerialNumber": {
+                        "value": "FF02B8219825     5935373234322407301A33203118EB"
+                    },
+                    "WhiteBalance": {
+                        "value": "0"
+                    },
+                    "ApertureValue": {
+                        "value": "400/100"
+                    },
+                    "ExposureCount": {
+                        "value": "1"
+                    },
+                    "FacePositions": {
+                        "value": "2692 1475 3343 2054"
+                    },
+                    "FacesDetected": {
+                        "value": "1"
+                    },
+                    "FlashStrength": {
+                        "value": "0/100"
+                    },
+                    "HighlightTone": {
+                        "value": "0"
+                    },
+                    "SensingMethod": {
+                        "value": "2"
+                    },
+                    "CompositeImage": {
+                        "value": "1"
+                    },
+                    "CustomRendered": {
+                        "value": "0"
+                    },
+                    "GPSAltitudeRef": {
+                        "value": "0"
+                    },
+                    "GPSLatitudeRef": {
+                        "value": "North"
+                    },
+                    "MaxFocalLength": {
+                        "value": "5000/100"
+                    },
+                    "MinFocalLength": {
+                        "value": "1600/100"
+                    },
+                    "NoiseReduction": {
+                        "value": "128"
+                    },
+                    "ResolutionUnit": {
+                        "value": "2"
+                    },
+                    "SequenceNumber": {
+                        "value": "0"
+                    },
+                    "BrightnessValue": {
+                        "value": "961/100"
+                    },
+                    "ExposureProgram": {
+                        "value": "7"
+                    },
+                    "ExposureWarning": {
+                        "value": "0"
+                    },
+                    "FlashpixVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "GPSLongitudeRef": {
+                        "value": "East"
+                    },
+                    "GrainEffectSize": {
+                        "value": "0"
+                    },
+                    "ISOSpeedRatings": {
+                        "value": "160"
+                    },
+                    "ImageGeneration": {
+                        "value": "0"
+                    },
+                    "PixelXDimension": {
+                        "value": "7728"
+                    },
+                    "PixelYDimension": {
+                        "value": "5152"
+                    },
+                    "SensitivityType": {
+                        "value": "1"
+                    },
+                    "AutoDynamicRange": {
+                        "value": "100"
+                    },
+                    "BodySerialNumber": {
+                        "value": "4CA12276"
+                    },
+                    "DateTimeOriginal": {
+                        "value": "2026:02:12 13:27:45"
+                    },
+                    "FaceElementTypes": {
+                        "value": "8 7 20 20"
+                    },
+                    "LensSerialNumber": {
+                        "value": "4CA19077"
+                    },
+                    "MaxApertureValue": {
+                        "value": "300/100"
+                    },
+                    "SceneCaptureType": {
+                        "value": "2"
+                    },
+                    "SceneRecognition": {
+                        "value": "256"
+                    },
+                    "YCbCrPositioning": {
+                        "value": "2"
+                    },
+                    "ColorChromeEffect": {
+                        "value": "0"
+                    },
+                    "ColorChromeFXBlue": {
+                        "value": "0"
+                    },
+                    "DateTimeDigitized": {
+                        "value": "2026:02:12 13:27:45"
+                    },
+                    "ExposureBiasValue": {
+                        "value": "-33/100"
+                    },
+                    "LensSpecification": {
+                        "value": "1600/100 5000/100 280/100 480/100"
+                    },
+                    "ShutterSpeedValue": {
+                        "value": "1078/100"
+                    },
+                    "ImageStabilization": {
+                        "value": "2 1 0"
+                    },
+                    "NumberFaceElements": {
+                        "value": "4"
+                    },
+                    "OffsetTimeOriginal": {
+                        "value": "+08:00"
+                    },
+                    "PrintImageMatching": {
+                        "value": "80 114 105 110 116 73 77 0 48 50 53 48 0 0 3 0 2 0 1 0 0 0 3 0 34 0 0 0 1 1 0 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 0 0 229 27 0 0 16 39 0 0"
+                    },
+                    "SubSecTimeOriginal": {
+                        "value": "46"
+                    },
+                    "DynamicRangeSetting": {
+                        "value": "0"
+                    },
+                    "InteroperabilityTag": {
+                        "value": "3958"
+                    },
+                    "OffsetTimeDigitized": {
+                        "value": "+08:00"
+                    },
+                    "SubSecTimeDigitized": {
+                        "value": "46"
+                    },
+                    "CameraElevationAngle": {
+                        "value": "-18/10"
+                    },
+                    "FaceElementPositions": {
+                        "value": "2692 1475 3343 2054 519 882 3198 2695 5651 1439 5794 1583 5663 1233 5806 1377"
+                    },
+                    "FocusPrioritySetting": {
+                        "value": "18"
+                    },
+                    "GrainEffectRoughness": {
+                        "value": "0"
+                    },
+                    "SubjectDistanceRange": {
+                        "value": "0"
+                    },
+                    "FocalLengthIn35mmFilm": {
+                        "value": "39"
+                    },
+                    "FocalPlaneXResolution": {
+                        "value": "3289/1"
+                    },
+                    "FocalPlaneYResolution": {
+                        "value": "3289/1"
+                    },
+                    "InteroperabilityIndex": {
+                        "value": "R98"
+                    },
+                    "JPEGInterchangeFormat": {
+                        "value": "4644"
+                    },
+                    "MaxApertureAtMaxFocal": {
+                        "value": "480/100"
+                    },
+                    "MaxApertureAtMinFocal": {
+                        "value": "280/100"
+                    },
+                    "CompressedBitsPerPixel": {
+                        "value": "48/10"
+                    },
+                    "ContinuousFocusSetting": {
+                        "value": "258"
+                    },
+                    "ComponentsConfiguration": {
+                        "value": "1 2 3 0"
+                    },
+                    "InteroperabilityVersion": {
+                        "value": "48 49 48 48"
+                    },
+                    "LensModulationOptimizer": {
+                        "value": "1"
+                    },
+                    "FocalPlaneResolutionUnit": {
+                        "value": "3"
+                    },
+                    "JPEGInterchangeFormatLength": {
+                        "value": "9327"
+                    }
+                },
+                "created_at": "2026-02-14T22:01:37.492+08:00",
+                "updated_at": "2026-02-14T22:12:26.382+08:00",
+                "transcoding_task_id": null
+            },
+            {
+                "sec_uid": "1W9bn0gFfyINodWzE7MRUw",
+                "name": "DSCF1681.JPG",
+                "path": null,
+                "type": "image/jpeg",
+                "file_md5": "01f3ef1c8c85df559b6e814a48ae52ab",
+                "size": 2838394,
+                "key": "go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/d4d07b7f-bc46-4529-af64-951d37ea56df.jpg",
+                "extension": ".jpg",
+                "url": "https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-04-12/d4d07b7f-bc46-4529-af64-951d37ea56df.jpg",
+                "width": 1280,
+                "height": 1920,
+                "blurhash": "LRCsp:j[R+WV%%fQa#a}V@ayoLj[",
+                "is_private": false,
+                "lng": null,
+                "lat": null,
+                "country": null,
+                "country_code": null,
+                "province": null,
+                "city": null,
+                "district": null,
+                "address": null,
+                "altitude": null,
+                "taken_at": null,
+                "device_make": null,
+                "device_model": null,
+                "lens_model": null,
+                "f_number": null,
+                "exposure_time": null,
+                "iso": null,
+                "focal_length": null,
+                "exif_raw": {
+                    "Format": {
+                        "value": "jpg"
+                    },
+                    "FileSize": {
+                        "value": "2838394"
+                    },
+                    "FrameCount": {
+                        "value": "1"
+                    },
+                    "ImageWidth": {
+                        "value": "1280"
+                    },
+                    "ImageHeight": {
+                        "value": "1920"
+                    },
+                    "XResolution": {
+                        "value": "1/1"
+                    },
+                    "YResolution": {
+                        "value": "1/1"
+                    },
+                    "ResolutionUnit": {
+                        "value": "1"
+                    }
+                },
+                "created_at": "2026-02-14T22:12:23.719+08:00",
+                "updated_at": "2026-02-14T22:12:26.422+08:00",
+                "transcoding_task_id": null
+            }
+        ],
+        "is_liked": true,
+        "is_collected": false,
+        "likes_count": 2,
+        "collections_count": 0
+    }
+}

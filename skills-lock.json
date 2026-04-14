@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-dev-tools": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "6f7c6101686c322fe7dd6fcd1d950581bac3c01afcbae5c3da1b122e59bacd89"
+    },
+    "frontend-docs-context7": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "d93f194132f35dda9410e413b526d5136d34789cc1f17f07a1b87761afbaf6e0"
+    },
+    "iceywu-dev-workflow": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "8aa9512ef8814c68297eb73018169615ec094022853b391a8b353f6218805c68"
+    },
+    "pnpm": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "41b196826223e0bc0427e09ef973ea24b79891e9967f1f4e787c5f9507b24a48"
+    },
+    "vite": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "c8627dee1e7521cf2f656ad16dab6c5ed5c35153c77f2d1af39b0224a8779df1"
+    },
+    "vue": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "080f24eb020c830945d10b2b93d1f20d0f3c551b931ee989c1275290d0a9d929"
+    },
+    "web-design-guidelines": {
+      "source": "IceyWu/skills",
+      "sourceType": "github",
+      "computedHash": "e1089d00a849545f12afda48a24d6ce25ce067c6ec6f2b63a76e8bd114acd6d1"
+    }
+  }
+}

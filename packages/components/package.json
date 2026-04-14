@@ -10,14 +10,21 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/bundle.js",
       "default": "./dist/bundle.js"
+    },
+    "./jsx-types": {
+      "types": "./jsx-types.d.ts"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "custom-elements.json",
+    "jsx-types.d.ts"
   ],
+  "customElements": "custom-elements.json",
   "scripts": {
     "dev": "tsc --watch --preserveWatchOutput",
-    "build": "pnpm run build:tsc && pnpm run build:bundle",
+    "analyze": "cem analyze && node ./scripts/patch-jsx-types.mjs",
+    "build": "pnpm run build:tsc && pnpm run build:bundle && pnpm run analyze",
     "build:tsc": "tsc",
     "build:bundle": "rollup -c"
   },
@@ -26,11 +33,13 @@
     "blurhash": "^2.0.5"
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
-    "rollup": "^4.59.0",
-    "typescript": "^5.9.3"
+    "@wc-toolkit/jsx-types": "^1.5.2",
+    "rollup": "^4.60.1",
+    "typescript": "^6.0.2"
   },
   "publishConfig": {
     "access": "public",

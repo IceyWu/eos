@@ -7,17 +7,6 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "eos-button": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > & { disabled?: boolean };
-    }
-  }
-}
-
 const meta: Meta<ButtonProps> = {
   title: "组件/Button 按钮",
   parameters: {

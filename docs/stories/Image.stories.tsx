@@ -16,19 +16,7 @@ interface ImageProps {
   "show-delay"?: number;
 }
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "eos-image": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > &
-        ImageProps;
-    }
-  }
-}
-
-const BLURHASH = "LGF5]+Yk^6#xD4.8CAFVg-;T0Iu";
+const BLURHASH = "LVF6Rvofogaz%%fQayj[WBWCWBj[";
 
 const meta: Meta<ImageProps> = {
   title: "组件/Image 图片",

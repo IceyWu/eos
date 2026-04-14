@@ -1,6 +1,8 @@
 /**
  * EosButton 组件
  * 一个简单的按钮组件
+ *
+ * @tagname eos-button
  */
 export class EosButton extends HTMLElement {
 	constructor() {

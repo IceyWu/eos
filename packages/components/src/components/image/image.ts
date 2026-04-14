@@ -336,15 +336,24 @@ class LazyLoadObserver {
 /**
  * 优化的 EosImage 组件
  *
- * 新的参数系统：
- * - src: 图片资源，可以是 URL 或 blurhash
- * - src-type: 'url' | 'blurhash' - 指定 src 的类型
- * - placeholder: 占位资源，可以是 URL 或 blurhash
- * - placeholder-type: 'url' | 'blurhash' - 指定 placeholder 的类型
+ * @tagname eos-image
  *
- * 逻辑：
- * 1. 如果 src-type 是 'blurhash'，直接显示解码后的图片，不显示 loading 状态
- * 2. 如果 src-type 是 'url'，显示 placeholder 作为 loading 占位符
+ * @attr {string} src - 图片地址（URL 或 blurhash 字符串）
+ * @attr {"url"|"blurhash"} src-type - src 的类型，默认 url
+ * @attr {string} alt - 替代文本
+ * @attr {string} width - 宽度
+ * @attr {string} height - 高度
+ * @attr {"lazy"|"eager"} loading - 加载策略
+ * @attr {string} crossorigin - 跨域设置
+ * @attr {"cover"|"contain"|"fill"|"none"|"scale-down"} object-fit - 填充模式
+ * @attr {string} placeholder - 占位内容（URL 或 blurhash 字符串）
+ * @attr {"url"|"blurhash"} placeholder-type - 占位类型
+ * @attr {string} placeholder-fill - 占位填充模式
+ * @attr {string} show-delay - 图片显示延迟（毫秒）
+ *
+ * @fires {CustomEvent} imageLoad - 图片加载成功
+ * @fires {CustomEvent} imageError - 图片加载失败
+ * @fires {CustomEvent} imageProgress - 图片加载进度
  */
 export class EosImage extends HTMLElement {
 	// 配置常量

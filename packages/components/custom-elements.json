@@ -1,0 +1,1004 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/components/carousel/carousel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "EosCarousel 组件\n类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能",
+          "name": "EosCarousel",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "totalSlides",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "isPlaying",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "autoplayTimer",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "touchStartX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "touchEndX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "isTransitioning",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "keydownHandler",
+              "type": {
+                "text": "((e: KeyboardEvent) => void) | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "touchStartHandler",
+              "type": {
+                "text": "((e: Event) => void) | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "touchEndHandler",
+              "type": {
+                "text": "((e: Event) => void) | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "customProgress",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "useCustomProgress",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "progressTimer",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "progressStartTime",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "progressDuration",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "progressCallback",
+              "type": {
+                "text": "(() => void) | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "boundClickSlides",
+              "privacy": "private",
+              "default": "new WeakSet<Element>()"
+            },
+            {
+              "kind": "field",
+              "name": "isVirtualMode",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false",
+              "description": "当前是否处于虚拟渲染模式"
+            },
+            {
+              "kind": "field",
+              "name": "virtualDivs",
+              "type": {
+                "text": "Array<{ el: HTMLElement; pos: number }>"
+              },
+              "privacy": "private",
+              "default": "[]",
+              "description": "三个可复用的 DOM 节点，pos: -1=prev / 0=current / 1=next"
+            },
+            {
+              "kind": "field",
+              "name": "autoplay",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "interval",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "showNavigation",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "initialIndex",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "indicatorPosition",
+              "type": {
+                "text": "\"top\" | \"bottom\" | \"left\" | \"right\""
+              }
+            },
+            {
+              "kind": "field",
+              "name": "indicatorStyle",
+              "type": {
+                "text": "\"default\" | \"dots\" | \"tiktok\""
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupSlotListener",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "triggerSlideActiveEvent",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupSlideClickListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupEventListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleKeydown",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleTouchStart",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "TouchEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleTouchEnd",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "TouchEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateSlideCount",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "hideControls",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "updateSlidePosition",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "virtualThreshold",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "description": "读取 virtual-threshold 属性，默认 8",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "evaluateVirtualMode",
+              "privacy": "private",
+              "description": "根据当前 slide 数与 threshold 决定是否启用虚拟三槽模式。\n启用时在 host 元素挂载 data-virtual 属性（触发 CSS 切换），\n关闭时摘除该属性并清空槽位缓存。"
+            },
+            {
+              "kind": "method",
+              "name": "initVirtualDivs",
+              "privacy": "private",
+              "description": "初始化三个复用 DOM 槽位，使用 cloneNode(true) 从 slot 拷贝真实元素。\n支持任意内容：img / video / 自定义 HTML，无需特殊配置。\n若 slot 尚未完成分配（assignedElements 为空），延迟一帧重试。"
+            },
+            {
+              "kind": "method",
+              "name": "fillVirtualSlot",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "将 slot 中第 index 个元素克隆（深复制）到目标虚拟槽位 div 内。\ncloneNode(true) 保留完整 DOM 结构及内联事件，适配图片/视频/任意内容。\n激活懒加载：把克隆节点内 data-src 赋给 src，只在真正展示时才触发加载。"
+            },
+            {
+              "kind": "method",
+              "name": "goToVirtual",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "newIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "previousIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "三槽位切换动画（核心虚拟化逻辑）。\n只有 3 个真实 DOM 节点在循环复用，无论数据量多大 DOM 规模恒定。"
+            },
+            {
+              "kind": "method",
+              "name": "renderProgressBar",
+              "privacy": "private",
+              "description": "渲染进度条（增量更新）\n仅在 segment 数量变化时重建 DOM，其余情况只修改 class，避免不必要的回流"
+            },
+            {
+              "kind": "method",
+              "name": "updateNavigationButtons",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "cleanup",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "next",
+              "type": {
+                "text": "next() => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "prev",
+              "type": {
+                "text": "prev() => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "goTo",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "type": {
+                "text": "goTo(index: number) => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "play",
+              "type": {
+                "text": "play() => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "scheduleNextSlide",
+              "privacy": "private",
+              "description": "调度下一次自动切换"
+            },
+            {
+              "kind": "method",
+              "name": "clearAutoplayTimer",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "startSlideProgress",
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "{ duration?: number; onComplete?: () => void }"
+                  }
+                },
+                {
+                  "description": "持续时间（毫秒），默认使用 interval",
+                  "name": "options.duration"
+                },
+                {
+                  "description": "完成回调函数",
+                  "name": "options.onComplete"
+                }
+              ],
+              "description": "开始当前 slide 的进度倒计时",
+              "type": {
+                "text": "startSlideProgress(options?: { duration?: number; onComplete?: () => void }, options.duration, options.onComplete) => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stopSlideProgress",
+              "type": {
+                "text": "stopSlideProgress() => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateProgressDisplay",
+              "privacy": "private",
+              "description": "更新进度条显示（提取的共享方法）"
+            },
+            {
+              "kind": "method",
+              "name": "pause",
+              "type": {
+                "text": "pause() => void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateProgress",
+              "parameters": [
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  },
+                  "description": "进度值 0-100"
+                }
+              ],
+              "description": "手动同步进度显示（用于视频播放进度）",
+              "type": {
+                "text": "updateProgress(progress: number) => void"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "slide-active",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "当前 slide 激活时触发"
+            },
+            {
+              "name": "slide-click",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "点击 slide 时触发"
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "切换 slide 时触发，detail: { currentIndex, previousIndex }"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "autoplay",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "是否自动播放"
+            },
+            {
+              "name": "interval",
+              "type": {
+                "text": "string"
+              },
+              "description": "自动播放间隔（毫秒），最小 1000，默认 2000"
+            },
+            {
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "是否循环播放"
+            },
+            {
+              "name": "show-navigation",
+              "type": {
+                "text": "string"
+              },
+              "description": "是否显示导航按钮，默认 true"
+            },
+            {
+              "name": "initial-index",
+              "type": {
+                "text": "string"
+              },
+              "description": "初始显示的 slide 索引"
+            },
+            {
+              "name": "indicator-position",
+              "type": {
+                "text": "\"top\"|\"bottom\"|\"left\"|\"right\""
+              },
+              "description": "指示器位置"
+            },
+            {
+              "name": "indicator-style",
+              "type": {
+                "text": "\"default\"|\"dots\"|\"tiktok\""
+              },
+              "description": "指示器样式"
+            },
+            {
+              "name": "virtual-threshold",
+              "type": {
+                "text": "string"
+              },
+              "description": "虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "eos-carousel",
+          "customElement": true,
+          "modulePath": "src/components/carousel/carousel.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosCarousel",
+          "declaration": {
+            "name": "EosCarousel",
+            "module": "src/components/carousel/carousel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "EosButton 组件\n一个简单的按钮组件",
+          "name": "EosButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "handleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "privacy": "private"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "eos-button",
+          "customElement": true,
+          "modulePath": "src/components/button/button.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosButton",
+          "declaration": {
+            "name": "EosButton",
+            "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image/image.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "优化的 EosImage 组件",
+          "name": "EosImage",
+          "members": [
+            {
+              "kind": "field",
+              "name": "CONFIG",
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ MAX_BLURHASH_SIZE: 32, SHOW_DELAY_DEFAULT: 0, FADE_DURATION: 300, }",
+              "type": {
+                "text": "{\r\n\t\tMAX_BLURHASH_SIZE: 32,\r\n\t\tSHOW_DELAY_DEFAULT: 0,\r\n\t\tFADE_DURATION: 300,\r\n\t}"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "isLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "hasError",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "placeholderDataUrl",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "srcDataUrl",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "loadTimer",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "imageLoader",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "isRendered",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "img",
+              "type": {
+                "text": "HTMLImageElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "placeholderImage",
+              "type": {
+                "text": "HTMLImageElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "loadingContainer",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "loadingOverlay",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "errorContainer",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "onimageload",
+              "type": {
+                "text": "((event: CustomEvent) => void) | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "onimageerror",
+              "type": {
+                "text": "((event: CustomEvent) => void) | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "onimageprogress",
+              "type": {
+                "text": "((event: CustomEvent) => void) | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "initializeDOM",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleImageLoading",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "loadingScheduled",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleImageLoading",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadImage",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "decodeBlurhash",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "blurhash",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "解码 blurhash 字符串为 data URL"
+            },
+            {
+              "kind": "method",
+              "name": "processPlaceholder",
+              "privacy": "private",
+              "description": "处理占位符资源"
+            },
+            {
+              "kind": "method",
+              "name": "processSource",
+              "privacy": "private",
+              "description": "处理主图资源"
+            },
+            {
+              "kind": "method",
+              "name": "updateDisplay",
+              "privacy": "private",
+              "description": "更新显示状态"
+            },
+            {
+              "kind": "method",
+              "name": "updateStyles",
+              "privacy": "private",
+              "description": "更新样式"
+            },
+            {
+              "kind": "method",
+              "name": "updateImageAttributes",
+              "privacy": "private",
+              "description": "更新图片属性"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurhash-error",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "图片加载成功",
+              "name": "imageLoad"
+            },
+            {
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "图片加载失败",
+              "name": "imageError"
+            },
+            {
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "图片加载进度",
+              "name": "imageProgress"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "src",
+              "type": {
+                "text": "string"
+              },
+              "description": "图片地址（URL 或 blurhash 字符串）"
+            },
+            {
+              "name": "src-type",
+              "type": {
+                "text": "\"url\"|\"blurhash\""
+              },
+              "description": "src 的类型，默认 url"
+            },
+            {
+              "name": "alt",
+              "type": {
+                "text": "string"
+              },
+              "description": "替代文本"
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "string"
+              },
+              "description": "宽度"
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "string"
+              },
+              "description": "高度"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "\"lazy\"|\"eager\""
+              },
+              "description": "加载策略"
+            },
+            {
+              "name": "crossorigin",
+              "type": {
+                "text": "string"
+              },
+              "description": "跨域设置"
+            },
+            {
+              "name": "object-fit",
+              "type": {
+                "text": "\"cover\"|\"contain\"|\"fill\"|\"none\"|\"scale-down\""
+              },
+              "description": "填充模式"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "description": "占位内容（URL 或 blurhash 字符串）"
+            },
+            {
+              "name": "placeholder-type",
+              "type": {
+                "text": "\"url\"|\"blurhash\""
+              },
+              "description": "占位类型"
+            },
+            {
+              "name": "placeholder-fill",
+              "type": {
+                "text": "string"
+              },
+              "description": "占位填充模式"
+            },
+            {
+              "name": "show-delay",
+              "type": {
+                "text": "string"
+              },
+              "description": "图片显示延迟（毫秒）"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "eos-image",
+          "customElement": true,
+          "modulePath": "src/components/image/image.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImage",
+          "declaration": {
+            "name": "EosImage",
+            "module": "src/components/image/image.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

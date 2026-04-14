@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 
@@ -7,12 +8,17 @@ export default defineConfig({
 		vue({
 			template: {
 				compilerOptions: {
-					// 将 l- 开头的标签识别为自定义元素
-					isCustomElement: (tag) => tag.startsWith("l-"),
+					isCustomElement: (tag) => tag.startsWith("eos-"),
 				},
 			},
 		}),
 	],
+	resolve: {
+		alias: {
+			"@eosjs/components": resolve(__dirname, "../../packages/components/src/index.ts"),
+			"@eosjs/utils": resolve(__dirname, "../../packages/utils/src/index.ts"),
+		},
+	},
 	server: {
 		port: 3002,
 	},

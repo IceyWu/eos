@@ -19,51 +19,6 @@ import { ImageDemo } from "./components/ImageDemo";
 // 注册 Web Components
 registerComponents();
 
-// 扩展 JSX 类型定义
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
-			"eos-button": React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement>,
-				HTMLElement
-			> & {
-				type?: string;
-				disabled?: boolean;
-				loading?: boolean;
-				onEClick?: (event: CustomEvent) => void;
-			};
-			"eos-carousel": React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement>,
-				HTMLElement
-			> & {
-				autoplay?: boolean;
-				interval?: string;
-				loop?: boolean;
-				onChange?: (event: CustomEvent) => void;
-			};
-			"eos-image": React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement>,
-				HTMLElement
-			> & {
-				src?: string;
-				alt?: string;
-				width?: string | number;
-				height?: string | number;
-				"object-fit"?: string;
-				circle?: boolean;
-				responsive?: boolean;
-				loading?: string;
-				crossorigin?: string;
-				blurhash?: string;
-				"blurhash-only"?: boolean;
-				onImageLoad?: (event: CustomEvent) => void;
-				onImageError?: (event: CustomEvent) => void;
-				onImageProgress?: (event: CustomEvent) => void;
-			};
-		}
-	}
-}
-
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
 

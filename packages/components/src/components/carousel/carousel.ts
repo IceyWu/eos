@@ -1,15 +1,36 @@
 /**
  * EosCarousel 组件
  * 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
+ *
+ * @tagname eos-carousel
+ *
+ * @attr {boolean} autoplay - 是否自动播放
+ * @attr {string} interval - 自动播放间隔（毫秒），最小 1000，默认 2000
+ * @attr {boolean} loop - 是否循环播放
+ * @attr {string} show-navigation - 是否显示导航按钮，默认 true
+ * @attr {string} initial-index - 初始显示的 slide 索引
+ * @attr {"top"|"bottom"|"left"|"right"} indicator-position - 指示器位置
+ * @attr {"default"|"dots"|"tiktok"} indicator-style - 指示器样式
+ * @attr {string} virtual-threshold - 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8
+ *
+ * @fires {CustomEvent} change - 切换 slide 时触发，detail: { currentIndex, previousIndex }
+ * @fires {CustomEvent} slide-active - 当前 slide 激活时触发
+ * @fires {CustomEvent} slide-click - 点击 slide 时触发
  */
 export class EosCarousel extends HTMLElement {
 	// 内部状态
 	private currentIndex: number = 0;
 	private totalSlides: number = 0;
 	private isPlaying: boolean = false;
+	private autoplayTimer: number | null = null;
 	private touchStartX: number = 0;
 	private touchEndX: number = 0;
 	private isTransitioning: boolean = false;
+
+	// 事件监听器引用（用于正确清理）
+	private keydownHandler: ((e: KeyboardEvent) => void) | null = null;
+	private touchStartHandler: ((e: Event) => void) | null = null;
+	private touchEndHandler: ((e: Event) => void) | null = null;
 
 	// 进度控制相关
 	private customProgress: number = 0;
@@ -22,6 +43,12 @@ export class EosCarousel extends HTMLElement {
 	// 记录已绑定 click 事件的 slide，避免重复绑定
 	private boundClickSlides = new WeakSet<Element>();
 
+	// ── 虚拟化渲染相关 ──────────────────────────────────────────
+	/** 当前是否处于虚拟渲染模式 */
+	private isVirtualMode: boolean = false;
+	/** 三个可复用的 DOM 节点，pos: -1=prev / 0=current / 1=next */
+	private virtualDivs: Array<{ el: HTMLElement; pos: number }> = [];
+
 	// 定义可观察的属性
 	static get observedAttributes() {
 		return [
@@ -32,6 +59,7 @@ export class EosCarousel extends HTMLElement {
 			"initial-index",
 			"indicator-position",
 			"indicator-style",
+			"virtual-threshold",
 		];
 	}
 
@@ -128,7 +156,6 @@ export class EosCarousel extends HTMLElement {
 
 		this.render();
 		this.setupSlotListener();
-		this.updateSlideCount();
 		this.setupEventListeners();
 
 		// 如果启用自动播放，则开始播放
@@ -144,9 +171,19 @@ export class EosCarousel extends HTMLElement {
 				this.updateSlideCount();
 				this.updateSlidePosition();
 				this.setupSlideClickListeners();
-
-				// 触发初始的 slide-active 事件
 				this.triggerSlideActiveEvent();
+
+				// slotchange 触发时 assignedElements 可能尚未就绪（Shadow DOM 时序特性），
+				// 延迟一帧无条件再同步一次，确保虚拟模式在 slot 就绪后正确初始化
+				requestAnimationFrame(() => {
+					this.updateSlideCount();
+					if (
+						this.isVirtualMode &&
+						this.virtualDivs.every((vd) => vd.el.children.length === 0)
+					) {
+						this.initVirtualDivs();
+					}
+				});
 			});
 		}
 	}
@@ -232,10 +269,18 @@ export class EosCarousel extends HTMLElement {
 				// 只在组件初始化时生效
 				break;
 			case "indicator-position":
-			case "indicator-style":
-				this.render();
-				this.setupEventListeners();
-				this.updateSlideCount();
+			case "indicator-style": {
+				// 只更新 progress-bar 的 class，不重建整个 Shadow DOM
+				const bar = this.shadowRoot?.querySelector(".progress-bar");
+				if (bar) {
+					bar.className = `progress-bar position-${this.indicatorPosition} style-${this.indicatorStyle}`;
+					this.renderProgressBar();
+				}
+				break;
+			}
+			case "virtual-threshold":
+				// 阈值变化时重新评估是否切换虚拟模式
+				this.evaluateVirtualMode();
 				break;
 		}
 	}
@@ -290,7 +335,7 @@ export class EosCarousel extends HTMLElement {
         .nav-button {
           position: absolute;
           top: 50%;
-          transform: translateY(-50%);
+          transform: translateY(-50%) translateZ(0);
           width: 43px;
           height: 43px;
           border-radius: 50%;
@@ -300,8 +345,9 @@ export class EosCarousel extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.3s ease;
+          transition: background 0.3s ease, border-color 0.3s ease;
           z-index: 10;
+          isolation: isolate;
           backdrop-filter: blur(8px);
         }
 
@@ -346,6 +392,8 @@ export class EosCarousel extends HTMLElement {
           position: absolute;
           display: flex;
           z-index: 10;
+          transform: translateZ(0);
+          isolation: isolate;
         }
 
         /* 位置样式 */
@@ -570,12 +618,50 @@ export class EosCarousel extends HTMLElement {
           from { height: 0%; }
           to { height: 100%; }
         }
+
+        /* ── 虚拟化三槽渲染 ────────────────────────────────── */
+        :host([data-virtual]) .slides-container {
+          display: block;
+          position: relative;
+        }
+
+        :host([data-virtual]) ::slotted(*) {
+          display: none !important;
+        }
+
+        .virtual-slide {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          will-change: transform;
+          transition: transform var(--carousel-transition);
+          overflow: hidden;
+          display: none;
+        }
+
+        :host([data-virtual]) .virtual-slide {
+          display: block;
+        }
+
+        .virtual-slide[data-pos="-1"] { transform: translateX(-100%); }
+        .virtual-slide[data-pos="0"]  { transform: translateX(0%);    }
+        .virtual-slide[data-pos="1"]  { transform: translateX(100%);  }
+
+        .virtual-slide > * {
+          width: 100%;
+          height: 100%;
+        }
       </style>
 
       <div class="carousel" role="region" aria-label="图片轮播" aria-live="polite">
         <div class="slides-wrapper">
           <div class="slides-container" role="list" aria-atomic="false">
             <slot></slot>
+            <div class="virtual-slide" data-pos="-1"></div>
+            <div class="virtual-slide" data-pos="0"></div>
+            <div class="virtual-slide" data-pos="1"></div>
           </div>
         </div>
 
@@ -602,32 +688,33 @@ export class EosCarousel extends HTMLElement {
 		const slidesWrapper = this.shadowRoot?.querySelector(".slides-wrapper");
 
 		prevButton?.addEventListener("click", () => {
-			this.pause(); // 用户交互时暂停自动播放
+			this.pause();
 			this.prev();
 		});
 
 		nextButton?.addEventListener("click", () => {
-			this.pause(); // 用户交互时暂停自动播放
+			this.pause();
 			this.next();
 		});
 
 		// 触摸事件
 		if (slidesWrapper) {
-			const touchStartHandler = (e: Event) =>
+			this.touchStartHandler = (e: Event) =>
 				this.handleTouchStart(e as TouchEvent);
-			const touchEndHandler = (e: Event) =>
+			this.touchEndHandler = (e: Event) =>
 				this.handleTouchEnd(e as TouchEvent);
-			slidesWrapper.addEventListener("touchstart", touchStartHandler, {
+			slidesWrapper.addEventListener("touchstart", this.touchStartHandler, {
 				passive: true,
 			});
-			slidesWrapper.addEventListener("touchend", touchEndHandler, {
+			slidesWrapper.addEventListener("touchend", this.touchEndHandler, {
 				passive: true,
 			});
 		}
 
 		// 键盘导航
-		this.addEventListener("keydown", (e) => this.handleKeydown(e));
-		this.setAttribute("tabindex", "0"); // 使组件可聚焦
+		this.keydownHandler = (e: KeyboardEvent) => this.handleKeydown(e);
+		this.addEventListener("keydown", this.keydownHandler);
+		this.setAttribute("tabindex", "0");
 	}
 
 	private handleKeydown(e: KeyboardEvent) {
@@ -669,32 +756,37 @@ export class EosCarousel extends HTMLElement {
 
 	private updateSlideCount() {
 		const slot = this.shadowRoot?.querySelector("slot");
-		if (slot) {
-			const assignedNodes = slot.assignedElements();
-			this.totalSlides = assignedNodes.length;
+		if (!slot) return;
 
-			// 处理边界情况
-			if (this.totalSlides === 0) {
-				// 没有 slides，隐藏导航和进度条
-				this.hideControls();
-				return;
-			}
+		const slides = slot.assignedElements();
+		this.totalSlides = slides.length;
 
-			if (this.totalSlides === 1) {
-				// 只有一个 slide，隐藏导航和进度条，禁用自动播放
-				this.hideControls();
-				this.pause();
-				return;
-			}
-
-			// 确保当前索引在有效范围内
-			if (this.currentIndex >= this.totalSlides) {
-				this.currentIndex = 0;
-			}
-
-			this.renderProgressBar();
-			this.updateNavigationButtons();
+		if (this.totalSlides === 0) {
+			this.hideControls();
+			return;
 		}
+
+		if (this.totalSlides === 1) {
+			this.hideControls();
+			this.pause();
+			return;
+		}
+
+		if (this.currentIndex >= this.totalSlides) {
+			this.currentIndex = 0;
+		}
+
+		// 评估是否需要开启虚拟模式
+		this.evaluateVirtualMode();
+
+		this.renderProgressBar();
+		this.updateNavigationButtons();
+
+		// slot 就绪后启动自动播放（connectedCallback 时 totalSlides 为 0，play() 会被跳过）
+		if (this.autoplay && !this.isPlaying && this.totalSlides > 1) {
+			this.play();
+		}
+
 	}
 
 	private hideControls() {
@@ -710,6 +802,9 @@ export class EosCarousel extends HTMLElement {
 	}
 
 	private updateSlidePosition() {
+		// 虚拟化模式由 goToVirtual 负责位置更新，此处不处理
+		if (this.isVirtualMode) return;
+
 		const container = this.shadowRoot?.querySelector(
 			".slides-container",
 		) as HTMLElement;
@@ -725,54 +820,230 @@ export class EosCarousel extends HTMLElement {
 		}
 	}
 
+	// ── 虚拟化三槽渲染方法 ────────────────────────────────────────────
+
+	/** 读取 virtual-threshold 属性，默认 8 */
+	private get virtualThreshold(): number {
+		const v = parseInt(this.getAttribute("virtual-threshold") ?? "", 10);
+		return Number.isFinite(v) && v > 0 ? v : 8;
+	}
+
+	/**
+	 * 根据当前 slide 数与 threshold 决定是否启用虚拟三槽模式。
+	 * 启用时在 host 元素挂载 data-virtual 属性（触发 CSS 切换），
+	 * 关闭时摘除该属性并清空槽位缓存。
+	 */
+	private evaluateVirtualMode() {
+		const shouldVirtual = this.totalSlides > this.virtualThreshold;
+		if (shouldVirtual === this.isVirtualMode) {
+			// 已经是虚拟模式，但槽位尚未填充（如 slotchange 触发了两次）则补充初始化
+			if (shouldVirtual && this.virtualDivs.length === 0) {
+				this.initVirtualDivs();
+			}
+			return;
+		}
+		this.isVirtualMode = shouldVirtual;
+		if (shouldVirtual) {
+			this.setAttribute("data-virtual", "");
+			this.initVirtualDivs();
+		} else {
+			this.removeAttribute("data-virtual");
+			this.virtualDivs = [];
+		}
+	}
+
+	/**
+	 * 初始化三个复用 DOM 槽位，使用 cloneNode(true) 从 slot 拷贝真实元素。
+	 * 支持任意内容：img / video / 自定义 HTML，无需特殊配置。
+	 * 若 slot 尚未完成分配（assignedElements 为空），延迟一帧重试。
+	 */
+	private initVirtualDivs() {
+		const container = this.shadowRoot?.querySelector(".slides-container");
+		if (!container || this.totalSlides === 0) return;
+
+		const divEls = container.querySelectorAll<HTMLElement>(".virtual-slide");
+		if (divEls.length < 3) return;
+
+		const slot = this.shadowRoot?.querySelector<HTMLSlotElement>("slot");
+		const assigned = slot?.assignedElements() ?? [];
+
+		// slot 尚未分配完成，延迟一帧重试
+		if (assigned.length === 0) {
+			requestAnimationFrame(() => this.initVirtualDivs());
+			return;
+		}
+
+		this.virtualDivs = [
+			{ el: divEls[0], pos: -1 }, // prev
+			{ el: divEls[1], pos: 0 }, // current
+			{ el: divEls[2], pos: 1 }, // next
+		];
+
+		const total = this.totalSlides;
+		const prevIdx = (this.currentIndex - 1 + total) % total;
+		const nextIdx = (this.currentIndex + 1) % total;
+
+		this.fillVirtualSlot(divEls[0], prevIdx);
+		this.fillVirtualSlot(divEls[1], this.currentIndex);
+		this.fillVirtualSlot(divEls[2], nextIdx);
+	}
+
+	/**
+	 * 将 slot 中第 index 个元素克隆（深复制）到目标虚拟槽位 div 内。
+	 * cloneNode(true) 保留完整 DOM 结构及内联事件，适配图片/视频/任意内容。
+	 * 激活懒加载：把克隆节点内 data-src 赋给 src，只在真正展示时才触发加载。
+	 */
+	private fillVirtualSlot(target: HTMLElement, index: number) {
+		const slot = this.shadowRoot?.querySelector<HTMLSlotElement>("slot");
+		if (!slot) return;
+		const assigned = slot.assignedElements();
+		const source = assigned[index];
+		if (!source) return;
+		target.innerHTML = "";
+		const clone = source.cloneNode(true) as HTMLElement;
+		// 激活懒加载：data-src → src，确保只在槽位填充时才发起媒体请求
+		for (const el of clone.querySelectorAll<
+			HTMLImageElement | HTMLVideoElement
+		>("img[data-src], video[data-src]")) {
+			const dataSrc = el.getAttribute("data-src");
+			if (dataSrc) {
+				el.setAttribute("src", dataSrc);
+				el.removeAttribute("data-src");
+			}
+			if (el instanceof HTMLVideoElement) {
+				el.load();
+			}
+		}
+		// 激活自定义组件（如 eos-image）上的 data-src
+		for (const el of clone.querySelectorAll("[data-src]")) {
+			const dataSrc = el.getAttribute("data-src");
+			if (dataSrc) {
+				el.setAttribute("src", dataSrc);
+				el.removeAttribute("data-src");
+			}
+		}
+		target.appendChild(clone);
+	}
+
+	/**
+	 * 三槽位切换动画（核心虚拟化逻辑）。
+	 * 只有 3 个真实 DOM 节点在循环复用，无论数据量多大 DOM 规模恒定。
+	 */
+	private goToVirtual(newIndex: number, previousIndex: number) {
+		const total = this.totalSlides;
+		if (!this.virtualDivs.length || total < 2) return;
+
+		const diff = (newIndex - previousIndex + total) % total;
+		const isForward = diff <= Math.floor(total / 2);
+
+		const prevVd = this.virtualDivs.find((vd) => vd.pos === -1);
+		const curVd = this.virtualDivs.find((vd) => vd.pos === 0);
+		const nextVd = this.virtualDivs.find((vd) => vd.pos === 1);
+		if (!prevVd || !curVd || !nextVd) return;
+
+		if (isForward) {
+			// prev 槽瞬移到右侧，填入新 next 内容
+			prevVd.el.style.transition = "none";
+			prevVd.el.setAttribute("data-pos", "1");
+			prevVd.pos = 1;
+			this.fillVirtualSlot(prevVd.el, (newIndex + 1) % total);
+			void prevVd.el.getBoundingClientRect(); // 强制回流使瞬移生效
+			prevVd.el.style.transition = "";
+
+			// current → prev(-1)，next → current(0)
+			curVd.pos = -1;
+			curVd.el.setAttribute("data-pos", "-1");
+			nextVd.pos = 0;
+			nextVd.el.setAttribute("data-pos", "0");
+		} else {
+			// next 槽瞬移到左侧，填入新 prev 内容
+			nextVd.el.style.transition = "none";
+			nextVd.el.setAttribute("data-pos", "-1");
+			nextVd.pos = -1;
+			this.fillVirtualSlot(nextVd.el, (newIndex - 1 + total) % total);
+			void nextVd.el.getBoundingClientRect();
+			nextVd.el.style.transition = "";
+
+			// current → next(+1)，prev → current(0)
+			curVd.pos = 1;
+			curVd.el.setAttribute("data-pos", "1");
+			prevVd.pos = 0;
+			prevVd.el.setAttribute("data-pos", "0");
+		}
+	}
+
+	/**
+	 * 渲染进度条（增量更新）
+	 * 仅在 segment 数量变化时重建 DOM，其余情况只修改 class，避免不必要的回流
+	 */
 	private renderProgressBar() {
 		const progressBar = this.shadowRoot?.querySelector(".progress-bar");
 		if (!progressBar || this.totalSlides === 0) return;
 
-		progressBar.innerHTML = "";
 		const isDots = this.indicatorStyle === "dots";
 		const isVertical =
 			this.indicatorPosition === "left" || this.indicatorPosition === "right";
 
-		for (let i = 0; i < this.totalSlides; i++) {
-			const segment = document.createElement("div");
-			segment.className = "progress-segment";
+		// 仅在数量不匹配时重建，其余增量更新 class
+		const existingSegments =
+			progressBar.querySelectorAll<HTMLElement>(".progress-segment");
 
-			// 添加点击事件，允许用户点击进度条跳转
-			segment.addEventListener("click", () => {
-				this.pause(); // 用户交互时暂停自动播放
-				this.goTo(i);
-			});
+		if (existingSegments.length !== this.totalSlides) {
+			// 数量变化：重建，使用 DocumentFragment 减少回流次数
+			progressBar.innerHTML = "";
+			const fragment = document.createDocumentFragment();
+			for (let i = 0; i < this.totalSlides; i++) {
+				const segment = document.createElement("div");
+				segment.className = "progress-segment";
+				segment.addEventListener("click", () => {
+					this.pause();
+					this.goTo(i);
+				});
+				fragment.appendChild(segment);
+			}
+			progressBar.appendChild(fragment);
+		}
+
+		// 增量更新：只修改需要变化的 class，不销毁 DOM / 不重绑事件
+		const segments =
+			progressBar.querySelectorAll<HTMLElement>(".progress-segment");
+		for (let i = 0; i < this.totalSlides; i++) {
+			const segment = segments[i];
+			if (!segment) continue;
+
+			segment.classList.remove("active", "passed", "animating", "completed");
 
 			if (i === this.currentIndex) {
 				segment.classList.add("active");
-
-				// dots样式不需要进度动画
 				if (!isDots) {
 					if (this.useCustomProgress) {
-						// 使用自定义进度时显示进度条
 						segment.classList.add("animating");
-						const fill = document.createElement("div");
-						fill.className = "progress-fill custom";
+						let fill = segment.querySelector<HTMLElement>(
+							".progress-fill.custom",
+						);
+						if (!fill) {
+							fill = document.createElement("div");
+							fill.className = "progress-fill custom";
+							segment.appendChild(fill);
+						}
 						if (isVertical) {
 							fill.style.height = `${this.customProgress}%`;
 						} else {
 							fill.style.width = `${this.customProgress}%`;
 						}
-						segment.appendChild(fill);
 					} else if (!this.isPlaying) {
-						// 未播放状态（autoplay=false）显示为完成状态
 						segment.classList.add("completed");
+						segment.querySelector(".progress-fill.custom")?.remove();
+					} else {
+						segment.querySelector(".progress-fill.custom")?.remove();
 					}
-					// isPlaying=true 且 useCustomProgress=false：等待 startSlideProgress，显示为 0%
 				}
 			} else if (i < this.currentIndex) {
-				// dots样式不需要passed状态，但tiktok样式需要
-				if (!isDots) {
-					segment.classList.add("passed");
-				}
+				if (!isDots) segment.classList.add("passed");
+				segment.querySelector(".progress-fill.custom")?.remove();
+			} else {
+				segment.querySelector(".progress-fill.custom")?.remove();
 			}
-			progressBar.appendChild(segment);
 		}
 	}
 
@@ -807,13 +1078,28 @@ export class EosCarousel extends HTMLElement {
 	}
 
 	private cleanup() {
-		// 停止自动播放
 		this.pause();
+		this.clearAutoplayTimer();
 		this.stopSlideProgress();
 
-		// 注意：由于事件监听器是匿名函数，无法精确移除
-		// 但组件销毁时，浏览器会自动清理这些监听器
-		// 这里主要确保定时器被清理
+		// 移除键盘监听
+		if (this.keydownHandler) {
+			this.removeEventListener("keydown", this.keydownHandler);
+			this.keydownHandler = null;
+		}
+
+		// 移除触摸监听
+		const slidesWrapper = this.shadowRoot?.querySelector(".slides-wrapper");
+		if (slidesWrapper) {
+			if (this.touchStartHandler) {
+				slidesWrapper.removeEventListener("touchstart", this.touchStartHandler);
+				this.touchStartHandler = null;
+			}
+			if (this.touchEndHandler) {
+				slidesWrapper.removeEventListener("touchend", this.touchEndHandler);
+				this.touchEndHandler = null;
+			}
+		}
 	}
 
 	// 公共方法
@@ -862,8 +1148,12 @@ export class EosCarousel extends HTMLElement {
 		this.customProgress = 0;
 		this.useCustomProgress = false;
 
-		// 更新 slide 位置
-		this.updateSlidePosition();
+		// 更新 slide 位置（虚拟化模式走三槽动画，slot 模式走 translateX）
+		if (this.isVirtualMode) {
+			this.goToVirtual(index, previousIndex);
+		} else {
+			this.updateSlidePosition();
+		}
 
 		// 更新进度条
 		this.renderProgressBar();
@@ -883,17 +1173,51 @@ export class EosCarousel extends HTMLElement {
 		// 触发 slide-active 事件，通知外部当前激活的 slide
 		this.triggerSlideActiveEvent();
 
-		// 过渡动画结束后解锁
-		setTimeout(() => {
+		// 过渡动画结束后解锁（监听 transitionend，带兜底超时）
+		const container = this.shadowRoot?.querySelector(".slides-container") as HTMLElement;
+		const unlockTransition = () => {
 			this.isTransitioning = false;
-		}, 500); // 与 CSS transition 时长一致
+		};
+		if (container) {
+			const onEnd = () => {
+				container.removeEventListener("transitionend", onEnd);
+				unlockTransition();
+			};
+			container.addEventListener("transitionend", onEnd, { once: true });
+			// 兜底：防止 transitionend 不触发（如元素被隐藏）
+			setTimeout(unlockTransition, 600);
+		} else {
+			unlockTransition();
+		}
+
+		// 自动播放模式下，切换后重新调度下一次
+		if (this.isPlaying) {
+			this.scheduleNextSlide();
+		}
 	}
 
 	play() {
-		// 如果已经在播放或只有一个 slide，不执行
 		if (this.isPlaying || this.totalSlides <= 1) return;
-
 		this.isPlaying = true;
+		this.scheduleNextSlide();
+	}
+
+	/** 调度下一次自动切换 */
+	private scheduleNextSlide() {
+		this.clearAutoplayTimer();
+		if (!this.isPlaying) return;
+		this.autoplayTimer = window.setTimeout(() => {
+			if (!this.isPlaying) return;
+			this.next();
+			this.scheduleNextSlide();
+		}, this.interval);
+	}
+
+	private clearAutoplayTimer() {
+		if (this.autoplayTimer !== null) {
+			clearTimeout(this.autoplayTimer);
+			this.autoplayTimer = null;
+		}
 	}
 
 	/**
@@ -965,6 +1289,7 @@ export class EosCarousel extends HTMLElement {
 
 	pause() {
 		this.isPlaying = false;
+		this.clearAutoplayTimer();
 		this.stopSlideProgress();
 		this.renderProgressBar();
 	}
