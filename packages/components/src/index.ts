@@ -1,9 +1,11 @@
 import { EosButton } from "./components/button/button";
 import { EosCarousel } from "./components/carousel/carousel";
 import { EosImage } from "./components/image/image";
+import { EosProgressBar } from "./components/progress-bar/progress-bar";
+import { EosScrollbar } from "./components/scrollbar/scrollbar";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
 
-export { EosButton, EosCarousel, EosImage, COMPONENT_CONFIG };
+export { EosButton, EosCarousel, EosImage, EosProgressBar, EosScrollbar, COMPONENT_CONFIG };
 
 /**
  * 组件注册表
@@ -12,6 +14,8 @@ const COMPONENTS: ComponentRegistration[] = [
 	{ name: "button", component: EosButton },
 	{ name: "carousel", component: EosCarousel },
 	{ name: "image", component: EosImage },
+	{ name: "progress-bar", component: EosProgressBar },
+	{ name: "scrollbar", component: EosScrollbar },
 ];
 
 /**

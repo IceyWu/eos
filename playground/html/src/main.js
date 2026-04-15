@@ -2,6 +2,7 @@ import { registerComponents } from "@eosjs/components";
 import { ButtonDemo } from "./components/button-demo.js";
 import { CarouselDemo } from "./components/carousel-demo.js";
 import { ImageDemo } from "./components/image-demo.js";
+import { ScrollbarDemo } from "./components/scrollbar-demo.js";
 
 // 注册 Web Components
 registerComponents();
@@ -11,6 +12,7 @@ const components = {
 	button: ButtonDemo,
 	image: ImageDemo,
 	carousel: CarouselDemo,
+	scrollbar: ScrollbarDemo,
 };
 
 // 当前选中的组件

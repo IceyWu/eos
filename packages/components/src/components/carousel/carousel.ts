@@ -32,19 +32,16 @@ export class EosCarousel extends HTMLElement {
 	private touchStartHandler: ((e: Event) => void) | null = null;
 	private touchEndHandler: ((e: Event) => void) | null = null;
 
-	// 进度控制相关
-	private customProgress: number = 0;
-	private useCustomProgress: boolean = false;
-	private progressTimer: number | null = null;
-	private progressStartTime: number = 0;
-	private progressDuration: number = 0;
+	// 进度控制相关（代理到 eos-progress-bar）
 	private progressCallback: (() => void) | null = null;
-
-	// 加载状态：当前 slide 资源是否正在加载
-	private isSlideLoading: boolean = false;
 
 	// 记录已绑定 click 事件的 slide，避免重复绑定
 	private boundClickSlides = new WeakSet<Element>();
+
+	/** 获取内部 eos-progress-bar 实例 */
+	private get progressBar(): import("../progress-bar/progress-bar").EosProgressBar | null {
+		return this.shadowRoot?.querySelector("eos-progress-bar") as any;
+	}
 
 	// ── 虚拟化渲染相关 ──────────────────────────────────────────
 	/** 当前是否处于虚拟渲染模式 */
@@ -273,11 +270,10 @@ export class EosCarousel extends HTMLElement {
 				break;
 			case "indicator-position":
 			case "indicator-style": {
-				// 只更新 progress-bar 的 class，不重建整个 Shadow DOM
-				const bar = this.shadowRoot?.querySelector(".progress-bar");
-				if (bar) {
-					bar.className = `progress-bar position-${this.indicatorPosition} style-${this.indicatorStyle}`;
-					this.renderProgressBar();
+				const pb = this.progressBar;
+				if (pb) {
+					pb.setAttribute("variant", this.indicatorStyle);
+					pb.setAttribute("position", this.indicatorPosition);
 				}
 				break;
 			}
@@ -390,257 +386,13 @@ export class EosCarousel extends HTMLElement {
           display: none;
         }
 
-        /* 指示器容器基础样式 */
-        .progress-bar {
+        /* ── eos-progress-bar 定位 ── */
+        eos-progress-bar {
           position: absolute;
-          display: flex;
           z-index: 10;
-          transform: translateZ(0);
-          isolation: isolate;
-        }
-
-        /* 位置样式 */
-        .progress-bar.position-bottom {
           bottom: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          gap: var(--progress-bar-gap);
-          padding: 0 20px;
-        }
-
-        .progress-bar.position-top {
-          top: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          gap: var(--progress-bar-gap);
-          padding: 0 20px;
-        }
-
-        .progress-bar.position-left {
           left: 20px;
-          top: 50%;
-          transform: translateY(-50%);
-          flex-direction: column;
-          gap: var(--progress-bar-gap);
-          padding: 20px 0;
-        }
-
-        .progress-bar.position-right {
           right: 20px;
-          top: 50%;
-          transform: translateY(-50%);
-          flex-direction: column;
-          gap: var(--progress-bar-gap);
-          padding: 20px 0;
-        }
-
-        /* 默认样式（进度条） */
-        .progress-bar.style-default .progress-segment {
-          height: var(--progress-bar-height);
-          background: var(--progress-bar-color);
-          border-radius: 2px;
-          position: relative;
-          overflow: hidden;
-          flex: 1;
-          min-width: 30px;
-          cursor: pointer;
-          transition: background 0.3s ease;
-        }
-
-        .progress-bar.style-default.position-left .progress-segment,
-        .progress-bar.style-default.position-right .progress-segment {
-          width: var(--progress-bar-height);
-          height: 30px;
-          min-width: unset;
-        }
-
-        /* 点样式 */
-        .progress-bar.style-dots {
-          gap: 8px;
-        }
-
-        .progress-bar.style-dots .progress-segment {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: var(--progress-bar-color);
-          cursor: pointer;
-          transition: all 0.3s ease;
-          flex: none;
-        }
-
-        .progress-bar.style-dots .progress-segment.active {
-          background: var(--progress-bar-active-color);
-          transform: scale(1.2);
-        }
-
-        /* 抖音样式（等分进度条） */
-        .progress-bar.style-tiktok {
-          left: 0;
-          right: 0;
-          padding: 0 20px;
-          gap: 3px;
-        }
-
-        .progress-bar.style-tiktok.position-bottom {
-          bottom: 20px;
-          transform: none;
-        }
-
-        .progress-bar.style-tiktok.position-top {
-          top: 20px;
-          transform: none;
-        }
-
-        .progress-bar.style-tiktok.position-left,
-        .progress-bar.style-tiktok.position-right {
-          top: 0;
-          bottom: 0;
-          padding: 20px 0;
-          transform: none;
-          width: auto;
-        }
-
-        .progress-bar.style-tiktok.position-left {
-          left: 20px;
-        }
-
-        .progress-bar.style-tiktok.position-right {
-          right: 20px;
-        }
-
-        .progress-bar.style-tiktok .progress-segment {
-          height: 3px;
-          background: rgba(255, 255, 255, 0.3);
-          border-radius: 1.5px;
-          position: relative;
-          overflow: hidden;
-          flex: 1;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        
-        /* tiktok样式高亮效果 */
-        .progress-bar.style-tiktok .progress-segment.passed {
-          background: rgba(255, 255, 255, 0.9);
-          height: 3px;
-        }
-        
-        .progress-bar.style-tiktok .progress-segment.active {
-          height: 3px;
-          /* 保持默认背景色，表示 0% 状态 */
-        }
-        
-        .progress-bar.style-tiktok .progress-segment.active.completed {
-          /* 完成状态显示为白色 (100%) */
-          background: rgba(255, 255, 255, 0.9);
-        }
-        
-        .progress-bar.style-tiktok .progress-segment.active.animating {
-          /* animating 时保持半透明背景，进度由 .progress-fill 显示 */
-          background: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* tiktok进度填充的颜色 */
-        .progress-bar.style-tiktok .progress-fill {
-          background: rgba(255, 255, 255, 0.9);
-        }
-
-        .progress-bar.style-tiktok.position-left .progress-segment,
-        .progress-bar.style-tiktok.position-right .progress-segment {
-          width: 3px;
-          height: auto;
-        }
-        
-        .progress-bar.style-tiktok.position-left .progress-segment.passed,
-        .progress-bar.style-tiktok.position-right .progress-segment.passed {
-          width: 3px;
-        }
-        
-        .progress-bar.style-tiktok.position-left .progress-segment.active,
-        .progress-bar.style-tiktok.position-right .progress-segment.active {
-          width: 3px;
-        }
-
-        /* 通用激活状态（默认和dots样式使用） */
-        .progress-bar:not(.style-tiktok) .progress-segment.passed {
-          background: var(--progress-bar-active-color);
-        }
-
-        .progress-bar:not(.style-tiktok) .progress-segment.active.completed {
-          /* 完成状态显示为激活色 (100%) */
-          background: var(--progress-bar-active-color);
-        }
-
-        .progress-bar:not(.style-tiktok) .progress-segment.active.animating {
-          /* animating 时保持半透明背景，进度由 .progress-fill 显示 */
-          background: var(--progress-bar-color);
-        }
-
-        .progress-fill {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          background: var(--progress-bar-active-color);
-          width: 0%;
-          transform-origin: left;
-        }
-
-        .progress-bar.position-left .progress-fill,
-        .progress-bar.position-right .progress-fill {
-          width: 100%;
-          height: 0%;
-          transform-origin: top;
-        }
-
-        .progress-segment.active.animating .progress-fill:not(.custom) {
-          animation: fillProgress var(--interval) linear forwards;
-        }
-
-        .progress-bar.position-left .progress-segment.active.animating .progress-fill:not(.custom),
-        .progress-bar.position-right .progress-segment.active.animating .progress-fill:not(.custom) {
-          animation: fillProgressVertical var(--interval) linear forwards;
-        }
-
-        .progress-segment.active.animating .progress-fill.custom {
-          transition: width 0.1s linear;
-        }
-
-        .progress-bar.position-left .progress-segment.active.animating .progress-fill.custom,
-        .progress-bar.position-right .progress-segment.active.animating .progress-fill.custom {
-          transition: height 0.1s linear;
-        }
-
-        @keyframes fillProgress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-
-        @keyframes fillProgressVertical {
-          from { height: 0%; }
-          to { height: 100%; }
-        }
-
-        /* ── 加载中波纹动画 ────────────────────────────────── */
-        @keyframes loadingRipple {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-
-        .progress-segment.active.loading {
-          background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.15) 0%,
-            rgba(255, 255, 255, 0.5) 50%,
-            rgba(255, 255, 255, 0.15) 100%
-          ) !important;
-          background-size: 200% 100% !important;
-          animation: loadingRipple 1.5s ease-in-out infinite !important;
-        }
-
-        .progress-segment.active.loading .progress-fill {
-          display: none;
         }
 
         /* ── 虚拟化三槽渲染 ────────────────────────────────── */
@@ -701,7 +453,12 @@ export class EosCarousel extends HTMLElement {
           </svg>
         </button>
 
-        <div class="progress-bar position-${this.indicatorPosition} style-${this.indicatorStyle}" role="tablist" aria-label="轮播进度"></div>
+        <eos-progress-bar
+          total="0"
+          current="${this.currentIndex}"
+          variant="${this.indicatorStyle}"
+          position="${this.indicatorPosition}"
+        ></eos-progress-bar>
       </div>
     `;
 	}
@@ -816,13 +573,11 @@ export class EosCarousel extends HTMLElement {
 	private hideControls() {
 		const prevButton = this.shadowRoot?.querySelector(".nav-button.prev");
 		const nextButton = this.shadowRoot?.querySelector(".nav-button.next");
-		const progressBar = this.shadowRoot?.querySelector(".progress-bar");
 
 		prevButton?.classList.add("hidden");
 		nextButton?.classList.add("hidden");
-		if (progressBar) {
-			(progressBar as HTMLElement).style.display = "none";
-		}
+		const pb = this.progressBar;
+		if (pb) pb.style.display = "none";
 	}
 
 	private updateSlidePosition() {
@@ -1001,77 +756,18 @@ export class EosCarousel extends HTMLElement {
 	 * 仅在 segment 数量变化时重建 DOM，其余情况只修改 class，避免不必要的回流
 	 */
 	private renderProgressBar() {
-		const progressBar = this.shadowRoot?.querySelector(".progress-bar");
-		if (!progressBar || this.totalSlides === 0) return;
+		const pb = this.progressBar;
+		if (!pb) return;
+		pb.total = this.totalSlides;
+		pb.current = this.currentIndex;
 
-		const isDots = this.indicatorStyle === "dots";
-		const isVertical =
-			this.indicatorPosition === "left" || this.indicatorPosition === "right";
-
-		// 仅在数量不匹配时重建，其余增量更新 class
-		const existingSegments =
-			progressBar.querySelectorAll<HTMLElement>(".progress-segment");
-
-		if (existingSegments.length !== this.totalSlides) {
-			// 数量变化：重建，使用 DocumentFragment 减少回流次数
-			progressBar.innerHTML = "";
-			const fragment = document.createDocumentFragment();
-			for (let i = 0; i < this.totalSlides; i++) {
-				const segment = document.createElement("div");
-				segment.className = "progress-segment";
-				segment.addEventListener("click", () => {
-					this.pause();
-					this.goTo(i);
-				});
-				fragment.appendChild(segment);
-			}
-			progressBar.appendChild(fragment);
-		}
-
-		// 增量更新：只修改需要变化的 class，不销毁 DOM / 不重绑事件
-		const segments =
-			progressBar.querySelectorAll<HTMLElement>(".progress-segment");
-		for (let i = 0; i < this.totalSlides; i++) {
-			const segment = segments[i];
-			if (!segment) continue;
-
-			segment.classList.remove("active", "passed", "animating", "completed", "loading");
-
-			if (i === this.currentIndex) {
-				segment.classList.add("active");
-				if (!isDots) {
-					if (this.isSlideLoading) {
-						// 资源加载中：波纹动画
-						segment.classList.add("loading");
-						segment.querySelector(".progress-fill.custom")?.remove();
-					} else if (this.useCustomProgress) {
-						segment.classList.add("animating");
-						let fill = segment.querySelector<HTMLElement>(
-							".progress-fill.custom",
-						);
-						if (!fill) {
-							fill = document.createElement("div");
-							fill.className = "progress-fill custom";
-							segment.appendChild(fill);
-						}
-						if (isVertical) {
-							fill.style.height = `${this.customProgress}%`;
-						} else {
-							fill.style.width = `${this.customProgress}%`;
-						}
-					} else if (!this.isPlaying) {
-						segment.classList.add("completed");
-						segment.querySelector(".progress-fill.custom")?.remove();
-					} else {
-						segment.querySelector(".progress-fill.custom")?.remove();
-					}
-				}
-			} else if (i < this.currentIndex) {
-				if (!isDots) segment.classList.add("passed");
-				segment.querySelector(".progress-fill.custom")?.remove();
-			} else {
-				segment.querySelector(".progress-fill.custom")?.remove();
-			}
+		// 绑定 segment-click 事件（只绑一次）
+		if (!(pb as any).__carouselBound) {
+			(pb as any).__carouselBound = true;
+			pb.addEventListener("segment-click", ((e: CustomEvent) => {
+				this.pause();
+				this.goTo(e.detail.index);
+			}) as EventListener);
 		}
 	}
 
@@ -1171,11 +867,6 @@ export class EosCarousel extends HTMLElement {
 
 		// 停止之前的进度
 		this.stopSlideProgress();
-		this.isSlideLoading = false;
-
-		// 重置自定义进度（必须在 renderProgressBar 之前）
-		this.customProgress = 0;
-		this.useCustomProgress = false;
 
 		// 更新 slide 位置（虚拟化模式走三槽动画，slot 模式走 translateX）
 		if (this.isVirtualMode) {
@@ -1254,14 +945,11 @@ export class EosCarousel extends HTMLElement {
 	 * 调用 startSlideProgress 时会自动结束加载状态
 	 */
 	setSlideLoading(loading: boolean) {
-		this.isSlideLoading = loading;
-		if (loading) {
-			// 加载中时停止任何正在进行的进度动画
-			this.stopSlideProgress();
-			this.useCustomProgress = false;
-			this.customProgress = 0;
+		const pb = this.progressBar;
+		if (pb) {
+			if (loading) this.stopSlideProgress();
+			pb.setLoading(loading);
 		}
-		this.renderProgressBar();
 	}
 
 	/**
@@ -1271,40 +959,22 @@ export class EosCarousel extends HTMLElement {
 	 */
 	startSlideProgress(options?: { duration?: number; onComplete?: () => void }) {
 		this.stopSlideProgress();
-		// 结束加载状态
-		this.isSlideLoading = false;
+		const pb = this.progressBar;
+		if (!pb) return;
 
-		const duration = options?.duration ?? this.interval;
 		this.progressCallback = options?.onComplete || null;
-		this.progressDuration = duration;
-		this.progressStartTime = Date.now();
-		this.useCustomProgress = true;
-		this.customProgress = 0;
-		this.renderProgressBar();
-
-		const updateProgress = () => {
-			const elapsed = Date.now() - this.progressStartTime;
-			const progress = Math.min((elapsed / this.progressDuration) * 100, 100);
-			this.customProgress = progress;
-			this.updateProgressDisplay();
-
-			if (progress >= 100) {
-				const callback = this.progressCallback;
-				this.stopSlideProgress();
-				if (callback) callback();
-			} else {
-				this.progressTimer = window.requestAnimationFrame(updateProgress);
-			}
-		};
-
-		this.progressTimer = window.requestAnimationFrame(updateProgress);
+		pb.startProgress({
+			duration: options?.duration ?? this.interval,
+			onComplete: () => {
+				const cb = this.progressCallback;
+				this.progressCallback = null;
+				if (cb) cb();
+			},
+		});
 	}
 
 	stopSlideProgress() {
-		if (this.progressTimer !== null) {
-			window.cancelAnimationFrame(this.progressTimer);
-			this.progressTimer = null;
-		}
+		this.progressBar?.stopProgress();
 		this.progressCallback = null;
 	}
 
@@ -1312,25 +982,7 @@ export class EosCarousel extends HTMLElement {
 	 * 更新进度条显示（提取的共享方法）
 	 */
 	private updateProgressDisplay() {
-		const progressBar = this.shadowRoot?.querySelector(".progress-bar");
-		if (!progressBar) return;
-
-		const segments = progressBar.querySelectorAll(".progress-segment");
-		const currentSegment = segments[this.currentIndex];
-		if (!currentSegment) return;
-
-		const fill = currentSegment.querySelector(
-			".progress-fill.custom",
-		) as HTMLElement;
-		if (!fill) return;
-
-		const isVertical =
-			this.indicatorPosition === "left" || this.indicatorPosition === "right";
-		if (isVertical) {
-			fill.style.height = `${this.customProgress}%`;
-		} else {
-			fill.style.width = `${this.customProgress}%`;
-		}
+		// 已由 eos-progress-bar 内部处理
 	}
 
 	pause() {
@@ -1345,7 +997,6 @@ export class EosCarousel extends HTMLElement {
 	 * @param progress 进度值 0-100
 	 */
 	updateProgress(progress: number) {
-		this.customProgress = Math.max(0, Math.min(100, progress));
-		this.updateProgressDisplay();
+		this.progressBar?.setProgress(progress);
 	}
 }
