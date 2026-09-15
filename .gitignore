@@ -45,6 +45,8 @@ Thumbs.db
 .vite/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+.react-router/
+react-router.config.mjs
 
 # TypeScript
 *.tsbuildinfo

@@ -1,0 +1,73 @@
+---
+title: Scrollbar
+description: 可独立使用或绑定到滚动容器的自定义滚动条。
+category: Data Display
+---
+
+import Basic from './demo.tsx?demo';
+
+## Introduction
+
+Scrollbar 提供跨浏览器一致的滚动条外观，支持横向、纵向、拖拽、轨道点击和自动隐藏，也支持虚拟列表场景。
+
+## Basic Usage
+
+<Demo of={Basic} title="绑定到滚动容器" />
+
+```html
+<div id="content" style="height: 240px; overflow: auto">
+  <!-- scrollable content -->
+</div>
+<eos-scrollbar id="scrollbar" direction="vertical"></eos-scrollbar>
+
+<script type="module">
+  const content = document.querySelector('#content');
+  document.querySelector('#scrollbar').attach(content);
+</script>
+```
+
+## 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `direction` | `horizontal \| vertical` | `horizontal` | 滚动方向 |
+| `auto-hide` | `boolean` | `false` | 无交互时自动隐藏 |
+| `thumb-color` | `string` | `rgba(0,0,0,0.4)` | 滑块颜色 |
+| `track-color` | `string` | `rgba(0,0,0,0.1)` | 轨道颜色 |
+| `thumb-size` | `string` | `6` | 滑块粗细，单位 px |
+| `thumb-min-size` | `string` | `30` | 滑块最小长度，单位 px |
+| `border-radius` | `string` | `3` | 圆角，单位 px |
+
+## 虚拟列表
+
+当 DOM 高度与逻辑内容高度不一致时，可以手动驱动滚动状态：
+
+```ts
+const scrollbar = document.querySelector('eos-scrollbar');
+
+scrollbar.setVirtualScroll({
+  contentSize: 100000,
+  viewportSize: 600,
+  scrollOffset: 1200,
+});
+
+scrollbar.addEventListener('scroll-change', (event) => {
+  const { scrollOffset } = event.detail;
+  // 根据 scrollOffset 更新虚拟列表
+});
+```
+
+## 方法
+
+| 方法 | 说明 |
+| --- | --- |
+| `attach(element)` | 绑定到可滚动元素 |
+| `detach()` | 解除绑定 |
+| `setVirtualScroll(options)` | 设置虚拟滚动状态 |
+| `clearVirtualScroll()` | 退出虚拟滚动模式 |
+
+## 事件
+
+| 事件名 | 触发时机 | `event.detail` |
+| --- | --- | --- |
+| `scroll-change` | 滚动位置变化 | `{ position, ratio, scrollOffset? }` |

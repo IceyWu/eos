@@ -1,0 +1,26 @@
+diff --git a/vite.config.ts b/vite.config.ts
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -89,4 +89,12 @@ export default defineConfig({
+     tsconfigPaths: true,
+   },
+   ssr: {
+-    noExternal: [/^@lobehub\/ui(?:\/.*)?$/, '@lobehub/icons', '@lobehub/fluent-emoji'],
++    noExternal: [
++      /^@lobehub\/(?:ui|icons|fluent-emoji)(?:\/.*)?$/,
++      /^@ant-design\/(?:.*)$/,
++      /^@rc-component\/(?:.*)$/,
++      /^antd(?:\/.*)?$/,
++      /^antd-style(?:\/.*)?$/,
++      /^rc-[^/]+(?:\/.*)?$/,
++      '@emotion/hash',
++    ],
+  },
+});
+
+diff --git a/site/content/pageChrome.ts b/site/content/pageChrome.ts
+--- a/site/content/pageChrome.ts
++++ b/site/content/pageChrome.ts
+@@ -72 +72 @@
+-  if (!source.startsWith('src/')) return undefined;
++  if (!source.startsWith('src/') && !source.startsWith('packages/components/src/')) return undefined;

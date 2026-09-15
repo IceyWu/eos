@@ -1,0 +1,123 @@
+---
+title: Button
+description: 基于 Web Components 的按钮组件，零框架依赖，支持 CSS 变量自定义和全框架集成。
+category: General
+---
+
+import Basic from './demo.tsx?demo';
+
+## Introduction
+
+Button 是一个基于 Web Components 的按钮组件，支持 React、Vue、Angular 和原生 HTML。它通过 `e-click` 事件提供统一的交互方式，并允许使用 CSS 变量定制外观。
+
+## Basic Usage
+
+<Demo of={Basic} title="基础用法" />
+
+## 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | 是否禁用按钮 |
+| `text` | `string` | `Click me` | 通过 slot 传入的按钮文本 |
+
+## 事件
+
+| 事件名 | 触发时机 | `event.detail` |
+| --- | --- | --- |
+| `e-click` | 按钮点击 | `{ message: 'Button clicked!' }` |
+
+## 样式变体
+
+```html
+<eos-button>Primary</eos-button>
+<eos-button class="secondary">Secondary</eos-button>
+<eos-button class="success">Success</eos-button>
+<eos-button class="danger">Danger</eos-button>
+```
+
+## 框架集成
+
+### React
+
+```tsx
+import { useEffect, useRef } from 'react';
+import '@eosjs/components';
+
+export function MyButton() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    const onClick = (event: Event) => {
+      console.log('clicked:', (event as CustomEvent).detail.message);
+    };
+    element?.addEventListener('e-click', onClick);
+    return () => element?.removeEventListener('e-click', onClick);
+  }, []);
+
+  return <eos-button ref={ref}>Click me</eos-button>;
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <eos-button @e-click="handleClick">Click me</eos-button>
+</template>
+
+<script setup>
+import '@eosjs/components';
+
+function handleClick(event) {
+  console.log('clicked:', event.detail.message);
+}
+</script>
+```
+
+### Angular
+
+```ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import '@eosjs/components';
+
+@Component({
+  selector: 'app-button',
+  template: '<eos-button (e-click)="onClick($event)">Click me</eos-button>',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class ButtonComponent {
+  onClick(event: CustomEvent) {
+    console.log('clicked:', event.detail.message);
+  }
+}
+```
+
+### 原生 HTML
+
+```html
+<script type="module">
+  import '@eosjs/components';
+  document.querySelector('eos-button').addEventListener('e-click', (event) => {
+    console.log('clicked:', event.detail.message);
+  });
+</script>
+
+<eos-button>Click me</eos-button>
+```
+
+## CSS 自定义属性
+
+```css
+eos-button {
+  --button-bg: #007bff;
+  --button-color: white;
+  --button-hover-bg: #0056b3;
+  --button-active-bg: #004085;
+  --button-padding: 8px 16px;
+  --button-font-size: 14px;
+  --button-border-radius: 4px;
+  --button-border: none;
+}
+```

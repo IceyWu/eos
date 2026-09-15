@@ -1,0 +1,129 @@
+---
+title: 快速开始指南
+description: 几分钟内快速上手 Eos Web Components。
+---
+
+## 安装
+
+选择你喜欢的包管理器：
+
+```bash
+npm install @eosjs/components
+yarn add @eosjs/components
+pnpm add @eosjs/components
+```
+
+## 框架集成
+
+### React
+
+```tsx
+import { useEffect, useRef } from 'react';
+import '@eosjs/components';
+
+export function App() {
+  const buttonRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    const onClick = (event: Event) => {
+      console.log('点击了:', (event as CustomEvent).detail);
+    };
+    button?.addEventListener('e-click', onClick);
+    return () => button?.removeEventListener('e-click', onClick);
+  }, []);
+
+  return <eos-button ref={buttonRef}>点击我</eos-button>;
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <eos-button @e-click="handleClick">点击我</eos-button>
+  <eos-carousel autoplay loop :interval="3000">
+    <div>幻灯片 1</div>
+    <div>幻灯片 2</div>
+  </eos-carousel>
+</template>
+
+<script setup>
+import '@eosjs/components';
+
+const handleClick = (event) => console.log('点击了:', event.detail);
+</script>
+```
+
+### Angular
+
+在 Angular 中引入 `CUSTOM_ELEMENTS_SCHEMA`，即可使用 Eos 自定义元素：
+
+```ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import '@eosjs/components';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <eos-button>点击我</eos-button>
+    <eos-carousel autoplay loop [attr.interval]="3000">
+      <div>幻灯片 1</div>
+      <div>幻灯片 2</div>
+    </eos-carousel>
+  `,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {}
+```
+
+### 原生 JavaScript / HTML
+
+```html
+<script type="module">
+  import '@eosjs/components';
+
+  document.querySelector('eos-button').addEventListener('e-click', (event) => {
+    console.log('点击了:', event.detail);
+  });
+</script>
+
+<eos-button>点击我</eos-button>
+<eos-carousel autoplay loop interval="3000">
+  <div>幻灯片 1</div>
+  <div>幻灯片 2</div>
+</eos-carousel>
+```
+
+## 组件方法和事件
+
+```ts
+const carousel = document.querySelector('eos-carousel');
+carousel.play();
+carousel.pause();
+carousel.next();
+carousel.prev();
+carousel.goTo(2);
+
+carousel.addEventListener('change', (event) => {
+  console.log('当前:', event.detail.currentIndex);
+});
+```
+
+## 样式定制
+
+所有组件都支持 CSS 变量：
+
+```css
+eos-carousel {
+  --carousel-height: 500px;
+  --progress-bar-color: rgba(0, 0, 0, 0.2);
+  --progress-bar-active-color: #007bff;
+  --control-bg: rgba(0, 0, 0, 0.5);
+}
+
+eos-button {
+  --button-bg: #007bff;
+  --button-color: white;
+}
+```
