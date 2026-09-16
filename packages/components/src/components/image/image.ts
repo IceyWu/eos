@@ -15,6 +15,7 @@ class ImageLoader {
 	private activeLoads = 0;
 	private maxConcurrent = 6; // 浏览器通常限制同域名并发连接数为6
 	private imageCache = new Map<string, HTMLImageElement>();
+	private inFlightLoads = new Map<string, Promise<HTMLImageElement>>();
 	private maxCacheSize = 50; // 限制缓存大小，避免内存泄漏
 
 	// 动态调整并发数
@@ -42,10 +43,27 @@ class ImageLoader {
 			return Promise.resolve(cached);
 		}
 
-		return new Promise((resolve, reject) => {
+		// 多个 eos-image 同时使用同一个地址时共享同一个加载请求。
+		const inFlight = this.inFlightLoads.get(src);
+		if (inFlight) {
+			return inFlight.then((img) => {
+				onProgress?.(1, 1);
+				return img;
+			});
+		}
+
+		const request = new Promise<HTMLImageElement>((resolve, reject) => {
 			this.loadingQueue.push({ src, resolve, reject, onProgress });
-			this.processQueue();
 		});
+		this.inFlightLoads.set(src, request);
+		const clearInFlight = () => {
+			if (this.inFlightLoads.get(src) === request) {
+				this.inFlightLoads.delete(src);
+			}
+		};
+		request.then(clearInFlight, clearInFlight);
+		this.processQueue();
+		return request;
 	}
 
 	private processQueue() {
@@ -117,7 +135,6 @@ class ImageLoader {
 			// 创建图片对象
 			const img = new Image();
 			img.onload = () => {
-				URL.revokeObjectURL(objectURL);
 				this.activeLoads--;
 				this.addToCache(task.src, img);
 				task.resolve(img);
@@ -175,6 +192,9 @@ class ImageLoader {
 				if (oldImg) {
 					oldImg.onload = null;
 					oldImg.onerror = null;
+					if (oldImg.src.startsWith("blob:")) {
+						URL.revokeObjectURL(oldImg.src);
+					}
 				}
 			}
 		}
@@ -188,6 +208,9 @@ class ImageLoader {
 			if (img) {
 				img.onload = null;
 				img.onerror = null;
+				if (img.src.startsWith("blob:")) {
+					URL.revokeObjectURL(img.src);
+				}
 			}
 			this.imageCache.delete(src);
 		} else {
@@ -195,6 +218,9 @@ class ImageLoader {
 			this.imageCache.forEach((img) => {
 				img.onload = null;
 				img.onerror = null;
+				if (img.src.startsWith("blob:")) {
+					URL.revokeObjectURL(img.src);
+				}
 			});
 			this.imageCache.clear();
 		}
@@ -491,7 +517,7 @@ export class EosImage extends HTMLElement {
 		oldValue: string | null,
 		newValue: string | null,
 	) {
-		if (oldValue !== newValue && this.isRendered) {
+		if (oldValue !== newValue && this.isRendered && this.isConnected) {
 			switch (name) {
 				case "src":
 				case "src-type":
@@ -544,6 +570,8 @@ export class EosImage extends HTMLElement {
 		// 重置状态
 		this.isLoading = true;
 		this.hasError = false;
+		// 在任何网络请求开始前先显示占位图或 loading 状态。
+		this.updateDisplay();
 
 		// blurhash 类型直接显示，不需要网络加载
 		if (srcType === "blurhash") {
@@ -556,7 +584,6 @@ export class EosImage extends HTMLElement {
 		// URL 类型图片加载
 		if (loading === "lazy") {
 			// 懒加载：等待进入视口
-			this.updateDisplay(); // 先显示占位符
 			LazyLoadObserver.unobserve(this); // 清理之前的观察
 			LazyLoadObserver.observe(this, () => {
 				if (generation !== this.loadGeneration || !this.isConnected) return;
@@ -582,6 +609,7 @@ export class EosImage extends HTMLElement {
 
 		schedule(() => {
 			this.loadingScheduled = false;
+			if (!this.isConnected) return;
 			this.handleImageLoading();
 		});
 	}
@@ -603,7 +631,7 @@ export class EosImage extends HTMLElement {
 
 		try {
 			// 使用图片加载器池，带进度回调
-			await this.imageLoader.load(src, (loaded, total) => {
+			const loadedImage = await this.imageLoader.load(src, (loaded, total) => {
 				if (generation !== this.loadGeneration || !this.isConnected) return;
 				// 分发进度事件
 				const progressEvent = new CustomEvent("progress", {
@@ -626,7 +654,8 @@ export class EosImage extends HTMLElement {
 				this.isLoading = false;
 				this.hasError = false;
 				if (this.img) {
-					this.img.src = src;
+					// 复用加载器已经取得的 Blob URL，避免再次请求原始 OSS 地址。
+					this.img.src = loadedImage.src;
 				}
 				this.updateDisplay();
 				this.updateImageAttributes();
@@ -813,26 +842,14 @@ export class EosImage extends HTMLElement {
 
 		// URL 加载状态
 		if (this.isLoading) {
-			this.loadingContainer.classList.toggle(
-				"overlay",
-				Boolean(this.placeholderDataUrl),
-			);
-			if (placeholderFill) {
-				// 填充模式下，placeholder已经显示，只需要显示加载遮罩
-				if (this.placeholderDataUrl) {
-					this.loadingContainer.classList.remove("hidden");
-				} else {
-					this.loadingContainer.classList.remove("hidden");
-				}
+			// BlurHash 或图片占位符本身已经提供视觉反馈，不再叠加 loading 面板。
+			if (this.placeholderDataUrl) {
+				this.placeholderImage.src = this.placeholderDataUrl;
+				this.placeholderImage.classList.remove("hidden");
+				this.loadingContainer.classList.add("hidden");
+				this.loadingContainer.classList.remove("overlay");
 			} else {
-				// 普通模式下：加载时正常显示placeholder，加载完成后再隐藏
-				if (this.placeholderDataUrl) {
-					this.placeholderImage.src = this.placeholderDataUrl;
-					this.placeholderImage.classList.remove("hidden");
-					this.loadingContainer.classList.remove("hidden");
-				} else {
-					this.loadingContainer.classList.remove("hidden");
-				}
+				this.loadingContainer.classList.remove("hidden");
 			}
 		} else {
 			// 显示主图片（URL 类型加载完成）

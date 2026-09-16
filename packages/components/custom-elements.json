@@ -157,419 +157,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/image/image.css.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "IMAGE_STYLES",
-          "default": "` ${EOS_THEME_TOKENS} :host { display: inline-block; position: relative; overflow: hidden; min-width: 100px; min-height: 100px; border-radius: 12px; background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground-muted); vertical-align: middle; } .container { position: relative; width: 100%; height: 100%; } .image { display: block; width: 100%; height: 100%; animation: eos-image-fade-in 300ms cubic-bezier(0.2, 0, 0, 1); } .placeholder-image { filter: blur(0); transform: scale(1.1); } :host([placeholder-fill]) .placeholder-image { position: absolute; z-index: 1; object-fit: cover !important; transform: none; } :host([placeholder-fill]) .main-image { position: absolute; z-index: 2; } .loading-container, .error-container { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; } .loading-container.overlay { position: absolute; inset: 0; z-index: 3; background: color-mix(in srgb, var(--eos-color-surface) 70%, transparent); } .default-loading, .default-error { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--eos-color-foreground-muted); font: 400 14px/20px var(--eos-font-family); text-align: center; } .spinner { width: 24px; height: 24px; border: 2px solid var(--eos-color-border); border-top-color: var(--eos-color-accent); border-radius: 50%; animation: eos-image-spin 700ms linear infinite; } .error-icon { width: 32px; height: 32px; color: var(--eos-color-foreground-muted); } :host([responsive]) .image { max-width: 100%; height: auto; } :host([circle]), :host([circle]) .image { border-radius: 50%; } .hidden { display: none !important; } @media (prefers-reduced-motion: reduce) { .image, .spinner { animation: none; } } @keyframes eos-image-spin { to { transform: rotate(360deg); } } @keyframes eos-image-fade-in { from { opacity: 0; } to { opacity: 1; } } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "IMAGE_STYLES",
-          "declaration": {
-            "name": "IMAGE_STYLES",
-            "module": "src/components/image/image.css.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image/image.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "EOS Image is a framework-agnostic image element with native image events,\nlazy loading, BlurHash placeholders, and explicit loading and error states.",
-          "name": "EosImage",
-          "members": [
-            {
-              "kind": "field",
-              "name": "CONFIG",
-              "privacy": "private",
-              "static": true,
-              "readonly": true,
-              "default": "{ MAX_BLURHASH_SIZE: 32, SHOW_DELAY_DEFAULT: 0, FADE_DURATION: 300, }",
-              "type": {
-                "text": "{\n\t\tMAX_BLURHASH_SIZE: 32,\n\t\tSHOW_DELAY_DEFAULT: 0,\n\t\tFADE_DURATION: 300,\n\t}"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "isLoading",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "hasError",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "placeholderDataUrl",
-              "type": {
-                "text": "string | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "srcDataUrl",
-              "type": {
-                "text": "string | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "loadTimer",
-              "type": {
-                "text": "number | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "imageLoader",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "isRendered",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "loadGeneration",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "loadingScheduled",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "managedWidth",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "managedHeight",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "img",
-              "type": {
-                "text": "HTMLImageElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "placeholderImage",
-              "type": {
-                "text": "HTMLImageElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "loadingContainer",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "errorContainer",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "method",
-              "name": "initializeDOM",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleImageLoading",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "scheduleImageLoading",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "loadImage",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "generation",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "decodeBlurhash",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "blurhash",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "解码 blurhash 字符串为 data URL"
-            },
-            {
-              "kind": "method",
-              "name": "processPlaceholder",
-              "privacy": "private",
-              "description": "处理占位符资源"
-            },
-            {
-              "kind": "method",
-              "name": "processSource",
-              "privacy": "private",
-              "description": "处理主图资源"
-            },
-            {
-              "kind": "method",
-              "name": "updateDisplay",
-              "privacy": "private",
-              "description": "更新显示状态"
-            },
-            {
-              "kind": "method",
-              "name": "updateStyles",
-              "privacy": "private",
-              "description": "更新样式"
-            },
-            {
-              "kind": "method",
-              "name": "updateImageAttributes",
-              "privacy": "private",
-              "description": "更新图片属性"
-            }
-          ],
-          "events": [
-            {
-              "name": "blurhash-error",
-              "type": {
-                "text": "CustomEvent"
-              }
-            },
-            {
-              "type": {
-                "text": "Event"
-              },
-              "description": "The image is ready to display.",
-              "name": "load"
-            },
-            {
-              "type": {
-                "text": "Event"
-              },
-              "description": "The image failed to load.",
-              "name": "error"
-            },
-            {
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Network progress with detail `{ loaded, total, src }`.",
-              "name": "progress"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "src",
-              "type": {
-                "text": "string"
-              },
-              "description": "Image URL or BlurHash string."
-            },
-            {
-              "name": "src-type",
-              "type": {
-                "text": "\"url\"|\"blurhash\""
-              },
-              "description": "How to interpret `src` (default: url)."
-            },
-            {
-              "name": "alt",
-              "type": {
-                "text": "string"
-              },
-              "description": "Alternative text for the image."
-            },
-            {
-              "name": "width",
-              "type": {
-                "text": "string"
-              },
-              "description": "Host width."
-            },
-            {
-              "name": "height",
-              "type": {
-                "text": "string"
-              },
-              "description": "Host height."
-            },
-            {
-              "name": "loading",
-              "type": {
-                "text": "\"lazy\"|\"eager\""
-              },
-              "description": "Whether to wait for viewport visibility."
-            },
-            {
-              "name": "crossorigin",
-              "type": {
-                "text": "string"
-              },
-              "description": "Native cross-origin image setting."
-            },
-            {
-              "name": "object-fit",
-              "type": {
-                "text": "\"cover\"|\"contain\"|\"fill\"|\"none\"|\"scale-down\""
-              },
-              "description": "Native image fitting mode."
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "description": "Placeholder URL or BlurHash string."
-            },
-            {
-              "name": "placeholder-type",
-              "type": {
-                "text": "\"url\"|\"blurhash\""
-              },
-              "description": "How to interpret the placeholder."
-            },
-            {
-              "name": "placeholder-fill",
-              "type": {
-                "text": "string"
-              },
-              "description": "Keep the placeholder as a background layer."
-            },
-            {
-              "name": "show-delay",
-              "type": {
-                "text": "string"
-              },
-              "description": "Delay before revealing a loaded image, in milliseconds."
-            },
-            {
-              "name": "responsive",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Make the image follow its container width."
-            },
-            {
-              "name": "circle",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Clip the image to a circle."
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "eos-image",
-          "customElement": true,
-          "modulePath": "src/components/image/image.ts"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosImage",
-          "declaration": {
-            "name": "EosImage",
-            "module": "src/components/image/image.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosImage",
-          "declaration": {
-            "name": "EosImage",
-            "module": "./image"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/carousel/carousel.ts",
       "declarations": [
         {
@@ -1171,6 +758,673 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/image/image.css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "IMAGE_STYLES",
+          "default": "` ${EOS_THEME_TOKENS} :host { display: inline-block; position: relative; overflow: hidden; min-width: 100px; min-height: 100px; border-radius: 12px; background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground-muted); vertical-align: middle; } .container { position: relative; width: 100%; height: 100%; } .image { display: block; width: 100%; height: 100%; animation: eos-image-fade-in 300ms cubic-bezier(0.2, 0, 0, 1); } .placeholder-image { filter: blur(8px); transform: scale(1.08); } :host([placeholder-fill]) .placeholder-image { position: absolute; z-index: 1; object-fit: cover !important; filter: blur(8px); transform: scale(1.08); } :host([placeholder-fill]) .main-image { position: absolute; z-index: 2; } .loading-container, .error-container { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; } .loading-container.overlay { position: absolute; inset: 0; z-index: 3; background: color-mix(in srgb, var(--eos-color-surface) 70%, transparent); } .default-loading, .default-error { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--eos-color-foreground-muted); font: 400 14px/20px var(--eos-font-family); text-align: center; } .spinner { width: 24px; height: 24px; border: 2px solid var(--eos-color-border); border-top-color: var(--eos-color-accent); border-radius: 50%; animation: eos-image-spin 700ms linear infinite; } .error-icon { width: 32px; height: 32px; color: var(--eos-color-foreground-muted); } :host([responsive]) .image { max-width: 100%; height: auto; } :host([circle]), :host([circle]) .image { border-radius: 50%; } .hidden { display: none !important; } @media (prefers-reduced-motion: reduce) { .image, .spinner { animation: none; } } @keyframes eos-image-spin { to { transform: rotate(360deg); } } @keyframes eos-image-fade-in { from { opacity: 0; } to { opacity: 1; } } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "IMAGE_STYLES",
+          "declaration": {
+            "name": "IMAGE_STYLES",
+            "module": "src/components/image/image.css.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image/image.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "EOS Image is a framework-agnostic image element with native image events,\nlazy loading, BlurHash placeholders, and explicit loading and error states.",
+          "name": "EosImage",
+          "members": [
+            {
+              "kind": "field",
+              "name": "CONFIG",
+              "privacy": "private",
+              "static": true,
+              "readonly": true,
+              "default": "{ MAX_BLURHASH_SIZE: 32, SHOW_DELAY_DEFAULT: 0, FADE_DURATION: 300, }",
+              "type": {
+                "text": "{\n\t\tMAX_BLURHASH_SIZE: 32,\n\t\tSHOW_DELAY_DEFAULT: 0,\n\t\tFADE_DURATION: 300,\n\t}"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "isLoading",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "hasError",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "placeholderDataUrl",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "srcDataUrl",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "loadTimer",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "imageLoader",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "isRendered",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "loadGeneration",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "loadingScheduled",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "managedWidth",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "managedHeight",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "img",
+              "type": {
+                "text": "HTMLImageElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "placeholderImage",
+              "type": {
+                "text": "HTMLImageElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "loadingContainer",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "errorContainer",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "initializeDOM",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleImageLoading",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleImageLoading",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadImage",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "generation",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "decodeBlurhash",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "blurhash",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "解码 blurhash 字符串为 data URL"
+            },
+            {
+              "kind": "method",
+              "name": "processPlaceholder",
+              "privacy": "private",
+              "description": "处理占位符资源"
+            },
+            {
+              "kind": "method",
+              "name": "processSource",
+              "privacy": "private",
+              "description": "处理主图资源"
+            },
+            {
+              "kind": "method",
+              "name": "updateDisplay",
+              "privacy": "private",
+              "description": "更新显示状态"
+            },
+            {
+              "kind": "method",
+              "name": "updateStyles",
+              "privacy": "private",
+              "description": "更新样式"
+            },
+            {
+              "kind": "method",
+              "name": "updateImageAttributes",
+              "privacy": "private",
+              "description": "更新图片属性"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurhash-error",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "type": {
+                "text": "Event"
+              },
+              "description": "The image is ready to display.",
+              "name": "load"
+            },
+            {
+              "type": {
+                "text": "Event"
+              },
+              "description": "The image failed to load.",
+              "name": "error"
+            },
+            {
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Network progress with detail `{ loaded, total, src }`.",
+              "name": "progress"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "src",
+              "type": {
+                "text": "string"
+              },
+              "description": "Image URL or BlurHash string."
+            },
+            {
+              "name": "src-type",
+              "type": {
+                "text": "\"url\"|\"blurhash\""
+              },
+              "description": "How to interpret `src` (default: url)."
+            },
+            {
+              "name": "alt",
+              "type": {
+                "text": "string"
+              },
+              "description": "Alternative text for the image."
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "string"
+              },
+              "description": "Host width."
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "string"
+              },
+              "description": "Host height."
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "\"lazy\"|\"eager\""
+              },
+              "description": "Whether to wait for viewport visibility."
+            },
+            {
+              "name": "crossorigin",
+              "type": {
+                "text": "string"
+              },
+              "description": "Native cross-origin image setting."
+            },
+            {
+              "name": "object-fit",
+              "type": {
+                "text": "\"cover\"|\"contain\"|\"fill\"|\"none\"|\"scale-down\""
+              },
+              "description": "Native image fitting mode."
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder URL or BlurHash string."
+            },
+            {
+              "name": "placeholder-type",
+              "type": {
+                "text": "\"url\"|\"blurhash\""
+              },
+              "description": "How to interpret the placeholder."
+            },
+            {
+              "name": "placeholder-fill",
+              "type": {
+                "text": "string"
+              },
+              "description": "Keep the placeholder as a background layer."
+            },
+            {
+              "name": "show-delay",
+              "type": {
+                "text": "string"
+              },
+              "description": "Delay before revealing a loaded image, in milliseconds."
+            },
+            {
+              "name": "responsive",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Make the image follow its container width."
+            },
+            {
+              "name": "circle",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Clip the image to a circle."
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "eos-image",
+          "customElement": true,
+          "modulePath": "src/components/image/image.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImage",
+          "declaration": {
+            "name": "EosImage",
+            "module": "src/components/image/image.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImage",
+          "declaration": {
+            "name": "EosImage",
+            "module": "./image"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/api.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "ImageGroup",
+          "return": {
+            "type": {
+              "text": "null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "_props",
+              "type": {
+                "text": "ImageGroupProps"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ImageGroup",
+          "declaration": {
+            "name": "ImageGroup",
+            "module": "src/components/image-group/api.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/image-group.css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "IMAGE_GROUP_STYLES",
+          "default": "` ${EOS_THEME_TOKENS} :host { display: block; width: 100%; } .group { display: grid; gap: var(--eos-image-group-gap, 4px); aspect-ratio: var(--eos-image-group-columns) / var(--eos-image-group-aspect-rows); width: 100%; overflow: hidden; border-radius: var(--eos-image-group-radius, 12px); } .group.grid, .group.pair { grid-template-columns: repeat(var(--eos-image-group-columns), minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] { grid-template-columns: repeat(6, minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] .tile { grid-column: span 2; } .group.grid[data-columns=\"3\"][data-remainder=\"1\"] .tile:last-child { grid-column: 1 / -1; } .group.grid[data-columns=\"3\"][data-remainder=\"2\"] .tile:nth-last-child(-n + 2) { grid-column: span 3; } .group.pair[data-remainder=\"1\"] .tile:last-child { grid-column: 1 / -1; } .group.featured { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.featured[data-count=\"1\"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"2\"] { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"3\"] { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } .group.featured[data-count]:not([data-count=\"1\"]):not([data-count=\"2\"]) .tile:first-child { grid-row: 1 / -1; } .group.featured[data-featured-remainder=\"1\"]:not([data-count=\"2\"]) .tile:last-child { grid-column: 2 / 4; } .tile { position: relative; isolation: isolate; box-sizing: border-box; min-width: 0; min-height: 0; height: 100%; overflow: hidden; border: 0; border-radius: var(--eos-image-group-radius, 12px); padding: 0; background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground); cursor: pointer; } .tile.has-overflow::before { position: absolute; z-index: 2; inset: 0; border-radius: inherit; background: var(--eos-image-group-overlay, rgb(0 0 0 / 32%)); content: \"\"; pointer-events: none; } .tile::after { position: absolute; z-index: 3; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--eos-image-group-border, rgb(0 0 0 / 10%)); content: \"\"; pointer-events: none; } .tile eos-image { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); } .tile:hover eos-image { transform: scale(1.03); } .tile:focus-visible { z-index: 1; outline: 2px solid var(--eos-color-focus-ring); outline-offset: -2px; } .count { position: absolute; z-index: 4; inset-block-start: 50%; inset-inline-start: 50%; min-width: 36px; transform: translate(-50%, -50%); padding: 3px 10px; border-radius: 999px; background: var(--eos-image-group-count-background, var(--eos-color-surface)); color: var(--eos-image-group-count-foreground, var(--eos-color-foreground)); box-shadow: 0 1px 4px var(--eos-image-group-count-shadow, rgb(0 0 0 / 18%)); font: 600 13px/18px var(--eos-font-family); text-align: center; white-space: nowrap; pointer-events: none; } @media (prefers-reduced-motion: reduce) { .tile eos-image { transition: none; } } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "IMAGE_GROUP_STYLES",
+          "declaration": {
+            "name": "IMAGE_GROUP_STYLES",
+            "module": "src/components/image-group/image-group.css.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/image-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EosImageGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_items",
+              "type": {
+                "text": "EosImageGroupItem[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_layout",
+              "type": {
+                "text": "EosImageGroupLayout"
+              },
+              "privacy": "private",
+              "default": "\"grid\""
+            },
+            {
+              "kind": "field",
+              "name": "_maxVisible",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "9"
+            },
+            {
+              "kind": "field",
+              "name": "themeObserver",
+              "type": {
+                "text": "MutationObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "renderQueued",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "items"
+            },
+            {
+              "kind": "field",
+              "name": "layout"
+            },
+            {
+              "kind": "field",
+              "name": "maxVisible"
+            },
+            {
+              "kind": "method",
+              "name": "readAttributes",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncTheme",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleRender",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setImageAttribute",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "image",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "boolean | number | string | undefined"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getLayoutMetrics",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "itemCount",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "image-click",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "items"
+            },
+            {
+              "name": "layout"
+            },
+            {
+              "name": "max-visible"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true,
+          "modulePath": "src/components/image-group/image-group.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImageGroup",
+          "declaration": {
+            "name": "EosImageGroup",
+            "module": "src/components/image-group/image-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImageGroup",
+          "declaration": {
+            "name": "EosImageGroup",
+            "module": "./image-group"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ImageGroup",
+          "declaration": {
+            "name": "EosImageGroup",
+            "module": "./image-group"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EosImageGroupItem",
+          "declaration": {
+            "name": "EosImageGroupItem",
+            "module": "./image-group"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EosImageGroupLayout",
+          "declaration": {
+            "name": "EosImageGroupLayout",
+            "module": "./image-group"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/progress-bar/index.ts",
       "declarations": [],
       "exports": [
@@ -1503,253 +1757,6 @@
           "declaration": {
             "name": "EosProgressBar",
             "module": "src/components/progress-bar/progress-bar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image-group/api.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "ImageGroup",
-          "return": {
-            "type": {
-              "text": "null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "_props",
-              "type": {
-                "text": "ImageGroupProps"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ImageGroup",
-          "declaration": {
-            "name": "ImageGroup",
-            "module": "src/components/image-group/api.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image-group/image-group.css.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "IMAGE_GROUP_STYLES",
-          "default": "` ${EOS_THEME_TOKENS} :host { display: block; width: 100%; } .group { display: grid; gap: var(--eos-image-group-gap, 4px); aspect-ratio: var(--eos-image-group-columns) / var(--eos-image-group-aspect-rows); width: 100%; overflow: hidden; border-radius: var(--eos-image-group-radius, 12px); } .group.grid, .group.pair { grid-template-columns: repeat(var(--eos-image-group-columns), minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] { grid-template-columns: repeat(6, minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] .tile { grid-column: span 2; } .group.grid[data-columns=\"3\"][data-remainder=\"1\"] .tile:last-child { grid-column: 1 / -1; } .group.grid[data-columns=\"3\"][data-remainder=\"2\"] .tile:nth-last-child(-n + 2) { grid-column: span 3; } .group.pair[data-remainder=\"1\"] .tile:last-child { grid-column: 1 / -1; } .group.featured { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.featured[data-count=\"1\"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"2\"] { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"3\"] { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } .group.featured[data-count]:not([data-count=\"1\"]):not([data-count=\"2\"]) .tile:first-child { grid-row: 1 / -1; } .group.featured[data-featured-remainder=\"1\"]:not([data-count=\"2\"]) .tile:last-child { grid-column: 2 / 4; } .tile { position: relative; isolation: isolate; box-sizing: border-box; min-width: 0; min-height: 0; height: 100%; overflow: hidden; border: 0; border-radius: var(--eos-image-group-radius, 12px); padding: 0; background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground); cursor: pointer; } .tile.has-overflow::before { position: absolute; z-index: 2; inset: 0; border-radius: inherit; background: var(--eos-image-group-overlay, rgb(0 0 0 / 32%)); content: \"\"; pointer-events: none; } .tile::after { position: absolute; z-index: 3; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--eos-image-group-border, rgb(0 0 0 / 10%)); content: \"\"; pointer-events: none; } .tile eos-image { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); } .tile:hover eos-image { transform: scale(1.03); } .tile:focus-visible { z-index: 1; outline: 2px solid var(--eos-color-focus-ring); outline-offset: -2px; } .count { position: absolute; z-index: 4; inset-block-start: 50%; inset-inline-start: 50%; min-width: 36px; transform: translate(-50%, -50%); padding: 3px 10px; border-radius: 999px; background: var(--eos-image-group-count-background, var(--eos-color-surface)); color: var(--eos-image-group-count-foreground, var(--eos-color-foreground)); box-shadow: 0 1px 4px var(--eos-image-group-count-shadow, rgb(0 0 0 / 18%)); font: 600 13px/18px var(--eos-font-family); text-align: center; white-space: nowrap; pointer-events: none; } @media (prefers-reduced-motion: reduce) { .tile eos-image { transition: none; } } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "IMAGE_GROUP_STYLES",
-          "declaration": {
-            "name": "IMAGE_GROUP_STYLES",
-            "module": "src/components/image-group/image-group.css.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image-group/image-group.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EosImageGroup",
-          "members": [
-            {
-              "kind": "field",
-              "name": "_items",
-              "type": {
-                "text": "EosImageGroupItem[]"
-              },
-              "privacy": "private",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "_layout",
-              "type": {
-                "text": "EosImageGroupLayout"
-              },
-              "privacy": "private",
-              "default": "\"grid\""
-            },
-            {
-              "kind": "field",
-              "name": "_maxVisible",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "9"
-            },
-            {
-              "kind": "field",
-              "name": "themeObserver",
-              "type": {
-                "text": "MutationObserver | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "items"
-            },
-            {
-              "kind": "field",
-              "name": "layout"
-            },
-            {
-              "kind": "field",
-              "name": "maxVisible"
-            },
-            {
-              "kind": "method",
-              "name": "readAttributes",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncTheme",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "escape",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "imageAttribute",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "boolean | number | string | undefined"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "getLayoutMetrics",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "itemCount",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "render",
-              "privacy": "private"
-            }
-          ],
-          "events": [
-            {
-              "name": "image-click",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "items"
-            },
-            {
-              "name": "layout"
-            },
-            {
-              "name": "max-visible"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "customElement": true,
-          "modulePath": "src/components/image-group/image-group.ts"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosImageGroup",
-          "declaration": {
-            "name": "EosImageGroup",
-            "module": "src/components/image-group/image-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image-group/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosImageGroup",
-          "declaration": {
-            "name": "EosImageGroup",
-            "module": "./image-group"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ImageGroup",
-          "declaration": {
-            "name": "EosImageGroup",
-            "module": "./image-group"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EosImageGroupItem",
-          "declaration": {
-            "name": "EosImageGroupItem",
-            "module": "./image-group"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EosImageGroupLayout",
-          "declaration": {
-            "name": "EosImageGroupLayout",
-            "module": "./image-group"
           }
         }
       ]

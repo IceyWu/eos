@@ -28,16 +28,16 @@ const selectStyle = {
 
 export default function ImageGroupDemo() {
 	const groupRef = useRef<ImageGroupElement>(null);
-	const [total, setTotal] = useState(images.length);
+	const [total, setTotal] = useState(Math.min(10, images.length));
 	const [visible, setVisible] = useState(7);
 	const [layout, setLayout] = useState<ImageGroupLayout>("grid");
 
 	useEffect(() => {
 		const group = groupRef.current;
 		if (!group) return;
-		group.items = images.slice(0, total);
 		group.layout = layout;
 		group.maxVisible = Math.min(visible, total);
+		group.items = images.slice(0, total);
 	}, [layout, total, visible]);
 
 	const updateTotal = (value: number) => {

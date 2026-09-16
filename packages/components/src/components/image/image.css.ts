@@ -29,15 +29,16 @@ ${EOS_THEME_TOKENS}
 }
 
 .placeholder-image {
-  filter: blur(0);
-  transform: scale(1.1);
+  filter: blur(8px);
+  transform: scale(1.08);
 }
 
 :host([placeholder-fill]) .placeholder-image {
   position: absolute;
   z-index: 1;
   object-fit: cover !important;
-  transform: none;
+  filter: blur(8px);
+  transform: scale(1.08);
 }
 
 :host([placeholder-fill]) .main-image {

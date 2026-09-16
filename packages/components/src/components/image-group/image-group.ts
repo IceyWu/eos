@@ -24,6 +24,7 @@ export class EosImageGroup extends HTMLElement {
 	private _layout: EosImageGroupLayout = "grid";
 	private _maxVisible = 9;
 	private themeObserver?: MutationObserver;
+	private renderQueued = false;
 
 	static get observedAttributes() {
 		return ["items", "layout", "max-visible"];
@@ -35,7 +36,7 @@ export class EosImageGroup extends HTMLElement {
 
 	set items(value: EosImageGroupItem[]) {
 		this._items = Array.isArray(value) ? value : [];
-		this.render();
+		this.scheduleRender();
 	}
 
 	get layout() {
@@ -46,7 +47,7 @@ export class EosImageGroup extends HTMLElement {
 		this._layout = ["grid", "featured", "pair"].includes(value)
 			? value
 			: "grid";
-		this.render();
+		this.scheduleRender();
 	}
 
 	get maxVisible() {
@@ -55,7 +56,7 @@ export class EosImageGroup extends HTMLElement {
 
 	set maxVisible(value: number) {
 		this._maxVisible = Math.max(1, Math.floor(Number(value) || 1));
-		this.render();
+		this.scheduleRender();
 	}
 
 	constructor() {
@@ -77,7 +78,7 @@ export class EosImageGroup extends HTMLElement {
 				"data-theme",
 			],
 		});
-		this.render();
+		this.scheduleRender();
 	}
 
 	disconnectedCallback() {
@@ -101,7 +102,7 @@ export class EosImageGroup extends HTMLElement {
 		} else {
 			this.readAttributes();
 		}
-		this.render();
+		this.scheduleRender();
 	}
 
 	private readAttributes() {
@@ -134,26 +135,32 @@ export class EosImageGroup extends HTMLElement {
 		else this.removeAttribute("data-eos-theme");
 	}
 
-	private escape(value: string) {
-		return value.replace(/[&<>"']/g, (character) => {
-			const entities: Record<string, string> = {
-				"&": "&amp;",
-				"<": "&lt;",
-				">": "&gt;",
-				'"': "&quot;",
-				"'": "&#39;",
-			};
-			return entities[character] || character;
+	private scheduleRender() {
+		if (this.renderQueued) return;
+		this.renderQueued = true;
+		queueMicrotask(() => {
+			this.renderQueued = false;
+			if (this.isConnected) this.render();
 		});
 	}
 
-	private imageAttribute(
+	private setImageAttribute(
+		image: Element,
 		name: string,
 		value: boolean | number | string | undefined,
 	) {
-		if (value === undefined || value === false) return "";
-		if (value === true) return ` ${name}`;
-		return ` ${name}="${this.escape(String(value))}"`;
+		if (value === undefined || value === false) {
+			image.removeAttribute(name);
+			return;
+		}
+		if (value === true) {
+			if (!image.hasAttribute(name)) image.setAttribute(name, "");
+			return;
+		}
+		const nextValue = String(value);
+		if (image.getAttribute(name) !== nextValue) {
+			image.setAttribute(name, nextValue);
+		}
 	}
 
 	private getLayoutMetrics(itemCount: number) {
@@ -197,70 +204,16 @@ export class EosImageGroup extends HTMLElement {
 				? Math.min(rows, 2)
 				: rows;
 		const featuredRemainder = Math.max(0, items.length - 1) % 2;
-		const markup = items
-			.map((item, index) => {
-				const alt = this.escape(String(item.alt || ""));
-				const src = this.escape(String(item.src || ""));
-				const imageAttributes = [
-					this.imageAttribute("src-type", item.srcType),
-					this.imageAttribute("width", item.width),
-					this.imageAttribute("height", item.height),
-					this.imageAttribute("loading", item.loading ?? "eager"),
-					this.imageAttribute("crossorigin", item.crossOrigin),
-					this.imageAttribute("object-fit", item.objectFit ?? "cover"),
-					this.imageAttribute("placeholder", item.placeholder),
-					this.imageAttribute("placeholder-type", item.placeholderType),
-					this.imageAttribute("placeholder-fill", item.placeholderFill),
-					this.imageAttribute("show-delay", item.showDelay),
-					this.imageAttribute("responsive", item.responsive),
-					this.imageAttribute("circle", item.circle),
-				].join("");
-				const hasOverflow = index === items.length - 1 && remaining > 0;
-				const count = hasOverflow
-					? '<span class="count" aria-hidden="true">+' + remaining + "</span>"
-					: "";
-				return (
-					'<button class="tile' +
-					(hasOverflow ? " has-overflow" : "") +
-					'" type="button" data-index="' +
-					index +
-					'" aria-label="' +
-					(alt || "Image " + (index + 1)) +
-					'"><eos-image src="' +
-					src +
-					'" alt="' +
-					alt +
-					'"' +
-					imageAttributes +
-					"></eos-image>" +
-					count +
-					"</button>"
-				);
-			})
-			.join("");
-		root.innerHTML =
-			`<style>${IMAGE_GROUP_STYLES}</style>` +
-			'<div class="group ' +
-			this._layout +
-			'" data-count="' +
-			items.length +
-			'" data-columns="' +
-			columns +
-			'" data-remainder="' +
-			remainder +
-			'" data-featured-remainder="' +
-			featuredRemainder +
-			'" style="--eos-image-group-columns:' +
-			columns +
-			";--eos-image-group-rows:" +
-			rows +
-			";--eos-image-group-aspect-rows:" +
-			aspectRows +
-			'" role="group" aria-label="Image group">' +
-			markup +
-			"</div>";
-		root.querySelectorAll<HTMLButtonElement>(".tile").forEach((tile) => {
-			tile.addEventListener("click", () => {
+		let group = root.querySelector<HTMLElement>(".group");
+		if (!group) {
+			root.innerHTML = `<style>${IMAGE_GROUP_STYLES}</style>`;
+			group = document.createElement("div");
+			group.setAttribute("role", "group");
+			group.setAttribute("aria-label", "Image group");
+			group.addEventListener("click", (event) => {
+				const target = event.target as Element;
+				const tile = target.closest<HTMLButtonElement>(".tile");
+				if (!tile) return;
 				const index = Number(tile.dataset.index);
 				this.dispatchEvent(
 					new CustomEvent("image-click", {
@@ -270,6 +223,69 @@ export class EosImageGroup extends HTMLElement {
 					}),
 				);
 			});
+			root.append(group);
+		}
+
+		group.className = `group ${this._layout}`;
+		group.dataset.count = String(items.length);
+		group.dataset.columns = String(columns);
+		group.dataset.remainder = String(remainder);
+		group.dataset.featuredRemainder = String(featuredRemainder);
+		group.style.setProperty("--eos-image-group-columns", String(columns));
+		group.style.setProperty("--eos-image-group-rows", String(rows));
+		group.style.setProperty(
+			"--eos-image-group-aspect-rows",
+			String(aspectRows),
+		);
+
+		const existing = new Map(
+			Array.from(group.querySelectorAll<HTMLButtonElement>(".tile")).map(
+				(tile) => [Number(tile.dataset.index), tile] as const,
+			),
+		);
+		items.forEach((item, index) => {
+			let tile = existing.get(index);
+			if (!tile) {
+				tile = document.createElement("button");
+				tile.className = "tile";
+				tile.type = "button";
+				tile.append(document.createElement("eos-image"));
+			}
+			existing.delete(index);
+			tile.dataset.index = String(index);
+			tile.setAttribute("aria-label", item.alt || `Image ${index + 1}`);
+			const hasOverflow = index === items.length - 1 && remaining > 0;
+			tile.classList.toggle("has-overflow", hasOverflow);
+
+			const image = tile.querySelector("eos-image");
+			if (!image) return;
+			this.setImageAttribute(image, "src", item.src);
+			this.setImageAttribute(image, "alt", item.alt || "");
+			this.setImageAttribute(image, "src-type", item.srcType);
+			this.setImageAttribute(image, "width", item.width);
+			this.setImageAttribute(image, "height", item.height);
+			this.setImageAttribute(image, "loading", item.loading ?? "eager");
+			this.setImageAttribute(image, "crossorigin", item.crossOrigin);
+			this.setImageAttribute(image, "object-fit", item.objectFit ?? "cover");
+			this.setImageAttribute(image, "placeholder", item.placeholder);
+			this.setImageAttribute(image, "placeholder-type", item.placeholderType);
+			this.setImageAttribute(image, "placeholder-fill", item.placeholderFill);
+			this.setImageAttribute(image, "show-delay", item.showDelay);
+			this.setImageAttribute(image, "responsive", item.responsive);
+			this.setImageAttribute(image, "circle", item.circle);
+
+			let count = tile.querySelector<HTMLSpanElement>(".count");
+			if (hasOverflow) {
+				count ??= document.createElement("span");
+				count.className = "count";
+				count.setAttribute("aria-hidden", "true");
+				count.textContent = `+${remaining}`;
+				if (!count.parentElement) tile.append(count);
+			} else {
+				count?.remove();
+			}
+			group.append(tile);
 		});
+		existing.forEach((tile) => tile.remove());
 	}
 }

@@ -65,21 +65,6 @@ const media = [
 		"LJC%p#t7o#R*?waeaeoLNGWCf5oe",
 	],
 	[
-		"DSCF1514.JPG",
-		"2bedcbe9-b9f7-41e3-ae51-18193c446572.jpg",
-		"LWGSZTxvM{og.ARjofWBIojZayf5",
-	],
-	[
-		"DSCF1612.JPG",
-		"39cb0acb-f9b5-4af8-abd7-19485f3666ba.jpg",
-		"LTH.Tr%MxuM{_4M{Rjt7M{ayayj[",
-	],
-	[
-		"DSCF1656.JPG",
-		"2a2d530b-1bb7-4328-bd9e-08941b8c27c7.jpg",
-		"LnIX?cj[oft6?wayWVR*M|j[axay",
-	],
-	[
 		"DSCF1681.JPG",
 		"d4d07b7f-bc46-4529-af64-951d37ea56df.jpg",
 		"LRCsp:j[R+WV%%fQa#a}V@ayoLj[",
