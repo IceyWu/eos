@@ -1,7 +1,7 @@
 diff --git a/vite.config.ts b/vite.config.ts
 --- a/vite.config.ts
 +++ b/vite.config.ts
-@@ -89,4 +89,12 @@ export default defineConfig({
+@@ -89,4 +89,4 @@ export default defineConfig({
      tsconfigPaths: true,
    },
    ssr: {
@@ -24,3 +24,12 @@ diff --git a/site/content/pageChrome.ts b/site/content/pageChrome.ts
 @@ -72 +72 @@
 -  if (!source.startsWith('src/')) return undefined;
 +  if (!source.startsWith('src/') && !source.startsWith('packages/components/src/')) return undefined;
+
+@@ -87,1 +88,2 @@
++  const importName = document.title.replace(/[^A-Za-z0-9]/g, '');
+ 
+@@ -95,2 +97,2 @@
+-    importStatement: identifierPattern.test(document.title)
+-      ? `import { ${document.title} } from '${packageName}';`
++    importStatement: identifierPattern.test(importName)
++      ? `import { ${importName} } from '${packageName}';`

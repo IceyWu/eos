@@ -1,6 +1,10 @@
 import { EosButton } from "./components/button";
 import { EosCarousel } from "./components/carousel";
 import { EosImage } from "./components/image";
+import {
+	EosImageGroup,
+	ImageGroup,
+} from "./components/image-group";
 import { EosProgressBar } from "./components/progress-bar";
 import { EosScrollbar } from "./components/scrollbar";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
@@ -10,6 +14,8 @@ export {
 	EosButton,
 	EosCarousel,
 	EosImage,
+	EosImageGroup,
+	ImageGroup,
 	EosProgressBar,
 	EosScrollbar,
 };
@@ -21,6 +27,7 @@ const COMPONENTS: ComponentRegistration[] = [
 	{ name: "button", component: EosButton },
 	{ name: "carousel", component: EosCarousel },
 	{ name: "image", component: EosImage },
+	{ name: "image-group", component: EosImageGroup },
 	{ name: "progress-bar", component: EosProgressBar },
 	{ name: "scrollbar", component: EosScrollbar },
 ];

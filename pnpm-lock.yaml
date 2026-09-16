@@ -163,7 +163,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@lobehub/docs-kit@5.27.3': 8992bb7e6c62f235e0f1e612d0c60856c8ef9e9d7ae28c6adc2d97076d698f37
+  '@lobehub/docs-kit@5.27.3': 0b9c457d71ddd7a076e8c766c3fbcd1fb88952f729e9b85f6953f1158542d637
 
 importers:
 
@@ -180,7 +180,7 @@ importers:
         version: link:packages/components
       '@lobehub/docs-kit':
         specifier: ^5.27.3
-        version: 5.27.3(patch_hash=8992bb7e6c62f235e0f1e612d0c60856c8ef9e9d7ae28c6adc2d97076d698f37)(011497c47d3fcb77b47e03b06f362cef)
+        version: 5.27.3(patch_hash=0b9c457d71ddd7a076e8c766c3fbcd1fb88952f729e9b85f6953f1158542d637)(011497c47d3fcb77b47e03b06f362cef)
       '@mdx-js/react':
         specifier: ^3.1.1
         version: 3.1.1(@types/react@19.3.0)(react@19.3.0)
@@ -9512,7 +9512,7 @@ snapshots:
   '@lmdb/lmdb-win32-x64@3.4.2':
     optional: true
 
-  '@lobehub/docs-kit@5.27.3(patch_hash=8992bb7e6c62f235e0f1e612d0c60856c8ef9e9d7ae28c6adc2d97076d698f37)(011497c47d3fcb77b47e03b06f362cef)':
+  '@lobehub/docs-kit@5.27.3(patch_hash=0b9c457d71ddd7a076e8c766c3fbcd1fb88952f729e9b85f6953f1158542d637)(011497c47d3fcb77b47e03b06f362cef)':
     dependencies:
       '@ant-design/cssinjs': 2.1.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@giscus/react': 3.1.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)

@@ -16,6 +16,7 @@ export default defineDocsConfig({
 		"packages/components/src/components/button/index.mdx": "Components",
 		"packages/components/src/components/carousel/index.mdx": "Components",
 		"packages/components/src/components/image/index.mdx": "Components",
+		"packages/components/src/components/image-group/index.mdx": "Components",
 		"packages/components/src/components/progress-bar/index.mdx": "Components",
 		"packages/components/src/components/scrollbar/index.mdx": "Components",
 	},

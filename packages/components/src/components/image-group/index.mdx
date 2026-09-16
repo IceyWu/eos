@@ -1,0 +1,27 @@
+---
+title: Image Group
+description: A responsive collection for presenting related images with compact layouts and count overlays.
+category: Data Display
+---
+
+import Basic from './demos/index.tsx?demo';
+
+## Image Group
+
+Use the image group for related images that belong to one visual collection. It delegates image rendering to eos-image while the group controls layout, focus, and count overflow.
+
+<Demo of={Basic} title="Image group layouts" layout="center" />
+
+## API
+
+### Properties
+
+<Api name="ImageGroup" from="./api.ts" />
+
+Each item is rendered by `eos-image`; see [Image attributes](/components/image#attributes) for the complete image property reference.
+
+### Events
+
+| Event | When it fires | event.detail |
+| --- | --- | --- |
+| image-click | A tile is activated | index and item |

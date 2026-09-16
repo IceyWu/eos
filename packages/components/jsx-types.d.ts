@@ -1,8 +1,9 @@
 import type {
   EosButton,
-  EosCarousel,
   EosImage,
+  EosCarousel,
   EosProgressBar,
+  EosImageGroup,
   EosScrollbar,
 } from "@eosjs/components";
 
@@ -139,82 +140,6 @@ export type EosButtonSolidJsProps = {
   textContent?: string | number;
 };
 
-export type EosCarouselProps = {
-  /** 是否自动播放 */
-  autoplay?: unknown;
-  /** 是否自动播放 */
-  undefined?: unknown;
-  /** 自动播放间隔（毫秒），最小 1000，默认 2000 */
-  interval?: unknown;
-  /** 是否循环播放 */
-  loop?: unknown;
-  /** 是否显示导航按钮，默认 true */
-  "show-navigation"?: unknown;
-  /** 初始显示的 slide 索引 */
-  "initial-index"?: unknown;
-  /** 指示器位置 */
-  "indicator-position"?: unknown;
-  /** 指示器样式 */
-  "indicator-style"?: unknown;
-  /** 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8 */
-  "virtual-threshold"?: unknown;
-  /**  */
-  showNavigation?: EosCarousel["showNavigation"];
-  /**  */
-  initialIndex?: EosCarousel["initialIndex"];
-  /**  */
-  indicatorPosition?: EosCarousel["indicatorPosition"];
-  /**  */
-  indicatorStyle?: EosCarousel["indicatorStyle"];
-
-  /** 当前 slide 激活时触发 */
-  "onslide-active"?: (e: CustomEvent) => void;
-  /** 点击 slide 时触发 */
-  "onslide-click"?: (e: CustomEvent) => void;
-  /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
-  onchange?: (e: CustomEvent) => void;
-};
-
-export type EosCarouselSolidJsProps = {
-  /** 是否自动播放 */
-  "bool:autoplay"?: unknown;
-  /** 是否自动播放 */
-  "prop:undefined"?: unknown;
-  /** 自动播放间隔（毫秒），最小 1000，默认 2000 */
-  "attr:interval"?: unknown;
-  /** 是否循环播放 */
-  "bool:loop"?: unknown;
-  /** 是否显示导航按钮，默认 true */
-  "attr:show-navigation"?: unknown;
-  /** 初始显示的 slide 索引 */
-  "attr:initial-index"?: unknown;
-  /** 指示器位置 */
-  "attr:indicator-position"?: unknown;
-  /** 指示器样式 */
-  "attr:indicator-style"?: unknown;
-  /** 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8 */
-  "attr:virtual-threshold"?: unknown;
-  /**  */
-  "prop:showNavigation"?: EosCarousel["showNavigation"];
-  /**  */
-  "prop:initialIndex"?: EosCarousel["initialIndex"];
-  /**  */
-  "prop:indicatorPosition"?: EosCarousel["indicatorPosition"];
-  /**  */
-  "prop:indicatorStyle"?: EosCarousel["indicatorStyle"];
-  /** 当前 slide 激活时触发 */
-  "on:slide-active"?: (e: CustomEvent) => void;
-  /** 点击 slide 时触发 */
-  "on:slide-click"?: (e: CustomEvent) => void;
-  /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
-  "on:change"?: (e: CustomEvent) => void;
-
-  /** Set the innerHTML of the element */
-  innerHTML?: string;
-  /** Set the textContent of the element */
-  textContent?: string | number;
-};
-
 export type EosImageProps = {
   /** Image URL or BlurHash string. */
   src?: unknown;
@@ -296,6 +221,82 @@ export type EosImageSolidJsProps = {
   "on:error"?: (e: Event) => void;
   /** Network progress with detail `{ loaded, total, src }`. */
   "on:progress"?: (e: CustomEvent) => void;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string;
+  /** Set the textContent of the element */
+  textContent?: string | number;
+};
+
+export type EosCarouselProps = {
+  /** 是否自动播放 */
+  autoplay?: unknown;
+  /** 是否自动播放 */
+  undefined?: unknown;
+  /** 自动播放间隔（毫秒），最小 1000，默认 2000 */
+  interval?: unknown;
+  /** 是否循环播放 */
+  loop?: unknown;
+  /** 是否显示导航按钮，默认 true */
+  "show-navigation"?: unknown;
+  /** 初始显示的 slide 索引 */
+  "initial-index"?: unknown;
+  /** 指示器位置 */
+  "indicator-position"?: unknown;
+  /** 指示器样式 */
+  "indicator-style"?: unknown;
+  /** 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8 */
+  "virtual-threshold"?: unknown;
+  /**  */
+  showNavigation?: EosCarousel["showNavigation"];
+  /**  */
+  initialIndex?: EosCarousel["initialIndex"];
+  /**  */
+  indicatorPosition?: EosCarousel["indicatorPosition"];
+  /**  */
+  indicatorStyle?: EosCarousel["indicatorStyle"];
+
+  /** 当前 slide 激活时触发 */
+  "onslide-active"?: (e: CustomEvent) => void;
+  /** 点击 slide 时触发 */
+  "onslide-click"?: (e: CustomEvent) => void;
+  /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
+  onchange?: (e: CustomEvent) => void;
+};
+
+export type EosCarouselSolidJsProps = {
+  /** 是否自动播放 */
+  "bool:autoplay"?: unknown;
+  /** 是否自动播放 */
+  "prop:undefined"?: unknown;
+  /** 自动播放间隔（毫秒），最小 1000，默认 2000 */
+  "attr:interval"?: unknown;
+  /** 是否循环播放 */
+  "bool:loop"?: unknown;
+  /** 是否显示导航按钮，默认 true */
+  "attr:show-navigation"?: unknown;
+  /** 初始显示的 slide 索引 */
+  "attr:initial-index"?: unknown;
+  /** 指示器位置 */
+  "attr:indicator-position"?: unknown;
+  /** 指示器样式 */
+  "attr:indicator-style"?: unknown;
+  /** 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8 */
+  "attr:virtual-threshold"?: unknown;
+  /**  */
+  "prop:showNavigation"?: EosCarousel["showNavigation"];
+  /**  */
+  "prop:initialIndex"?: EosCarousel["initialIndex"];
+  /**  */
+  "prop:indicatorPosition"?: EosCarousel["indicatorPosition"];
+  /**  */
+  "prop:indicatorStyle"?: EosCarousel["indicatorStyle"];
+  /** 当前 slide 激活时触发 */
+  "on:slide-active"?: (e: CustomEvent) => void;
+  /** 点击 slide 时触发 */
+  "on:slide-click"?: (e: CustomEvent) => void;
+  /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
+  "on:change"?: (e: CustomEvent) => void;
 
   /** Set the innerHTML of the element */
   innerHTML?: string;
@@ -430,6 +431,40 @@ export type CustomElements = {
   "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
 
   /**
+   * EOS Image is a framework-agnostic image element with native image events,
+   * lazy loading, BlurHash placeholders, and explicit loading and error states.
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `src`/`undefined`: Image URL or BlurHash string.
+   * - `src-type`/`undefined`: How to interpret `src` (default: url).
+   * - `alt`/`undefined`: Alternative text for the image.
+   * - `width`/`undefined`: Host width.
+   * - `height`/`undefined`: Host height.
+   * - `loading`/`undefined`: Whether to wait for viewport visibility.
+   * - `crossorigin`/`undefined`: Native cross-origin image setting.
+   * - `object-fit`/`undefined`: Native image fitting mode.
+   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
+   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
+   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
+   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
+   * - `responsive`/`undefined`: Make the image follow its container width.
+   * - `circle`/`undefined`: Clip the image to a circle.
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `blurhash-error`: undefined
+   * - `load`: The image is ready to display.
+   * - `error`: The image failed to load.
+   * - `progress`: Network progress with detail `{ loaded, total, src }`.
+   */
+  "eos-image": Partial<EosImageProps & BaseProps<EosImage> & BaseEvents>;
+
+  /**
    * EosCarousel 组件
    * 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
    *
@@ -483,40 +518,6 @@ export type CustomElements = {
   >;
 
   /**
-   * EOS Image is a framework-agnostic image element with native image events,
-   * lazy loading, BlurHash placeholders, and explicit loading and error states.
-   *
-   * ## Attributes & Properties
-   *
-   * Component attributes and properties that can be applied to the element or by using JavaScript.
-   *
-   * - `src`/`undefined`: Image URL or BlurHash string.
-   * - `src-type`/`undefined`: How to interpret `src` (default: url).
-   * - `alt`/`undefined`: Alternative text for the image.
-   * - `width`/`undefined`: Host width.
-   * - `height`/`undefined`: Host height.
-   * - `loading`/`undefined`: Whether to wait for viewport visibility.
-   * - `crossorigin`/`undefined`: Native cross-origin image setting.
-   * - `object-fit`/`undefined`: Native image fitting mode.
-   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
-   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
-   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
-   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
-   * - `responsive`/`undefined`: Make the image follow its container width.
-   * - `circle`/`undefined`: Clip the image to a circle.
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `blurhash-error`: undefined
-   * - `load`: The image is ready to display.
-   * - `error`: The image failed to load.
-   * - `progress`: Network progress with detail `{ loaded, total, src }`.
-   */
-  "eos-image": Partial<EosImageProps & BaseProps<EosImage> & BaseEvents>;
-
-  /**
    * EosProgressBar 组件
    * 分段式进度条，支持 default / dots / tiktok 三种样式，
    * 支持加载波纹动画、自定义进度填充、水平/垂直方向。
@@ -549,6 +550,8 @@ export type CustomElements = {
    *
    * - `startProgress(options?: { duration?: number; onComplete?: () => void }) => void`: 开始当前段的进度动画
    * - `stopProgress() => void`: 停止进度动画
+   * - `pauseProgress() => void`: 暂停当前进度动画并保留已完成的进度
+   * - `resumeProgress() => void`: 恢复已暂停的进度动画
    * - `setProgress(value: number) => void`: 手动设置进度 0-100
    * - `setLoading(v: boolean) => void`: 设置加载状态
    */
@@ -595,7 +598,11 @@ export type CustomElements = {
    *
    * - `attach(el: HTMLElement) => void`: 绑定到一个可滚动的 DOM 元素，自动同步滚动位置
    * - `detach() => void`: 解除与目标元素的绑定
-   * - `setVirtualScroll(options: { contentSize: number; viewportSize: number; scrollOffset: number }, options.contentSize, options.viewportSize, options.scrollOffset) => void`: 虚拟列表模式：手动设置滚动状态。
+   * - `setVirtualScroll(options: {
+   * 		contentSize: number;
+   * 		viewportSize: number;
+   * 		scrollOffset: number;
+   * 	}, options.contentSize, options.viewportSize, options.scrollOffset) => void`: 虚拟列表模式：手动设置滚动状态。
    * 适用于虚拟列表/虚拟滚动场景，DOM 实际高度与逻辑内容高度不一致时使用。
    * - `clearVirtualScroll() => void`: 退出虚拟列表模式，恢复为自动从 DOM 同步
    */
@@ -630,6 +637,42 @@ export type CustomElementsSolidJs = {
    */
   "eos-button": Partial<
     EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
+  >;
+
+  /**
+   * EOS Image is a framework-agnostic image element with native image events,
+   * lazy loading, BlurHash placeholders, and explicit loading and error states.
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `src`/`undefined`: Image URL or BlurHash string.
+   * - `src-type`/`undefined`: How to interpret `src` (default: url).
+   * - `alt`/`undefined`: Alternative text for the image.
+   * - `width`/`undefined`: Host width.
+   * - `height`/`undefined`: Host height.
+   * - `loading`/`undefined`: Whether to wait for viewport visibility.
+   * - `crossorigin`/`undefined`: Native cross-origin image setting.
+   * - `object-fit`/`undefined`: Native image fitting mode.
+   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
+   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
+   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
+   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
+   * - `responsive`/`undefined`: Make the image follow its container width.
+   * - `circle`/`undefined`: Clip the image to a circle.
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `blurhash-error`: undefined
+   * - `load`: The image is ready to display.
+   * - `error`: The image failed to load.
+   * - `progress`: Network progress with detail `{ loaded, total, src }`.
+   */
+  "eos-image": Partial<
+    EosImageProps & EosImageSolidJsProps & BaseProps<EosImage> & BaseEvents
   >;
 
   /**
@@ -689,42 +732,6 @@ export type CustomElementsSolidJs = {
   >;
 
   /**
-   * EOS Image is a framework-agnostic image element with native image events,
-   * lazy loading, BlurHash placeholders, and explicit loading and error states.
-   *
-   * ## Attributes & Properties
-   *
-   * Component attributes and properties that can be applied to the element or by using JavaScript.
-   *
-   * - `src`/`undefined`: Image URL or BlurHash string.
-   * - `src-type`/`undefined`: How to interpret `src` (default: url).
-   * - `alt`/`undefined`: Alternative text for the image.
-   * - `width`/`undefined`: Host width.
-   * - `height`/`undefined`: Host height.
-   * - `loading`/`undefined`: Whether to wait for viewport visibility.
-   * - `crossorigin`/`undefined`: Native cross-origin image setting.
-   * - `object-fit`/`undefined`: Native image fitting mode.
-   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
-   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
-   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
-   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
-   * - `responsive`/`undefined`: Make the image follow its container width.
-   * - `circle`/`undefined`: Clip the image to a circle.
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `blurhash-error`: undefined
-   * - `load`: The image is ready to display.
-   * - `error`: The image failed to load.
-   * - `progress`: Network progress with detail `{ loaded, total, src }`.
-   */
-  "eos-image": Partial<
-    EosImageProps & EosImageSolidJsProps & BaseProps<EosImage> & BaseEvents
-  >;
-
-  /**
    * EosProgressBar 组件
    * 分段式进度条，支持 default / dots / tiktok 三种样式，
    * 支持加载波纹动画、自定义进度填充、水平/垂直方向。
@@ -757,6 +764,8 @@ export type CustomElementsSolidJs = {
    *
    * - `startProgress(options?: { duration?: number; onComplete?: () => void }) => void`: 开始当前段的进度动画
    * - `stopProgress() => void`: 停止进度动画
+   * - `pauseProgress() => void`: 暂停当前进度动画并保留已完成的进度
+   * - `resumeProgress() => void`: 恢复已暂停的进度动画
    * - `setProgress(value: number) => void`: 手动设置进度 0-100
    * - `setLoading(v: boolean) => void`: 设置加载状态
    */
@@ -806,7 +815,11 @@ export type CustomElementsSolidJs = {
    *
    * - `attach(el: HTMLElement) => void`: 绑定到一个可滚动的 DOM 元素，自动同步滚动位置
    * - `detach() => void`: 解除与目标元素的绑定
-   * - `setVirtualScroll(options: { contentSize: number; viewportSize: number; scrollOffset: number }, options.contentSize, options.viewportSize, options.scrollOffset) => void`: 虚拟列表模式：手动设置滚动状态。
+   * - `setVirtualScroll(options: {
+   * 		contentSize: number;
+   * 		viewportSize: number;
+   * 		scrollOffset: number;
+   * 	}, options.contentSize, options.viewportSize, options.scrollOffset) => void`: 虚拟列表模式：手动设置滚动状态。
    * 适用于虚拟列表/虚拟滚动场景，DOM 实际高度与逻辑内容高度不一致时使用。
    * - `clearVirtualScroll() => void`: 退出虚拟列表模式，恢复为自动从 DOM 同步
    */
