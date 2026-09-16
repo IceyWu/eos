@@ -2,7 +2,7 @@
 # 构建命令：先构建组件库,再构建文档
 command = "pnpm build:docs"
 
-# 发布目录：lobedocs 的静态输出目录
+# 发布目录：Fumadocs 的静态输出目录
 publish = "dist"
 
 [build.environment]

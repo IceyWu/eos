@@ -18,7 +18,9 @@ import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
  *
  * @fires {CustomEvent} scroll-change - 滚动位置变化，detail: { position, ratio, scrollOffset? }
  */
-export class EosScrollbar extends HTMLElement {
+const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+
+export class EosScrollbar extends HTMLElementBase {
 	private _ratio = 0; // 0~1，当前滚动位置
 	private _thumbRatio = 0.2; // 滑块占轨道比例
 	private _dragging = false;

@@ -1,4 +1,4 @@
-import { formatSize } from "@eosjs/utils";
+import { formatSize } from "../../../../utils/src/index.ts";
 import { decode } from "blurhash";
 
 import { IMAGE_STYLES } from "./image.css";
@@ -386,7 +386,9 @@ class LazyLoadObserver {
  * @fires {Event} error - The image failed to load.
  * @fires {CustomEvent} progress - Network progress with detail `{ loaded, total, src }`.
  */
-export class EosImage extends HTMLElement {
+const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+
+export class EosImage extends HTMLElementBase {
 	// 配置常量
 	private static readonly CONFIG = {
 		MAX_BLURHASH_SIZE: 32,

@@ -19,7 +19,9 @@ export interface EosImageGroupItem {
 
 export type EosImageGroupLayout = "grid" | "featured" | "pair";
 
-export class EosImageGroup extends HTMLElement {
+const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+
+export class EosImageGroup extends HTMLElementBase {
 	private _items: EosImageGroupItem[] = [];
 	private _layout: EosImageGroupLayout = "grid";
 	private _maxVisible = 9;

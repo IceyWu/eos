@@ -1,0 +1,122 @@
+---
+title: Getting started
+description: Install EOS Web Components and use them from any supported framework.
+---
+
+## Installation
+
+Install the package with your preferred package manager:
+
+```bash
+npm install @eosjs/components
+yarn add @eosjs/components
+pnpm add @eosjs/components
+```
+
+## Framework integration
+
+### React
+
+```tsx
+import { useEffect, useRef } from "react";
+import "@eosjs/components";
+
+export function App() {
+  const buttonRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    const onClick = (event: Event) => console.log("Clicked:", event);
+    button?.addEventListener("click", onClick);
+    return () => button?.removeEventListener("click", onClick);
+  }, []);
+
+  return <eos-button ref={buttonRef}>Try the button</eos-button>;
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <eos-button @click="handleClick">Try the button</eos-button>
+  <eos-carousel autoplay loop :interval="3000">
+    <div>Slide one</div>
+    <div>Slide two</div>
+  </eos-carousel>
+</template>
+
+<script setup>
+import '@eosjs/components';
+
+const handleClick = (event) => console.log('Clicked:', event);
+</script>
+```
+
+### Angular
+
+In Angular, add `CUSTOM_ELEMENTS_SCHEMA` to use EOS custom elements:
+
+```ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "@eosjs/components";
+
+@Component({
+  selector: "app-root",
+  template: `
+    <eos-button>Try the button</eos-button>
+    <eos-carousel autoplay loop [attr.interval]="3000">
+      <div>Slide one</div>
+      <div>Slide two</div>
+    </eos-carousel>
+  `,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {}
+```
+
+### Native HTML
+
+```html
+<script type="module">
+  import "@eosjs/components";
+
+  document.querySelector("eos-button").addEventListener("click", (event) => {
+    console.log("Clicked:", event);
+  });
+</script>
+
+<eos-button>Try the button</eos-button>
+<eos-carousel autoplay loop interval="3000">
+  <div>Slide one</div>
+  <div>Slide two</div>
+</eos-carousel>
+```
+
+## Component methods and events
+
+```ts
+const carousel = document.querySelector("eos-carousel");
+carousel.play();
+carousel.pause();
+carousel.next();
+carousel.prev();
+carousel.goTo(2);
+
+carousel.addEventListener("change", (event) => {
+  console.log("Current index:", event.detail.currentIndex);
+});
+```
+
+## Styling
+
+Components expose EOS semantic CSS variables for host-level customization:
+
+```css
+eos-button {
+  --eos-color-accent: #006fee;
+  --eos-color-accent-hover: #338af3;
+  --eos-color-accent-foreground: #fcfcfc;
+  --eos-color-focus-ring: #006fee;
+}
+```

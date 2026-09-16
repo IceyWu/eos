@@ -16,7 +16,9 @@ import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
  *
  * @fires {CustomEvent} segment-click - 点击某段时触发，detail: { index }
  */
-export class EosProgressBar extends HTMLElement {
+const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+
+export class EosProgressBar extends HTMLElementBase {
 	private _total = 0;
 	private _current = 0;
 	private _loading = false;

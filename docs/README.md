@@ -1,6 +1,6 @@
 # EOS UI Documentation
 
-EOS UI 的组件文档站，使用 LobeHub 的 `@lobehub/docs-kit` 构建。
+EOS UI 的组件文档站，使用 Fumadocs + React Router 构建。
 
 ## 环境
 
@@ -25,7 +25,8 @@ corepack pnpm build:docs
 
 ## 目录
 
-- `docs.config.ts`：站点、导航和主题配置
+- `package.json`：文档站点专属依赖和脚本
+- `app/`：Fumadocs 页面、主题和 EOS Demo 兼容层
 - `../packages/components/src/components/**/index.mdx`：组件文档
 - `../packages/components/src/components/**/demos/*.tsx`：交互式组件示例
 - `getting-started.mdx`：入门指南

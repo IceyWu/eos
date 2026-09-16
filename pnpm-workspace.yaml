@@ -1,4 +1,5 @@
 packages:
+  - 'docs'
   - 'packages/*'
   - 'playground/*'
 
@@ -14,5 +15,3 @@ minimumReleaseAgeExclude:
   - '@lobehub/ui@5.47.1'
   - ultracite@7.12.0
 
-patchedDependencies:
-  '@lobehub/docs-kit@5.27.3': 'patches/@lobehub__docs-kit@5.27.3.patch'
