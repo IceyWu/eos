@@ -473,6 +473,8 @@ export type CustomElements = {
    * 调用 startSlideProgress 时会自动结束加载状态
    * - `startSlideProgress(options?: { duration?: number; onComplete?: () => void }, options.duration, options.onComplete) => void`: 开始当前 slide 的进度倒计时
    * - `stopSlideProgress() => void`: undefined
+   * - `pauseSlideProgress() => void`: 暂停当前 slide 的进度并保留已完成的进度
+   * - `resumeSlideProgress() => void`: 恢复当前 slide 从暂停位置继续进度
    * - `pause() => void`: undefined
    * - `updateProgress(progress: number) => void`: 手动同步进度显示（用于视频播放进度）
    */
@@ -674,6 +676,8 @@ export type CustomElementsSolidJs = {
    * 调用 startSlideProgress 时会自动结束加载状态
    * - `startSlideProgress(options?: { duration?: number; onComplete?: () => void }, options.duration, options.onComplete) => void`: 开始当前 slide 的进度倒计时
    * - `stopSlideProgress() => void`: undefined
+   * - `pauseSlideProgress() => void`: 暂停当前 slide 的进度并保留已完成的进度
+   * - `resumeSlideProgress() => void`: 恢复当前 slide 从暂停位置继续进度
    * - `pause() => void`: undefined
    * - `updateProgress(progress: number) => void`: 手动同步进度显示（用于视频播放进度）
    */

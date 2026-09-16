@@ -1,70 +1,12 @@
-<div class="app-container">
-  <!-- 头部工具栏 -->
-  <mat-toolbar class="app-header">
-    <div class="header-content">
-      <div class="brand">
-        <mat-icon class="brand-icon">bolt</mat-icon>
-        <span class="brand-title">Eos Components</span>
-      </div>
-      <div class="header-info">
-        <mat-chip-set>
-          <mat-chip color="primary">Angular Playground</mat-chip>
-        </mat-chip-set>
-        <span class="version">v0.0.1</span>
-      </div>
-    </div>
-  </mat-toolbar>
-
-  <!-- 主布局 -->
-  <mat-sidenav-container class="app-content">
-    <!-- 侧边栏 -->
-    <mat-sidenav 
-      mode="side" 
-      opened="true" 
-      class="app-sidenav"
-      fixedInViewport="true">
-      
-      <div class="sidenav-header">
-        <h3>组件列表</h3>
-        <p>Component Library</p>
-      </div>
-      
-      <mat-nav-list class="component-list">
-        @for (component of components; track component.key) {
-          <mat-list-item 
-            (click)="selectComponent(component.key)"
-            [class.selected]="isSelected(component.key)"
-            class="component-item">
-            <mat-icon matListItemIcon>{{ component.icon }}</mat-icon>
-            <span matListItemTitle>{{ component.label }}</span>
-          </mat-list-item>
-        }
-      </mat-nav-list>
-      
-      <div class="sidenav-footer">
-        <p>基于 Web Components</p>
-        <p>支持 Angular 18 + TypeScript</p>
-      </div>
-    </mat-sidenav>
-
-    <!-- 主内容区 -->
-    <mat-sidenav-content class="main-content">
-      <div class="content-wrapper">
-        @switch (selectedComponent()) {
-          @case ('button') {
-            <app-button-demo></app-button-demo>
-          }
-          @case ('image') {
-            <app-image-demo></app-image-demo>
-          }
-          @case ('carousel') {
-            <app-carousel-demo></app-carousel-demo>
-          }
-          @default {
-            <app-button-demo></app-button-demo>
-          }
-        }
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+<div class="playground">
+	<header class="topbar"><div class="brand-mark">EOS UI</div><span class="topbar-context">Angular Playground</span></header>
+	<main class="content">
+		<section class="intro" aria-labelledby="page-title"><p class="eyebrow">Components</p><h1 id="page-title">Playground</h1><p class="lede">A compact view of the EOS Web Components.</p></section>
+		<section class="component-grid" aria-label="EOS components">
+			<article class="demo-card"><header class="demo-card-header"><div><p class="card-kicker">Action</p><h2>Button</h2></div><span class="card-tag">4 states</span></header><div class="demo-body button-demo"><div class="button-row"><eos-button>Primary</eos-button><eos-button variant="secondary">Secondary</eos-button><eos-button variant="outline">Outline</eos-button><eos-button color="danger">Danger</eos-button></div></div></article>
+			<article class="demo-card"><header class="demo-card-header"><div><p class="card-kicker">Media</p><h2>Image</h2></div><span class="card-tag">BlurHash</span></header><div class="image-demo"><eos-image src="https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959814881.JPEG" alt="Mountain landscape" placeholder="LCF~22^M0LEQ~A9vs:r=tmROV?f+" placeholder-type="blurhash" object-fit="cover"></eos-image></div></article>
+			<article class="demo-card demo-card--carousel"><header class="demo-card-header"><div><p class="card-kicker">Media</p><h2>Carousel</h2></div><span class="card-tag">3 slides</span></header><div class="carousel-demo"><eos-carousel loop indicator-style="tiktok" show-navigation style="--carousel-height: min(42vw, 360px)"><div class="slide"><eos-image src="https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959814881.JPEG" alt="Mountain landscape" object-fit="cover"></eos-image><span class="slide-label">Mountain landscape</span></div><div class="slide"><eos-image src="https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959816821.JPEG" alt="Landscape detail" object-fit="cover"></eos-image><span class="slide-label">Landscape detail</span></div><div class="slide"><eos-image src="https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959821196.JPEG" alt="Night landscape" object-fit="cover"></eos-image><span class="slide-label">Night landscape</span></div></eos-carousel></div></article>
+			<article class="demo-card"><header class="demo-card-header"><div><p class="card-kicker">Feedback</p><h2>ProgressBar</h2></div><span class="card-tag">3 variants</span></header><div class="demo-body progress-demo"><div class="progress-row"><span>Default</span><eos-progress-bar total="5" current="2" variant="default"></eos-progress-bar></div><div class="progress-row"><span>Dots</span><eos-progress-bar total="5" current="2" variant="dots"></eos-progress-bar></div><div class="progress-row"><span>TikTok</span><eos-progress-bar total="5" current="2" variant="tiktok"></eos-progress-bar></div></div></article>
+		</section>
+	</main>
 </div>

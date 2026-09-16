@@ -1,73 +1,26 @@
 import { registerComponents } from "@eosjs/components";
-import { ButtonDemo } from "./components/button-demo.js";
-import { CarouselDemo } from "./components/carousel-demo.js";
-import { ImageDemo } from "./components/image-demo.js";
-import { ScrollbarDemo } from "./components/scrollbar-demo.js";
+import "./style.css";
 
-// 注册 Web Components
 registerComponents();
 
-// 组件映射
-const components = {
-	button: ButtonDemo,
-	image: ImageDemo,
-	carousel: CarouselDemo,
-	scrollbar: ScrollbarDemo,
-};
+const image =
+	"https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959814881.JPEG";
+const secondImage =
+	"https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959816821.JPEG";
+const thirdImage =
+	"https://lpalette.oss-accelerate.aliyuncs.com/prod/1/1765959821196.JPEG";
+const blurhash = "LCF~22^M0LEQ~A9vs:r=tmROV?f+";
 
-// 当前选中的组件
-let currentComponent = "button";
-
-// 初始化应用
-function initApp() {
-	setupNavigation();
-	renderComponent(currentComponent);
-}
-
-// 设置导航
-function setupNavigation() {
-	const navItems = document.querySelectorAll(".nav-item");
-
-	navItems.forEach((item) => {
-		item.addEventListener("click", () => {
-			// 移除所有活动状态
-			navItems.forEach((nav) => nav.classList.remove("active"));
-
-			// 添加当前活动状态
-			item.classList.add("active");
-
-			// 获取组件类型并渲染
-			const componentType = item.dataset.component;
-			currentComponent = componentType;
-			renderComponent(componentType);
-		});
-	});
-}
-
-// 渲染组件
-function renderComponent(componentType) {
-	const container = document.getElementById("demo-container");
-	const ComponentClass = components[componentType];
-
-	if (ComponentClass && container) {
-		// 清空容器
-		container.innerHTML = "";
-
-		// 创建并渲染组件
-		const component = new ComponentClass();
-		component.render(container);
-
-		// 添加淡入动画
-		container.style.opacity = "0";
-		container.style.transform = "translateY(20px)";
-
-		requestAnimationFrame(() => {
-			container.style.transition = "all 0.4s ease";
-			container.style.opacity = "1";
-			container.style.transform = "translateY(0)";
-		});
-	}
-}
-
-// 页面加载完成后初始化
-document.addEventListener("DOMContentLoaded", initApp);
+document.querySelector("#app").innerHTML = `
+  <div class="playground">
+    <header class="topbar"><div class="brand-mark">EOS UI</div><span class="topbar-context">HTML Playground</span></header>
+    <main class="content">
+      <section class="intro"><p class="eyebrow">Components</p><h1>Playground</h1><p class="lede">A compact view of the EOS Web Components.</p></section>
+      <section class="component-grid" aria-label="EOS components">
+        <article class="demo-card"><header class="demo-card-header"><div><p class="card-kicker">Action</p><h2>Button</h2></div><span class="card-tag">4 states</span></header><div class="demo-body button-demo"><div class="button-row"><eos-button>Primary</eos-button><eos-button variant="secondary">Secondary</eos-button><eos-button variant="outline">Outline</eos-button><eos-button color="danger">Danger</eos-button></div></div></article>
+        <article class="demo-card"><header class="demo-card-header"><div><p class="card-kicker">Media</p><h2>Image</h2></div><span class="card-tag">BlurHash</span></header><div class="image-demo"><eos-image src="${image}" alt="Mountain landscape" placeholder="${blurhash}" placeholder-type="blurhash" object-fit="cover"></eos-image></div></article>
+        <article class="demo-card demo-card--carousel"><header class="demo-card-header"><div><p class="card-kicker">Media</p><h2>Carousel</h2></div><span class="card-tag">3 slides</span></header><div class="carousel-demo"><eos-carousel loop indicator-style="tiktok" show-navigation style="--carousel-height: min(42vw, 360px)"><div class="slide"><eos-image src="${image}" alt="Mountain landscape" object-fit="cover"></eos-image><span class="slide-label">Mountain landscape</span></div><div class="slide"><eos-image src="${secondImage}" alt="Landscape detail" object-fit="cover"></eos-image><span class="slide-label">Landscape detail</span></div><div class="slide"><eos-image src="${thirdImage}" alt="Night landscape" object-fit="cover"></eos-image><span class="slide-label">Night landscape</span></div></eos-carousel></div></article>
+        <article class="demo-card"><header class="demo-card-header"><div><p class="card-kicker">Feedback</p><h2>ProgressBar</h2></div><span class="card-tag">3 variants</span></header><div class="demo-body progress-demo"><div class="progress-row"><span>Default</span><eos-progress-bar total="5" current="2" variant="default"></eos-progress-bar></div><div class="progress-row"><span>Dots</span><eos-progress-bar total="5" current="2" variant="dots"></eos-progress-bar></div><div class="progress-row"><span>TikTok</span><eos-progress-bar total="5" current="2" variant="tiktok"></eos-progress-bar></div></div></article>
+      </section>
+    </main>
+  </div>`;

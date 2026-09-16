@@ -1,12 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import CarouselTest from "./CarouselTest";
+import "./index.css";
+import "./styles.css";
+import { registerComponents } from "@eosjs/components";
+import App from "./App";
 
-const root = document.getElementById("root");
-if (root) {
-	createRoot(root).render(
+registerComponents();
+
+const rootElement = document.getElementById("root");
+if (rootElement) {
+	createRoot(rootElement).render(
 		<StrictMode>
-			<CarouselTest />
+			<App />
 		</StrictMode>,
 	);
 }

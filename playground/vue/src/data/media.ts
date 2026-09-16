@@ -1,11 +1,12 @@
 import rawData from "../json/data.json";
 
 export interface MediaItem {
-	id: number;
+	id: number | string;
 	name: string;
 	type: "image" | "video";
 	url: string;
 	blurhash: string | null;
+	videoSrc: string | null;
 }
 
 export const mediaItems: MediaItem[] = (rawData as any[]).map((data) => ({
@@ -14,6 +15,7 @@ export const mediaItems: MediaItem[] = (rawData as any[]).map((data) => ({
 	type: (data.type as string).startsWith("video") ? "video" : "image",
 	url: data.url,
 	blurhash: data.blurhash ?? null,
+	videoSrc: data.videoSrc ?? data.live_photo_video?.url ?? null,
 }));
 
 export const fallbackMediaItem: MediaItem = {
@@ -22,4 +24,5 @@ export const fallbackMediaItem: MediaItem = {
 	type: "image",
 	url: "",
 	blurhash: null,
+	videoSrc: null,
 };

@@ -12,6 +12,7 @@
 		"@element-plus/icons-vue": "^2.3.2",
 		"@eosjs/components": "workspace:*",
 		"element-plus": "^2.11.7",
+		"live-photo": "^0.2.0",
 		"vue": "^3.5.22"
 	},
 	"devDependencies": {
@@ -19,7 +20,7 @@
 		"@vitejs/plugin-vue": "^6.0.1",
 		"@vue/tsconfig": "^0.8.1",
 		"typescript": "~5.9.3",
-		"vite": "npm:rolldown-vite@7.1.14",
+		"vite": "8.3.0",
 		"vue-tsc": "^3.1.0"
 	}
 }

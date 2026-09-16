@@ -987,10 +987,20 @@ export class EosCarousel extends HTMLElement {
 		this.progressCallback = null;
 	}
 
+	/** 暂停当前 slide 的进度并保留已完成的进度 */
+	pauseSlideProgress() {
+		this.progressBar?.pauseProgress();
+	}
+
+	/** 恢复当前 slide 从暂停位置继续进度 */
+	resumeSlideProgress() {
+		this.progressBar?.resumeProgress();
+	}
+
 	pause() {
 		this.isPlaying = false;
 		this.clearAutoplayTimer();
-		this.stopSlideProgress();
+		this.pauseSlideProgress();
 		this.renderProgressBar();
 	}
 

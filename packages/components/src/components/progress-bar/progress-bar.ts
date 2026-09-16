@@ -28,6 +28,7 @@ export class EosProgressBar extends HTMLElement {
 	private _progressStartTime = 0;
 	private _progressDuration = 0;
 	private _progressCallback: (() => void) | null = null;
+	private _progressPaused = false;
 
 	private getSafeTotal(value: string | null) {
 		const parsed = Number.parseInt(value || "0", 10);
@@ -152,6 +153,7 @@ export class EosProgressBar extends HTMLElement {
 		this._progressStartTime = Date.now();
 		this._animating = true;
 		this._progress = 0;
+		this._progressPaused = false;
 		this.updateSegments();
 
 		const tick = () => {
@@ -178,6 +180,47 @@ export class EosProgressBar extends HTMLElement {
 			this._progressTimer = null;
 		}
 		this._progressCallback = null;
+		this._progressPaused = false;
+	}
+
+	/** 暂停当前进度动画并保留已完成的进度 */
+	pauseProgress() {
+		if (!this._animating || this._progressPaused) return;
+
+		const elapsed = Date.now() - this._progressStartTime;
+		this._progress = Math.min(
+			(elapsed / Math.max(this._progressDuration, 1)) * 100,
+			100,
+		);
+		this.updateFill();
+		if (this._progressTimer !== null) {
+			cancelAnimationFrame(this._progressTimer);
+			this._progressTimer = null;
+		}
+		this._progressPaused = true;
+	}
+
+	/** 恢复已暂停的进度动画 */
+	resumeProgress() {
+		if (!this._animating || !this._progressPaused) return;
+
+		this._progressStartTime =
+			Date.now() - (this._progress / 100) * this._progressDuration;
+		this._progressPaused = false;
+		const tick = () => {
+			const elapsed = Date.now() - this._progressStartTime;
+			const progress = Math.min((elapsed / this._progressDuration) * 100, 100);
+			this._progress = progress;
+			this.updateFill();
+			if (progress >= 100) {
+				const cb = this._progressCallback;
+				this.stopProgress();
+				if (cb) cb();
+			} else {
+				this._progressTimer = window.requestAnimationFrame(tick);
+			}
+		};
+		this._progressTimer = window.requestAnimationFrame(tick);
 	}
 
 	/** 手动设置进度 0-100 */
