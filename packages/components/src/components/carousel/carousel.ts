@@ -431,7 +431,7 @@ export class EosCarousel extends HTMLElement {
         }
       </style>
 
-      <div class="carousel" role="region" aria-label="图片轮播" aria-live="polite">
+      <div class="carousel" role="region" aria-label="Carousel" aria-live="polite">
         <div class="slides-wrapper">
           <div class="slides-container" role="list" aria-atomic="false">
             <slot></slot>
@@ -441,13 +441,13 @@ export class EosCarousel extends HTMLElement {
           </div>
         </div>
 
-        <button class="nav-button prev" aria-label="上一张" aria-controls="slides-container">
+        <button class="nav-button prev" aria-label="Previous slide" aria-controls="slides-container">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <polyline points="14 18 8 12 14 6"></polyline>
           </svg>
         </button>
 
-        <button class="nav-button next" aria-label="下一张" aria-controls="slides-container">
+        <button class="nav-button next" aria-label="Next slide" aria-controls="slides-container">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <polyline points="10 18 16 12 10 6"></polyline>
           </svg>

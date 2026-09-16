@@ -5,8 +5,8 @@ category: General
 order: -1
 ---
 
-import Basic from './demo.tsx?demo';
-import Variants from './variants.tsx?demo';
+import Basic from './demos/index.tsx?demo';
+import Variants from './demos/Variant.tsx?demo';
 
 ## Introduction
 
@@ -26,27 +26,27 @@ Button supports semantic colors, visual variants, three sizes, loading, disabled
 
 ### Attributes
 
-| 属性 | 类型 | 默认值 | 说明 |
+| Attribute | Type | Default | Description |
 | --- | --- | --- | --- |
-| `color` | `default \| primary \| secondary \| success \| warning \| danger` | `primary` | 语义颜色 |
-| `variant` | `solid \| bordered \| light \| flat \| ghost \| primary \| secondary \| tertiary \| outline \| danger \| dangerSoft` | `solid` | 视觉变体 |
-| `size` | `sm \| md \| lg` | `md` | 按钮尺寸，分别为 32/36/40px 高 |
-| `disabled` | `boolean` | `false` | 禁用按钮 |
-| `loading` | `boolean` | `false` | 显示加载状态并阻止点击 |
-| `icon-only` | `boolean` | `false` | 使用 32/36/40px 正方形按钮 |
-| `full-width` | `boolean` | `false` | 按钮占满宿主宽度 |
-| `type` | `button \| submit \| reset` | `button` | 原生按钮类型 |
-| `aria-label` | `string` | - | icon-only 按钮的可访问名称 |
+| `color` | `default \| primary \| secondary \| success \| warning \| danger` | `primary` | Semantic color |
+| `variant` | `solid \| bordered \| light \| flat \| ghost \| primary \| secondary \| tertiary \| outline \| danger \| dangerSoft` | `solid` | Visual treatment |
+| `size` | `sm \| md \| lg` | `md` | Button size: 32/36/40px high |
+| `disabled` | `boolean` | `false` | Prevent interaction |
+| `loading` | `boolean` | `false` | Show progress and prevent interaction |
+| `icon-only` | `boolean` | `false` | Use a square button at the selected size |
+| `full-width` | `boolean` | `false` | Stretch the button to the host width |
+| `type` | `button \| submit \| reset` | `button` | Native button type |
+| `aria-label` | `string` | - | Accessible name for icon-only buttons |
 
 ### Events
 
-| 事件名 | 触发时机 | 事件对象 |
+| Event | When it fires | Event object |
 | --- | --- | --- |
-| `click` | 按钮点击 | 原生 `MouseEvent` |
+| `click` | The button is activated | Native `MouseEvent` |
 
 ### Slots
 
-图标通过命名插槽传入，组件不会绑定任何框架图标实现：
+Icons are passed through named slots; the component does not depend on a framework icon library:
 
 ```html
 <eos-button>
@@ -118,7 +118,7 @@ export class ButtonComponent {
 }
 ```
 
-#### 原生 HTML
+#### Native HTML
 
 ```html
 <script type="module">
@@ -133,10 +133,10 @@ export class ButtonComponent {
 
 ### CSS custom properties
 
-组件默认使用 EOS 的语义变量。应用只需要在主题根节点或 `eos-button` 宿主上提供同名变量，即可切换 Light/Dark 值；组件内部只保留组件级别的别名，不要求应用了解 Shadow DOM 实现。
+The component consumes EOS semantic variables. Define them on the theme root or the `eos-button` host to provide Light/Dark values; the component keeps its implementation details inside Shadow DOM.
 
 ```css
-/* 主题层：建议集中放在应用的 :root / [data-theme] 中 */
+/* Define theme values centrally on :root or [data-theme]. */
 :root {
   /* Figma semantic tokens: slash is represented by a hyphen in CSS. */
   --accent-accent: #006fee;

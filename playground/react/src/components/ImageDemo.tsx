@@ -43,25 +43,25 @@ export const ImageDemo: React.FC = () => {
 		timeoutRef.current = window.setTimeout(() => setOutputMessage(""), 2000);
 	}, []);
 
-	const handleImageProgress = useCallback((e: CustomEvent) => {
-		const { loaded, total } = e.detail;
+	const handleImageProgress = useCallback((e: Event) => {
+		const { loaded, total } = (e as CustomEvent<{ loaded: number; total: number }>).detail;
 		const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
 		setProgress({ loaded, total, percent });
 	}, []);
 
-	// 设置图片事件处理器（通过属性，不是 addEventListener）
+	// 使用原生事件名和标准事件监听器，保持与原生 img 一致。
 	useEffect(() => {
-		const element = imageRef.current as any;
+		const element = imageRef.current;
 		if (!element) return;
 
-		element.onimageload = handleImageLoad;
-		element.onimageerror = handleImageError;
-		element.onimageprogress = handleImageProgress;
+		element.addEventListener("load", handleImageLoad);
+		element.addEventListener("error", handleImageError);
+		element.addEventListener("progress", handleImageProgress);
 
 		return () => {
-			element.onimageload = null;
-			element.onimageerror = null;
-			element.onimageprogress = null;
+			element.removeEventListener("load", handleImageLoad);
+			element.removeEventListener("error", handleImageError);
+			element.removeEventListener("progress", handleImageProgress);
 		};
 	}, [handleImageError, handleImageLoad, handleImageProgress]); // 依赖 imageCounter，确保每次图片变化都重新绑定
 

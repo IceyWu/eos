@@ -1,7 +1,7 @@
 import type {
   EosButton,
-  EosImage,
   EosCarousel,
+  EosImage,
   EosProgressBar,
   EosScrollbar,
 } from "@eosjs/components";
@@ -80,100 +80,58 @@ type BaseProps<T extends HTMLElement> = {
 
 type BaseEvents = {};
 
-export type EosButtonProps = {};
+export type EosButtonProps = {
+  /**  */
+  "aria-label"?: unknown;
+  /**  */
+  undefined?: unknown;
+  /**  */
+  color?: unknown;
+  /**  */
+  disabled?: unknown;
+  /**  */
+  "full-width"?: unknown;
+  /**  */
+  "icon-only"?: unknown;
+  /**  */
+  loading?: unknown;
+  /**  */
+  name?: unknown;
+  /**  */
+  size?: unknown;
+  /**  */
+  type?: unknown;
+  /**  */
+  value?: unknown;
+  /**  */
+  variant?: unknown;
+};
 
 export type EosButtonSolidJsProps = {
-  /** Set the innerHTML of the element */
-  innerHTML?: string;
-  /** Set the textContent of the element */
-  textContent?: string | number;
-};
-
-export type EosImageProps = {
-  /** 图片地址（URL 或 blurhash 字符串） */
-  src?: unknown;
-  /** 图片地址（URL 或 blurhash 字符串） */
-  undefined?: unknown;
-  /** src 的类型，默认 url */
-  "src-type"?: unknown;
-  /** 替代文本 */
-  alt?: unknown;
-  /** 宽度 */
-  width?: unknown;
-  /** 高度 */
-  height?: unknown;
-  /** 加载策略 */
-  loading?: unknown;
-  /** 跨域设置 */
-  crossorigin?: unknown;
-  /** 填充模式 */
-  "object-fit"?: unknown;
-  /** 占位内容（URL 或 blurhash 字符串） */
-  placeholder?: unknown;
-  /** 占位类型 */
-  "placeholder-type"?: unknown;
-  /** 占位填充模式 */
-  "placeholder-fill"?: unknown;
-  /** 图片显示延迟（毫秒） */
-  "show-delay"?: unknown;
   /**  */
-  onimageload?: EosImage["onimageload"];
+  "attr:aria-label"?: unknown;
   /**  */
-  onimageerror?: EosImage["onimageerror"];
-  /**  */
-  onimageprogress?: EosImage["onimageprogress"];
-
-  /**  */
-  "onblurhash-error"?: (e: CustomEvent) => void;
-  /** 图片加载成功 */
-  onimageLoad?: (e: CustomEvent) => void;
-  /** 图片加载失败 */
-  onimageError?: (e: CustomEvent) => void;
-  /** 图片加载进度 */
-  onimageProgress?: (e: CustomEvent) => void;
-};
-
-export type EosImageSolidJsProps = {
-  /** 图片地址（URL 或 blurhash 字符串） */
-  "attr:src"?: unknown;
-  /** 图片地址（URL 或 blurhash 字符串） */
   "prop:undefined"?: unknown;
-  /** src 的类型，默认 url */
-  "attr:src-type"?: unknown;
-  /** 替代文本 */
-  "attr:alt"?: unknown;
-  /** 宽度 */
-  "attr:width"?: unknown;
-  /** 高度 */
-  "attr:height"?: unknown;
-  /** 加载策略 */
+  /**  */
+  "attr:color"?: unknown;
+  /**  */
+  "attr:disabled"?: unknown;
+  /**  */
+  "attr:full-width"?: unknown;
+  /**  */
+  "attr:icon-only"?: unknown;
+  /**  */
   "attr:loading"?: unknown;
-  /** 跨域设置 */
-  "attr:crossorigin"?: unknown;
-  /** 填充模式 */
-  "attr:object-fit"?: unknown;
-  /** 占位内容（URL 或 blurhash 字符串） */
-  "attr:placeholder"?: unknown;
-  /** 占位类型 */
-  "attr:placeholder-type"?: unknown;
-  /** 占位填充模式 */
-  "attr:placeholder-fill"?: unknown;
-  /** 图片显示延迟（毫秒） */
-  "attr:show-delay"?: unknown;
   /**  */
-  "prop:onimageload"?: EosImage["onimageload"];
+  "attr:name"?: unknown;
   /**  */
-  "prop:onimageerror"?: EosImage["onimageerror"];
+  "attr:size"?: unknown;
   /**  */
-  "prop:onimageprogress"?: EosImage["onimageprogress"];
+  "attr:type"?: unknown;
   /**  */
-  "on:blurhash-error"?: (e: CustomEvent) => void;
-  /** 图片加载成功 */
-  "on:imageLoad"?: (e: CustomEvent) => void;
-  /** 图片加载失败 */
-  "on:imageError"?: (e: CustomEvent) => void;
-  /** 图片加载进度 */
-  "on:imageProgress"?: (e: CustomEvent) => void;
+  "attr:value"?: unknown;
+  /**  */
+  "attr:variant"?: unknown;
 
   /** Set the innerHTML of the element */
   innerHTML?: string;
@@ -250,6 +208,94 @@ export type EosCarouselSolidJsProps = {
   "on:slide-click"?: (e: CustomEvent) => void;
   /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
   "on:change"?: (e: CustomEvent) => void;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string;
+  /** Set the textContent of the element */
+  textContent?: string | number;
+};
+
+export type EosImageProps = {
+  /** Image URL or BlurHash string. */
+  src?: unknown;
+  /** Image URL or BlurHash string. */
+  undefined?: unknown;
+  /** How to interpret `src` (default: url). */
+  "src-type"?: unknown;
+  /** Alternative text for the image. */
+  alt?: unknown;
+  /** Host width. */
+  width?: unknown;
+  /** Host height. */
+  height?: unknown;
+  /** Whether to wait for viewport visibility. */
+  loading?: unknown;
+  /** Native cross-origin image setting. */
+  crossorigin?: unknown;
+  /** Native image fitting mode. */
+  "object-fit"?: unknown;
+  /** Placeholder URL or BlurHash string. */
+  placeholder?: unknown;
+  /** How to interpret the placeholder. */
+  "placeholder-type"?: unknown;
+  /** Keep the placeholder as a background layer. */
+  "placeholder-fill"?: unknown;
+  /** Delay before revealing a loaded image, in milliseconds. */
+  "show-delay"?: unknown;
+  /** Make the image follow its container width. */
+  responsive?: unknown;
+  /** Clip the image to a circle. */
+  circle?: unknown;
+
+  /**  */
+  "onblurhash-error"?: (e: CustomEvent) => void;
+  /** The image is ready to display. */
+  onload?: (e: Event) => void;
+  /** The image failed to load. */
+  onerror?: (e: Event) => void;
+  /** Network progress with detail `{ loaded, total, src }`. */
+  onprogress?: (e: CustomEvent) => void;
+};
+
+export type EosImageSolidJsProps = {
+  /** Image URL or BlurHash string. */
+  "attr:src"?: unknown;
+  /** Image URL or BlurHash string. */
+  "prop:undefined"?: unknown;
+  /** How to interpret `src` (default: url). */
+  "attr:src-type"?: unknown;
+  /** Alternative text for the image. */
+  "attr:alt"?: unknown;
+  /** Host width. */
+  "attr:width"?: unknown;
+  /** Host height. */
+  "attr:height"?: unknown;
+  /** Whether to wait for viewport visibility. */
+  "attr:loading"?: unknown;
+  /** Native cross-origin image setting. */
+  "attr:crossorigin"?: unknown;
+  /** Native image fitting mode. */
+  "attr:object-fit"?: unknown;
+  /** Placeholder URL or BlurHash string. */
+  "attr:placeholder"?: unknown;
+  /** How to interpret the placeholder. */
+  "attr:placeholder-type"?: unknown;
+  /** Keep the placeholder as a background layer. */
+  "attr:placeholder-fill"?: unknown;
+  /** Delay before revealing a loaded image, in milliseconds. */
+  "attr:show-delay"?: unknown;
+  /** Make the image follow its container width. */
+  "bool:responsive"?: unknown;
+  /** Clip the image to a circle. */
+  "bool:circle"?: unknown;
+  /**  */
+  "on:blurhash-error"?: (e: CustomEvent) => void;
+  /** The image is ready to display. */
+  "on:load"?: (e: Event) => void;
+  /** The image failed to load. */
+  "on:error"?: (e: Event) => void;
+  /** Network progress with detail `{ loaded, total, src }`. */
+  "on:progress"?: (e: CustomEvent) => void;
 
   /** Set the innerHTML of the element */
   innerHTML?: string;
@@ -359,44 +405,29 @@ export type EosScrollbarSolidJsProps = {
 
 export type CustomElements = {
   /**
-   * EosButton 组件
-   * 一个简单的按钮组件
-   */
-  "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
-
-  /**
-   * 优化的 EosImage 组件
+   * EOS Button
+   *
+   * EOS Button custom element.
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `src`/`undefined`: 图片地址（URL 或 blurhash 字符串）
-   * - `src-type`/`undefined`: src 的类型，默认 url
-   * - `alt`/`undefined`: 替代文本
-   * - `width`/`undefined`: 宽度
-   * - `height`/`undefined`: 高度
-   * - `loading`/`undefined`: 加载策略
-   * - `crossorigin`/`undefined`: 跨域设置
-   * - `object-fit`/`undefined`: 填充模式
-   * - `placeholder`/`undefined`: 占位内容（URL 或 blurhash 字符串）
-   * - `placeholder-type`/`undefined`: 占位类型
-   * - `placeholder-fill`/`undefined`: 占位填充模式
-   * - `show-delay`/`undefined`: 图片显示延迟（毫秒）
-   * - `onimageload`: undefined (property only)
-   * - `onimageerror`: undefined (property only)
-   * - `onimageprogress`: undefined (property only)
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `blurhash-error`: undefined
-   * - `imageLoad`: 图片加载成功
-   * - `imageError`: 图片加载失败
-   * - `imageProgress`: 图片加载进度
+   * - `aria-label`/`undefined`: undefined
+   * - `color`/`undefined`: undefined
+   * - `disabled`/`undefined`: undefined
+   * - `full-width`/`undefined`: undefined
+   * - `icon-only`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
+   * - `name`/`undefined`: undefined
+   * - `size`/`undefined`: undefined
+   * - `type`/`undefined`: undefined
+   * - `value`/`undefined`: undefined
+   * - `variant`/`undefined`: undefined
+   * - `disabled`: undefined (property only)
+   * - `loading`: undefined (property only)
    */
-  "eos-image": Partial<EosImageProps & BaseProps<EosImage> & BaseEvents>;
+  "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
 
   /**
    * EosCarousel 组件
@@ -448,6 +479,40 @@ export type CustomElements = {
   "eos-carousel": Partial<
     EosCarouselProps & BaseProps<EosCarousel> & BaseEvents
   >;
+
+  /**
+   * EOS Image is a framework-agnostic image element with native image events,
+   * lazy loading, BlurHash placeholders, and explicit loading and error states.
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `src`/`undefined`: Image URL or BlurHash string.
+   * - `src-type`/`undefined`: How to interpret `src` (default: url).
+   * - `alt`/`undefined`: Alternative text for the image.
+   * - `width`/`undefined`: Host width.
+   * - `height`/`undefined`: Host height.
+   * - `loading`/`undefined`: Whether to wait for viewport visibility.
+   * - `crossorigin`/`undefined`: Native cross-origin image setting.
+   * - `object-fit`/`undefined`: Native image fitting mode.
+   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
+   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
+   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
+   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
+   * - `responsive`/`undefined`: Make the image follow its container width.
+   * - `circle`/`undefined`: Clip the image to a circle.
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `blurhash-error`: undefined
+   * - `load`: The image is ready to display.
+   * - `error`: The image failed to load.
+   * - `progress`: Network progress with detail `{ loaded, total, src }`.
+   */
+  "eos-image": Partial<EosImageProps & BaseProps<EosImage> & BaseEvents>;
 
   /**
    * EosProgressBar 组件
@@ -539,47 +604,30 @@ export type CustomElements = {
 
 export type CustomElementsSolidJs = {
   /**
-   * EosButton 组件
-   * 一个简单的按钮组件
-   */
-  "eos-button": Partial<
-    EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
-  >;
-
-  /**
-   * 优化的 EosImage 组件
+   * EOS Button
+   *
+   * EOS Button custom element.
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `src`/`undefined`: 图片地址（URL 或 blurhash 字符串）
-   * - `src-type`/`undefined`: src 的类型，默认 url
-   * - `alt`/`undefined`: 替代文本
-   * - `width`/`undefined`: 宽度
-   * - `height`/`undefined`: 高度
-   * - `loading`/`undefined`: 加载策略
-   * - `crossorigin`/`undefined`: 跨域设置
-   * - `object-fit`/`undefined`: 填充模式
-   * - `placeholder`/`undefined`: 占位内容（URL 或 blurhash 字符串）
-   * - `placeholder-type`/`undefined`: 占位类型
-   * - `placeholder-fill`/`undefined`: 占位填充模式
-   * - `show-delay`/`undefined`: 图片显示延迟（毫秒）
-   * - `onimageload`: undefined (property only)
-   * - `onimageerror`: undefined (property only)
-   * - `onimageprogress`: undefined (property only)
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `blurhash-error`: undefined
-   * - `imageLoad`: 图片加载成功
-   * - `imageError`: 图片加载失败
-   * - `imageProgress`: 图片加载进度
+   * - `aria-label`/`undefined`: undefined
+   * - `color`/`undefined`: undefined
+   * - `disabled`/`undefined`: undefined
+   * - `full-width`/`undefined`: undefined
+   * - `icon-only`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
+   * - `name`/`undefined`: undefined
+   * - `size`/`undefined`: undefined
+   * - `type`/`undefined`: undefined
+   * - `value`/`undefined`: undefined
+   * - `variant`/`undefined`: undefined
+   * - `disabled`: undefined (property only)
+   * - `loading`: undefined (property only)
    */
-  "eos-image": Partial<
-    EosImageProps & EosImageSolidJsProps & BaseProps<EosImage> & BaseEvents
+  "eos-button": Partial<
+    EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
   >;
 
   /**
@@ -634,6 +682,42 @@ export type CustomElementsSolidJs = {
       EosCarouselSolidJsProps &
       BaseProps<EosCarousel> &
       BaseEvents
+  >;
+
+  /**
+   * EOS Image is a framework-agnostic image element with native image events,
+   * lazy loading, BlurHash placeholders, and explicit loading and error states.
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `src`/`undefined`: Image URL or BlurHash string.
+   * - `src-type`/`undefined`: How to interpret `src` (default: url).
+   * - `alt`/`undefined`: Alternative text for the image.
+   * - `width`/`undefined`: Host width.
+   * - `height`/`undefined`: Host height.
+   * - `loading`/`undefined`: Whether to wait for viewport visibility.
+   * - `crossorigin`/`undefined`: Native cross-origin image setting.
+   * - `object-fit`/`undefined`: Native image fitting mode.
+   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
+   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
+   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
+   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
+   * - `responsive`/`undefined`: Make the image follow its container width.
+   * - `circle`/`undefined`: Clip the image to a circle.
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `blurhash-error`: undefined
+   * - `load`: The image is ready to display.
+   * - `error`: The image failed to load.
+   * - `progress`: Network progress with detail `{ loaded, total, src }`.
+   */
+  "eos-image": Partial<
+    EosImageProps & EosImageSolidJsProps & BaseProps<EosImage> & BaseEvents
   >;
 
   /**

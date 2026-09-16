@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../../index";
+import "@eosjs/components";
 
 export default function Basic() {
 	const ref = useRef<HTMLElement>(null);
@@ -13,19 +13,9 @@ export default function Basic() {
 	}, []);
 
 	return (
-		<div
-			style={{
-			display: "grid",
-			gap: 16,
-			alignContent: "center",
-			justifyItems: "center",
-			minHeight: 180,
-		}}
-		>
+		<div style={{ display: "grid", gap: 16, alignContent: "center", justifyItems: "center", minHeight: 180 }}>
 			<eos-button ref={ref}>Try the button</eos-button>
-			<small style={{ color: "var(--muted-foreground, #71717a)" }}>
-				Activated {count} times
-			</small>
+			<small style={{ color: "var(--eos-color-foreground-muted, #71717a)" }}>Activated {count} times</small>
 		</div>
 	);
 }

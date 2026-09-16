@@ -1,41 +1,45 @@
 ---
 title: Carousel
-description: 支持多种指示器样式与位置的轮播图组件，内置触摸滑动、键盘导航与自动播放。
+description: A framework-agnostic Web Component for cycling through content with navigation, indicators, autoplay, and touch gestures.
 category: Data Display
 ---
 
-import Basic from './demo.tsx?demo';
+import Basic from './demos/index.tsx?demo';
 
 ## Introduction
 
-Carousel 是一个支持自动播放、循环模式、触摸滑动和键盘导航的 Web Component 轮播图。
+Carousel presents a sequence of slides with native keyboard navigation, touch gestures, optional autoplay, and clickable progress indicators. Slides are passed through the default slot, so each slide can contain any HTML or Web Component content.
 
 ## Basic Usage
 
-<Demo of={Basic} title="基础用法" />
+<Demo of={Basic} title="Basic usage" layout="center" />
 
-## 属性
+## API
 
-| 属性 | 类型 | 默认值 | 说明 |
+### Attributes
+
+| Attribute | Type | Default | Description |
 | --- | --- | --- | --- |
-| `autoplay` | `boolean` | `false` | 自动播放 |
-| `interval` | `number` | `3000` | 自动播放间隔（毫秒） |
-| `loop` | `boolean` | `false` | 循环模式 |
-| `show-navigation` | `boolean` | `true` | 显示导航箭头 |
-| `initial-index` | `number` | `0` | 初始幻灯片索引 |
-| `indicator-position` | `top \| bottom \| left \| right` | `bottom` | 指示器位置 |
-| `indicator-style` | `default \| dots \| tiktok` | `default` | 指示器样式 |
+| `autoplay` | `boolean` | `false` | Automatically advance through the slides |
+| `interval` | `number` | `2000` | Autoplay interval in milliseconds; values below 1000 are clamped |
+| `loop` | `boolean` | `false` | Continue from the first slide after the last slide |
+| `show-navigation` | `boolean` | `true` | Show previous and next controls |
+| `initial-index` | `number` | `0` | Initial zero-based slide index |
+| `indicator-position` | `top \| bottom \| left \| right` | `bottom` | Position of the progress indicators |
+| `indicator-style` | `default \| dots \| tiktok` | `default` | Visual style of the progress indicators |
+| `virtual-threshold` | `number` | `8` | Enable three-slot rendering after this many slides |
 
-## 事件
+### Events
 
-| 事件名 | 触发时机 | `event.detail` |
+| Event | When it fires | `event.detail` |
 | --- | --- | --- |
-| `change` | 切换幻灯片 | `{ currentIndex, previousIndex }` |
-| `slide-click` | 点击幻灯片 | `{ index }` |
+| `change` | The active slide changes | `{ currentIndex, previousIndex }` |
+| `slide-active` | A slide becomes active | `{ index, slide, mediaType }` |
+| `slide-click` | A slide is clicked | `{ index }` |
 
-## 组件方法
+### Methods
 
-可以通过 DOM 引用控制轮播图：
+Carousel exposes imperative controls through its DOM element:
 
 ```ts
 const carousel = document.querySelector('eos-carousel');
@@ -47,23 +51,36 @@ carousel.prev();
 carousel.goTo(2);
 ```
 
-## CSS 自定义属性
+### Slots
 
-| 变量 | 默认值 | 说明 |
-| --- | --- | --- |
-| `--carousel-height` | `400px` | 轮播图高度 |
-| `--progress-bar-color` | `#e0e0e0` | 进度条背景色 |
-| `--progress-bar-active-color` | `#007bff` | 进度条激活色 |
-| `--control-bg` | `rgba(0,0,0,0.5)` | 导航按钮背景 |
-| `--dot-size` | `8px` | dots 模式下的圆点大小 |
-
-## 框架集成
-
-组件使用标准 DOM 属性和 CustomEvent，因此同一套标签可以直接用于 React、Vue、Angular 和原生 HTML。
+Use the default slot for any slide content:
 
 ```html
 <eos-carousel autoplay loop interval="3000">
-  <div>幻灯片 1</div>
-  <div>幻灯片 2</div>
+  <img src="/cover-01.jpg" alt="Mountain landscape" />
+  <img src="/cover-02.jpg" alt="Coastal landscape" />
+</eos-carousel>
+```
+
+### CSS custom properties
+
+| Property | Default | Description |
+| --- | --- | --- |
+| `--carousel-height` | `400px` | Height of the carousel host |
+| `--progress-bar-height` | `3px` | Indicator height in pixels |
+| `--progress-bar-gap` | `3px` | Gap between indicators |
+| `--progress-bar-color` | `rgba(255, 255, 255, 0.3)` | Inactive indicator color |
+| `--progress-bar-active-color` | `rgba(255, 255, 255, 1)` | Active indicator color |
+| `--control-bg` | `rgba(0, 0, 0, 0.3)` | Navigation control background |
+| `--control-hover-bg` | `rgba(0, 0, 0, 0.5)` | Navigation control hover background |
+
+### Framework integration
+
+Carousel is a standard custom element. The same markup works in React, Vue, Angular, and native HTML; framework listeners receive the native DOM and CustomEvent APIs.
+
+```html
+<eos-carousel autoplay loop interval="3000">
+  <div>Slide one</div>
+  <div>Slide two</div>
 </eos-carousel>
 ```

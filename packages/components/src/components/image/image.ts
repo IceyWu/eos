@@ -1,6 +1,8 @@
 import { formatSize } from "@eosjs/utils";
 import { decode } from "blurhash";
 
+import { IMAGE_STYLES } from "./image.css";
+
 // 全局图片加载器池,限制并发加载数量
 class ImageLoader {
 	private static instance: ImageLoader;
@@ -334,26 +336,29 @@ class LazyLoadObserver {
 }
 
 /**
- * 优化的 EosImage 组件
+ * EOS Image is a framework-agnostic image element with native image events,
+ * lazy loading, BlurHash placeholders, and explicit loading and error states.
  *
  * @tagname eos-image
  *
- * @attr {string} src - 图片地址（URL 或 blurhash 字符串）
- * @attr {"url"|"blurhash"} src-type - src 的类型，默认 url
- * @attr {string} alt - 替代文本
- * @attr {string} width - 宽度
- * @attr {string} height - 高度
- * @attr {"lazy"|"eager"} loading - 加载策略
- * @attr {string} crossorigin - 跨域设置
- * @attr {"cover"|"contain"|"fill"|"none"|"scale-down"} object-fit - 填充模式
- * @attr {string} placeholder - 占位内容（URL 或 blurhash 字符串）
- * @attr {"url"|"blurhash"} placeholder-type - 占位类型
- * @attr {string} placeholder-fill - 占位填充模式
- * @attr {string} show-delay - 图片显示延迟（毫秒）
+ * @attr {string} src - Image URL or BlurHash string.
+ * @attr {"url"|"blurhash"} src-type - How to interpret `src` (default: url).
+ * @attr {string} alt - Alternative text for the image.
+ * @attr {string} width - Host width.
+ * @attr {string} height - Host height.
+ * @attr {"lazy"|"eager"} loading - Whether to wait for viewport visibility.
+ * @attr {string} crossorigin - Native cross-origin image setting.
+ * @attr {"cover"|"contain"|"fill"|"none"|"scale-down"} object-fit - Native image fitting mode.
+ * @attr {string} placeholder - Placeholder URL or BlurHash string.
+ * @attr {"url"|"blurhash"} placeholder-type - How to interpret the placeholder.
+ * @attr {string} placeholder-fill - Keep the placeholder as a background layer.
+ * @attr {string} show-delay - Delay before revealing a loaded image, in milliseconds.
+ * @attr {boolean} responsive - Make the image follow its container width.
+ * @attr {boolean} circle - Clip the image to a circle.
  *
- * @fires {CustomEvent} imageLoad - 图片加载成功
- * @fires {CustomEvent} imageError - 图片加载失败
- * @fires {CustomEvent} imageProgress - 图片加载进度
+ * @fires {Event} load - The image is ready to display.
+ * @fires {Event} error - The image failed to load.
+ * @fires {CustomEvent} progress - Network progress with detail `{ loaded, total, src }`.
  */
 export class EosImage extends HTMLElement {
 	// 配置常量
@@ -371,18 +376,16 @@ export class EosImage extends HTMLElement {
 	private loadTimer: number | null = null;
 	private imageLoader = ImageLoader.getInstance();
 	private isRendered = false;
+	private loadGeneration = 0;
+	private loadingScheduled = false;
+	private managedWidth = "";
+	private managedHeight = "";
 
 	// DOM 元素缓存
 	private img: HTMLImageElement | null = null;
 	private placeholderImage: HTMLImageElement | null = null;
 	private loadingContainer: HTMLElement | null = null;
-	private loadingOverlay: HTMLElement | null = null;
 	private errorContainer: HTMLElement | null = null;
-
-	// 事件处理器属性（支持 React 的 onImageLoad/onImageError）
-	public onimageload: ((event: CustomEvent) => void) | null = null;
-	public onimageerror: ((event: CustomEvent) => void) | null = null;
-	public onimageprogress: ((event: CustomEvent) => void) | null = null;
 
 	// 监听的属性
 	static get observedAttributes() {
@@ -399,6 +402,8 @@ export class EosImage extends HTMLElement {
 			"placeholder-type",
 			"placeholder-fill",
 			"show-delay",
+			"responsive",
+			"circle",
 		];
 	}
 
@@ -413,123 +418,7 @@ export class EosImage extends HTMLElement {
 		if (!this.shadowRoot) return;
 
 		this.shadowRoot.innerHTML = `
-			<style>
-				:host {
-					display: inline-block;
-					position: relative;
-					overflow: hidden;
-					background: #f0f0f0;
-					min-width: 100px;
-					min-height: 100px;
-				}
-
-				.container {
-					width: 100%;
-					height: 100%;
-					position: relative;
-				}
-
-				.image {
-					width: 100%;
-					height: 100%;
-					display: block;
-					animation: fadeIn 0.3s ease-in;
-				}
-
-				.placeholder-image {
-					filter: blur(0);
-					transform: scale(1.1);
-				}
-
-				/* placeholder填充模式：placeholder作为背景层，主图片叠加在上面 */
-				:host([placeholder-fill]) .placeholder-image {
-					position: absolute;
-					z-index: 1;
-					object-fit: cover !important;
-					transform: none;
-				}
-				
-				:host([placeholder-fill]) .main-image {
-					position: absolute;
-					z-index: 2;
-				}
-
-				.loading-overlay {
-					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					background: rgba(255, 255, 255, 0.3);
-				}
-
-				.loading-container,
-				.error-container {
-					width: 100%;
-					height: 100%;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					color: #666;
-				}
-
-				.default-loading {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					gap: 12px;
-				}
-
-				.spinner {
-					width: 32px;
-					height: 32px;
-					border: 3px solid #e0e0e0;
-					border-top-color: #007bff;
-					border-radius: 50%;
-					animation: spin 1s linear infinite;
-				}
-
-				.default-error {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					gap: 12px;
-					color: #999;
-				}
-
-				.error-icon {
-					width: 48px;
-					height: 48px;
-					color: #ccc;
-				}
-
-				@keyframes spin {
-					to { transform: rotate(360deg); }
-				}
-
-				@keyframes fadeIn {
-					from { opacity: 0; }
-					to { opacity: 1; }
-				}
-
-				:host([responsive]) .image {
-					max-width: 100%;
-					height: auto;
-				}
-
-				:host([circle]) {
-					border-radius: 50%;
-				}
-
-				:host([circle]) .image {
-					border-radius: 50%;
-				}
-
-				.hidden { display: none !important; }
-			</style>
+			<style>${IMAGE_STYLES}</style>
 			<div class="container">
 				<!-- 主图片 -->
 				<img class="image main-image hidden" />
@@ -542,16 +431,11 @@ export class EosImage extends HTMLElement {
 				<slot name="loading">
 					<div class="default-loading">
 						<div class="spinner"></div>
-						<span>加载中...</span>
+						<span>Loading image…</span>
 					</div>
 				</slot>
 			</div>
 			
-			<!-- 加载遮罩（用于有占位符时） -->
-			<div class="loading-overlay hidden">
-				<slot name="loading"></slot>
-			</div>
-				
 				<!-- 错误状态 -->
 				<div class="error-container hidden">
 					<slot name="error">
@@ -561,7 +445,7 @@ export class EosImage extends HTMLElement {
 								<line x1="9" y1="9" x2="15" y2="15"/>
 								<line x1="15" y1="9" x2="9" y2="15"/>
 							</svg>
-							<span>图片加载失败</span>
+								<span>Image unavailable</span>
 						</div>
 					</slot>
 				</div>
@@ -576,9 +460,6 @@ export class EosImage extends HTMLElement {
 		this.loadingContainer = this.shadowRoot.querySelector(
 			".loading-container",
 		) as HTMLElement;
-		this.loadingOverlay = this.shadowRoot.querySelector(
-			".loading-overlay",
-		) as HTMLElement;
 		this.errorContainer = this.shadowRoot.querySelector(
 			".error-container",
 		) as HTMLElement;
@@ -586,12 +467,15 @@ export class EosImage extends HTMLElement {
 	}
 
 	connectedCallback() {
+		if (!this.isRendered) this.initializeDOM();
 		this.updateStyles();
+		this.updateImageAttributes();
 		this.processPlaceholder();
 		this.handleImageLoading();
 	}
 
 	disconnectedCallback() {
+		this.loadGeneration++;
 		// 清理定时器
 		if (this.loadTimer !== null) {
 			clearTimeout(this.loadTimer);
@@ -601,18 +485,6 @@ export class EosImage extends HTMLElement {
 		// 取消懒加载观察
 		LazyLoadObserver.unobserve(this);
 
-		// 清理事件监听器
-		if (this.img) {
-			this.img.onerror = null;
-			this.img.onload = null;
-		}
-
-		// 清理 DOM 引用
-		this.img = null;
-		this.placeholderImage = null;
-		this.loadingContainer = null;
-		this.loadingOverlay = null;
-		this.errorContainer = null;
 	}
 
 	attributeChangedCallback(
@@ -658,6 +530,7 @@ export class EosImage extends HTMLElement {
 
 	// 统一的图片加载处理逻辑
 	private handleImageLoading() {
+		const generation = ++this.loadGeneration;
 		const src = this.getAttribute("src");
 		const srcType = this.getAttribute("src-type") || "url";
 		const loading = this.getAttribute("loading");
@@ -687,18 +560,18 @@ export class EosImage extends HTMLElement {
 			this.updateDisplay(); // 先显示占位符
 			LazyLoadObserver.unobserve(this); // 清理之前的观察
 			LazyLoadObserver.observe(this, () => {
+				if (generation !== this.loadGeneration || !this.isConnected) return;
 				this.processSource();
-				this.loadImage();
+				this.loadImage(generation);
 			});
 		} else {
 			// 立即加载
 			this.processSource();
-			this.loadImage();
+			this.loadImage(generation);
 		}
 	}
 
 	// 调度图片加载（解决属性设置时序问题）
-	private loadingScheduled = false;
 	private scheduleImageLoading() {
 		if (this.loadingScheduled) return;
 
@@ -714,7 +587,7 @@ export class EosImage extends HTMLElement {
 		});
 	}
 
-	private async loadImage() {
+	private async loadImage(generation: number) {
 		const src = this.getAttribute("src");
 		if (!src) {
 			this.hasError = true;
@@ -732,18 +605,15 @@ export class EosImage extends HTMLElement {
 		try {
 			// 使用图片加载器池，带进度回调
 			await this.imageLoader.load(src, (loaded, total) => {
+				if (generation !== this.loadGeneration || !this.isConnected) return;
 				// 分发进度事件
-				const progressEvent = new CustomEvent("imageProgress", {
+				const progressEvent = new CustomEvent("progress", {
 					detail: { loaded, total, src },
 					bubbles: true,
 					composed: true,
 				});
 				this.dispatchEvent(progressEvent);
 
-				// 调用 onimageprogress 处理器（支持 React）
-				if (this.onimageprogress) {
-					this.onimageprogress(progressEvent);
-				}
 			});
 
 			// 获取延时参数
@@ -754,6 +624,7 @@ export class EosImage extends HTMLElement {
 			);
 
 			const showImage = () => {
+				if (generation !== this.loadGeneration || !this.isConnected) return;
 				this.isLoading = false;
 				this.hasError = false;
 				if (this.img) {
@@ -762,17 +633,11 @@ export class EosImage extends HTMLElement {
 				this.updateDisplay();
 				this.updateImageAttributes();
 				// 分发加载成功事件
-				const loadEvent = new CustomEvent("imageLoad", {
-					detail: { src },
+				const loadEvent = new Event("load", {
 					bubbles: true,
 					composed: true,
 				});
 				this.dispatchEvent(loadEvent);
-
-				// 调用 onimageload 处理器（支持 React）
-				if (this.onimageload) {
-					this.onimageload(loadEvent);
-				}
 			};
 
 			if (showDelay > 0) {
@@ -781,21 +646,16 @@ export class EosImage extends HTMLElement {
 				showImage();
 			}
 		} catch (error) {
+			if (generation !== this.loadGeneration || !this.isConnected) return;
 			this.isLoading = false;
 			this.hasError = true;
 			this.updateDisplay();
 			// 分发加载失败事件
-			const errorEvent = new CustomEvent("imageError", {
-				detail: { src },
+			const errorEvent = new Event("error", {
 				bubbles: true,
 				composed: true,
 			});
 			this.dispatchEvent(errorEvent);
-
-			// 调用 onimageerror 处理器（支持 React）
-			if (this.onimageerror) {
-				this.onimageerror(errorEvent);
-			}
 		}
 	}
 
@@ -908,7 +768,6 @@ export class EosImage extends HTMLElement {
 			!this.placeholderImage ||
 			!this.img ||
 			!this.loadingContainer ||
-			!this.loadingOverlay ||
 			!this.errorContainer
 		) {
 			return;
@@ -922,7 +781,6 @@ export class EosImage extends HTMLElement {
 			this.placeholderImage,
 			this.img,
 			this.loadingContainer,
-			this.loadingOverlay,
 			this.errorContainer,
 		].forEach((el) => {
 			el?.classList.add("hidden");
@@ -939,9 +797,6 @@ export class EosImage extends HTMLElement {
 			// 强制重置错误状态，因为 BlurHash 不应该有加载错误
 			this.hasError = false;
 
-			// 清除图片的事件监听器，避免 onerror 被触发
-			this.img.onerror = null;
-			this.img.onload = null;
 			this.img.src = this.srcDataUrl;
 			this.img.classList.remove("hidden");
 			return;
@@ -960,10 +815,14 @@ export class EosImage extends HTMLElement {
 
 		// URL 加载状态
 		if (this.isLoading) {
+			this.loadingContainer.classList.toggle(
+				"overlay",
+				Boolean(this.placeholderDataUrl),
+			);
 			if (placeholderFill) {
 				// 填充模式下，placeholder已经显示，只需要显示加载遮罩
 				if (this.placeholderDataUrl) {
-					this.loadingOverlay.classList.remove("hidden");
+					this.loadingContainer.classList.remove("hidden");
 				} else {
 					this.loadingContainer.classList.remove("hidden");
 				}
@@ -972,7 +831,7 @@ export class EosImage extends HTMLElement {
 				if (this.placeholderDataUrl) {
 					this.placeholderImage.src = this.placeholderDataUrl;
 					this.placeholderImage.classList.remove("hidden");
-					this.loadingOverlay.classList.remove("hidden");
+					this.loadingContainer.classList.remove("hidden");
 				} else {
 					this.loadingContainer.classList.remove("hidden");
 				}
@@ -991,7 +850,7 @@ export class EosImage extends HTMLElement {
 			}
 
 			// 隐藏加载相关的元素
-			this.loadingOverlay.classList.add("hidden");
+			this.loadingContainer.classList.remove("overlay");
 			this.loadingContainer.classList.add("hidden");
 		}
 	}
@@ -1007,12 +866,20 @@ export class EosImage extends HTMLElement {
 		const height = this.getAttribute("height");
 		const objectFit = this.getAttribute("object-fit") || "cover";
 
-		// 更新宿主元素尺寸
+		// Apply attribute-driven dimensions without overwriting consumer CSS.
 		if (width) {
-			host.style.width = formatSize(width);
+			this.managedWidth = formatSize(width);
+			host.style.width = this.managedWidth;
+		} else if (this.managedWidth && host.style.width === this.managedWidth) {
+			host.style.removeProperty("width");
+			this.managedWidth = "";
 		}
 		if (height) {
-			host.style.height = formatSize(height);
+			this.managedHeight = formatSize(height);
+			host.style.height = this.managedHeight;
+		} else if (this.managedHeight && host.style.height === this.managedHeight) {
+			host.style.removeProperty("height");
+			this.managedHeight = "";
 		}
 
 		// 更新所有图片的 object-fit
@@ -1031,15 +898,15 @@ export class EosImage extends HTMLElement {
 		const alt = this.getAttribute("alt");
 		const crossorigin = this.getAttribute("crossorigin");
 
-		if (alt) this.img.alt = alt;
-		if (crossorigin) this.img.crossOrigin = crossorigin;
+		this.img.alt = alt ?? "";
+		this.img.crossOrigin = crossorigin ?? "";
 
 		// 同时更新占位符图片的 alt
 		const placeholderImage = this.shadowRoot?.querySelector(
 			".placeholder-image",
 		) as HTMLImageElement;
-		if (placeholderImage && alt) {
-			placeholderImage.alt = alt;
+		if (placeholderImage) {
+			placeholderImage.alt = alt ?? "";
 		}
 	}
 }

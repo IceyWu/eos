@@ -1,70 +1,66 @@
 ---
 title: Image
-description: 支持懒加载、BlurHash 占位、加载进度和错误状态的图片组件。
+description: An image component for responsive media, lazy loading, BlurHash placeholders, and explicit loading states.
 category: Data Display
 ---
 
-import Basic from './demo.tsx?demo';
+import Basic from './demos/basic.tsx?demo';
+import Fallback from './demos/fallback.tsx?demo';
+import Responsive from './demos/responsive.tsx?demo';
 
-## Introduction
+## Default
 
-Image 是一个面向 Web Components 的图片组件。除了标准图片属性，它还提供懒加载、BlurHash 占位、渐进式加载和加载事件。
+`eos-image` keeps the platform's image model and adds loading, BlurHash placeholder, and error states without requiring a framework adapter. Use the controls in this example to inspect the supported image states and layout options.
 
-## Basic Usage
+<Demo of={Basic} layout="center" />
 
-<Demo of={Basic} title="基础用法" />
+## Fallback
 
-```html
-<eos-image
-  src="https://example.com/cover.jpg"
-  alt="Cover"
-  loading="lazy"
-  object-fit="cover"
-  style="width: 520px; height: 220px"
-></eos-image>
-```
+Use the `error` slot to provide recovery-oriented content when the image cannot be loaded.
 
-## 属性
+<Demo of={Fallback} layout="center" />
 
-| 属性 | 类型 | 默认值 | 说明 |
+## Responsive and circular images
+
+`responsive` lets the image follow the available inline size. `circle` clips the image to a circle while preserving the declared dimensions.
+
+<Demo of={Responsive} layout="center" />
+
+## API
+
+### Attributes
+
+| Attribute | Type | Default | Description |
 | --- | --- | --- | --- |
-| `src` | `string` | — | 图片 URL，或 BlurHash 字符串 |
-| `src-type` | `url \| blurhash` | `url` | 指定 `src` 的类型 |
-| `alt` | `string` | — | 图片替代文本 |
-| `width` / `height` | `string` | — | 图片尺寸 |
-| `loading` | `lazy \| eager` | — | 是否使用懒加载 |
-| `crossorigin` | `string` | — | 跨域设置 |
-| `object-fit` | `cover \| contain \| fill \| none \| scale-down` | — | 图片填充方式 |
-| `placeholder` | `string` | — | 占位 URL 或 BlurHash |
-| `placeholder-type` | `url \| blurhash` | `url` | 指定占位内容类型 |
-| `placeholder-fill` | `boolean` | `false` | 占位图作为背景层显示 |
-| `show-delay` | `string` | `0` | 图片加载成功后的显示延迟，单位毫秒 |
+| `src` | `string` | — | Image URL or BlurHash string |
+| `src-type` | `url \| blurhash` | `url` | How to interpret `src` |
+| `alt` | `string` | — | Alternative text for the image |
+| `width` / `height` | `string` | — | Host dimensions; CSS remains available for layout |
+| `loading` | `lazy \| eager` | `eager` | Whether to wait for viewport visibility |
+| `crossorigin` | `string` | — | Native cross-origin image setting |
+| `object-fit` | `cover \| contain \| fill \| none \| scale-down` | `cover` | Native image fitting mode |
+| `placeholder` | `string` | — | Placeholder URL or BlurHash |
+| `placeholder-type` | `url \| blurhash` | `url` | How to interpret the placeholder |
+| `placeholder-fill` | `boolean` | `false` | Keep the placeholder as a background layer |
+| `show-delay` | `string` | `0` | Delay before revealing a loaded image, in milliseconds |
+| `responsive` | `boolean` | `false` | Make the image follow its container width |
+| `circle` | `boolean` | `false` | Clip the image to a circle |
 
-## BlurHash 占位
+### Events
 
-```html
-<eos-image
-  src="https://example.com/cover.jpg"
-  placeholder="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
-  placeholder-type="blurhash"
-  placeholder-fill
-  style="width: 320px; height: 200px"
-></eos-image>
-```
+`load` and `error` use native event names. `progress` is the component's structured network-progress event.
 
-## 事件
-
-| 事件名 | 触发时机 | `event.detail` |
+| Event | When it fires | `event.detail` |
 | --- | --- | --- |
-| `imageLoad` | 图片加载成功 | — |
-| `imageError` | 图片加载失败 | — |
-| `imageProgress` | 图片加载过程中 | `{ loaded, total }` |
+| `load` | The image is ready to display | — |
+| `error` | The image failed to load | — |
+| `progress` | Network data is received | `{ loaded, total, src }` |
 
-## 加载插槽
+### Slots
 
 ```html
 <eos-image src="/cover.jpg" style="width: 320px; height: 200px">
   <span slot="loading">Preparing image…</span>
-  <span slot="error">Try again later</span>
+  <span slot="error">Image unavailable</span>
 </eos-image>
 ```

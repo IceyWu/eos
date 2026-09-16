@@ -32,10 +32,13 @@ export const EOS_THEME_TOKENS = `
   --eos-color-warning-foreground: var(--warning-warning-foreground, #3b2500);
   --eos-color-warning-hover: var(--warning-warning-hover, #f7b84b);
   --eos-color-border: var(--border, #dedee0);
+  --eos-color-surface: var(--surface-surface, #ffffff);
   --eos-color-default: var(--default-default, #ebebec);
   --eos-color-default-foreground: var(--default-default-foreground, #18181b);
   --eos-color-default-hover: var(--default-default-hover, #e1e1e2);
   --eos-color-surface-secondary: var(--surface-surface-secondary, #efeff0);
+  --eos-color-foreground: var(--foreground-foreground, #18181b);
+  --eos-color-foreground-muted: var(--foreground-muted, #71717a);
   --eos-color-danger: var(--danger-danger, var(--eos-palette-red-600));
   --eos-color-danger-foreground: var(--danger-danger-foreground, #fcfcfc);
   --eos-color-danger-hover: var(--danger-danger-hover, #e84a4d);
@@ -46,6 +49,9 @@ export const EOS_THEME_TOKENS = `
 }
 
 :host([data-eos-theme="dark"]) {
+  --eos-color-surface: #18181b;
+  --eos-color-foreground: #fcfcfc;
+  --eos-color-foreground-muted: #a1a1aa;
   --eos-color-border: #28282c;
   --eos-color-default: #27272a;
   --eos-color-default-foreground: #fcfcfc;
@@ -60,6 +66,9 @@ export const EOS_THEME_TOKENS = `
 }
 
 :host([data-eos-theme="light"]) {
+  --eos-color-surface: #ffffff;
+  --eos-color-foreground: #18181b;
+  --eos-color-foreground-muted: #71717a;
   --eos-color-border: #dedee0;
   --eos-color-default: #ebebec;
   --eos-color-default-foreground: #18181b;

@@ -8,7 +8,7 @@
           <span class="badge badge-green">事件驱动自动播放</span>
           <h2>{{ items.length }} 条图视混合 &middot; tiktok &middot; 图片加载完才开始计时</h2>
           <p class="hint">
-            通过 <code>slide-active</code> + <code>imageLoad</code> 事件回调控制轮播时机，
+            通过 <code>slide-active</code> + <code>load</code> 事件回调控制轮播时机，
             组件本身不内置自动播放逻辑。
           </p>
         </div>
@@ -42,7 +42,7 @@
               placeholder-type="blurhash"
               object-fit="cover"
               style="width:100%;height:100%;display:block;"
-              @imageLoad="onImageLoad(item.id)"
+              @load="onImageLoad(item.id)"
             />
             <div class="overlay">
               <h3>{{ item.name }}</h3>
@@ -111,7 +111,7 @@ const onSlideActive = (e: Event) => {
       onComplete: () => carousel.next(),
     });
   } else {
-    // 图片：等 imageLoad 事件触发后再计时
+    // 图片：等 load 事件触发后再计时
     pendingImageId.value = item.id;
   }
 };

@@ -161,27 +161,28 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 ### eos-image
 
-图片组件，支持懒加载、BlurHash 占位、加载进度。
+An image element with lazy loading, BlurHash placeholders, explicit loading and error states, and native image events.
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `src` | `string` | - | 图片地址 |
-| `src-type` | `string` | `"url"` | src 类型：url / blurhash |
-| `alt` | `string` | - | 替代文本 |
-| `width` | `string` | - | 宽度 |
-| `height` | `string` | - | 高度 |
-| `loading` | `string` | `"lazy"` | 加载策略：lazy / eager |
-| `object-fit` | `string` | `"cover"` | 填充模式 |
-| `placeholder` | `string` | - | 占位内容（URL 或 blurhash 字符串） |
-| `placeholder-type` | `string` | `"url"` | 占位类型：url / blurhash |
-| `placeholder-fill` | `boolean` | `false` | 占位图是否始终作为背景 |
-| `show-delay` | `string` | `"0"` | 图片显示延迟（ms） |
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `src` | `string` | - | Image URL or BlurHash string |
+| `src-type` | `url \| blurhash` | `url` | How to interpret `src` |
+| `alt` | `string` | - | Alternative text |
+| `width` / `height` | `string` | - | Host dimensions |
+| `loading` | `lazy \| eager` | `eager` | Whether to wait for viewport visibility |
+| `object-fit` | `cover \| contain \| fill \| none \| scale-down` | `cover` | Native image fitting mode |
+| `placeholder` | `string` | - | Placeholder URL or BlurHash string |
+| `placeholder-type` | `url \| blurhash` | `url` | How to interpret the placeholder |
+| `placeholder-fill` | `boolean` | `false` | Keep the placeholder as a background layer |
+| `show-delay` | `string` | `0` | Delay before revealing the loaded image (ms) |
+| `responsive` | `boolean` | `false` | Make the image follow its container width |
+| `circle` | `boolean` | `false` | Clip the image to a circle |
 
-| 事件 | 说明 |
-|------|------|
-| `imageLoad` | 加载成功 |
-| `imageError` | 加载失败 |
-| `imageProgress` | 加载进度，`detail: { loaded, total, src }` |
+| Event | Description |
+|-------|-------------|
+| `load` | The image is ready to display |
+| `error` | The image failed to load |
+| `progress` | Network progress, `detail: { loaded, total, src }` |
 
 ## 🛠 开发
 

@@ -1,8 +1,8 @@
-import { EosButton } from "./components/button/button";
-import { EosCarousel } from "./components/carousel/carousel";
-import { EosImage } from "./components/image/image";
-import { EosProgressBar } from "./components/progress-bar/progress-bar";
-import { EosScrollbar } from "./components/scrollbar/scrollbar";
+import { EosButton } from "./components/button";
+import { EosCarousel } from "./components/carousel";
+import { EosImage } from "./components/image";
+import { EosProgressBar } from "./components/progress-bar";
+import { EosScrollbar } from "./components/scrollbar";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
 
 export { EosButton, EosCarousel, EosImage, EosProgressBar, EosScrollbar, COMPONENT_CONFIG };

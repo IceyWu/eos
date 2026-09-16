@@ -1,3 +1,5 @@
+import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
+
 /**
  * EosScrollbar 组件
  * 自定义滚动条，可独立使用或嵌入任意可滚动容器。
@@ -84,10 +86,12 @@ export class EosScrollbar extends HTMLElement {
 	disconnectedCallback() {
 		this.detach();
 		this.cleanupEvents();
+		this.clearHideTimer();
 	}
 
 	attributeChangedCallback(_name: string, oldValue: string | null, newValue: string | null) {
 		if (oldValue === newValue) return;
+		this.cleanupEvents();
 		this.render();
 		this.setupEvents();
 		this.updateThumbPosition();
@@ -125,6 +129,7 @@ export class EosScrollbar extends HTMLElement {
 		this._targetEl = null;
 		this._scrollHandler = null;
 		this._resizeObserver = null;
+		this.clearHideTimer();
 	}
 
 	/**
@@ -239,10 +244,11 @@ export class EosScrollbar extends HTMLElement {
 
 		this.shadowRoot.innerHTML = `
 			<style>
+				${EOS_THEME_TOKENS}
 				:host {
 					display: block;
-					--sb-thumb-color: ${this.thumbColor};
-					--sb-track-color: ${this.trackColor};
+					--sb-thumb-color: ${this.thumbColor === "rgba(0,0,0,0.4)" ? "var(--eos-color-foreground-muted, rgba(0,0,0,0.4))" : this.thumbColor};
+					--sb-track-color: ${this.trackColor === "rgba(0,0,0,0.1)" ? "var(--eos-color-border, rgba(0,0,0,0.1))" : this.trackColor};
 					--sb-size: ${size}px;
 					--sb-radius: ${radius}px;
 				}
@@ -255,27 +261,24 @@ export class EosScrollbar extends HTMLElement {
 					user-select: none;
 					-webkit-user-select: none;
 				}
+				.track:focus-visible {
+					outline: 2px solid var(--eos-color-focus-ring, #006fee);
+					outline-offset: 3px;
+				}
 				.thumb {
 					position: absolute;
 					background: var(--sb-thumb-color);
 					border-radius: var(--sb-radius);
 					${isVert ? `width: 100%; left: 0;` : `height: 100%; top: 0;`}
 					cursor: grab;
-					transition: opacity 0.2s ease, background 0.15s ease;
+					touch-action: none;
+					transition: filter 0.15s ease;
 					min-${isVert ? "height" : "width"}: ${this.thumbMinSize}px;
 				}
-				.thumb:hover {
-					background: ${this.thumbColor.replace(/[\d.]+\)$/, (m) => {
-						const v = parseFloat(m);
-						return `${Math.min(v + 0.15, 1)})`;
-					})};
-				}
+				.thumb:hover { filter: brightness(1.15); }
 				.thumb:active, .thumb.dragging {
 					cursor: grabbing;
-					background: ${this.thumbColor.replace(/[\d.]+\)$/, (m) => {
-						const v = parseFloat(m);
-						return `${Math.min(v + 0.25, 1)})`;
-					})};
+					filter: brightness(1.25);
 				}
 				:host([auto-hide]) .track {
 					opacity: 0;
@@ -284,8 +287,12 @@ export class EosScrollbar extends HTMLElement {
 				:host([auto-hide]) .track.visible {
 					opacity: 1;
 				}
+				@media (prefers-reduced-motion: reduce) {
+					.track,
+					.thumb { transition: none; }
+				}
 			</style>
-			<div class="track${this._visible ? " visible" : ""}" role="scrollbar" aria-orientation="${this.direction}" aria-valuenow="${Math.round(this._ratio * 100)}" aria-valuemin="0" aria-valuemax="100">
+			<div class="track${this._visible ? " visible" : ""}" role="scrollbar" tabindex="0" aria-orientation="${this.direction}" aria-valuenow="${Math.round(this._ratio * 100)}" aria-valuemin="0" aria-valuemax="100" aria-label="Scroll position">
 				<div class="thumb"></div>
 			</div>
 		`;
@@ -303,8 +310,8 @@ export class EosScrollbar extends HTMLElement {
 		if (!track || !thumb) return;
 
 		// 点击轨道跳转
-		track.addEventListener("mousedown", (e: Event) => {
-			const me = e as MouseEvent;
+		track.addEventListener("pointerdown", (e: Event) => {
+			const me = e as PointerEvent;
 			if (me.target === thumb) return;
 			e.preventDefault();
 			const rect = (track as HTMLElement).getBoundingClientRect();
@@ -316,11 +323,27 @@ export class EosScrollbar extends HTMLElement {
 			this.updateThumbPosition();
 			this.scrollTargetTo(this._ratio);
 			this.emitChange();
+			if (this.autoHide) this.showTemporarily();
+		});
+		track.addEventListener("keydown", (e: Event) => {
+			const key = (e as KeyboardEvent).key;
+			let delta = 0;
+			if (key === "Home") delta = -1;
+			else if (key === "End") delta = 1;
+			else if (key === "PageUp" || key === "ArrowUp" || key === "ArrowLeft") delta = -0.1;
+			else if (key === "PageDown" || key === "ArrowDown" || key === "ArrowRight") delta = 0.1;
+			else return;
+			e.preventDefault();
+			this._ratio = delta === -1 ? 0 : delta === 1 ? 1 : Math.max(0, Math.min(1, this._ratio + delta));
+			this.updateThumbPosition();
+			this.scrollTargetTo(this._ratio);
+			this.emitChange();
+			if (this.autoHide) this.showTemporarily();
 		});
 
 		// 拖拽滑块
-		thumb.addEventListener("mousedown", (e: Event) => {
-			const me = e as MouseEvent;
+		thumb.addEventListener("pointerdown", (e: Event) => {
+			const me = e as PointerEvent;
 			e.preventDefault();
 			e.stopPropagation();
 			this._dragging = true;
@@ -329,6 +352,7 @@ export class EosScrollbar extends HTMLElement {
 			this._dragStart = isVert ? me.clientY : me.clientX;
 			this._dragStartRatio = this._ratio;
 			thumb.classList.add("dragging");
+			thumb.setPointerCapture?.(me.pointerId);
 
 			this._boundMouseMove = (ev: MouseEvent) => {
 				if (!this._dragging) return;
@@ -344,20 +368,23 @@ export class EosScrollbar extends HTMLElement {
 			this._boundMouseUp = () => {
 				this._dragging = false;
 				thumb.classList.remove("dragging");
-				if (this._boundMouseMove) document.removeEventListener("mousemove", this._boundMouseMove);
-				if (this._boundMouseUp) document.removeEventListener("mouseup", this._boundMouseUp);
+			if (this._boundMouseMove) document.removeEventListener("pointermove", this._boundMouseMove);
+			if (this._boundMouseUp) document.removeEventListener("pointerup", this._boundMouseUp);
+			if (this._boundMouseUp) document.removeEventListener("pointercancel", this._boundMouseUp);
 				this._boundMouseMove = null;
 				this._boundMouseUp = null;
 			};
 
-			document.addEventListener("mousemove", this._boundMouseMove);
-			document.addEventListener("mouseup", this._boundMouseUp);
+			document.addEventListener("pointermove", this._boundMouseMove);
+			document.addEventListener("pointerup", this._boundMouseUp);
+			document.addEventListener("pointercancel", this._boundMouseUp);
 		});
 	}
 
 	private cleanupEvents() {
-		if (this._boundMouseMove) document.removeEventListener("mousemove", this._boundMouseMove);
-		if (this._boundMouseUp) document.removeEventListener("mouseup", this._boundMouseUp);
+		if (this._boundMouseMove) document.removeEventListener("pointermove", this._boundMouseMove);
+		if (this._boundMouseUp) document.removeEventListener("pointerup", this._boundMouseUp);
+		if (this._boundMouseUp) document.removeEventListener("pointercancel", this._boundMouseUp);
 		this._boundMouseMove = null;
 		this._boundMouseUp = null;
 	}
@@ -413,5 +440,12 @@ export class EosScrollbar extends HTMLElement {
 			}
 			this._hideTimer = null;
 		}, 1500);
+	}
+
+	private clearHideTimer() {
+		if (this._hideTimer !== null) {
+			clearTimeout(this._hideTimer);
+			this._hideTimer = null;
+		}
 	}
 }

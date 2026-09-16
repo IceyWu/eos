@@ -1,3 +1,5 @@
+import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
+
 /**
  * EosProgressBar 组件
  * 分段式进度条，支持 default / dots / tiktok 三种样式，
@@ -26,6 +28,17 @@ export class EosProgressBar extends HTMLElement {
 	private _progressStartTime = 0;
 	private _progressDuration = 0;
 	private _progressCallback: (() => void) | null = null;
+
+	private getSafeTotal(value: string | null) {
+		const parsed = Number.parseInt(value || "0", 10);
+		return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+	}
+
+	private getSafeCurrent(value: string | null, total = this._total) {
+		const parsed = Number.parseInt(value || "0", 10);
+		if (!Number.isFinite(parsed) || total <= 0) return 0;
+		return Math.max(0, Math.min(total - 1, parsed));
+	}
 
 	static get observedAttributes() {
 		return ["total", "current", "variant", "position", "loading"];
@@ -59,8 +72,8 @@ export class EosProgressBar extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this._total = parseInt(this.getAttribute("total") || "0", 10);
-		this._current = parseInt(this.getAttribute("current") || "0", 10);
+		this._total = this.getSafeTotal(this.getAttribute("total"));
+		this._current = this.getSafeCurrent(this.getAttribute("current"));
 		this._loading = this.hasAttribute("loading");
 		this.render();
 		this.updateSegments();
@@ -70,11 +83,12 @@ export class EosProgressBar extends HTMLElement {
 		if (oldValue === newValue) return;
 		switch (name) {
 			case "total":
-				this._total = parseInt(newValue || "0", 10);
+				this._total = this.getSafeTotal(newValue);
+				this._current = this.getSafeCurrent(this.getAttribute("current"));
 				this.rebuildSegments();
 				break;
 			case "current":
-				this._current = parseInt(newValue || "0", 10);
+				this._current = this.getSafeCurrent(newValue);
 				this.stopProgress();
 				this._progress = 0;
 				this._animating = false;
@@ -161,12 +175,13 @@ export class EosProgressBar extends HTMLElement {
 		if (!this.shadowRoot) return;
 		this.shadowRoot.innerHTML = `
 			<style>
+				${EOS_THEME_TOKENS}
 				:host {
 					display: block;
 					--pb-height: var(--progress-bar-height, 3px);
 					--pb-gap: var(--progress-bar-gap, 3px);
-					--pb-color: var(--progress-bar-color, rgba(255,255,255,0.3));
-					--pb-active: var(--progress-bar-active-color, rgba(255,255,255,1));
+					--pb-color: var(--progress-bar-color, var(--eos-color-border, rgba(0,0,0,0.16)));
+					--pb-active: var(--progress-bar-active-color, var(--eos-color-accent, #006fee));
 				}
 				.bar {
 					display: flex;
@@ -197,25 +212,25 @@ export class EosProgressBar extends HTMLElement {
 				.bar.variant-dots .seg {
 					width: 8px; height: 8px; border-radius: 50%;
 					background: var(--pb-color); cursor: pointer;
-					transition: all 0.3s ease; flex: none;
+					transition: transform 0.15s ease, background-color 0.15s ease; flex: none;
 				}
 				.bar.variant-dots .seg.active { background: var(--pb-active); transform: scale(1.2); }
 
 				/* ── tiktok 样式 ── */
 				.bar.variant-tiktok .seg {
 					height: 3px;
-					background: rgba(255,255,255,0.3);
+					background: var(--pb-color);
 					border-radius: 1.5px;
 					position: relative;
 					overflow: hidden;
 					flex: 1;
 					cursor: pointer;
-					transition: all 0.3s ease;
+					transition: background-color 0.15s ease;
 				}
-				.bar.variant-tiktok .seg.passed { background: rgba(255,255,255,0.9); }
-				.bar.variant-tiktok .seg.active.completed { background: rgba(255,255,255,0.9); }
-				.bar.variant-tiktok .seg.active.animating { background: rgba(255,255,255,0.3); }
-				.bar.variant-tiktok .fill { background: rgba(255,255,255,0.9); }
+				.bar.variant-tiktok .seg.passed { background: var(--pb-active); }
+				.bar.variant-tiktok .seg.active.completed { background: var(--pb-active); }
+				.bar.variant-tiktok .seg.active.animating { background: var(--pb-color); }
+				.bar.variant-tiktok .fill { background: var(--pb-active); }
 
 				.bar.variant-tiktok.pos-left .seg,
 				.bar.variant-tiktok.pos-right .seg { width: 3px; height: auto; }
@@ -244,16 +259,26 @@ export class EosProgressBar extends HTMLElement {
 				}
 				.seg.active.loading {
 					background: linear-gradient(90deg,
-						rgba(255,255,255,0.15) 0%,
-						rgba(255,255,255,0.5) 50%,
-						rgba(255,255,255,0.15) 100%
+						var(--pb-color) 0%,
+						var(--pb-active) 50%,
+						var(--pb-color) 100%
 					) !important;
 					background-size: 200% 100% !important;
 					animation: loadingRipple 1.5s ease-in-out infinite !important;
 				}
-				.seg.active.loading .fill { display: none; }
+			.seg.active.loading .fill { display: none; }
+			.seg:focus-visible {
+				outline: 2px solid var(--eos-color-focus-ring, #006fee);
+				outline-offset: 3px;
+			}
+				@media (prefers-reduced-motion: reduce) {
+					.bar.variant-dots .seg,
+					.bar.variant-tiktok .seg,
+					.fill { transition: none; }
+					.seg.active.loading { animation: none !important; background: var(--pb-active) !important; }
+				}
 			</style>
-			<div class="bar variant-${this.variant} pos-${this.position}" role="tablist" aria-label="进度"></div>
+			<div class="bar variant-${this.variant} pos-${this.position}" role="tablist" aria-label="Progress"></div>
 		`;
 	}
 
@@ -265,10 +290,29 @@ export class EosProgressBar extends HTMLElement {
 		for (let i = 0; i < this._total; i++) {
 			const seg = document.createElement("div");
 			seg.className = "seg";
+			seg.setAttribute("role", "tab");
 			seg.addEventListener("click", () => {
 				this.dispatchEvent(new CustomEvent("segment-click", {
 					detail: { index: i }, bubbles: true, composed: true,
 				}));
+			});
+			seg.addEventListener("keydown", (event) => {
+				const key = (event as KeyboardEvent).key;
+				if (key === "Enter" || key === " ") {
+					event.preventDefault();
+					seg.click();
+					return;
+				}
+				const last = this._total - 1;
+				let next = i;
+				if (key === "ArrowRight" || key === "ArrowDown") next = Math.min(last, i + 1);
+				if (key === "ArrowLeft" || key === "ArrowUp") next = Math.max(0, i - 1);
+				if (key === "Home") next = 0;
+				if (key === "End") next = last;
+				if (next !== i) {
+					event.preventDefault();
+					this.shadowRoot?.querySelectorAll<HTMLElement>(".seg")[next]?.focus();
+				}
 			});
 			frag.appendChild(seg);
 		}
@@ -287,6 +331,8 @@ export class EosProgressBar extends HTMLElement {
 		const isDots = this.variant === "dots";
 		for (let i = 0; i < this._total; i++) {
 			const seg = segs[i];
+			seg.setAttribute("aria-selected", String(i === this._current));
+			seg.tabIndex = i === this._current ? 0 : -1;
 			seg.classList.remove("active", "passed", "animating", "completed", "loading");
 			seg.querySelector(".fill")?.remove();
 
