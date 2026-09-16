@@ -2,6 +2,24 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
+:root { --fd-nav-height: 4.5rem !important; }
+.eos-topbar { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; height: 4.5rem; padding: 0 1.25rem; border-bottom: 1px solid var(--color-fd-border); background: color-mix(in srgb, var(--color-fd-background) 92%, transparent); backdrop-filter: blur(14px); }
+.eos-topbar__brand, .eos-topbar__icon, .eos-topbar__search { color: var(--color-fd-foreground); text-decoration: none; }
+.eos-topbar__brand { display: flex; align-items: center; gap: .45rem; font-size: 1rem; white-space: nowrap; }
+.eos-topbar__mark { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: .45rem; color: #fff; background: linear-gradient(135deg, #ffad32, #ef5d82); font-size: .8rem; }
+.eos-topbar__divider { margin: 0 .75rem; color: var(--color-fd-muted-foreground); font-size: 1.35rem; }
+.eos-topbar__links { display: flex; align-items: center; gap: .1rem; height: 100%; }
+.eos-topbar__links a { position: relative; display: flex; align-items: center; height: 100%; padding: 0 .8rem; color: var(--color-fd-muted-foreground); font-size: .875rem; font-weight: 500; text-decoration: none; }
+.eos-topbar__links a:hover, .eos-topbar__links a.is-active { color: var(--color-fd-foreground); }
+.eos-topbar__links a.is-active::after { position: absolute; right: .8rem; bottom: 0; left: .8rem; height: 2px; background: var(--color-fd-foreground); content: ''; }
+.eos-topbar__more { padding: 0 .65rem; color: var(--color-fd-muted-foreground); }
+.eos-topbar__tools { display: flex; align-items: center; gap: .55rem; margin-left: auto; }
+.eos-topbar__search { display: flex; align-items: center; gap: .5rem; width: 15rem; padding: .5rem .7rem; border: 1px solid var(--color-fd-border); border-radius: .55rem; color: var(--color-fd-muted-foreground); font-size: .8rem; }
+.eos-topbar__search kbd { margin-left: auto; padding: .1rem .35rem; border-radius: .3rem; background: var(--color-fd-muted); font-size: .7rem; }
+.eos-topbar__icon { display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; background: transparent; cursor: pointer; }
+@media (max-width: 900px) { .eos-topbar__links a:nth-child(n+4), .eos-topbar__more { display: none; } .eos-topbar__search { width: 10rem; } }
+@media (max-width: 640px) { .eos-topbar { padding: 0 .75rem; } .eos-topbar__divider, .eos-topbar__search span { display: none; } .eos-topbar__search { width: 2rem; padding: .5rem; border: 0; } }
+
 .eos-demo { margin-block: 1.5rem; border: 1px solid var(--color-fd-border); border-radius: 12px; overflow: hidden; background: var(--color-fd-card); box-shadow: 0 1px 2px rgb(0 0 0 / 4%); }
 .eos-demo:focus-within { border-color: color-mix(in srgb, #8b7cff 65%, var(--color-fd-border)); box-shadow: 0 0 0 1px rgb(139 124 255 / 18%); }
 .eos-demo__caption { min-height: 2.75rem; display: flex; align-items: center; gap: .5rem; padding: .35rem .5rem .35rem 1rem; border-bottom: 1px solid var(--color-fd-border); }
