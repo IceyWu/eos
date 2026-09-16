@@ -6,7 +6,9 @@ order: -1
 ---
 
 import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
 import Variants from './demos/Variant.tsx';
+import VariantsSource from './demos/Variant.tsx?raw';
 
 ## Introduction
 
@@ -14,13 +16,13 @@ Button is a framework-agnostic Web Component aligned with the EOS semantic color
 
 ## Basic Usage
 
-<Demo of={Basic} title="Basic usage" layout="bare" />
+<Demo of={Basic} source={BasicSource} title="Basic usage" layout="bare" />
 
 ## Variants
 
 Button supports semantic colors, visual variants, three sizes, loading, disabled, and icon-only states. The example groups these axes separately so each color and state can be compared without duplicating every combination.
 
-<Demo of={Variants} title="Variants" />
+<Demo of={Variants} source={VariantsSource} title="Variants" />
 
 ## API
 

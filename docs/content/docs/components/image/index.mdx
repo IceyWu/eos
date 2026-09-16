@@ -5,8 +5,11 @@ category: Data Display
 ---
 
 import Basic from './demos/basic.tsx';
+import BasicSource from './demos/basic.tsx?raw';
 import Fallback from './demos/fallback.tsx';
+import FallbackSource from './demos/fallback.tsx?raw';
 import Responsive from './demos/responsive.tsx';
+import ResponsiveSource from './demos/responsive.tsx?raw';
 
 ## Introduction
 
@@ -16,19 +19,19 @@ Image is a framework-agnostic Web Component for responsive media. It preserves t
 
 Use the controls in this example to inspect the supported image states and layout options.
 
-<Demo of={Basic} title="Basic usage" layout="center" />
+<Demo of={Basic} source={BasicSource} title="Basic usage" layout="center" />
 
 ## Fallback
 
 Use the `error` slot to provide recovery-oriented content when the image cannot be loaded.
 
-<Demo of={Fallback} layout="center" />
+<Demo of={Fallback} source={FallbackSource} layout="center" />
 
 ## Responsive and circular images
 
 `responsive` lets the image follow the available inline size. `circle` clips the image to a circle while preserving the declared dimensions.
 
-<Demo of={Responsive} layout="center" />
+<Demo of={Responsive} source={ResponsiveSource} layout="center" />
 
 ## API
 
