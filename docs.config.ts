@@ -2,6 +2,11 @@ import legacyRedirects from './compatibility.json';
 import { defineDocsConfig } from '@lobehub/docs-kit/src/config';
 
 export default defineDocsConfig({
+  alias: {
+    // Use source during docs development so component changes are reflected
+    // without rebuilding packages/components/dist first.
+    '@eosjs/components': 'packages/components/src/index.ts',
+  },
   atomDirs: [{ dir: 'packages/components/src/components' }],
   description: 'A framework-agnostic Web Components library for calm, expressive interfaces.',
   homePage: './docs/home/home.tsx',

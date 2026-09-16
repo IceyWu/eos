@@ -1,65 +1,120 @@
+import { BUTTON_STYLES } from "./button.css";
+
 /**
- * EosButton 组件
- * 一个简单的按钮组件
+ * EOS Button
  *
+ * EOS Button custom element.
  * @tagname eos-button
  */
 export class EosButton extends HTMLElement {
+	private readonly shadow: ShadowRoot;
+	private themeObserver?: MutationObserver;
+
 	constructor() {
 		super();
-		this.attachShadow({ mode: "open" });
+		this.shadow = this.attachShadow({ mode: "open" });
+	}
+
+	static get observedAttributes() {
+		return [
+			"aria-label",
+			"color",
+			"disabled",
+			"full-width",
+			"icon-only",
+			"loading",
+			"name",
+			"size",
+			"type",
+			"value",
+			"variant",
+		];
 	}
 
 	connectedCallback() {
+		this.syncTheme();
+		this.themeObserver = new MutationObserver(() => this.syncTheme());
+		this.themeObserver.observe(document.documentElement, {
+			attributes: true,
+			subtree: true,
+			attributeFilter: [
+				"class",
+				"data-color-mode",
+				"data-lobe-demo-appearance",
+				"data-theme",
+			],
+		});
 		this.render();
-		this.shadowRoot
-			?.querySelector("button")
-			?.addEventListener("click", this.handleClick);
 	}
 
 	disconnectedCallback() {
-		this.shadowRoot
-			?.querySelector("button")
-			?.removeEventListener("click", this.handleClick);
+		this.themeObserver?.disconnect();
+		this.themeObserver = undefined;
 	}
 
-	private handleClick = () => {
-		this.dispatchEvent(
-			new CustomEvent("e-click", {
-				detail: { message: "Button clicked!" },
-				bubbles: true,
-				composed: true,
-			}),
-		);
-	};
+	attributeChangedCallback(
+		_name: string,
+		_oldValue: string | null,
+		_newValue: string | null,
+	) {
+		if (this.isConnected) this.render();
+	}
+
+	get disabled() {
+		return this.hasAttribute("disabled");
+	}
+
+	set disabled(value: boolean) {
+		this.toggleAttribute("disabled", value);
+	}
+
+	get loading() {
+		return this.hasAttribute("loading");
+	}
+
+	set loading(value: boolean) {
+		this.toggleAttribute("loading", value);
+	}
+
+	private getButtonType() {
+		const type = this.getAttribute("type");
+		return type === "submit" || type === "reset" ? type : "button";
+	}
 
 	private render() {
-		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML = `
-        <style>
-          :host {
-            display: inline-block;
-          }
-          button {
-            padding: 8px 16px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-          }
-          button:hover {
-            background: #0056b3;
-          }
-          button:active {
-            background: #004085;
-          }
-        </style>
-        <button>
-          <slot>Click me</slot>
-        </button>
-      `;
-		}
+		const disabled = this.disabled || this.loading;
+		const ariaLabel = this.getAttribute("aria-label");
+		const name = this.getAttribute("name");
+		const value = this.getAttribute("value");
+
+		this.shadow.innerHTML = `
+<style>${BUTTON_STYLES}</style>
+<button part="button" type="${this.getButtonType()}" ${disabled ? "disabled" : ""}
+  ${ariaLabel ? `aria-label="${this.escapeAttribute(ariaLabel)}"` : ""}
+  ${this.loading ? 'aria-busy="true"' : ""}
+  ${name ? `name="${this.escapeAttribute(name)}"` : ""}
+  ${value ? `value="${this.escapeAttribute(value)}"` : ""}>
+  ${this.loading ? '<span class="eos-button__spinner" aria-hidden="true"></span>' : '<slot name="start"></slot>'}
+  <span part="content"><slot></slot></span>
+  ${this.loading ? "" : '<slot name="end"></slot>'}
+</button>`;
+	}
+
+	private syncTheme() {
+		const darkContext = this.closest(
+			'.dark, [data-color-mode="dark"], [data-lobe-demo-appearance="dark"], [data-theme="dark"]',
+		);
+		const lightContext = this.closest(
+			'.light, [data-color-mode="light"], [data-lobe-demo-appearance="light"], [data-theme="light"]',
+		);
+		const colorScheme = getComputedStyle(this).colorScheme;
+		const theme = darkContext ? "dark" : lightContext ? "light" : colorScheme === "dark" ? "dark" : null;
+
+		if (theme) this.setAttribute("data-eos-theme", theme);
+		else this.removeAttribute("data-eos-theme");
+	}
+
+	private escapeAttribute(value: string) {
+		return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 	}
 }
