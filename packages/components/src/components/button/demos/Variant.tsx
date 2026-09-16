@@ -13,13 +13,16 @@ export default function Variants() {
 				<eos-button variant="ghost">Ghost</eos-button>
 			</div>
 			<div style={rowStyle}>
-				<eos-button variant="danger">Danger</eos-button>
-				<eos-button variant="dangerSoft">Soft danger</eos-button>
+				<eos-button color="secondary">Secondary color</eos-button>
+				<eos-button color="success">Success</eos-button>
+				<eos-button color="warning">Warning</eos-button>
+				<eos-button color="danger">Danger</eos-button>
+				<eos-button color="danger" variant="dangerSoft">Soft danger</eos-button>
+			</div>
+			<div style={rowStyle}>
 				<eos-button size="sm">Small</eos-button>
 				<eos-button>Medium</eos-button>
 				<eos-button size="lg">Large</eos-button>
-			</div>
-			<div style={rowStyle}>
 				<eos-button loading>Loading</eos-button>
 				<eos-button disabled>Disabled</eos-button>
 				<eos-button icon-only aria-label="Settings">

@@ -514,11 +514,15 @@ export class EosCarousel extends HTMLElement {
 	}
 
 	private handleTouchStart(e: TouchEvent) {
-		this.touchStartX = e.touches[0].clientX;
+		const touch = e.touches[0];
+		if (!touch) return;
+		this.touchStartX = touch.clientX;
 	}
 
 	private handleTouchEnd(e: TouchEvent) {
-		this.touchEndX = e.changedTouches[0].clientX;
+		const touch = e.changedTouches[0];
+		if (!touch) return;
+		this.touchEndX = touch.clientX;
 		const diff = this.touchStartX - this.touchEndX;
 		const threshold = 50; // 滑动阈值 50px
 
@@ -652,19 +656,22 @@ export class EosCarousel extends HTMLElement {
 			return;
 		}
 
+		const [previous, current, next] = Array.from(divEls);
+		if (!previous || !current || !next) return;
+
 		this.virtualDivs = [
-			{ el: divEls[0], pos: -1 }, // prev
-			{ el: divEls[1], pos: 0 }, // current
-			{ el: divEls[2], pos: 1 }, // next
+			{ el: previous, pos: -1 }, // prev
+			{ el: current, pos: 0 }, // current
+			{ el: next, pos: 1 }, // next
 		];
 
 		const total = this.totalSlides;
 		const prevIdx = (this.currentIndex - 1 + total) % total;
 		const nextIdx = (this.currentIndex + 1) % total;
 
-		this.fillVirtualSlot(divEls[0], prevIdx);
-		this.fillVirtualSlot(divEls[1], this.currentIndex);
-		this.fillVirtualSlot(divEls[2], nextIdx);
+		this.fillVirtualSlot(previous, prevIdx);
+		this.fillVirtualSlot(current, this.currentIndex);
+		this.fillVirtualSlot(next, nextIdx);
 	}
 
 	/**
@@ -976,13 +983,6 @@ export class EosCarousel extends HTMLElement {
 	stopSlideProgress() {
 		this.progressBar?.stopProgress();
 		this.progressCallback = null;
-	}
-
-	/**
-	 * 更新进度条显示（提取的共享方法）
-	 */
-	private updateProgressDisplay() {
-		// 已由 eos-progress-bar 内部处理
 	}
 
 	pause() {

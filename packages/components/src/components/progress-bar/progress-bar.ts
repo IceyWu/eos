@@ -331,6 +331,7 @@ export class EosProgressBar extends HTMLElement {
 		const isDots = this.variant === "dots";
 		for (let i = 0; i < this._total; i++) {
 			const seg = segs[i];
+			if (!seg) continue;
 			seg.setAttribute("aria-selected", String(i === this._current));
 			seg.tabIndex = i === this._current ? 0 : -1;
 			seg.classList.remove("active", "passed", "animating", "completed", "loading");

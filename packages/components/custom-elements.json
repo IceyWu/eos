@@ -142,6 +142,21 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosButton",
+          "declaration": {
+            "name": "EosButton",
+            "module": "./button"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/carousel/carousel.ts",
       "declarations": [
         {
@@ -718,56 +733,15 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/image/data.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "source",
-          "type": {
-            "text": "string"
-          },
-          "default": "\"https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-08-06/5907e739-a308-4238-81df-267e52199132.jpg\""
-        },
-        {
-          "kind": "variable",
-          "name": "blurhash",
-          "type": {
-            "text": "string"
-          },
-          "default": "\"LTE3P2_4xvay_4_3xuay_3-;ayR%\""
-        },
-        {
-          "kind": "variable",
-          "name": "alt",
-          "type": {
-            "text": "string"
-          },
-          "default": "\"Mountain landscape in Litang, Sichuan\""
-        }
-      ],
+      "path": "src/components/carousel/index.ts",
+      "declarations": [],
       "exports": [
         {
           "kind": "js",
-          "name": "source",
+          "name": "EosCarousel",
           "declaration": {
-            "name": "source",
-            "module": "src/components/image/data.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "blurhash",
-          "declaration": {
-            "name": "blurhash",
-            "module": "src/components/image/data.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "alt",
-          "declaration": {
-            "name": "alt",
-            "module": "src/components/image/data.ts"
+            "name": "EosCarousel",
+            "module": "./carousel"
           }
         }
       ]
@@ -889,6 +863,24 @@
               },
               "privacy": "private",
               "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "managedWidth",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "managedHeight",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
             },
             {
               "kind": "field",
@@ -1154,6 +1146,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/image/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImage",
+          "declaration": {
+            "name": "EosImage",
+            "module": "./image"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/progress-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosProgressBar",
+          "declaration": {
+            "name": "EosProgressBar",
+            "module": "./progress-bar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/progress-bar/progress-bar.ts",
       "declarations": [
         {
@@ -1241,6 +1263,36 @@
               },
               "privacy": "private",
               "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "getSafeTotal",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getSafeCurrent",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string | null"
+                  }
+                },
+                {
+                  "name": "total",
+                  "default": "this._total"
+                }
+              ]
             },
             {
               "kind": "field",
@@ -1416,6 +1468,21 @@
           "declaration": {
             "name": "EosProgressBar",
             "module": "src/components/progress-bar/progress-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/scrollbar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosScrollbar",
+          "declaration": {
+            "name": "EosScrollbar",
+            "module": "./scrollbar"
           }
         }
       ]
@@ -1752,6 +1819,11 @@
               "kind": "method",
               "name": "showTemporarily",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "clearHideTimer",
+              "privacy": "private"
             }
           ],
           "events": [
@@ -1829,6 +1901,62 @@
           "declaration": {
             "name": "EosScrollbar",
             "module": "src/components/scrollbar/scrollbar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image/demos/data.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "source",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"https://lpalette.oss-accelerate.aliyuncs.com/go_oss/prod/mkIo6X4FryYKOcUzuz4Kew/2026-08-06/5907e739-a308-4238-81df-267e52199132.jpg\""
+        },
+        {
+          "kind": "variable",
+          "name": "blurhash",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"LTE3P2_4xvay_4_3xuay_3-;ayR%\""
+        },
+        {
+          "kind": "variable",
+          "name": "alt",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"Mountain landscape in Litang, Sichuan\""
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "source",
+          "declaration": {
+            "name": "source",
+            "module": "src/components/image/demos/data.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "blurhash",
+          "declaration": {
+            "name": "blurhash",
+            "module": "src/components/image/demos/data.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "alt",
+          "declaration": {
+            "name": "alt",
+            "module": "src/components/image/demos/data.ts"
           }
         }
       ]
