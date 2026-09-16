@@ -28,7 +28,13 @@ const CarouselTest: React.FC = () => {
 	const [data, setData] = useState<PostData | null>(null);
 	const [current, setCurrent] = useState(0);
 	const [loading, setLoading] = useState(true);
-	const carouselRef = useRef<HTMLElement & { prev: () => void; next: () => void; goTo: (i: number) => void }>(null);
+	const carouselRef = useRef<
+		HTMLElement & {
+			prev: () => void;
+			next: () => void;
+			goTo: (i: number) => void;
+		}
+	>(null);
 
 	const loadData = useCallback((idx: number) => {
 		setLoading(true);
@@ -62,7 +68,7 @@ const CarouselTest: React.FC = () => {
 		};
 		el.addEventListener("change", handler);
 		return () => el.removeEventListener("change", handler);
-	}, [data]);
+	}, []);
 
 	const switchSource = (idx: number) => {
 		if (idx === sourceIndex) return;
@@ -71,19 +77,34 @@ const CarouselTest: React.FC = () => {
 
 	if (loading || !data) {
 		return (
-			<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", color: "#999" }}>
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					height: "100vh",
+					color: "#999",
+				}}
+			>
 				加载中...
 			</div>
 		);
 	}
 
 	return (
-		<div style={{ maxWidth: 600, margin: "40px auto", fontFamily: "system-ui, sans-serif" }}>
+		<div
+			style={{
+				maxWidth: 600,
+				margin: "40px auto",
+				fontFamily: "system-ui, sans-serif",
+			}}
+		>
 			{DATA_SOURCES.length > 1 && (
 				<div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
 					{DATA_SOURCES.map((src, idx) => (
 						<button
 							key={src}
+							type="button"
 							onClick={() => switchSource(idx)}
 							style={{
 								...btnStyle,
@@ -109,7 +130,13 @@ const CarouselTest: React.FC = () => {
 				loop
 				interval="3000"
 				indicator-style="tiktok"
-				style={{ "--carousel-height": "450px", borderRadius: "12px", overflow: "hidden" } as React.CSSProperties}
+				style={
+					{
+						"--carousel-height": "450px",
+						borderRadius: "12px",
+						overflow: "hidden",
+					} as React.CSSProperties
+				}
 			>
 				{data.files.map((file) => (
 					<eos-image
@@ -125,13 +152,39 @@ const CarouselTest: React.FC = () => {
 				))}
 			</eos-carousel>
 
-			<div style={{ marginTop: 12, textAlign: "center", color: "#999", fontSize: 13 }}>
+			<div
+				style={{
+					marginTop: 12,
+					textAlign: "center",
+					color: "#999",
+					fontSize: 13,
+				}}
+			>
 				{current + 1} / {data.files.length}
 			</div>
 
-			<div style={{ display: "flex", gap: 8, justifyContent: "center", marginTop: 16 }}>
-				<button onClick={() => carouselRef.current?.prev()} style={btnStyle}>上一张</button>
-				<button onClick={() => carouselRef.current?.next()} style={btnStyle}>下一张</button>
+			<div
+				style={{
+					display: "flex",
+					gap: 8,
+					justifyContent: "center",
+					marginTop: 16,
+				}}
+			>
+				<button
+					type="button"
+					onClick={() => carouselRef.current?.prev()}
+					style={btnStyle}
+				>
+					上一张
+				</button>
+				<button
+					type="button"
+					onClick={() => carouselRef.current?.next()}
+					style={btnStyle}
+				>
+					下一张
+				</button>
 			</div>
 		</div>
 	);

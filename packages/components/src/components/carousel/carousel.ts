@@ -39,7 +39,9 @@ export class EosCarousel extends HTMLElement {
 	private boundClickSlides = new WeakSet<Element>();
 
 	/** 获取内部 eos-progress-bar 实例 */
-	private get progressBar(): import("../progress-bar/progress-bar").EosProgressBar | null {
+	private get progressBar():
+		| import("../progress-bar/progress-bar").EosProgressBar
+		| null {
 		return this.shadowRoot?.querySelector("eos-progress-bar") as any;
 	}
 
@@ -482,8 +484,7 @@ export class EosCarousel extends HTMLElement {
 		if (slidesWrapper) {
 			this.touchStartHandler = (e: Event) =>
 				this.handleTouchStart(e as TouchEvent);
-			this.touchEndHandler = (e: Event) =>
-				this.handleTouchEnd(e as TouchEvent);
+			this.touchEndHandler = (e: Event) => this.handleTouchEnd(e as TouchEvent);
 			slidesWrapper.addEventListener("touchstart", this.touchStartHandler, {
 				passive: true,
 			});
@@ -571,7 +572,6 @@ export class EosCarousel extends HTMLElement {
 		if (this.autoplay && !this.isPlaying && this.totalSlides > 1) {
 			this.play();
 		}
-
 	}
 
 	private hideControls() {
@@ -901,7 +901,9 @@ export class EosCarousel extends HTMLElement {
 		this.triggerSlideActiveEvent();
 
 		// 过渡动画结束后解锁（监听 transitionend，带兜底超时）
-		const container = this.shadowRoot?.querySelector(".slides-container") as HTMLElement;
+		const container = this.shadowRoot?.querySelector(
+			".slides-container",
+		) as HTMLElement;
 		const unlockTransition = () => {
 			this.isTransitioning = false;
 		};

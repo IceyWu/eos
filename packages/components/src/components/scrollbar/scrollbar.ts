@@ -19,8 +19,8 @@ import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
  * @fires {CustomEvent} scroll-change - 滚动位置变化，detail: { position, ratio, scrollOffset? }
  */
 export class EosScrollbar extends HTMLElement {
-	private _ratio = 0;          // 0~1，当前滚动位置
-	private _thumbRatio = 0.2;   // 滑块占轨道比例
+	private _ratio = 0; // 0~1，当前滚动位置
+	private _thumbRatio = 0.2; // 滑块占轨道比例
 	private _dragging = false;
 	private _dragStart = 0;
 	private _dragStartRatio = 0;
@@ -32,37 +32,68 @@ export class EosScrollbar extends HTMLElement {
 
 	// ── 虚拟列表模式 ──────────────────────────────────────
 	private _virtualMode = false;
-	private _virtualContentSize = 0;   // 逻辑内容总尺寸
-	private _virtualViewportSize = 0;  // 可视区域尺寸
-	private _virtualScrollOffset = 0;  // 当前滚动偏移量
+	private _virtualContentSize = 0; // 逻辑内容总尺寸
+	private _virtualViewportSize = 0; // 可视区域尺寸
+	private _virtualScrollOffset = 0; // 当前滚动偏移量
 
 	static get observedAttributes() {
-		return ["direction", "auto-hide", "thumb-color", "track-color", "thumb-size", "thumb-min-size", "border-radius"];
+		return [
+			"direction",
+			"auto-hide",
+			"thumb-color",
+			"track-color",
+			"thumb-size",
+			"thumb-min-size",
+			"border-radius",
+		];
 	}
 
 	get direction(): "horizontal" | "vertical" {
-		return (this.getAttribute("direction") as "horizontal" | "vertical") || "horizontal";
+		return (
+			(this.getAttribute("direction") as "horizontal" | "vertical") ||
+			"horizontal"
+		);
 	}
-	set direction(v: "horizontal" | "vertical") { this.setAttribute("direction", v); }
+	set direction(v: "horizontal" | "vertical") {
+		this.setAttribute("direction", v);
+	}
 
-	get autoHide(): boolean { return this.hasAttribute("auto-hide"); }
-	set autoHide(v: boolean) { v ? this.setAttribute("auto-hide", "") : this.removeAttribute("auto-hide"); }
+	get autoHide(): boolean {
+		return this.hasAttribute("auto-hide");
+	}
+	set autoHide(v: boolean) {
+		v ? this.setAttribute("auto-hide", "") : this.removeAttribute("auto-hide");
+	}
 
-	get thumbColor(): string { return this.getAttribute("thumb-color") || "rgba(0,0,0,0.4)"; }
-	get trackColor(): string { return this.getAttribute("track-color") || "rgba(0,0,0,0.1)"; }
-	get thumbSize(): number { return parseInt(this.getAttribute("thumb-size") || "6", 10); }
-	get thumbMinSize(): number { return parseInt(this.getAttribute("thumb-min-size") || "30", 10); }
-	get borderRadius(): number { return parseInt(this.getAttribute("border-radius") || "3", 10); }
+	get thumbColor(): string {
+		return this.getAttribute("thumb-color") || "rgba(0,0,0,0.4)";
+	}
+	get trackColor(): string {
+		return this.getAttribute("track-color") || "rgba(0,0,0,0.1)";
+	}
+	get thumbSize(): number {
+		return parseInt(this.getAttribute("thumb-size") || "6", 10);
+	}
+	get thumbMinSize(): number {
+		return parseInt(this.getAttribute("thumb-min-size") || "30", 10);
+	}
+	get borderRadius(): number {
+		return parseInt(this.getAttribute("border-radius") || "3", 10);
+	}
 
 	/** 当前滚动比例 0~1 */
-	get ratio(): number { return this._ratio; }
+	get ratio(): number {
+		return this._ratio;
+	}
 	set ratio(v: number) {
 		this._ratio = Math.max(0, Math.min(1, v));
 		this.updateThumbPosition();
 	}
 
 	/** 滑块占轨道比例 0~1 */
-	get thumbRatio(): number { return this._thumbRatio; }
+	get thumbRatio(): number {
+		return this._thumbRatio;
+	}
 	set thumbRatio(v: number) {
 		this._thumbRatio = Math.max(0.05, Math.min(1, v));
 		this.updateThumbPosition();
@@ -89,7 +120,11 @@ export class EosScrollbar extends HTMLElement {
 		this.clearHideTimer();
 	}
 
-	attributeChangedCallback(_name: string, oldValue: string | null, newValue: string | null) {
+	attributeChangedCallback(
+		_name: string,
+		oldValue: string | null,
+		newValue: string | null,
+	) {
 		if (oldValue === newValue) return;
 		this.cleanupEvents();
 		this.render();
@@ -140,7 +175,11 @@ export class EosScrollbar extends HTMLElement {
 	 * @param options.viewportSize 可视区域尺寸
 	 * @param options.scrollOffset 当前滚动偏移量
 	 */
-	setVirtualScroll(options: { contentSize: number; viewportSize: number; scrollOffset: number }) {
+	setVirtualScroll(options: {
+		contentSize: number;
+		viewportSize: number;
+		scrollOffset: number;
+	}) {
 		this._virtualMode = true;
 		this._virtualContentSize = options.contentSize;
 		this._virtualViewportSize = options.viewportSize;
@@ -151,7 +190,9 @@ export class EosScrollbar extends HTMLElement {
 			this._ratio = 0;
 		} else {
 			this._thumbRatio = this._virtualViewportSize / this._virtualContentSize;
-			this._ratio = this._virtualScrollOffset / (this._virtualContentSize - this._virtualViewportSize);
+			this._ratio =
+				this._virtualScrollOffset /
+				(this._virtualContentSize - this._virtualViewportSize);
 		}
 		this._ratio = Math.max(0, Math.min(1, this._ratio));
 		this.updateThumbPosition();
@@ -316,9 +357,14 @@ export class EosScrollbar extends HTMLElement {
 			e.preventDefault();
 			const rect = (track as HTMLElement).getBoundingClientRect();
 			const isVert = this.direction === "vertical";
-			const clickPos = isVert ? (me.clientY - rect.top) / rect.height : (me.clientX - rect.left) / rect.width;
+			const clickPos = isVert
+				? (me.clientY - rect.top) / rect.height
+				: (me.clientX - rect.left) / rect.width;
 			// 将点击位置转换为 ratio（考虑 thumb 大小）
-			const newRatio = Math.max(0, Math.min(1, (clickPos - this._thumbRatio / 2) / (1 - this._thumbRatio)));
+			const newRatio = Math.max(
+				0,
+				Math.min(1, (clickPos - this._thumbRatio / 2) / (1 - this._thumbRatio)),
+			);
 			this._ratio = newRatio;
 			this.updateThumbPosition();
 			this.scrollTargetTo(this._ratio);
@@ -330,11 +376,22 @@ export class EosScrollbar extends HTMLElement {
 			let delta = 0;
 			if (key === "Home") delta = -1;
 			else if (key === "End") delta = 1;
-			else if (key === "PageUp" || key === "ArrowUp" || key === "ArrowLeft") delta = -0.1;
-			else if (key === "PageDown" || key === "ArrowDown" || key === "ArrowRight") delta = 0.1;
+			else if (key === "PageUp" || key === "ArrowUp" || key === "ArrowLeft")
+				delta = -0.1;
+			else if (
+				key === "PageDown" ||
+				key === "ArrowDown" ||
+				key === "ArrowRight"
+			)
+				delta = 0.1;
 			else return;
 			e.preventDefault();
-			this._ratio = delta === -1 ? 0 : delta === 1 ? 1 : Math.max(0, Math.min(1, this._ratio + delta));
+			this._ratio =
+				delta === -1
+					? 0
+					: delta === 1
+						? 1
+						: Math.max(0, Math.min(1, this._ratio + delta));
 			this.updateThumbPosition();
 			this.scrollTargetTo(this._ratio);
 			this.emitChange();
@@ -358,7 +415,8 @@ export class EosScrollbar extends HTMLElement {
 				if (!this._dragging) return;
 				const current = isVert ? ev.clientY : ev.clientX;
 				const trackSize = isVert ? rect.height : rect.width;
-				const delta = (current - this._dragStart) / (trackSize * (1 - this._thumbRatio));
+				const delta =
+					(current - this._dragStart) / (trackSize * (1 - this._thumbRatio));
 				this._ratio = Math.max(0, Math.min(1, this._dragStartRatio + delta));
 				this.updateThumbPosition();
 				this.scrollTargetTo(this._ratio);
@@ -368,9 +426,12 @@ export class EosScrollbar extends HTMLElement {
 			this._boundMouseUp = () => {
 				this._dragging = false;
 				thumb.classList.remove("dragging");
-			if (this._boundMouseMove) document.removeEventListener("pointermove", this._boundMouseMove);
-			if (this._boundMouseUp) document.removeEventListener("pointerup", this._boundMouseUp);
-			if (this._boundMouseUp) document.removeEventListener("pointercancel", this._boundMouseUp);
+				if (this._boundMouseMove)
+					document.removeEventListener("pointermove", this._boundMouseMove);
+				if (this._boundMouseUp)
+					document.removeEventListener("pointerup", this._boundMouseUp);
+				if (this._boundMouseUp)
+					document.removeEventListener("pointercancel", this._boundMouseUp);
 				this._boundMouseMove = null;
 				this._boundMouseUp = null;
 			};
@@ -382,9 +443,12 @@ export class EosScrollbar extends HTMLElement {
 	}
 
 	private cleanupEvents() {
-		if (this._boundMouseMove) document.removeEventListener("pointermove", this._boundMouseMove);
-		if (this._boundMouseUp) document.removeEventListener("pointerup", this._boundMouseUp);
-		if (this._boundMouseUp) document.removeEventListener("pointercancel", this._boundMouseUp);
+		if (this._boundMouseMove)
+			document.removeEventListener("pointermove", this._boundMouseMove);
+		if (this._boundMouseUp)
+			document.removeEventListener("pointerup", this._boundMouseUp);
+		if (this._boundMouseUp)
+			document.removeEventListener("pointercancel", this._boundMouseUp);
 		this._boundMouseMove = null;
 		this._boundMouseUp = null;
 	}
@@ -410,20 +474,28 @@ export class EosScrollbar extends HTMLElement {
 		// 更新 ARIA
 		const track = this.shadowRoot?.querySelector(".track");
 		if (track) {
-			track.setAttribute("aria-valuenow", String(Math.round(this._ratio * 100)));
+			track.setAttribute(
+				"aria-valuenow",
+				String(Math.round(this._ratio * 100)),
+			);
 		}
 	}
 
 	private emitChange() {
-		const detail: Record<string, number> = { position: this._ratio, ratio: this._thumbRatio };
+		const detail: Record<string, number> = {
+			position: this._ratio,
+			ratio: this._thumbRatio,
+		};
 		if (this._virtualMode) {
 			detail.scrollOffset = this._virtualScrollOffset;
 		}
-		this.dispatchEvent(new CustomEvent("scroll-change", {
-			detail,
-			bubbles: true,
-			composed: true,
-		}));
+		this.dispatchEvent(
+			new CustomEvent("scroll-change", {
+				detail,
+				bubbles: true,
+				composed: true,
+			}),
+		);
 	}
 
 	private showTemporarily() {

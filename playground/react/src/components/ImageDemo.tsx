@@ -44,7 +44,9 @@ export const ImageDemo: React.FC = () => {
 	}, []);
 
 	const handleImageProgress = useCallback((e: Event) => {
-		const { loaded, total } = (e as CustomEvent<{ loaded: number; total: number }>).detail;
+		const { loaded, total } = (
+			e as CustomEvent<{ loaded: number; total: number }>
+		).detail;
 		const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
 		setProgress({ loaded, total, percent });
 	}, []);

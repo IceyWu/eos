@@ -23,7 +23,9 @@ export class ScrollbarDemo {
             padding: 16px;
             scrollbar-width: none;
           ">
-            ${Array.from({ length: 20 }, (_, i) => `
+            ${Array.from(
+							{ length: 20 },
+							(_, i) => `
               <div style="
                 display: inline-block;
                 width: 150px;
@@ -38,7 +40,8 @@ export class ScrollbarDemo {
                 text-align: center;
                 flex-shrink: 0;
               ">Item ${i + 1}</div>
-            `).join("")}
+            `,
+						).join("")}
           </div>
           <div style="margin-top: 8px;">
             <eos-scrollbar id="h-scrollbar" direction="horizontal" thumb-color="rgba(100,100,100,0.5)" track-color="rgba(0,0,0,0.08)" thumb-size="6"></eos-scrollbar>
@@ -66,7 +69,9 @@ export class ScrollbarDemo {
               padding: 16px;
               scrollbar-width: none;
             ">
-              ${Array.from({ length: 30 }, (_, i) => `
+              ${Array.from(
+								{ length: 30 },
+								(_, i) => `
                 <div style="
                   padding: 12px 16px;
                   margin-bottom: 8px;
@@ -76,7 +81,8 @@ export class ScrollbarDemo {
                   font-size: 14px;
                   color: #333;
                 ">列表项 ${i + 1} — 这是一段示例文本内容</div>
-              `).join("")}
+              `,
+							).join("")}
             </div>
             <eos-scrollbar id="v-scrollbar" direction="vertical" thumb-color="rgba(156,39,176,0.5)" track-color="rgba(156,39,176,0.1)" thumb-size="6"></eos-scrollbar>
           </div>
@@ -100,7 +106,9 @@ export class ScrollbarDemo {
             padding: 16px;
             scrollbar-width: none;
           ">
-            ${Array.from({ length: 15 }, (_, i) => `
+            ${Array.from(
+							{ length: 15 },
+							(_, i) => `
               <div style="
                 display: inline-block;
                 width: 200px;
@@ -114,7 +122,8 @@ export class ScrollbarDemo {
                 line-height: 100px;
                 text-align: center;
               ">Card ${i + 1}</div>
-            `).join("")}
+            `,
+						).join("")}
           </div>
           <div style="margin-top: 8px;">
             <eos-scrollbar id="auto-scrollbar" direction="horizontal" auto-hide thumb-color="rgba(255,152,0,0.6)" track-color="rgba(255,152,0,0.1)" thumb-size="4"></eos-scrollbar>
@@ -208,24 +217,41 @@ export class ScrollbarDemo {
 		const renderItems = (offset) => {
 			const startIndex = Math.floor(offset / ITEM_HEIGHT);
 			let html = "";
-			for (let i = startIndex; i < Math.min(startIndex + visibleCount + 1, TOTAL_ITEMS); i++) {
+			for (
+				let i = startIndex;
+				i < Math.min(startIndex + visibleCount + 1, TOTAL_ITEMS);
+				i++
+			) {
 				const top = i * ITEM_HEIGHT - offset;
 				const hue = (i * 3) % 360;
-				html += '<div style="'
-					+ 'position: absolute;'
-					+ 'top: ' + top + 'px;'
-					+ 'left: 0; right: 0;'
-					+ 'height: ' + (ITEM_HEIGHT - 4) + 'px;'
-					+ 'margin: 2px 12px;'
-					+ 'padding: 0 16px;'
-					+ 'line-height: ' + (ITEM_HEIGHT - 4) + 'px;'
-					+ 'border-radius: 6px;'
-					+ 'background: hsl(' + hue + ', 45%, 96%);'
-					+ 'border: 1px solid hsl(' + hue + ', 30%, 90%);'
-					+ 'font-size: 13px;'
-					+ 'color: #333;'
-					+ 'box-sizing: border-box;'
-					+ '">第 ' + (i + 1) + ' 行 — 虚拟列表项</div>';
+				html +=
+					'<div style="' +
+					"position: absolute;" +
+					"top: " +
+					top +
+					"px;" +
+					"left: 0; right: 0;" +
+					"height: " +
+					(ITEM_HEIGHT - 4) +
+					"px;" +
+					"margin: 2px 12px;" +
+					"padding: 0 16px;" +
+					"line-height: " +
+					(ITEM_HEIGHT - 4) +
+					"px;" +
+					"border-radius: 6px;" +
+					"background: hsl(" +
+					hue +
+					", 45%, 96%);" +
+					"border: 1px solid hsl(" +
+					hue +
+					", 30%, 90%);" +
+					"font-size: 13px;" +
+					"color: #333;" +
+					"box-sizing: border-box;" +
+					'">第 ' +
+					(i + 1) +
+					" 行 — 虚拟列表项</div>";
 			}
 			content.innerHTML = html;
 		};
@@ -248,16 +274,24 @@ export class ScrollbarDemo {
 		});
 
 		// 监听鼠标滚轮 → 更新虚拟列表和滚动条
-		viewport.addEventListener("wheel", (e) => {
-			e.preventDefault();
-			scrollOffset = Math.max(0, Math.min(contentHeight - viewportHeight, scrollOffset + e.deltaY));
-			renderItems(scrollOffset);
-			scrollbar.setVirtualScroll({
-				contentSize: contentHeight,
-				viewportSize: viewportHeight,
-				scrollOffset,
-			});
-			if (offsetLabel) offsetLabel.textContent = String(Math.round(scrollOffset));
-		}, { passive: false });
+		viewport.addEventListener(
+			"wheel",
+			(e) => {
+				e.preventDefault();
+				scrollOffset = Math.max(
+					0,
+					Math.min(contentHeight - viewportHeight, scrollOffset + e.deltaY),
+				);
+				renderItems(scrollOffset);
+				scrollbar.setVirtualScroll({
+					contentSize: contentHeight,
+					viewportSize: viewportHeight,
+					scrollOffset,
+				});
+				if (offsetLabel)
+					offsetLabel.textContent = String(Math.round(scrollOffset));
+			},
+			{ passive: false },
+		);
 	}
 }

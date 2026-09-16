@@ -7,7 +7,10 @@ export default defineConfig({
 	plugins: [react()],
 	resolve: {
 		alias: {
-			"@eosjs/components": resolve(__dirname, "../../packages/components/src/index.ts"),
+			"@eosjs/components": resolve(
+				__dirname,
+				"../../packages/components/src/index.ts",
+			),
 			"@eosjs/utils": resolve(__dirname, "../../packages/utils/src/index.ts"),
 		},
 	},

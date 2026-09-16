@@ -5,7 +5,14 @@ import { EosProgressBar } from "./components/progress-bar";
 import { EosScrollbar } from "./components/scrollbar";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
 
-export { EosButton, EosCarousel, EosImage, EosProgressBar, EosScrollbar, COMPONENT_CONFIG };
+export {
+	COMPONENT_CONFIG,
+	EosButton,
+	EosCarousel,
+	EosImage,
+	EosProgressBar,
+	EosScrollbar,
+};
 
 /**
  * 组件注册表

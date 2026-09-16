@@ -108,7 +108,13 @@ export class EosButton extends HTMLElement {
 			'.light, [data-color-mode="light"], [data-lobe-demo-appearance="light"], [data-theme="light"]',
 		);
 		const colorScheme = getComputedStyle(this).colorScheme;
-		const theme = darkContext ? "dark" : lightContext ? "light" : colorScheme === "dark" ? "dark" : null;
+		const theme = darkContext
+			? "dark"
+			: lightContext
+				? "light"
+				: colorScheme === "dark"
+					? "dark"
+					: null;
 
 		if (theme) this.setAttribute("data-eos-theme", theme);
 		else this.removeAttribute("data-eos-theme");

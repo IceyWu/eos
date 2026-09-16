@@ -484,7 +484,6 @@ export class EosImage extends HTMLElement {
 
 		// 取消懒加载观察
 		LazyLoadObserver.unobserve(this);
-
 	}
 
 	attributeChangedCallback(
@@ -613,7 +612,6 @@ export class EosImage extends HTMLElement {
 					composed: true,
 				});
 				this.dispatchEvent(progressEvent);
-
 			});
 
 			// 获取延时参数

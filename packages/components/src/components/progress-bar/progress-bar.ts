@@ -44,26 +44,45 @@ export class EosProgressBar extends HTMLElement {
 		return ["total", "current", "variant", "position", "loading"];
 	}
 
-	get total(): number { return this._total; }
-	set total(v: number) { this._total = v; this.setAttribute("total", String(v)); }
+	get total(): number {
+		return this._total;
+	}
+	set total(v: number) {
+		this._total = v;
+		this.setAttribute("total", String(v));
+	}
 
-	get current(): number { return this._current; }
-	set current(v: number) { this._current = v; this.setAttribute("current", String(v)); }
+	get current(): number {
+		return this._current;
+	}
+	set current(v: number) {
+		this._current = v;
+		this.setAttribute("current", String(v));
+	}
 
 	get variant(): "default" | "dots" | "tiktok" {
 		return (this.getAttribute("variant") as any) || "default";
 	}
-	set variant(v: "default" | "dots" | "tiktok") { this.setAttribute("variant", v); }
+	set variant(v: "default" | "dots" | "tiktok") {
+		this.setAttribute("variant", v);
+	}
 
 	get position(): "top" | "bottom" | "left" | "right" {
 		return (this.getAttribute("position") as any) || "bottom";
 	}
-	set position(v: "top" | "bottom" | "left" | "right") { this.setAttribute("position", v); }
+	set position(v: "top" | "bottom" | "left" | "right") {
+		this.setAttribute("position", v);
+	}
 
-	get loading(): boolean { return this.hasAttribute("loading"); }
+	get loading(): boolean {
+		return this.hasAttribute("loading");
+	}
 	set loading(v: boolean) {
-		if (v) { this.setAttribute("loading", ""); }
-		else { this.removeAttribute("loading"); }
+		if (v) {
+			this.setAttribute("loading", "");
+		} else {
+			this.removeAttribute("loading");
+		}
 	}
 
 	constructor() {
@@ -79,7 +98,11 @@ export class EosProgressBar extends HTMLElement {
 		this.updateSegments();
 	}
 
-	attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+	attributeChangedCallback(
+		name: string,
+		oldValue: string | null,
+		newValue: string | null,
+	) {
 		if (oldValue === newValue) return;
 		switch (name) {
 			case "total":
@@ -292,9 +315,13 @@ export class EosProgressBar extends HTMLElement {
 			seg.className = "seg";
 			seg.setAttribute("role", "tab");
 			seg.addEventListener("click", () => {
-				this.dispatchEvent(new CustomEvent("segment-click", {
-					detail: { index: i }, bubbles: true, composed: true,
-				}));
+				this.dispatchEvent(
+					new CustomEvent("segment-click", {
+						detail: { index: i },
+						bubbles: true,
+						composed: true,
+					}),
+				);
 			});
 			seg.addEventListener("keydown", (event) => {
 				const key = (event as KeyboardEvent).key;
@@ -305,7 +332,8 @@ export class EosProgressBar extends HTMLElement {
 				}
 				const last = this._total - 1;
 				let next = i;
-				if (key === "ArrowRight" || key === "ArrowDown") next = Math.min(last, i + 1);
+				if (key === "ArrowRight" || key === "ArrowDown")
+					next = Math.min(last, i + 1);
 				if (key === "ArrowLeft" || key === "ArrowUp") next = Math.max(0, i - 1);
 				if (key === "Home") next = 0;
 				if (key === "End") next = last;
@@ -334,7 +362,13 @@ export class EosProgressBar extends HTMLElement {
 			if (!seg) continue;
 			seg.setAttribute("aria-selected", String(i === this._current));
 			seg.tabIndex = i === this._current ? 0 : -1;
-			seg.classList.remove("active", "passed", "animating", "completed", "loading");
+			seg.classList.remove(
+				"active",
+				"passed",
+				"animating",
+				"completed",
+				"loading",
+			);
 			seg.querySelector(".fill")?.remove();
 
 			if (i === this._current) {
@@ -346,9 +380,13 @@ export class EosProgressBar extends HTMLElement {
 						seg.classList.add("animating");
 						const fill = document.createElement("div");
 						fill.className = "fill";
-						const isVert = this.position === "left" || this.position === "right";
-						if (isVert) { fill.style.height = `${this._progress}%`; }
-						else { fill.style.width = `${this._progress}%`; }
+						const isVert =
+							this.position === "left" || this.position === "right";
+						if (isVert) {
+							fill.style.height = `${this._progress}%`;
+						} else {
+							fill.style.width = `${this._progress}%`;
+						}
 						seg.appendChild(fill);
 					} else {
 						seg.classList.add("completed");
@@ -369,8 +407,11 @@ export class EosProgressBar extends HTMLElement {
 		const fill = seg.querySelector(".fill") as HTMLElement;
 		if (!fill) return;
 		const isVert = this.position === "left" || this.position === "right";
-		if (isVert) { fill.style.height = `${this._progress}%`; }
-		else { fill.style.width = `${this._progress}%`; }
+		if (isVert) {
+			fill.style.height = `${this._progress}%`;
+		} else {
+			fill.style.width = `${this._progress}%`;
+		}
 	}
 
 	disconnectedCallback() {
