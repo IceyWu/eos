@@ -9,14 +9,14 @@ let content = readFileSync(file, "utf-8");
 
 // ref: 改为 any 让各框架自己的 ref 类型接管
 content = content.replace(
-	/ref\?: T \| \(\(e: T\) => void\);/g,
-	"ref?: any;",
+	/^(\s*)ref\?:.*;$/m,
+	"$1ref?: any;",
 );
 
 // style: 改为兼容 React.CSSProperties 和 Record 的联合类型
 content = content.replace(
-	/style\?: Record<string, string \| number>;/g,
-	"style?: Record<string, string | number> | any;",
+	/^(\s*)style\?:.*;$/m,
+	"$1style?: Record<string, string | number> | any;",
 );
 
 writeFileSync(file, content);

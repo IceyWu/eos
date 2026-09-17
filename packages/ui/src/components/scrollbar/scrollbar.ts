@@ -21,6 +21,7 @@ import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
 const HTMLElementBase = (globalThis.HTMLElement ??
 	class {}) as typeof HTMLElement;
 
+/** @customElement eos-scrollbar */
 export class EosScrollbar extends HTMLElementBase {
 	private _ratio = 0; // 0~1，当前滚动位置
 	private _thumbRatio = 0.2; // 滑块占轨道比例

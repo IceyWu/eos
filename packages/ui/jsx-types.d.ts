@@ -36,379 +36,403 @@ export type ScopedElements<
 
 type BaseProps<T extends HTMLElement> = {
   /** Content added between the opening and closing tags of the element */
-  children?: any;
+  children?: any | undefined;
   /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
-  class?: string;
+  class?: string | undefined;
   /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
-  className?: string;
+  className?: string | undefined;
   /** Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed. */
-  classList?: Record<string, boolean | undefined>;
+  classList?: Record<string, boolean | undefined> | undefined;
   /** Specifies the text direction of the element. */
-  dir?: "ltr" | "rtl";
+  dir?: "ltr" | "rtl" | undefined;
   /** Contains a space-separated list of the part names of the element that should be exposed on the host element. */
-  exportparts?: string;
+  exportparts?: string | undefined;
   /** For <label> and <output>, lets you associate the label with some control. */
-  htmlFor?: string;
+  htmlFor?: string | undefined;
   /** Specifies whether the element should be hidden. */
-  hidden?: boolean | string;
+  hidden?: boolean | string | undefined;
   /** A unique identifier for the element. */
-  id?: string;
+  id?: string | undefined;
   /** Keys tell React which array item each component corresponds to */
-  key?: string | number;
+  key?: string | number | undefined;
   /** Specifies the language of the element. */
-  lang?: string;
+  lang?: string | undefined;
+  /** Defines the element's semantic role for accessibility APIs. */
+  role?: string | undefined;
   /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
-  part?: string;
+  part?: string | undefined;
   /** Use the ref attribute with a variable to assign a DOM element to the variable once the element is rendered. */
   ref?: any;
   /** Adds a reference for a custom element slot */
-  slot?: string;
+  slot?: string | undefined;
   /** Prop for setting inline styles */
   style?: Record<string, string | number> | any;
   /** Overrides the default Tab button behavior. Avoid using values other than -1 and 0. */
-  tabIndex?: number;
+  tabIndex?: number | undefined;
   /** Specifies the tooltip text for the element. */
-  title?: string;
+  title?: string | undefined;
   /** Passing 'no' excludes the element content from being translated. */
-  translate?: "yes" | "no";
+  translate?: "yes" | "no" | undefined;
   /** The popover global attribute is used to designate an element as a popover element. */
-  popover?: "auto" | "hint" | "manual";
+  popover?: "auto" | "hint" | "manual" | undefined;
   /** Turns an element element into a popover control button; takes the ID of the popover element to control as its value. */
-  popovertarget?: "top" | "bottom" | "left" | "right" | "auto";
+  popovertarget?: "top" | "bottom" | "left" | "right" | "auto" | undefined;
   /** Specifies the action to be performed on a popover element being controlled by a control element. */
-  popovertargetaction?: "show" | "hide" | "toggle";
+  popovertargetaction?: "show" | "hide" | "toggle" | undefined;
 };
 
 type BaseEvents = {};
 
 export type EosButtonProps = {
   /**  */
-  "aria-label"?: unknown;
+  "aria-label"?: unknown | undefined;
   /**  */
-  undefined?: unknown;
+  undefined?: unknown | undefined;
   /**  */
-  color?: unknown;
+  color?: unknown | undefined;
   /**  */
-  disabled?: unknown;
+  disabled?: unknown | undefined;
   /**  */
-  "full-width"?: unknown;
+  "full-width"?: unknown | undefined;
   /**  */
-  "icon-only"?: unknown;
+  "icon-only"?: unknown | undefined;
   /**  */
-  loading?: unknown;
+  loading?: unknown | undefined;
   /**  */
-  name?: unknown;
+  name?: unknown | undefined;
   /**  */
-  size?: unknown;
+  size?: unknown | undefined;
   /**  */
-  type?: unknown;
+  type?: unknown | undefined;
   /**  */
-  value?: unknown;
+  value?: unknown | undefined;
   /**  */
-  variant?: unknown;
+  variant?: unknown | undefined;
 };
 
 export type EosButtonSolidJsProps = {
   /**  */
-  "attr:aria-label"?: unknown;
+  "attr:aria-label"?: unknown | undefined;
   /**  */
-  "prop:undefined"?: unknown;
+  "prop:undefined"?: unknown | undefined;
   /**  */
-  "attr:color"?: unknown;
+  "attr:color"?: unknown | undefined;
   /**  */
-  "attr:disabled"?: unknown;
+  "attr:disabled"?: unknown | undefined;
   /**  */
-  "attr:full-width"?: unknown;
+  "attr:full-width"?: unknown | undefined;
   /**  */
-  "attr:icon-only"?: unknown;
+  "attr:icon-only"?: unknown | undefined;
   /**  */
-  "attr:loading"?: unknown;
+  "attr:loading"?: unknown | undefined;
   /**  */
-  "attr:name"?: unknown;
+  "attr:name"?: unknown | undefined;
   /**  */
-  "attr:size"?: unknown;
+  "attr:size"?: unknown | undefined;
   /**  */
-  "attr:type"?: unknown;
+  "attr:type"?: unknown | undefined;
   /**  */
-  "attr:value"?: unknown;
+  "attr:value"?: unknown | undefined;
   /**  */
-  "attr:variant"?: unknown;
+  "attr:variant"?: unknown | undefined;
 
   /** Set the innerHTML of the element */
-  innerHTML?: string;
+  innerHTML?: string | undefined;
   /** Set the textContent of the element */
-  textContent?: string | number;
+  textContent?: string | number | undefined;
 };
 
 export type EosCarouselProps = {
-  /** 是否自动播放 */
-  autoplay?: unknown;
-  /** 是否自动播放 */
-  undefined?: unknown;
-  /** 自动播放间隔（毫秒），最小 1000，默认 2000 */
-  interval?: unknown;
-  /** 是否循环播放 */
-  loop?: unknown;
-  /** 是否显示导航按钮，默认 true */
-  "show-navigation"?: unknown;
-  /** 初始显示的 slide 索引 */
-  "initial-index"?: unknown;
-  /** 指示器位置 */
-  "indicator-position"?: unknown;
-  /** 指示器样式 */
-  "indicator-style"?: unknown;
-  /** 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8 */
-  "virtual-threshold"?: unknown;
   /**  */
-  showNavigation?: EosCarousel["showNavigation"];
+  autoplay?: unknown | undefined;
   /**  */
-  initialIndex?: EosCarousel["initialIndex"];
+  undefined?: unknown | undefined;
   /**  */
-  indicatorPosition?: EosCarousel["indicatorPosition"];
+  interval?: unknown | undefined;
   /**  */
-  indicatorStyle?: EosCarousel["indicatorStyle"];
+  loop?: unknown | undefined;
+  /**  */
+  "show-navigation"?: unknown | undefined;
+  /**  */
+  "initial-index"?: unknown | undefined;
+  /**  */
+  "indicator-position"?: unknown | undefined;
+  /**  */
+  "indicator-style"?: unknown | undefined;
+  /**  */
+  "virtual-threshold"?: unknown | undefined;
+  /**  */
+  showNavigation?: EosCarousel["showNavigation"] | undefined;
+  /**  */
+  initialIndex?: EosCarousel["initialIndex"] | undefined;
+  /**  */
+  indicatorPosition?: EosCarousel["indicatorPosition"] | undefined;
+  /**  */
+  indicatorStyle?: EosCarousel["indicatorStyle"] | undefined;
 
-  /** 当前 slide 激活时触发 */
-  "onslide-active"?: (e: CustomEvent) => void;
-  /** 点击 slide 时触发 */
-  "onslide-click"?: (e: CustomEvent) => void;
-  /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
-  onchange?: (e: CustomEvent) => void;
+  /**  */
+  "onslide-active"?: ((e: CustomEvent) => void) | undefined;
+  /**  */
+  "onslide-click"?: ((e: CustomEvent) => void) | undefined;
+  /**  */
+  onchange?: ((e: CustomEvent) => void) | undefined;
 };
 
 export type EosCarouselSolidJsProps = {
-  /** 是否自动播放 */
-  "bool:autoplay"?: unknown;
-  /** 是否自动播放 */
-  "prop:undefined"?: unknown;
-  /** 自动播放间隔（毫秒），最小 1000，默认 2000 */
-  "attr:interval"?: unknown;
-  /** 是否循环播放 */
-  "bool:loop"?: unknown;
-  /** 是否显示导航按钮，默认 true */
-  "attr:show-navigation"?: unknown;
-  /** 初始显示的 slide 索引 */
-  "attr:initial-index"?: unknown;
-  /** 指示器位置 */
-  "attr:indicator-position"?: unknown;
-  /** 指示器样式 */
-  "attr:indicator-style"?: unknown;
-  /** 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8 */
-  "attr:virtual-threshold"?: unknown;
   /**  */
-  "prop:showNavigation"?: EosCarousel["showNavigation"];
+  "attr:autoplay"?: unknown | undefined;
   /**  */
-  "prop:initialIndex"?: EosCarousel["initialIndex"];
+  "prop:undefined"?: unknown | undefined;
   /**  */
-  "prop:indicatorPosition"?: EosCarousel["indicatorPosition"];
+  "attr:interval"?: unknown | undefined;
   /**  */
-  "prop:indicatorStyle"?: EosCarousel["indicatorStyle"];
-  /** 当前 slide 激活时触发 */
-  "on:slide-active"?: (e: CustomEvent) => void;
-  /** 点击 slide 时触发 */
-  "on:slide-click"?: (e: CustomEvent) => void;
-  /** 切换 slide 时触发，detail: { currentIndex, previousIndex } */
-  "on:change"?: (e: CustomEvent) => void;
+  "attr:loop"?: unknown | undefined;
+  /**  */
+  "attr:show-navigation"?: unknown | undefined;
+  /**  */
+  "attr:initial-index"?: unknown | undefined;
+  /**  */
+  "attr:indicator-position"?: unknown | undefined;
+  /**  */
+  "attr:indicator-style"?: unknown | undefined;
+  /**  */
+  "attr:virtual-threshold"?: unknown | undefined;
+  /**  */
+  "prop:showNavigation"?: EosCarousel["showNavigation"] | undefined;
+  /**  */
+  "prop:initialIndex"?: EosCarousel["initialIndex"] | undefined;
+  /**  */
+  "prop:indicatorPosition"?: EosCarousel["indicatorPosition"] | undefined;
+  /**  */
+  "prop:indicatorStyle"?: EosCarousel["indicatorStyle"] | undefined;
+  /**  */
+  "on:slide-active"?: ((e: CustomEvent) => void) | undefined;
+  /**  */
+  "on:slide-click"?: ((e: CustomEvent) => void) | undefined;
+  /**  */
+  "on:change"?: ((e: CustomEvent) => void) | undefined;
 
   /** Set the innerHTML of the element */
-  innerHTML?: string;
+  innerHTML?: string | undefined;
   /** Set the textContent of the element */
-  textContent?: string | number;
+  textContent?: string | number | undefined;
 };
 
 export type EosImageProps = {
-  /** Image URL or BlurHash string. */
-  src?: unknown;
-  /** Image URL or BlurHash string. */
-  undefined?: unknown;
-  /** How to interpret `src` (default: url). */
-  "src-type"?: unknown;
-  /** Alternative text for the image. */
-  alt?: unknown;
-  /** Host width. */
-  width?: unknown;
-  /** Host height. */
-  height?: unknown;
-  /** Whether to wait for viewport visibility. */
-  loading?: unknown;
-  /** Native cross-origin image setting. */
-  crossorigin?: unknown;
-  /** Native image fitting mode. */
-  "object-fit"?: unknown;
-  /** Placeholder URL or BlurHash string. */
-  placeholder?: unknown;
-  /** How to interpret the placeholder. */
-  "placeholder-type"?: unknown;
-  /** Keep the placeholder as a background layer. */
-  "placeholder-fill"?: unknown;
-  /** Delay before revealing a loaded image, in milliseconds. */
-  "show-delay"?: unknown;
-  /** Make the image follow its container width. */
-  responsive?: unknown;
-  /** Clip the image to a circle. */
-  circle?: unknown;
+  /**  */
+  src?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  "src-type"?: unknown | undefined;
+  /**  */
+  alt?: unknown | undefined;
+  /**  */
+  width?: unknown | undefined;
+  /**  */
+  height?: unknown | undefined;
+  /**  */
+  loading?: unknown | undefined;
+  /**  */
+  crossorigin?: unknown | undefined;
+  /**  */
+  "object-fit"?: unknown | undefined;
+  /**  */
+  placeholder?: unknown | undefined;
+  /**  */
+  "placeholder-type"?: unknown | undefined;
+  /**  */
+  "placeholder-fill"?: unknown | undefined;
+  /**  */
+  "show-delay"?: unknown | undefined;
+  /**  */
+  responsive?: unknown | undefined;
+  /**  */
+  circle?: unknown | undefined;
 
   /**  */
-  "onblurhash-error"?: (e: CustomEvent) => void;
-  /** The image is ready to display. */
-  onload?: (e: Event) => void;
-  /** The image failed to load. */
-  onerror?: (e: Event) => void;
-  /** Network progress with detail `{ loaded, total, src }`. */
-  onprogress?: (e: CustomEvent) => void;
+  "onblurhash-error"?: ((e: CustomEvent) => void) | undefined;
 };
 
 export type EosImageSolidJsProps = {
-  /** Image URL or BlurHash string. */
-  "attr:src"?: unknown;
-  /** Image URL or BlurHash string. */
-  "prop:undefined"?: unknown;
-  /** How to interpret `src` (default: url). */
-  "attr:src-type"?: unknown;
-  /** Alternative text for the image. */
-  "attr:alt"?: unknown;
-  /** Host width. */
-  "attr:width"?: unknown;
-  /** Host height. */
-  "attr:height"?: unknown;
-  /** Whether to wait for viewport visibility. */
-  "attr:loading"?: unknown;
-  /** Native cross-origin image setting. */
-  "attr:crossorigin"?: unknown;
-  /** Native image fitting mode. */
-  "attr:object-fit"?: unknown;
-  /** Placeholder URL or BlurHash string. */
-  "attr:placeholder"?: unknown;
-  /** How to interpret the placeholder. */
-  "attr:placeholder-type"?: unknown;
-  /** Keep the placeholder as a background layer. */
-  "attr:placeholder-fill"?: unknown;
-  /** Delay before revealing a loaded image, in milliseconds. */
-  "attr:show-delay"?: unknown;
-  /** Make the image follow its container width. */
-  "bool:responsive"?: unknown;
-  /** Clip the image to a circle. */
-  "bool:circle"?: unknown;
   /**  */
-  "on:blurhash-error"?: (e: CustomEvent) => void;
-  /** The image is ready to display. */
-  "on:load"?: (e: Event) => void;
-  /** The image failed to load. */
-  "on:error"?: (e: Event) => void;
-  /** Network progress with detail `{ loaded, total, src }`. */
-  "on:progress"?: (e: CustomEvent) => void;
+  "attr:src"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:src-type"?: unknown | undefined;
+  /**  */
+  "attr:alt"?: unknown | undefined;
+  /**  */
+  "attr:width"?: unknown | undefined;
+  /**  */
+  "attr:height"?: unknown | undefined;
+  /**  */
+  "attr:loading"?: unknown | undefined;
+  /**  */
+  "attr:crossorigin"?: unknown | undefined;
+  /**  */
+  "attr:object-fit"?: unknown | undefined;
+  /**  */
+  "attr:placeholder"?: unknown | undefined;
+  /**  */
+  "attr:placeholder-type"?: unknown | undefined;
+  /**  */
+  "attr:placeholder-fill"?: unknown | undefined;
+  /**  */
+  "attr:show-delay"?: unknown | undefined;
+  /**  */
+  "attr:responsive"?: unknown | undefined;
+  /**  */
+  "attr:circle"?: unknown | undefined;
+  /**  */
+  "on:blurhash-error"?: ((e: CustomEvent) => void) | undefined;
 
   /** Set the innerHTML of the element */
-  innerHTML?: string;
+  innerHTML?: string | undefined;
   /** Set the textContent of the element */
-  textContent?: string | number;
+  textContent?: string | number | undefined;
+};
+
+export type EosImageGroupProps = {
+  /**  */
+  items?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  layout?: unknown | undefined;
+  /**  */
+  "max-visible"?: unknown | undefined;
+  /**  */
+  maxVisible?: EosImageGroup["maxVisible"] | undefined;
+
+  /**  */
+  "onimage-click"?: ((e: CustomEvent) => void) | undefined;
+};
+
+export type EosImageGroupSolidJsProps = {
+  /**  */
+  "attr:items"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:layout"?: unknown | undefined;
+  /**  */
+  "attr:max-visible"?: unknown | undefined;
+  /**  */
+  "prop:maxVisible"?: EosImageGroup["maxVisible"] | undefined;
+  /**  */
+  "on:image-click"?: ((e: CustomEvent) => void) | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
 };
 
 export type EosProgressBarProps = {
-  /** 总段数 */
-  total?: unknown;
-  /** 总段数 */
-  undefined?: unknown;
-  /** 当前激活的段索引（0-based） */
-  current?: unknown;
-  /** 样式变体 */
-  variant?: unknown;
-  /** 位置方向 */
-  position?: unknown;
-  /** 当前段是否显示加载波纹 */
-  loading?: unknown;
+  /**  */
+  total?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  current?: unknown | undefined;
+  /**  */
+  variant?: unknown | undefined;
+  /**  */
+  position?: unknown | undefined;
+  /**  */
+  loading?: unknown | undefined;
 
-  /** 点击某段时触发，detail: { index } */
-  "onsegment-click"?: (e: CustomEvent) => void;
+  /**  */
+  "onsegment-click"?: ((e: CustomEvent) => void) | undefined;
 };
 
 export type EosProgressBarSolidJsProps = {
-  /** 总段数 */
-  "attr:total"?: unknown;
-  /** 总段数 */
-  "prop:undefined"?: unknown;
-  /** 当前激活的段索引（0-based） */
-  "attr:current"?: unknown;
-  /** 样式变体 */
-  "attr:variant"?: unknown;
-  /** 位置方向 */
-  "attr:position"?: unknown;
-  /** 当前段是否显示加载波纹 */
-  "bool:loading"?: unknown;
-  /** 点击某段时触发，detail: { index } */
-  "on:segment-click"?: (e: CustomEvent) => void;
+  /**  */
+  "attr:total"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:current"?: unknown | undefined;
+  /**  */
+  "attr:variant"?: unknown | undefined;
+  /**  */
+  "attr:position"?: unknown | undefined;
+  /**  */
+  "attr:loading"?: unknown | undefined;
+  /**  */
+  "on:segment-click"?: ((e: CustomEvent) => void) | undefined;
 
   /** Set the innerHTML of the element */
-  innerHTML?: string;
+  innerHTML?: string | undefined;
   /** Set the textContent of the element */
-  textContent?: string | number;
+  textContent?: string | number | undefined;
 };
 
 export type EosScrollbarProps = {
-  /** 滚动方向，默认 horizontal */
-  direction?: unknown;
-  /** 滚动方向，默认 horizontal */
-  undefined?: unknown;
-  /** 是否自动隐藏（无交互时淡出），默认 false */
-  "auto-hide"?: unknown;
-  /** 滑块颜色 */
-  "thumb-color"?: unknown;
-  /** 轨道颜色 */
-  "track-color"?: unknown;
-  /** 滑块粗细（px），默认 6 */
-  "thumb-size"?: unknown;
-  /** 滑块最小长度（px），默认 30 */
-  "thumb-min-size"?: unknown;
-  /** 圆角（px），默认 3 */
-  "border-radius"?: unknown;
   /**  */
-  autoHide?: EosScrollbar["autoHide"];
+  direction?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  "auto-hide"?: unknown | undefined;
+  /**  */
+  "thumb-color"?: unknown | undefined;
+  /**  */
+  "track-color"?: unknown | undefined;
+  /**  */
+  "thumb-size"?: unknown | undefined;
+  /**  */
+  "thumb-min-size"?: unknown | undefined;
+  /**  */
+  "border-radius"?: unknown | undefined;
+  /**  */
+  autoHide?: EosScrollbar["autoHide"] | undefined;
   /** 当前滚动比例 0~1 */
-  ratio?: EosScrollbar["ratio"];
+  ratio?: EosScrollbar["ratio"] | undefined;
   /** 滑块占轨道比例 0~1 */
-  thumbRatio?: EosScrollbar["thumbRatio"];
+  thumbRatio?: EosScrollbar["thumbRatio"] | undefined;
 
-  /** 滚动位置变化，detail: { position, ratio, scrollOffset? } */
-  "onscroll-change"?: (e: CustomEvent) => void;
+  /**  */
+  "onscroll-change"?: ((e: CustomEvent) => void) | undefined;
 };
 
 export type EosScrollbarSolidJsProps = {
-  /** 滚动方向，默认 horizontal */
-  "attr:direction"?: unknown;
-  /** 滚动方向，默认 horizontal */
-  "prop:undefined"?: unknown;
-  /** 是否自动隐藏（无交互时淡出），默认 false */
-  "bool:auto-hide"?: unknown;
-  /** 滑块颜色 */
-  "attr:thumb-color"?: unknown;
-  /** 轨道颜色 */
-  "attr:track-color"?: unknown;
-  /** 滑块粗细（px），默认 6 */
-  "attr:thumb-size"?: unknown;
-  /** 滑块最小长度（px），默认 30 */
-  "attr:thumb-min-size"?: unknown;
-  /** 圆角（px），默认 3 */
-  "attr:border-radius"?: unknown;
   /**  */
-  "prop:autoHide"?: EosScrollbar["autoHide"];
+  "attr:direction"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:auto-hide"?: unknown | undefined;
+  /**  */
+  "attr:thumb-color"?: unknown | undefined;
+  /**  */
+  "attr:track-color"?: unknown | undefined;
+  /**  */
+  "attr:thumb-size"?: unknown | undefined;
+  /**  */
+  "attr:thumb-min-size"?: unknown | undefined;
+  /**  */
+  "attr:border-radius"?: unknown | undefined;
+  /**  */
+  "prop:autoHide"?: EosScrollbar["autoHide"] | undefined;
   /** 当前滚动比例 0~1 */
-  "prop:ratio"?: EosScrollbar["ratio"];
+  "prop:ratio"?: EosScrollbar["ratio"] | undefined;
   /** 滑块占轨道比例 0~1 */
-  "prop:thumbRatio"?: EosScrollbar["thumbRatio"];
-  /** 滚动位置变化，detail: { position, ratio, scrollOffset? } */
-  "on:scroll-change"?: (e: CustomEvent) => void;
+  "prop:thumbRatio"?: EosScrollbar["thumbRatio"] | undefined;
+  /**  */
+  "on:scroll-change"?: ((e: CustomEvent) => void) | undefined;
 
   /** Set the innerHTML of the element */
-  innerHTML?: string;
+  innerHTML?: string | undefined;
   /** Set the textContent of the element */
-  textContent?: string | number;
+  textContent?: string | number | undefined;
 };
 
 export type CustomElements = {
   /**
-   * EOS Button
    *
-   * EOS Button custom element.
    *
    * ## Attributes & Properties
    *
@@ -431,21 +455,20 @@ export type CustomElements = {
   "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
 
   /**
-   * EosCarousel 组件
-   * 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `autoplay`/`undefined`: 是否自动播放
-   * - `interval`/`undefined`: 自动播放间隔（毫秒），最小 1000，默认 2000
-   * - `loop`/`undefined`: 是否循环播放
-   * - `show-navigation`/`undefined`: 是否显示导航按钮，默认 true
-   * - `initial-index`/`undefined`: 初始显示的 slide 索引
-   * - `indicator-position`/`undefined`: 指示器位置
-   * - `indicator-style`/`undefined`: 指示器样式
-   * - `virtual-threshold`/`undefined`: 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8
+   * - `autoplay`/`undefined`: undefined
+   * - `interval`/`undefined`: undefined
+   * - `loop`/`undefined`: undefined
+   * - `show-navigation`/`undefined`: undefined
+   * - `initial-index`/`undefined`: undefined
+   * - `indicator-position`/`undefined`: undefined
+   * - `indicator-style`/`undefined`: undefined
+   * - `virtual-threshold`/`undefined`: undefined
    * - `autoplay`: undefined (property only)
    * - `interval`: undefined (property only)
    * - `loop`: undefined (property only)
@@ -458,9 +481,9 @@ export type CustomElements = {
    *
    * Events that will be emitted by the component.
    *
-   * - `slide-active`: 当前 slide 激活时触发
-   * - `slide-click`: 点击 slide 时触发
-   * - `change`: 切换 slide 时触发，detail: { currentIndex, previousIndex }
+   * - `slide-active`: undefined
+   * - `slide-click`: undefined
+   * - `change`: undefined
    *
    * ## Methods
    *
@@ -484,54 +507,71 @@ export type CustomElements = {
   >;
 
   /**
-   * EOS Image is a framework-agnostic image element with native image events,
-   * lazy loading, BlurHash placeholders, and explicit loading and error states.
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `src`/`undefined`: Image URL or BlurHash string.
-   * - `src-type`/`undefined`: How to interpret `src` (default: url).
-   * - `alt`/`undefined`: Alternative text for the image.
-   * - `width`/`undefined`: Host width.
-   * - `height`/`undefined`: Host height.
-   * - `loading`/`undefined`: Whether to wait for viewport visibility.
-   * - `crossorigin`/`undefined`: Native cross-origin image setting.
-   * - `object-fit`/`undefined`: Native image fitting mode.
-   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
-   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
-   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
-   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
-   * - `responsive`/`undefined`: Make the image follow its container width.
-   * - `circle`/`undefined`: Clip the image to a circle.
+   * - `src`/`undefined`: undefined
+   * - `src-type`/`undefined`: undefined
+   * - `alt`/`undefined`: undefined
+   * - `width`/`undefined`: undefined
+   * - `height`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
+   * - `crossorigin`/`undefined`: undefined
+   * - `object-fit`/`undefined`: undefined
+   * - `placeholder`/`undefined`: undefined
+   * - `placeholder-type`/`undefined`: undefined
+   * - `placeholder-fill`/`undefined`: undefined
+   * - `show-delay`/`undefined`: undefined
+   * - `responsive`/`undefined`: undefined
+   * - `circle`/`undefined`: undefined
    *
    * ## Events
    *
    * Events that will be emitted by the component.
    *
    * - `blurhash-error`: undefined
-   * - `load`: The image is ready to display.
-   * - `error`: The image failed to load.
-   * - `progress`: Network progress with detail `{ loaded, total, src }`.
    */
   "eos-image": Partial<EosImageProps & BaseProps<EosImage> & BaseEvents>;
 
   /**
-   * EosProgressBar 组件
-   * 分段式进度条，支持 default / dots / tiktok 三种样式，
-   * 支持加载波纹动画、自定义进度填充、水平/垂直方向。
-   * 可独立使用，也可嵌入 eos-carousel。
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `total`/`undefined`: 总段数
-   * - `current`/`undefined`: 当前激活的段索引（0-based）
-   * - `variant`/`undefined`: 样式变体
-   * - `position`/`undefined`: 位置方向
-   * - `loading`/`undefined`: 当前段是否显示加载波纹
+   * - `items`/`undefined`: undefined
+   * - `layout`/`undefined`: undefined
+   * - `max-visible`/`undefined`: undefined
+   * - `items`: undefined (property only)
+   * - `layout`: undefined (property only)
+   * - `maxVisible`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `image-click`: undefined
+   */
+  "eos-image-group": Partial<
+    EosImageGroupProps & BaseProps<EosImageGroup> & BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `total`/`undefined`: undefined
+   * - `current`/`undefined`: undefined
+   * - `variant`/`undefined`: undefined
+   * - `position`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
    * - `total`: undefined (property only)
    * - `current`: undefined (property only)
    * - `variant`: undefined (property only)
@@ -542,7 +582,7 @@ export type CustomElements = {
    *
    * Events that will be emitted by the component.
    *
-   * - `segment-click`: 点击某段时触发，detail: { index }
+   * - `segment-click`: undefined
    *
    * ## Methods
    *
@@ -560,22 +600,19 @@ export type CustomElements = {
   >;
 
   /**
-   * EosScrollbar 组件
-   * 自定义滚动条，可独立使用或嵌入任意可滚动容器。
-   * 支持水平/垂直方向、拖拽交互、自动隐藏、自定义样式。
-   * 支持虚拟列表模式：通过 setVirtualScroll 手动驱动滚动状态。
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `direction`/`undefined`: 滚动方向，默认 horizontal
-   * - `auto-hide`/`undefined`: 是否自动隐藏（无交互时淡出），默认 false
-   * - `thumb-color`/`undefined`: 滑块颜色
-   * - `track-color`/`undefined`: 轨道颜色
-   * - `thumb-size`/`undefined`: 滑块粗细（px），默认 6
-   * - `thumb-min-size`/`undefined`: 滑块最小长度（px），默认 30
-   * - `border-radius`/`undefined`: 圆角（px），默认 3
+   * - `direction`/`undefined`: undefined
+   * - `auto-hide`/`undefined`: undefined
+   * - `thumb-color`/`undefined`: undefined
+   * - `track-color`/`undefined`: undefined
+   * - `thumb-size`/`undefined`: undefined
+   * - `thumb-min-size`/`undefined`: undefined
+   * - `border-radius`/`undefined`: undefined
    * - `direction`: undefined (property only)
    * - `autoHide`: undefined (property only)
    * - `thumbColor`: undefined (property only) (readonly)
@@ -590,7 +627,7 @@ export type CustomElements = {
    *
    * Events that will be emitted by the component.
    *
-   * - `scroll-change`: 滚动位置变化，detail: { position, ratio, scrollOffset? }
+   * - `scroll-change`: undefined
    *
    * ## Methods
    *
@@ -613,9 +650,7 @@ export type CustomElements = {
 
 export type CustomElementsSolidJs = {
   /**
-   * EOS Button
    *
-   * EOS Button custom element.
    *
    * ## Attributes & Properties
    *
@@ -640,21 +675,20 @@ export type CustomElementsSolidJs = {
   >;
 
   /**
-   * EosCarousel 组件
-   * 类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `autoplay`/`undefined`: 是否自动播放
-   * - `interval`/`undefined`: 自动播放间隔（毫秒），最小 1000，默认 2000
-   * - `loop`/`undefined`: 是否循环播放
-   * - `show-navigation`/`undefined`: 是否显示导航按钮，默认 true
-   * - `initial-index`/`undefined`: 初始显示的 slide 索引
-   * - `indicator-position`/`undefined`: 指示器位置
-   * - `indicator-style`/`undefined`: 指示器样式
-   * - `virtual-threshold`/`undefined`: 虚拟化阈值，超过此值自动开启三槽虚拟渲染，默认 8
+   * - `autoplay`/`undefined`: undefined
+   * - `interval`/`undefined`: undefined
+   * - `loop`/`undefined`: undefined
+   * - `show-navigation`/`undefined`: undefined
+   * - `initial-index`/`undefined`: undefined
+   * - `indicator-position`/`undefined`: undefined
+   * - `indicator-style`/`undefined`: undefined
+   * - `virtual-threshold`/`undefined`: undefined
    * - `autoplay`: undefined (property only)
    * - `interval`: undefined (property only)
    * - `loop`: undefined (property only)
@@ -667,9 +701,9 @@ export type CustomElementsSolidJs = {
    *
    * Events that will be emitted by the component.
    *
-   * - `slide-active`: 当前 slide 激活时触发
-   * - `slide-click`: 点击 slide 时触发
-   * - `change`: 切换 slide 时触发，detail: { currentIndex, previousIndex }
+   * - `slide-active`: undefined
+   * - `slide-click`: undefined
+   * - `change`: undefined
    *
    * ## Methods
    *
@@ -696,56 +730,76 @@ export type CustomElementsSolidJs = {
   >;
 
   /**
-   * EOS Image is a framework-agnostic image element with native image events,
-   * lazy loading, BlurHash placeholders, and explicit loading and error states.
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `src`/`undefined`: Image URL or BlurHash string.
-   * - `src-type`/`undefined`: How to interpret `src` (default: url).
-   * - `alt`/`undefined`: Alternative text for the image.
-   * - `width`/`undefined`: Host width.
-   * - `height`/`undefined`: Host height.
-   * - `loading`/`undefined`: Whether to wait for viewport visibility.
-   * - `crossorigin`/`undefined`: Native cross-origin image setting.
-   * - `object-fit`/`undefined`: Native image fitting mode.
-   * - `placeholder`/`undefined`: Placeholder URL or BlurHash string.
-   * - `placeholder-type`/`undefined`: How to interpret the placeholder.
-   * - `placeholder-fill`/`undefined`: Keep the placeholder as a background layer.
-   * - `show-delay`/`undefined`: Delay before revealing a loaded image, in milliseconds.
-   * - `responsive`/`undefined`: Make the image follow its container width.
-   * - `circle`/`undefined`: Clip the image to a circle.
+   * - `src`/`undefined`: undefined
+   * - `src-type`/`undefined`: undefined
+   * - `alt`/`undefined`: undefined
+   * - `width`/`undefined`: undefined
+   * - `height`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
+   * - `crossorigin`/`undefined`: undefined
+   * - `object-fit`/`undefined`: undefined
+   * - `placeholder`/`undefined`: undefined
+   * - `placeholder-type`/`undefined`: undefined
+   * - `placeholder-fill`/`undefined`: undefined
+   * - `show-delay`/`undefined`: undefined
+   * - `responsive`/`undefined`: undefined
+   * - `circle`/`undefined`: undefined
    *
    * ## Events
    *
    * Events that will be emitted by the component.
    *
    * - `blurhash-error`: undefined
-   * - `load`: The image is ready to display.
-   * - `error`: The image failed to load.
-   * - `progress`: Network progress with detail `{ loaded, total, src }`.
    */
   "eos-image": Partial<
     EosImageProps & EosImageSolidJsProps & BaseProps<EosImage> & BaseEvents
   >;
 
   /**
-   * EosProgressBar 组件
-   * 分段式进度条，支持 default / dots / tiktok 三种样式，
-   * 支持加载波纹动画、自定义进度填充、水平/垂直方向。
-   * 可独立使用，也可嵌入 eos-carousel。
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `total`/`undefined`: 总段数
-   * - `current`/`undefined`: 当前激活的段索引（0-based）
-   * - `variant`/`undefined`: 样式变体
-   * - `position`/`undefined`: 位置方向
-   * - `loading`/`undefined`: 当前段是否显示加载波纹
+   * - `items`/`undefined`: undefined
+   * - `layout`/`undefined`: undefined
+   * - `max-visible`/`undefined`: undefined
+   * - `items`: undefined (property only)
+   * - `layout`: undefined (property only)
+   * - `maxVisible`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `image-click`: undefined
+   */
+  "eos-image-group": Partial<
+    EosImageGroupProps &
+      EosImageGroupSolidJsProps &
+      BaseProps<EosImageGroup> &
+      BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `total`/`undefined`: undefined
+   * - `current`/`undefined`: undefined
+   * - `variant`/`undefined`: undefined
+   * - `position`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
    * - `total`: undefined (property only)
    * - `current`: undefined (property only)
    * - `variant`: undefined (property only)
@@ -756,7 +810,7 @@ export type CustomElementsSolidJs = {
    *
    * Events that will be emitted by the component.
    *
-   * - `segment-click`: 点击某段时触发，detail: { index }
+   * - `segment-click`: undefined
    *
    * ## Methods
    *
@@ -777,22 +831,19 @@ export type CustomElementsSolidJs = {
   >;
 
   /**
-   * EosScrollbar 组件
-   * 自定义滚动条，可独立使用或嵌入任意可滚动容器。
-   * 支持水平/垂直方向、拖拽交互、自动隐藏、自定义样式。
-   * 支持虚拟列表模式：通过 setVirtualScroll 手动驱动滚动状态。
+   *
    *
    * ## Attributes & Properties
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `direction`/`undefined`: 滚动方向，默认 horizontal
-   * - `auto-hide`/`undefined`: 是否自动隐藏（无交互时淡出），默认 false
-   * - `thumb-color`/`undefined`: 滑块颜色
-   * - `track-color`/`undefined`: 轨道颜色
-   * - `thumb-size`/`undefined`: 滑块粗细（px），默认 6
-   * - `thumb-min-size`/`undefined`: 滑块最小长度（px），默认 30
-   * - `border-radius`/`undefined`: 圆角（px），默认 3
+   * - `direction`/`undefined`: undefined
+   * - `auto-hide`/`undefined`: undefined
+   * - `thumb-color`/`undefined`: undefined
+   * - `track-color`/`undefined`: undefined
+   * - `thumb-size`/`undefined`: undefined
+   * - `thumb-min-size`/`undefined`: undefined
+   * - `border-radius`/`undefined`: undefined
    * - `direction`: undefined (property only)
    * - `autoHide`: undefined (property only)
    * - `thumbColor`: undefined (property only) (readonly)
@@ -807,7 +858,7 @@ export type CustomElementsSolidJs = {
    *
    * Events that will be emitted by the component.
    *
-   * - `scroll-change`: 滚动位置变化，detail: { position, ratio, scrollOffset? }
+   * - `scroll-change`: undefined
    *
    * ## Methods
    *
@@ -834,6 +885,20 @@ export type CustomElementsSolidJs = {
 export type CustomCssProperties = {};
 
 declare module "react" {
+  namespace JSX {
+    interface IntrinsicElements extends CustomElements {}
+  }
+  export interface CSSProperties extends CustomCssProperties {}
+}
+
+declare module "react/jsx-runtime" {
+  namespace JSX {
+    interface IntrinsicElements extends CustomElements {}
+  }
+  export interface CSSProperties extends CustomCssProperties {}
+}
+
+declare module "react/jsx-dev-runtime" {
   namespace JSX {
     interface IntrinsicElements extends CustomElements {}
   }

@@ -2,9 +2,7 @@
 	"name": "playground-angular",
 	"version": "0.0.0",
 	"scripts": {
-		"ng": "ng",
 		"dev": "ng serve --port 3004",
-		"start": "ng serve",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test"
@@ -41,8 +39,8 @@
 		"@angular/build": "^22.1.8",
 		"@angular/cli": "^22.1.8",
 		"@angular/compiler-cli": "^22.1.6",
-		"@types/jasmine": "~6.0.0",
-		"jasmine-core": "~7.0.2",
+		"@types/jasmine": "~5.1.0",
+		"jasmine-core": "~5.9.0",
 		"karma": "~6.4.4",
 		"karma-chrome-launcher": "~3.2.0",
 		"karma-coverage": "~2.2.1",

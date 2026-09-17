@@ -165,7 +165,7 @@ pnpm install
 Start the documentation site or a framework playground:
 
 ```bash
-pnpm dev:docs       # Storybook at http://localhost:6006
+pnpm dev:docs       # documentation dev server
 pnpm dev:html       # http://localhost:3001
 pnpm dev:vue        # http://localhost:3002
 pnpm dev:react      # http://localhost:3003
@@ -175,9 +175,9 @@ pnpm dev:angular    # http://localhost:3004
 Useful package commands:
 
 ```bash
-pnpm build:components
+pnpm build:ui
 pnpm build:docs
-pnpm format
+pnpm lint
 ```
 
 ## License

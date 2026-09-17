@@ -22,6 +22,7 @@ export type EosImageGroupLayout = "grid" | "featured" | "pair";
 const HTMLElementBase = (globalThis.HTMLElement ??
 	class {}) as typeof HTMLElement;
 
+/** @customElement eos-image-group */
 export class EosImageGroup extends HTMLElementBase {
 	private _items: EosImageGroupItem[] = [];
 	private _layout: EosImageGroupLayout = "grid";

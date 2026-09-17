@@ -9,6 +9,7 @@ import { BUTTON_STYLES } from "./button.css";
 const HTMLElementBase = (globalThis.HTMLElement ??
 	class {}) as typeof HTMLElement;
 
+/** @customElement eos-button */
 export class EosButton extends HTMLElementBase {
 	private readonly shadow: ShadowRoot;
 	private themeObserver?: MutationObserver;

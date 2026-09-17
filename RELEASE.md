@@ -34,7 +34,7 @@ The Changesets config declares `@eosjs/utils` and `@eosjs/ui` as a linked releas
 Run these before pushing:
 
 ```bash
-pnpm format:check
+pnpm lint
 pnpm build
 ```
 

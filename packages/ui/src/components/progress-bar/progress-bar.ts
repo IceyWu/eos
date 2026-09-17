@@ -19,6 +19,7 @@ import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
 const HTMLElementBase = (globalThis.HTMLElement ??
 	class {}) as typeof HTMLElement;
 
+/** @customElement eos-progress-bar */
 export class EosProgressBar extends HTMLElementBase {
 	private _total = 0;
 	private _current = 0;

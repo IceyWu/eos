@@ -16,10 +16,13 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@eosjs/ui": resolve(
-				__dirname,
+				import.meta.dirname,
 				"../../packages/ui/src/index.ts",
 			),
-			"@eosjs/utils": resolve(__dirname, "../../packages/utils/src/index.ts"),
+			"@eosjs/utils": resolve(
+				import.meta.dirname,
+				"../../packages/utils/src/index.ts",
+			),
 		},
 	},
 	server: {

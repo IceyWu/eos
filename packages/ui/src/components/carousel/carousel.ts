@@ -20,6 +20,7 @@
 const HTMLElementBase = (globalThis.HTMLElement ??
 	class {}) as typeof HTMLElement;
 
+/** @customElement eos-carousel */
 export class EosCarousel extends HTMLElementBase {
 	// 内部状态
 	private currentIndex: number = 0;

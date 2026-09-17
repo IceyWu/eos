@@ -1,5 +1,5 @@
+import { formatSize } from "@eosjs/utils";
 import { decode } from "blurhash";
-import { formatSize } from "../../../../utils/src/index.ts";
 
 import { IMAGE_STYLES } from "./image.css";
 
@@ -389,6 +389,7 @@ class LazyLoadObserver {
 const HTMLElementBase = (globalThis.HTMLElement ??
 	class {}) as typeof HTMLElement;
 
+/** @customElement eos-image */
 export class EosImage extends HTMLElementBase {
 	// 配置常量
 	private static readonly CONFIG = {

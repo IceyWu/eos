@@ -165,7 +165,7 @@ pnpm install
 启动文档站点或各框架 playground：
 
 ```bash
-pnpm dev:docs       # Storybook：http://localhost:6006
+pnpm dev:docs       # 文档开发服务器
 pnpm dev:html       # http://localhost:3001
 pnpm dev:vue        # http://localhost:3002
 pnpm dev:react      # http://localhost:3003
@@ -175,9 +175,9 @@ pnpm dev:angular    # http://localhost:3004
 常用包命令：
 
 ```bash
-pnpm build:components
+pnpm build:ui
 pnpm build:docs
-pnpm format
+pnpm lint
 ```
 
 ## 许可证
