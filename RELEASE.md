@@ -27,7 +27,7 @@ Commit the generated `.changeset/*.md` file with the change.
 4. Merge the release pull request.
 5. The workflow builds the packages and publishes them to npm with Changesets.
 
-The Changesets config declares `@eosjs/utils` and `@eosjs/components` as a linked release group. Always review the generated release pull request before merging.
+The Changesets config declares `@eosjs/utils` and `@eosjs/ui` as a linked release group. Always review the generated release pull request before merging.
 
 ## Local checks
 

@@ -1,4 +1,4 @@
-import "../../../../../../packages/components/src/index.ts";
+import "../../../../../../packages/ui/src/index.ts";
 
 const slideStyle = {
 	alignItems: "center",

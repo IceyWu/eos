@@ -8,7 +8,7 @@ export default {
 		jsxTypesPlugin({
 			outdir: ".",
 			fileName: "jsx-types.d.ts",
-			globalTypePath: "@eosjs/components",
+			globalTypePath: "@eosjs/ui",
 		}),
 	],
 };

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../../../../../../packages/components/src/index.ts";
+import "../../../../../../packages/ui/src/index.ts";
 
 export default function Basic() {
 	const ref = useRef<HTMLElement>(null);

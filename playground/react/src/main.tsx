@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./styles.css";
-import { registerComponents } from "@eosjs/components";
+import { registerComponents } from "@eosjs/ui";
 import App from "./App.tsx";
 
 // 注册 Web Components

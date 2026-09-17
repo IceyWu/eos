@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../../../../../../packages/components/src/index.ts";
+import "../../../../../../packages/ui/src/index.ts";
 
 const labelStyle = {
 	color: "var(--eos-color-foreground-muted, #71717a)",

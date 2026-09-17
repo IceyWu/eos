@@ -1,308 +1,184 @@
-# Eos
+<p align="center">
+  <img src="./assets/eos-logo.svg" width="144" alt="EOS UI logo" />
+</p>
 
-基于 Web Components 技术栈的跨框架组件库，使用 pnpm monorepo 结构管理。
+<h1 align="center">EOS UI</h1>
 
-## 特性
+<p align="center">
+  Framework-agnostic Web Components for building consistent interfaces.<br />
+  One component model that works across HTML, React, Vue, and Angular.
+</p>
 
-- ✅ **跨框架兼容**: 支持在 React、Vue、Angular 等任何前端框架中使用
-- ✅ **原生支持**: 基于浏览器原生 Web Components API
-- ✅ **零依赖**: 无需额外的运行时库
-- ✅ **样式隔离**: 使用 Shadow DOM 实现样式封装
-- ✅ **TypeScript**: 完整的类型支持
-- ✅ **可配置前缀**: 组件前缀可配置，默认为 `eos`
+<p align="center">
+  <a href="./README.zh-CN.md">简体中文</a> · English
+</p>
 
-## 项目结构
+<p align="center">
+  <a href="https://github.com/IceyWu/eos"><img src="https://img.shields.io/badge/Web%20Components-Custom%20Elements-111827" alt="Web Components" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-6.0-3178C6" alt="TypeScript" /></a>
+  <a href="https://pnpm.io/workspaces"><img src="https://img.shields.io/badge/pnpm-workspace-F69220" alt="pnpm workspace" /></a>
+  <a href="https://github.com/IceyWu/eos"><img src="https://img.shields.io/badge/license-MIT-111827" alt="MIT license" /></a>
+</p>
 
+EOS UI is a lightweight component library built on the browser's native Web Components platform. Components are distributed as custom elements, so the same API can be used in a plain HTML page or inside a framework application.
+
+## Features
+
+- Framework-agnostic custom elements for HTML, React, Vue, and Angular.
+- Shadow DOM encapsulation for component styles.
+- TypeScript declarations and generated Custom Elements Manifest metadata.
+- Explicit registration with `registerComponents()` and safe browser-side auto-registration.
+- Image loading primitives with lazy loading, eager loading, progress, and BlurHash placeholders.
+- A pnpm workspace containing the component package, documentation, and framework playgrounds.
+
+## Installation
+
+```bash
+pnpm add @eosjs/ui
 ```
-eos/
-├── packages/
-│   └── components/          # 组件库核心包 (@eosjs/components)
-│       ├── src/
-│       │   ├── components/
-│       │   │   ├── button/
-│       │   │   └── carousel/
-│       │   ├── config.ts    # 组件配置（前缀等）
-│       │   └── index.ts
-│       └── package.json
-├── docs/                    # 文档站点
-├── playground/              # 演示环境
-│   ├── html/               # 原生 HTML 演示
-│   ├── vue/                # Vue 3 + TypeScript 演示
-│   ├── react/              # React + TypeScript 演示
-│   └── angular/            # Angular + TypeScript 演示
-├── package.json
-└── pnpm-workspace.yaml
-```
 
-## 快速开始
-
-### 安装依赖
+If you are working from this repository before a package release, install the workspace dependencies first and use the local package through the playgrounds or documentation app:
 
 ```bash
 pnpm install
 ```
 
-### 构建组件库
+## Quick start
 
-```bash
-# 构建组件库
-pnpm build
+Import the package and register the elements once in your application entry point:
 
-# 或者开发模式（watch）
-pnpm dev
+```ts
+import { registerComponents } from "@eosjs/ui";
+
+registerComponents();
 ```
 
-### 运行演示
-
-```bash
-# 运行文档站点 (http://localhost:3000)
-pnpm dev:docs
-
-# 运行 HTML 演示 (http://localhost:3001)
-pnpm dev:html
-
-# 运行 Vue 演示 (http://localhost:3002)
-pnpm dev:vue
-
-# 运行 React 演示 (http://localhost:3003)
-pnpm dev:react
-
-# 运行 Angular 演示 (http://localhost:3004)
-pnpm dev:angular
-
-# 注意：首次运行前需要先构建组件库
-pnpm build
-```
-
-## 使用示例
-
-### 原生 HTML
+Then use the custom elements directly:
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Eos Demo</title>
-</head>
-<body>
-  <eos-button>Click me</eos-button>
+<eos-button>Click me</eos-button>
 
-  <script type="module">
-    import { registerComponents } from '@eosjs/components';
-    registerComponents();
-
-    document.querySelector('eos-button').addEventListener('e-click', (e) => {
-      console.log(e.detail.message);
-    });
-  </script>
-</body>
-</html>
+<eos-carousel autoplay loop interval="3000">
+  <eos-image
+    src="/images/one.jpg"
+    alt="First image"
+    loading="eager"
+  ></eos-image>
+  <eos-image
+    src="/images/two.jpg"
+    alt="Second image"
+    placeholder="LEHV6nWB2y..."
+    placeholder-type="blurhash"
+  ></eos-image>
+</eos-carousel>
 ```
 
-### Vue 3 + TypeScript
+The package also exports the component classes, `COMPONENT_CONFIG`, `registerComponents()`, and `registerComponent()` for advanced integrations.
 
-```vue
-<template>
-  <eos-button @e-click="handleClick">Click me</eos-button>
-</template>
+## Frameworks
 
-<script setup lang="ts">
-import { onMounted } from 'vue';
-import { registerComponents } from '@eosjs/components';
-
-onMounted(() => {
-  registerComponents();
-});
-
-const handleClick = (e: CustomEvent) => {
-  console.log(e.detail.message);
-};
-</script>
-```
-
-### React + TypeScript
+### React
 
 ```tsx
-import { useEffect, useRef } from 'react';
-import { registerComponents } from '@eosjs/components';
+import "@eosjs/ui";
 
-// 声明自定义元素类型
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'eos-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
-    }
-  }
-}
-
-function App() {
-  const buttonRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    registerComponents();
-    
-    const handleClick = (e: Event) => {
-      const customEvent = e as CustomEvent;
-      console.log(customEvent.detail.message);
-    };
-    
-    buttonRef.current?.addEventListener('e-click', handleClick);
-    return () => {
-      buttonRef.current?.removeEventListener('e-click', handleClick);
-    };
-  }, []);
-
-  return <eos-button ref={buttonRef}>Click me</eos-button>;
+export function App() {
+  return <eos-button>Click me</eos-button>;
 }
 ```
 
-### Angular + TypeScript
+Add `node_modules/@eosjs/ui/jsx-types.d.ts` to your `tsconfig.json` `include` list when your editor needs custom-element JSX types.
 
-```typescript
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { registerComponents } from '@eosjs/components';
+### Vue
+
+```vue
+<script setup lang="ts">
+import "@eosjs/ui";
+</script>
+
+<template>
+  <eos-button>Click me</eos-button>
+</template>
+```
+
+Configure your Vue compiler to treat tags beginning with `eos-` as custom elements.
+
+### Angular
+
+```ts
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  template: '<eos-button>Click me</eos-button>',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  selector: "app-root",
+  template: "<eos-button>Click me</eos-button>",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppComponent implements OnInit {
-  ngOnInit() {
-    registerComponents();
-    
-    const button = document.querySelector('eos-button');
-    button?.addEventListener('e-click', (e: Event) => {
-      const customEvent = e as CustomEvent;
-      console.log(customEvent.detail.message);
-    });
-  }
-}
+export class AppComponent {}
 ```
 
-## 组件列表
+### Plain HTML
 
-### eos-button
+```html
+<script type="module">
+  import { registerComponents } from "@eosjs/ui";
+  registerComponents();
+</script>
 
-一个简单的按钮组件。
-
-**标签名**: `eos-button`
-
-**Slots**:
-
-- `default`: 按钮文本内容
-
-**Events**:
-
-- `e-click`: 按钮点击时触发
-  - `detail.message`: 事件消息 (string)
-
-### eos-carousel
-
-类似抖音 Web 版风格的轮播图组件，支持自动播放、手动导航、触摸滑动等功能。
-
-**标签名**: `eos-carousel`
-
-**Attributes**:
-
-- `autoplay`: 是否自动播放（布尔属性）
-- `interval`: 自动播放间隔时间（毫秒），默认 3000，最小值 1000
-- `loop`: 是否循环播放（布尔属性）
-- `show-navigation`: 是否显示导航按钮（上一个/下一个），默认 true
-- `initial-index`: 初始显示的幻灯片索引，默认 0
-- `indicator-position`: 指示器位置，可选值：`top` | `bottom` | `left` | `right`，默认 `bottom`
-- `indicator-style`: 指示器样式，可选值：`default`（进度条） | `dots`（圆点） | `tiktok`（抖音风格），默认 `default`
-
-**Slots**:
-
-- `default`: 轮播项内容（通常是图片或视频元素）
-
-**Events**:
-
-- `change`: 切换幻灯片时触发
-  - `detail.currentIndex`: 当前索引 (number)
-  - `detail.previousIndex`: 上一个索引 (number)
-- `slide-click`: 点击幻灯片时触发
-  - `detail.index`: 被点击的幻灯片索引 (number)
-- `slide-active`: 幻灯片激活时触发
-  - `detail.index`: 激活的幻灯片索引 (number)
-  - `detail.slide`: 幻灯片元素
-  - `detail.mediaType`: 媒体类型 (string)
-
-**Methods**:
-
-- `next()`: 切换到下一张
-- `prev()`: 切换到上一张
-- `goTo(index: number)`: 切换到指定索引
-- `play()`: 开始自动播放
-- `pause()`: 暂停自动播放
-- `updateProgress(progress: number)`: 更新当前幻灯片的自定义进度（0-100）
-- `enableCustomProgress()`: 启用自定义进度模式（用于视频）
-- `disableCustomProgress()`: 禁用自定义进度模式
-
-## 配置
-
-### 组件前缀
-
-组件前缀在 `packages/components/src/config.ts` 中配置：
-
-```typescript
-export const COMPONENT_CONFIG = {
-  prefix: 'e',  // 可以修改为其他前缀
-  
-  getTagName(componentName: string): string {
-    return `${this.prefix}-${componentName}`;
-  }
-};
+<eos-button>Click me</eos-button>
 ```
 
-修改 `prefix` 后，所有组件的标签名都会相应改变。例如：
+## Components
 
-- `prefix: 'e'` → `<eos-button>`
-- `prefix: 'eos'` → `<eos-button>`
-- `prefix: 'my'` → `<my-button>`
+| Element | Purpose |
+| --- | --- |
+| `eos-button` | A configurable button with loading and disabled states. |
+| `eos-carousel` | A responsive carousel with autoplay, navigation, touch gestures, indicators, and virtualized rendering. |
+| `eos-image` | An image element with lazy loading, loading progress, and BlurHash placeholders. |
+| `eos-progress-bar` | A standalone progress indicator or the progress layer used by `eos-carousel`. |
+| `eos-scrollbar` | A customizable scrollbar for horizontal, vertical, and auto-hide scrolling. |
 
-## 开发
+See the [component package README](./packages/ui/README.md) for API details, attributes, events, methods, and framework type configuration.
 
-### 添加新组件
+## Repository layout
 
-1. 在 `packages/components/src/components/` 下创建新组件目录
-2. 创建组件类继承 `HTMLElement`
-3. 在 `packages/components/src/index.ts` 中导出并注册组件
-
-示例：
-
-```typescript
-// packages/components/src/components/input/input.ts
-export class EosInput extends HTMLElement {
-  // 组件实现
-}
-
-// packages/components/src/index.ts
-import { EosInput } from './components/input/input';
-
-const COMPONENTS: ComponentRegistration[] = [
-  { name: 'button', component: EosButton },
-  { name: 'input', component: EosInput }  // 添加新组件
-];
+```text
+eos/
+├── packages/
+│   ├── components/          # @eosjs/ui
+│   └── utils/               # Shared utilities
+├── docs/                    # Storybook documentation
+├── playground/
+│   ├── html/                # Native HTML playground
+│   ├── vue/                 # Vue 3 playground
+│   ├── react/               # React playground
+│   └── angular/             # Angular playground
+├── assets/                  # Repository branding assets
+└── pnpm-workspace.yaml
 ```
 
-### 构建
+## Development
 
 ```bash
-# 构建组件库
-pnpm build
-
-# 构建文档
-pnpm build:docs
+pnpm install
 ```
 
-## 技术栈
+Start the documentation site or a framework playground:
 
-- **包管理**: pnpm workspace
-- **开发语言**: TypeScript
-- **构建工具**: Rollup + tsc
-- **组件技术**: Web Components (Custom Elements v1, Shadow DOM)
+```bash
+pnpm dev:docs       # Storybook at http://localhost:6006
+pnpm dev:html       # http://localhost:3001
+pnpm dev:vue        # http://localhost:3002
+pnpm dev:react      # http://localhost:3003
+pnpm dev:angular    # http://localhost:3004
+```
+
+Useful package commands:
+
+```bash
+pnpm build:components
+pnpm build:docs
+pnpm format
+```
 
 ## License
 

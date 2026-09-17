@@ -1,4 +1,4 @@
-import '@eosjs/components';
+import '@eosjs/ui';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
@@ -219,7 +219,7 @@ export default function Home({
         <h2>Start building with EOS now</h2>
         <p>Open-source primitives for interfaces that work across frameworks.</p>
         <div className="eos-home__install">
-          <code>pnpm add @eosjs/components</code>
+          <code>pnpm add @eosjs/ui</code>
         </div>
         <p className="eos-home__closing-note">
           Open source · MIT license · <Link to={getStartedPathname}>Get Started →</Link>

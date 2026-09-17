@@ -1,5 +1,5 @@
 {
-	"name": "@eosjs/components",
+	"name": "@eosjs/ui",
 	"version": "0.1.5",
 	"type": "module",
 	"main": "./dist/bundle.js",
@@ -37,8 +37,8 @@
 		"@rollup/plugin-node-resolve": "^16.0.3",
 		"@rollup/plugin-terser": "^1.0.0",
 		"@rollup/plugin-typescript": "^12.3.0",
-		"@wc-toolkit/jsx-types": "^1.5.2",
-		"rollup": "^4.60.1",
+		"@wc-toolkit/jsx-types": "^1.8.2",
+		"rollup": "^4.63.3",
 		"typescript": "^6.0.2"
 	},
 	"publishConfig": {

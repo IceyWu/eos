@@ -9,7 +9,7 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
     alias: {
-      '@eosjs/components': fileURLToPath(new URL('../packages/components/src/index.ts', import.meta.url)),
+      '@eosjs/ui': fileURLToPath(new URL('../packages/ui/src/index.ts', import.meta.url)),
       '@eosjs/utils': fileURLToPath(new URL('../packages/utils/src/index.ts', import.meta.url)),
     },
   },

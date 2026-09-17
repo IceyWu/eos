@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../../../../../../packages/components/src/index.ts";
+import "../../../../../../packages/ui/src/index.ts";
 import { images } from "./data";
 
 type ImageGroupElement = HTMLElement & {

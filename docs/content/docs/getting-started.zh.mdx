@@ -8,9 +8,9 @@ description: 安装 EOS Web Components，并在支持的框架中使用它们。
 使用你习惯的包管理器安装：
 
 ```bash
-npm install @eosjs/components
-yarn add @eosjs/components
-pnpm add @eosjs/components
+npm install @eosjs/ui
+yarn add @eosjs/ui
+pnpm add @eosjs/ui
 ```
 
 ## 框架集成
@@ -20,7 +20,7 @@ EOS 自定义元素可以直接用于 React、Vue、Angular 和原生 HTML。
 ### React
 
 ```tsx
-import '@eosjs/components';
+import '@eosjs/ui';
 
 export function App() {
   return <eos-button>开始使用</eos-button>;
@@ -31,7 +31,7 @@ export function App() {
 
 ```vue
 <template><eos-button>开始使用</eos-button></template>
-<script setup>import '@eosjs/components';</script>
+<script setup>import '@eosjs/ui';</script>
 ```
 
 ### Angular
@@ -42,7 +42,7 @@ export function App() {
 
 ```html
 <script type="module">
-  import '@eosjs/components';
+  import '@eosjs/ui';
 </script>
 <eos-button>开始使用</eos-button>
 ```

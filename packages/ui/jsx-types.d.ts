@@ -5,7 +5,7 @@ import type {
   EosImageGroup,
   EosProgressBar,
   EosScrollbar,
-} from "@eosjs/components";
+} from "@eosjs/ui";
 
 /**
  * This type can be used to create scoped tags for your components.

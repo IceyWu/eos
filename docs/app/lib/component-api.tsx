@@ -1,4 +1,4 @@
-import manifest from '../../../packages/components/custom-elements.json';
+import manifest from '../../../packages/ui/custom-elements.json';
 import { getLocaleConfig } from './i18n';
 
 type ApiDeclaration = {

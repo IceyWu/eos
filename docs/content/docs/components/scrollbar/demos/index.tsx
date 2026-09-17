@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "../../../../../../packages/components/src/index.ts";
+import "../../../../../../packages/ui/src/index.ts";
 
 export default function Basic() {
 	const containerRef = useRef<HTMLDivElement>(null);

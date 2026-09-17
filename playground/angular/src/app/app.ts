@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { registerComponents } from "@eosjs/components";
+import { registerComponents } from "@eosjs/ui";
 
 registerComponents();
 

@@ -70,7 +70,7 @@ Icons are passed through named slots; the component does not depend on a framewo
 
 ```tsx
 import { useEffect, useRef } from 'react';
-import '@eosjs/components';
+import '@eosjs/ui';
 
 export function MyButton() {
   const ref = useRef<HTMLElement>(null);
@@ -96,7 +96,7 @@ export function MyButton() {
 </template>
 
 <script setup>
-import '@eosjs/components';
+import '@eosjs/ui';
 
 function handleClick(event) {
   console.log('clicked:', event.type);
@@ -108,7 +108,7 @@ function handleClick(event) {
 
 ```ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import '@eosjs/components';
+import '@eosjs/ui';
 
 @Component({
   selector: 'app-button',
@@ -126,7 +126,7 @@ export class ButtonComponent {
 
 ```html
 <script type="module">
-  import '@eosjs/components';
+  import '@eosjs/ui';
   document.querySelector('eos-button').addEventListener('click', (event) => {
     console.log('clicked:', event.type);
   });

@@ -1,10 +1,10 @@
-# @eosjs/components
+# @eosjs/ui
 
 > 🎨 轻量级 Web Components 组件库
 
-[![npm version](https://img.shields.io/npm/v/@eosjs/components.svg)](https://www.npmjs.com/package/@eosjs/components)
-[![npm downloads](https://img.shields.io/npm/dm/@eosjs/components.svg)](https://www.npmjs.com/package/@eosjs/components)
-[![license](https://img.shields.io/npm/l/@eosjs/components.svg)](https://github.com/IceyWu/lume/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@eosjs/ui.svg)](https://www.npmjs.com/package/@eosjs/ui)
+[![npm downloads](https://img.shields.io/npm/dm/@eosjs/ui.svg)](https://www.npmjs.com/package/@eosjs/ui)
+[![license](https://img.shields.io/npm/l/@eosjs/ui.svg)](https://github.com/IceyWu/lume/blob/main/LICENSE)
 
 基于原生 Web Components 技术构建的轻量级组件库，支持在任何框架中使用。
 
@@ -18,7 +18,7 @@
 ## 📦 安装
 
 ```bash
-pnpm add @eosjs/components
+pnpm add @eosjs/ui
 ```
 
 ## 🚀 快速开始
@@ -27,7 +27,7 @@ pnpm add @eosjs/components
 
 ```html
 <script type="module">
-  import { registerComponents } from "@eosjs/components";
+  import { registerComponents } from "@eosjs/ui";
   registerComponents();
 </script>
 
@@ -38,7 +38,7 @@ pnpm add @eosjs/components
 ### React
 
 ```tsx
-import { registerComponents } from "@eosjs/components";
+import { registerComponents } from "@eosjs/ui";
 registerComponents();
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
 
 ```vue
 <script setup>
-import { registerComponents } from "@eosjs/components";
+import { registerComponents } from "@eosjs/ui";
 registerComponents();
 </script>
 
@@ -76,7 +76,7 @@ registerComponents();
 
 ```json
 {
-  "include": ["src", "node_modules/@eosjs/components/jsx-types.d.ts"]
+  "include": ["src", "node_modules/@eosjs/ui/jsx-types.d.ts"]
 }
 ```
 
@@ -200,7 +200,7 @@ pnpm dev:angular # Angular playground :3004
 pnpm build
 
 # 单独生成类型
-pnpm --filter @eosjs/components analyze
+pnpm --filter @eosjs/ui analyze
 ```
 
 ## 📄 License

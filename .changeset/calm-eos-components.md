@@ -1,5 +1,5 @@
 ---
-"@eosjs/components": minor
+"@eosjs/ui": minor
 ---
 
-Refactor the component demos and documentation, and improve theme-aware interaction behavior across the component library.
+Rename the component package to `@eosjs/ui`, and refactor the component demos and documentation around the new public package name.

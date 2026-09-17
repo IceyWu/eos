@@ -8,9 +8,9 @@ description: Install EOS Web Components and use them from any supported framewor
 Install the package with your preferred package manager:
 
 ```bash
-npm install @eosjs/components
-yarn add @eosjs/components
-pnpm add @eosjs/components
+npm install @eosjs/ui
+yarn add @eosjs/ui
+pnpm add @eosjs/ui
 ```
 
 ## Framework integration
@@ -19,7 +19,7 @@ pnpm add @eosjs/components
 
 ```tsx
 import { useEffect, useRef } from "react";
-import "@eosjs/components";
+import "@eosjs/ui";
 
 export function App() {
   const buttonRef = useRef<HTMLElement>(null);
@@ -47,7 +47,7 @@ export function App() {
 </template>
 
 <script setup>
-import '@eosjs/components';
+import '@eosjs/ui';
 
 const handleClick = (event) => console.log('Clicked:', event);
 </script>
@@ -59,7 +59,7 @@ In Angular, add `CUSTOM_ELEMENTS_SCHEMA` to use EOS custom elements:
 
 ```ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import "@eosjs/components";
+import "@eosjs/ui";
 
 @Component({
   selector: "app-root",
@@ -79,7 +79,7 @@ export class AppComponent {}
 
 ```html
 <script type="module">
-  import "@eosjs/components";
+  import "@eosjs/ui";
 
   document.querySelector("eos-button").addEventListener("click", (event) => {
     console.log("Clicked:", event);

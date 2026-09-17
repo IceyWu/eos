@@ -1,4 +1,4 @@
-import { registerComponents } from "@eosjs/components";
+import { registerComponents } from "@eosjs/ui";
 import "./style.css";
 
 registerComponents();

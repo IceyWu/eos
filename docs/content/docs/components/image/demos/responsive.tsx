@@ -1,4 +1,4 @@
-import "../../../../../../packages/components/src/index.ts";
+import "../../../../../../packages/ui/src/index.ts";
 import { alt, source } from "./data";
 
 export default function Responsive() {

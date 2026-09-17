@@ -2,7 +2,7 @@
 
 Eos Web Components demo with Angular.
 
-This project demonstrates how to use `@eosjs/components` in an Angular application.
+This project demonstrates how to use `@eosjs/ui` in an Angular application.
 
 ## Development server
 

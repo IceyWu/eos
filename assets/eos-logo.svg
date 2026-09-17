@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">EOS UI logo</title>
+  <desc id="desc">An abstract black organic mark with a sculpted white counterform.</desc>
+  <path
+    fill="#111827"
+    fill-rule="evenodd"
+    d="M45 192c-14-19-14-45-2-66 15-27 43-51 73-65 34-16 69-15 91 2 15 11 20 25 14 36-6 10-17 11-27 4-15-10-30-18-47-16-18 2-33 12-40 25-8 14-5 27 6 36 11 9 24 12 38 11 17-2 33 5 38 17 5 14-2 28-17 35-21 10-53 8-81 0-21-6-37-13-46-19Zm65-75c9-16 26-24 44-22-13 10-18 21-14 31 4 11 14 19 29 22-15 7-32 5-44-2-12-7-19-17-15-29Z"
+  />
+</svg>
