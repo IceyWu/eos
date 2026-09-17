@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { getLocaleConfig } from '@/lib/i18n';
+import { withDocsTrailingSlash } from '@/lib/shared';
 import './home.css';
 
 const platforms = ['Web Components', 'React', 'Vue', 'Angular', 'HTML'];
@@ -105,7 +106,7 @@ export default function Home({
   locale: string;
 }) {
   const navigate = useNavigate();
-  const docsPath = (path: string) => `${getLocaleConfig(locale).prefix}${path}`;
+  const docsPath = (path: string) => withDocsTrailingSlash(`${getLocaleConfig(locale).prefix}${path}`);
 
   return (
     <main className="eos-home">

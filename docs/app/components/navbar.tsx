@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router';
 import { FullSearchTrigger } from 'fumadocs-ui/layouts/shared/slots/search-trigger';
 import { LanguageSelect, LanguageSelectText } from 'fumadocs-ui/layouts/shared/slots/language-select';
 import { ThemeSwitch } from 'fumadocs-ui/layouts/shared/slots/theme-switch';
-import { gitConfig, appName } from '@/lib/shared';
+import { gitConfig, appName, withDocsTrailingSlash } from '@/lib/shared';
 import { getLocaleConfig, localizePath } from '@/lib/i18n';
 
 export default function EosNavbar({ locale = 'en' }: { locale?: string }) {
@@ -15,7 +15,7 @@ export default function EosNavbar({ locale = 'en' }: { locale?: string }) {
   const { prefix } = getLocaleConfig(locale);
   const links = [
     [locale === 'zh' ? '首页' : 'Home', prefix || '/', 'url'],
-    [locale === 'zh' ? '组件' : 'Components', localizePath(locale, '/docs/components/button'), 'nested-url'],
+    [locale === 'zh' ? '组件' : 'Components', withDocsTrailingSlash(localizePath(locale, '/docs/components/button')), 'nested-url'],
   ] as const;
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { useParams } from 'react-router';
 import { baseOptions } from '@/lib/layout.shared';
 import { getLocaleConfig, i18n, localizePath } from '@/lib/i18n';
+import { withDocsTrailingSlash } from '@/lib/shared';
 
 export default function Home() {
   const { lang = i18n.defaultLanguage } = useParams();
@@ -12,7 +13,7 @@ export default function Home() {
     <HomeLayout {...baseOptions(lang)}>
       <EosHome
         description={config.homeDescription}
-        getStartedPathname={localizePath(lang, '/docs/getting-started')}
+        getStartedPathname={withDocsTrailingSlash(localizePath(lang, '/docs/getting-started'))}
         locale={lang}
       />
     </HomeLayout>
