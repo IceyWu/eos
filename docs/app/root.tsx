@@ -41,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="flex flex-col min-h-screen">
+        <div aria-hidden="true" className="eos-ambient-glow" />
         <RootProvider i18n={i18nProvider(translations, lang)} search={{ SearchDialog }}>
           {children}
         </RootProvider>

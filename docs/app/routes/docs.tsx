@@ -92,7 +92,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
   const { pageTree, path, markdownUrl, locale } = useFumadocsLoader(loaderData);
 
   return (
-    <DocsLayout {...baseOptions(locale)} tree={pageTree}>
+    <DocsLayout {...baseOptions(locale)} sidebar={{ collapsible: false }} tree={pageTree}>
       <Content path={path} locale={locale} markdownUrl={markdownUrl} />
     </DocsLayout>
   );

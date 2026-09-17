@@ -1,31 +1,153 @@
-import { Link } from 'react-router';
-import './home.css';
+import '@eosjs/components';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { getLocaleConfig } from '@/lib/i18n';
+import './home.css';
 
-export default function Home({ description, getStartedPathname, locale }: { description: string; getStartedPathname: string; locale: string }) {
+const platforms = ['Web Components', 'React', 'Vue', 'Angular', 'HTML'];
+const imageBlurhash = 'LTE3P2_4xvay_4_3xuay_3-;ayR%';
+
+function ComponentCard({
+  children,
+  className = '',
+  description,
+  title,
+  to,
+}: {
+  children: ReactNode;
+  className?: string;
+  description: string;
+  title: string;
+  to: string;
+}) {
+  return (
+    <article className={`eos-home__card ${className}`.trim()}>
+      <Link aria-label={`View ${title} documentation`} className="eos-home__card-link" to={to}>
+        <span>
+          <strong>{title}</strong>
+          <small>{description}</small>
+        </span>
+        <ArrowUpRight aria-hidden="true" size={16} strokeWidth={1.75} />
+      </Link>
+      <div className="eos-home__card-preview">{children}</div>
+    </article>
+  );
+}
+
+function ProgressPreview() {
+  const progressRef = useRef<HTMLElement>(null);
+  const [current, setCurrent] = useState(2);
+
+  useEffect(() => {
+    const progress = progressRef.current;
+    const handleSegmentClick = (event: Event) => {
+      setCurrent((event as CustomEvent<{ index: number }>).detail.index);
+    };
+
+    progress?.addEventListener('segment-click', handleSegmentClick);
+    return () => progress?.removeEventListener('segment-click', handleSegmentClick);
+  }, []);
+
+  return (
+    <div className="eos-home__progress-preview">
+      <eos-progress-bar
+        ref={progressRef}
+        current={String(current)}
+        suppressHydrationWarning
+        total="5"
+        variant="tiktok"
+      />
+      <span>Step {current + 1} of 5</span>
+    </div>
+  );
+}
+
+function ScrollbarPreview() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const scrollbarRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const scrollbar = scrollbarRef.current as HTMLElement & {
+      attach?: (element: HTMLElement) => void;
+      detach?: () => void;
+    };
+    const content = contentRef.current;
+
+    if (content && scrollbar.attach) scrollbar.attach(content);
+    return () => scrollbar.detach?.();
+  }, []);
+
+  return (
+    <div className="eos-home__scroll-preview">
+      <div ref={contentRef} className="eos-home__scroll-content">
+        {Array.from({ length: 6 }, (_, index) => (
+          <span key={index}>Scrollable item {String(index + 1).padStart(2, '0')}</span>
+        ))}
+      </div>
+      <eos-scrollbar
+        ref={scrollbarRef}
+        direction="vertical"
+        suppressHydrationWarning
+        thumb-size="6"
+      />
+    </div>
+  );
+}
+
+export default function Home({
+  description,
+  getStartedPathname,
+  locale,
+}: {
+  description: string;
+  getStartedPathname: string;
+  locale: string;
+}) {
+  const navigate = useNavigate();
   const docsPath = (path: string) => `${getLocaleConfig(locale).prefix}${path}`;
 
   return (
     <main className="eos-home">
       <section className="eos-home__hero">
-        <h1>EOS <span>UI Kit</span></h1>
+        <h1>
+          EOS <span>UI Kit</span>
+        </h1>
         <p>{description}</p>
         <div className="eos-home__actions">
-          <a className="eos-button eos-button--github" href="https://github.com/IceyWu/eos" rel="noreferrer" target="_blank">
-            <svg aria-hidden="true" height="16" viewBox="0 0 24 24" width="16"><path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.71.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .08 1.52 1.06 1.52 1.06.9 1.58 2.35 1.12 2.92.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.02-2.75-.1-.26-.44-1.3.1-2.71 0 0 .83-.27 2.75 1.05A9.18 9.18 0 0 1 12 6.98c.84 0 1.68.12 2.46.36 1.92-1.32 2.75-1.05 2.75-1.05.54 1.41.2 2.45.1 2.71.63.72 1.02 1.63 1.02 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9v1.42c0 .27.18.6.69.49A10.27 10.27 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z" fill="currentColor" /></svg>
+          <eos-button
+            size="lg"
+            suppressHydrationWarning
+            variant="outline"
+            onClick={() => window.open('https://github.com/IceyWu/eos', '_blank', 'noopener,noreferrer')}
+          >
             GitHub
-          </a>
-          <Link className="eos-button eos-button--outline" to={getStartedPathname}>Get Started <span aria-hidden="true">→</span></Link>
+          </eos-button>
+          <eos-button
+            size="lg"
+            suppressHydrationWarning
+            variant="solid"
+            onClick={() => navigate(getStartedPathname)}
+          >
+            Get Started
+            <ArrowRight aria-hidden="true" slot="end" />
+          </eos-button>
         </div>
-        <div className="eos-home__ecosystem" aria-label="Supported platforms">
+        <div aria-label="Supported platforms" className="eos-home__ecosystem">
           <div className="eos-home__ecosystem-track">
-            {['Web Components', 'React', 'Vue', 'Angular', 'HTML'].map((item) => (
-              <span key={item}><b>{item.slice(0, 1)}</b>{item}</span>
+            {platforms.map((item) => (
+              <span key={item}>
+                <b>{item.slice(0, 1)}</b>
+                {item}
+              </span>
             ))}
           </div>
           <div aria-hidden="true" className="eos-home__ecosystem-track">
-            {['Web Components', 'React', 'Vue', 'Angular', 'HTML'].map((item) => (
-              <span key={item}><b>{item.slice(0, 1)}</b>{item}</span>
+            {platforms.map((item) => (
+              <span key={item}>
+                <b>{item.slice(0, 1)}</b>
+                {item}
+              </span>
             ))}
           </div>
         </div>
@@ -38,34 +160,70 @@ export default function Home({ description, getStartedPathname, locale }: { desc
           <p>5 focused components — every example below is a live render, not a screenshot.</p>
         </div>
         <div className="eos-home__cards">
-          <Link className="eos-home__card eos-home__card--large" to={docsPath('/docs/components/button')}>
-            <strong>Button</strong><span>events · variants · CSS variables</span>
-            <div className="eos-home__card-preview"><span>Try the button</span></div>
-          </Link>
-          <Link className="eos-home__card" to={docsPath('/docs/components/carousel')}>
-            <strong>Carousel</strong><span>touch · keyboard · autoplay</span>
-            <div className="eos-home__carousel-mark"><i /><i /><i /></div>
-          </Link>
-          <Link className="eos-home__card" to={docsPath('/docs/components/image')}>
-            <strong>Image</strong><span>lazy loading · placeholders</span>
-            <div className="eos-home__image-mark" />
-          </Link>
-          <Link className="eos-home__card" to={docsPath('/docs/components/progress-bar')}>
-            <strong>ProgressBar</strong><span>steps · loading · navigation</span>
-            <div className="eos-home__progress-mark"><i /><i /><i /><i /></div>
-          </Link>
-          <Link className="eos-home__card" to={docsPath('/docs/components/scrollbar')}>
-            <strong>Scrollbar</strong><span>drag · virtual scroll</span>
-            <div className="eos-home__scroll-mark"><i /></div>
-          </Link>
+          <ComponentCard
+            className="eos-home__card--half"
+            description="events · variants · CSS variables"
+            title="Button"
+            to={docsPath('/docs/components/button')}
+          >
+            <eos-button size="lg" suppressHydrationWarning variant="solid">
+              Try the button
+            </eos-button>
+          </ComponentCard>
+          <ComponentCard
+            className="eos-home__card--half"
+            description="touch · keyboard · autoplay"
+            title="Carousel"
+            to={docsPath('/docs/components/carousel')}
+          >
+            <eos-carousel autoplay interval="3200" loop suppressHydrationWarning>
+              <div className="eos-home__slide eos-home__slide--violet">SLIDE / 01</div>
+              <div className="eos-home__slide eos-home__slide--rose">SLIDE / 02</div>
+              <div className="eos-home__slide eos-home__slide--cyan">SLIDE / 03</div>
+            </eos-carousel>
+          </ComponentCard>
+          <ComponentCard
+            className="eos-home__card--third"
+            description="lazy loading · BlurHash"
+            title="Image"
+            to={docsPath('/docs/components/image')}
+          >
+            <eos-image
+              alt="BlurHash landscape preview"
+              loading="eager"
+              src={imageBlurhash}
+              src-type="blurhash"
+              suppressHydrationWarning
+            />
+          </ComponentCard>
+          <ComponentCard
+            className="eos-home__card--third"
+            description="steps · loading · navigation"
+            title="ProgressBar"
+            to={docsPath('/docs/components/progress-bar')}
+          >
+            <ProgressPreview />
+          </ComponentCard>
+          <ComponentCard
+            className="eos-home__card--third"
+            description="drag · synchronized scrolling"
+            title="Scrollbar"
+            to={docsPath('/docs/components/scrollbar')}
+          >
+            <ScrollbarPreview />
+          </ComponentCard>
         </div>
       </section>
 
       <section className="eos-home__closing">
         <h2>Start building with EOS now</h2>
         <p>Open-source primitives for interfaces that work across frameworks.</p>
-        <div className="eos-home__install"><code>pnpm add @eosjs/components</code></div>
-        <p className="eos-home__closing-note">Open source · MIT license · <Link to={getStartedPathname}>Get Started →</Link></p>
+        <div className="eos-home__install">
+          <code>pnpm add @eosjs/components</code>
+        </div>
+        <p className="eos-home__closing-note">
+          Open source · MIT license · <Link to={getStartedPathname}>Get Started →</Link>
+        </p>
       </section>
     </main>
   );

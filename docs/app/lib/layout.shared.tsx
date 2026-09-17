@@ -1,7 +1,7 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import { uiTranslations } from 'fumadocs-ui/i18n';
-import { appName, gitConfig } from './shared';
 import { i18n } from './i18n';
+import EosNavbar from '@/components/navbar';
 
 export const translations = i18n
   .translations()
@@ -19,9 +19,14 @@ export const translations = i18n
 export function baseOptions(locale: string = i18n.defaultLanguage): BaseLayoutProps {
   return {
     nav: {
-      title: appName,
+      title: null,
+      component: <EosNavbar locale={locale} />,
     },
-    githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
     i18n,
+    slots: {
+      searchTrigger: false,
+      languageSelect: false,
+      themeSwitch: false,
+    },
   };
 }
