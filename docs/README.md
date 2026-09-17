@@ -27,7 +27,7 @@ corepack pnpm build:docs
 
 - `package.json`：文档站点专属依赖和脚本
 - `app/`：Fumadocs 页面、主题和 EOS Demo 兼容层
-- `../packages/components/src/components/**/index.mdx`：组件文档
-- `../packages/components/src/components/**/demos/*.tsx`：交互式组件示例
+- `content/docs/components/**/index.mdx`：组件文档
+- `content/docs/components/**/demos/*.tsx`：交互式组件示例
 - `getting-started.mdx`：入门指南
 - `home/`：首页实现

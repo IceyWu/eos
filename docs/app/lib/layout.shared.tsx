@@ -1,11 +1,10 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { gitConfig } from './shared';
-import EosNavbar from '@/components/navbar';
+import { appName, gitConfig } from './shared';
 
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      component: <EosNavbar />,
+      title: appName,
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };
