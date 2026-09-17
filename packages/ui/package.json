@@ -39,7 +39,7 @@
 		"@rollup/plugin-typescript": "^12.3.0",
 		"@wc-toolkit/jsx-types": "^1.8.2",
 		"rollup": "^4.63.3",
-		"typescript": "^6.0.2"
+		"typescript": "^7.0.2"
 	},
 	"publishConfig": {
 		"access": "public",
