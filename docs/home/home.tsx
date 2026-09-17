@@ -1,7 +1,10 @@
 import { Link } from 'react-router';
 import './home.css';
+import { getLocaleConfig } from '@/lib/i18n';
 
-export default function Home({ description, getStartedPathname }: { description: string; getStartedPathname: string }) {
+export default function Home({ description, getStartedPathname, locale }: { description: string; getStartedPathname: string; locale: string }) {
+  const docsPath = (path: string) => `${getLocaleConfig(locale).prefix}${path}`;
+
   return (
     <main className="eos-home">
       <section className="eos-home__hero">
@@ -35,23 +38,23 @@ export default function Home({ description, getStartedPathname }: { description:
           <p>5 focused components — every example below is a live render, not a screenshot.</p>
         </div>
         <div className="eos-home__cards">
-          <Link className="eos-home__card eos-home__card--large" to="/docs/components/button">
+          <Link className="eos-home__card eos-home__card--large" to={docsPath('/docs/components/button')}>
             <strong>Button</strong><span>events · variants · CSS variables</span>
             <div className="eos-home__card-preview"><span>Try the button</span></div>
           </Link>
-          <Link className="eos-home__card" to="/docs/components/carousel">
+          <Link className="eos-home__card" to={docsPath('/docs/components/carousel')}>
             <strong>Carousel</strong><span>touch · keyboard · autoplay</span>
             <div className="eos-home__carousel-mark"><i /><i /><i /></div>
           </Link>
-          <Link className="eos-home__card" to="/docs/components/image">
+          <Link className="eos-home__card" to={docsPath('/docs/components/image')}>
             <strong>Image</strong><span>lazy loading · placeholders</span>
             <div className="eos-home__image-mark" />
           </Link>
-          <Link className="eos-home__card" to="/docs/components/progress-bar">
+          <Link className="eos-home__card" to={docsPath('/docs/components/progress-bar')}>
             <strong>ProgressBar</strong><span>steps · loading · navigation</span>
             <div className="eos-home__progress-mark"><i /><i /><i /><i /></div>
           </Link>
-          <Link className="eos-home__card" to="/docs/components/scrollbar">
+          <Link className="eos-home__card" to={docsPath('/docs/components/scrollbar')}>
             <strong>Scrollbar</strong><span>drag · virtual scroll</span>
             <div className="eos-home__scroll-mark"><i /></div>
           </Link>

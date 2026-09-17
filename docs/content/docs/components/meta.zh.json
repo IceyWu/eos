@@ -1,0 +1,15 @@
+{
+  "title": "组件",
+  "pages": [
+    "---通用---",
+    "button",
+    "---数据展示---",
+    "carousel",
+    "image",
+    "image-group",
+    "scrollbar",
+    "---反馈---",
+    "progress-bar"
+  ],
+  "defaultOpen": true
+}

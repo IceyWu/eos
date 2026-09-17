@@ -1,0 +1,65 @@
+---
+title: 按钮
+description: 与框架无关的 Web Component 按钮，支持语义变体、CSS 变量主题和跨框架集成。
+category: 通用
+order: -1
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+import Variants from './demos/Variant.tsx';
+import VariantsSource from './demos/Variant.tsx?raw';
+
+## 介绍
+
+按钮是与框架无关的 Web Component，遵循 EOS 语义颜色和尺寸系统，可用于 React、Vue、Angular 以及原生 HTML。
+
+## 基础用法
+
+<Demo of={Basic} source={BasicSource} title="基础用法" layout="bare" />
+
+## 变体
+
+按钮支持语义颜色、视觉变体、三种尺寸、加载、禁用和仅图标状态。
+
+<Demo of={Variants} source={VariantsSource} title="变体" />
+
+## API
+
+<Api name="Button" />
+
+### 属性
+
+| 属性 | 类型 | 默认值 | 描述 |
+| --- | --- | --- | --- |
+| `color` | `default \| primary \| secondary \| success \| warning \| danger` | `primary` | 语义颜色 |
+| `variant` | `solid \| bordered \| light \| flat \| ghost \| primary \| secondary \| tertiary \| outline \| danger \| dangerSoft` | `solid` | 视觉样式 |
+| `size` | `sm \| md \| lg` | `md` | 按钮高度为 32/36/40px |
+| `disabled` | `boolean` | `false` | 禁止交互 |
+| `loading` | `boolean` | `false` | 显示进度并禁止交互 |
+| `icon-only` | `boolean` | `false` | 使用对应尺寸的方形按钮 |
+| `full-width` | `boolean` | `false` | 拉伸至宿主宽度 |
+| `type` | `button \| submit \| reset` | `button` | 原生按钮类型 |
+| `aria-label` | `string` | - | 仅图标按钮的可访问名称 |
+
+### 事件
+
+| 事件 | 触发时机 | 事件对象 |
+| --- | --- | --- |
+| `click` | 按钮被激活时 | 原生 `MouseEvent` |
+
+### 插槽
+
+图标可以通过命名插槽传入，组件不依赖特定框架的图标库：
+
+```html
+<eos-button><svg slot="start" aria-hidden="true"></svg>保存</eos-button>
+```
+
+### 框架集成
+
+同一个自定义元素可以在 React、Vue、Angular 和原生 HTML 中使用，并保留原生事件。
+
+### CSS 自定义属性
+
+组件消费 EOS 语义变量。可以在主题根节点或 `eos-button` 宿主上定义 Light/Dark 值。

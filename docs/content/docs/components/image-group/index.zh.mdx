@@ -1,0 +1,26 @@
+---
+title: 图片组
+description: 用于展示相关图片的响应式集合，支持紧凑布局和数量溢出提示。
+category: 数据展示
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## 图片组布局
+
+图片组用于以紧凑布局展示相关图片，并支持数量溢出提示。
+
+<Demo of={Basic} source={BasicSource} title="图片组布局" layout="center" />
+
+## API
+
+<Api name="ImageGroup" from="./api.ts" />
+
+### 属性
+
+图片组接收图片项目集合和布局配置，每个项目由 `eos-image` 渲染。
+
+### 事件
+
+图片组提供与图片选择和交互相关的结构化事件。

@@ -1,0 +1,48 @@
+---
+title: 图片
+description: 支持响应式媒体、延迟加载、BlurHash 占位图和明确加载状态的图片组件。
+category: 数据展示
+---
+
+import Basic from './demos/basic.tsx';
+import BasicSource from './demos/basic.tsx?raw';
+import Fallback from './demos/fallback.tsx';
+import FallbackSource from './demos/fallback.tsx?raw';
+import Responsive from './demos/responsive.tsx';
+import ResponsiveSource from './demos/responsive.tsx?raw';
+
+## 介绍
+
+图片是支持响应式媒体的 Web Component，并提供延迟加载、BlurHash 占位图、加载反馈和明确的回退状态。
+
+## 基础用法
+
+<Demo of={Basic} source={BasicSource} title="基础用法" layout="center" />
+
+## 回退内容
+
+使用 `error` 插槽为加载失败的图片提供恢复操作。
+
+<Demo of={Fallback} source={FallbackSource} title="回退内容" layout="center" />
+
+## 响应式和圆形图片
+
+`responsive` 让图片跟随可用宽度，`circle` 将图片裁剪为圆形并保留声明尺寸。
+
+<Demo of={Responsive} source={ResponsiveSource} title="响应式和圆形图片" layout="center" />
+
+## API
+
+<Api name="Image" />
+
+### 属性
+
+图片支持 `src`、`src-type`、`alt`、`width`、`height`、`loading`、`placeholder`、`placeholder-type`、`placeholder-fill`、`responsive` 和 `circle` 属性。
+
+### 事件
+
+`load` 和 `error` 使用原生事件名，`progress` 用于报告网络加载进度。
+
+### 插槽
+
+使用 `loading` 和 `error` 插槽提供自定义状态内容。

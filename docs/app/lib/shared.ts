@@ -1,4 +1,5 @@
 import { createGetUrl } from 'fumadocs-core/source';
+import { i18n } from './i18n';
 
 export const appName = 'EOS UI';
 export const docsRoute = '/docs';
@@ -12,7 +13,7 @@ export const gitConfig = {
   branch: 'main',
 };
 
-const getContentUrl = createGetUrl(docsContentRoute);
+const getContentUrl = createGetUrl(docsContentRoute, i18n);
 
 export function getPageMarkdownUrl(page: { slugs: string[]; locale?: string }) {
   const segments = [...page.slugs, 'content.md'];

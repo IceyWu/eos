@@ -14,22 +14,55 @@ import { useFumadocsLoader } from 'fumadocs-core/source/client';
 import { useMDXComponents } from '@/components/mdx';
 import { use } from 'react';
 import { getPageMarkdownUrl, gitConfig } from '@/lib/shared';
+import type * as PageTree from 'fumadocs-core/page-tree';
+import { getLocaleConfig, i18n } from '@/lib/i18n';
 
-export async function loader({ params }: Route.LoaderArgs) {
-  const slugs = params['*'].split('/').filter((v) => v.length > 0);
-  const page = source.getPage(slugs);
-  if (!page) throw new Response('Not found', { status: 404 });
+function preparePageTree(tree: PageTree.Root): PageTree.Root {
+  const normalize = (node: PageTree.Node): PageTree.Node => {
+    if (node.type !== 'folder') return node;
+
+    const children = node.children.map(normalize);
+    return {
+      ...node,
+      children,
+      ...(node.index && children.length === 0 ? { collapsible: false } : {}),
+    };
+  };
 
   return {
-    path: page.path,
-    markdownUrl: getPageMarkdownUrl(page).url,
-    pageTree: await source.serializePageTree(source.getPageTree()),
+    ...tree,
+    children: tree.children.map(normalize),
   };
 }
 
-function Content({ path, markdownUrl }: { path: string; markdownUrl: string }) {
-  const page = docs.getPage(path);
+export async function loader({ params }: Route.LoaderArgs) {
+  const slugs = params['*'].split('/').filter((v) => v.length > 0);
+  const locale = params.lang ?? i18n.defaultLanguage;
+  const page = source.getPage(slugs, locale);
+  if (!page) throw new Response('Not found', { status: 404 });
+
+  const pageTree = await source.serializePageTree(
+    preparePageTree(source.getPageTree(locale)),
+  );
+
+  return {
+    slugs,
+    path: page.path,
+    markdownUrl: getPageMarkdownUrl(page).url,
+    pageTree,
+    locale,
+  };
+}
+
+function Content({ path, locale, markdownUrl }: { path: string; locale: string; markdownUrl: string }) {
+  const { contentSuffix } = getLocaleConfig(locale);
+  const localizedPath = path.replace(/\.mdx$/, `${contentSuffix}.mdx`);
+  const page = docs.docs.find((entry) => entry.info.path === localizedPath)
+    ?? docs.getPage(localizedPath)
+    ?? docs.getPage(path);
   if (!page) throw new Error(`unknown page: ${path}`);
+  const title = page.title;
+  const description = page.description;
 
   // content is loaded lazily, call `page.preload()` in your loader to avoid suspending
   const { toc } = use(page.load());
@@ -37,10 +70,10 @@ function Content({ path, markdownUrl }: { path: string; markdownUrl: string }) {
 
   return (
     <DocsPage toc={toc}>
-      <title>{page.title}</title>
-      <meta name="description" content={page.description} />
-      <DocsTitle>{page.title}</DocsTitle>
-      <DocsDescription>{page.description}</DocsDescription>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <DocsTitle>{title}</DocsTitle>
+      <DocsDescription>{description}</DocsDescription>
       <div className="flex flex-row gap-2 items-center border-b -mt-4 pb-6">
         <MarkdownCopyButton markdownUrl={markdownUrl} />
         <ViewOptionsPopover
@@ -49,18 +82,18 @@ function Content({ path, markdownUrl }: { path: string; markdownUrl: string }) {
         />
       </div>
       <DocsBody>
-        <Mdx components={useMDXComponents()} />
+        <Mdx components={useMDXComponents(locale)} />
       </DocsBody>
     </DocsPage>
   );
 }
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  const { pageTree, path, markdownUrl } = useFumadocsLoader(loaderData);
+  const { pageTree, path, markdownUrl, locale } = useFumadocsLoader(loaderData);
 
   return (
-    <DocsLayout {...baseOptions()} tree={pageTree}>
-      <Content path={path} markdownUrl={markdownUrl} />
+    <DocsLayout {...baseOptions(locale)} tree={pageTree}>
+      <Content path={path} locale={locale} markdownUrl={markdownUrl} />
     </DocsLayout>
   );
 }

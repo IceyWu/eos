@@ -1,0 +1,36 @@
+---
+title: 轮播
+description: 与框架无关的 Web Component，用于循环展示内容，并支持导航、指示器、自动播放和触摸手势。
+category: 数据展示
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## 介绍
+
+轮播支持原生键盘导航、触摸手势、可选自动播放和可点击进度指示器。
+
+## 基础用法
+
+<Demo of={Basic} source={BasicSource} title="基础用法" layout="center" />
+
+## API
+
+<Api name="Carousel" />
+
+### 属性
+
+轮播支持 `autoplay`、`interval`、`loop`、`show-navigation`、`initial-index`、`indicator-position`、`indicator-style` 和 `virtual-threshold` 属性。
+
+### 事件
+
+`change`、`slide-active` 和 `slide-click` 分别用于表示当前幻灯片变化、幻灯片激活和幻灯片点击。
+
+### 方法
+
+元素提供 `play()`、`pause()`、`next()`、`prev()` 和 `goTo(index)` 方法。
+
+### 插槽
+
+使用默认插槽传入任意幻灯片内容。

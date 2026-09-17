@@ -1,0 +1,15 @@
+{
+  "title": "Components",
+  "pages": [
+    "---General---",
+    "button",
+    "---Data Display---",
+    "carousel",
+    "image",
+    "image-group",
+    "scrollbar",
+    "---Feedback---",
+    "progress-bar"
+  ],
+  "defaultOpen": true
+}

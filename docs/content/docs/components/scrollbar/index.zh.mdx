@@ -1,0 +1,36 @@
+---
+title: 滚动条
+description: 可附加到任意可滚动容器的、与框架无关的自定义滚动条。
+category: 数据展示
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## 介绍
+
+滚动条提供一致的水平或垂直轨道和滑块，可与原生滚动容器同步，也可以为虚拟化内容手动驱动。
+
+## 基础用法
+
+<Demo of={Basic} source={BasicSource} title="基础用法" layout="center" />
+
+## API
+
+<Api name="Scrollbar" />
+
+### 属性
+
+滚动条支持方向、滚动比例和拖拽相关配置。
+
+### 方法
+
+使用 `attach(element)` 将滚动条连接到滚动容器，也可以通过命令式方法更新位置。
+
+### 事件
+
+滚动条会在拖拽、滚动和位置变化时发出事件。
+
+### 插槽
+
+滚动条没有内容插槽，应将它放置在被控制的滚动容器旁边。

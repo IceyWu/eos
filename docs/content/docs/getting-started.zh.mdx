@@ -1,0 +1,56 @@
+---
+title: 快速开始
+description: 安装 EOS Web Components，并在支持的框架中使用它们。
+---
+
+## 安装
+
+使用你习惯的包管理器安装：
+
+```bash
+npm install @eosjs/components
+yarn add @eosjs/components
+pnpm add @eosjs/components
+```
+
+## 框架集成
+
+EOS 自定义元素可以直接用于 React、Vue、Angular 和原生 HTML。
+
+### React
+
+```tsx
+import '@eosjs/components';
+
+export function App() {
+  return <eos-button>开始使用</eos-button>;
+}
+```
+
+### Vue 3
+
+```vue
+<template><eos-button>开始使用</eos-button></template>
+<script setup>import '@eosjs/components';</script>
+```
+
+### Angular
+
+在 Angular 中启用 `CUSTOM_ELEMENTS_SCHEMA`，然后像普通元素一样使用 EOS 组件。
+
+### 原生 HTML
+
+```html
+<script type="module">
+  import '@eosjs/components';
+</script>
+<eos-button>开始使用</eos-button>
+```
+
+## 组件方法与事件
+
+组件使用原生 DOM 事件，并通过元素方法提供命令式控制。
+
+## 样式
+
+组件消费 EOS 语义变量，并同时支持 Light 和 Dark 主题。

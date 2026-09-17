@@ -5,12 +5,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useParams,
 } from 'react-router';
 import { RootProvider } from 'fumadocs-ui/provider/react-router';
+import { i18nProvider } from 'fumadocs-ui/i18n';
 import type { Route } from './+types/root';
 import './app.css';
 import SearchDialog from '@/components/search';
 import NotFound from './routes/not-found';
+import { i18n } from './lib/i18n';
+import { translations } from './lib/layout.shared';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -26,8 +30,10 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { lang = i18n.defaultLanguage } = useParams();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,7 +41,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="flex flex-col min-h-screen">
-        <RootProvider search={{ SearchDialog }}>{children}</RootProvider>
+        <RootProvider i18n={i18nProvider(translations, lang)} search={{ SearchDialog }}>
+          {children}
+        </RootProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
