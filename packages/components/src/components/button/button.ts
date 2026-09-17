@@ -6,7 +6,8 @@ import { BUTTON_STYLES } from "./button.css";
  * EOS Button custom element.
  * @tagname eos-button
  */
-const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+const HTMLElementBase = (globalThis.HTMLElement ??
+	class {}) as typeof HTMLElement;
 
 export class EosButton extends HTMLElementBase {
 	private readonly shadow: ShadowRoot;

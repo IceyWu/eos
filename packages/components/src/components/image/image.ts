@@ -1,5 +1,5 @@
-import { formatSize } from "../../../../utils/src/index.ts";
 import { decode } from "blurhash";
+import { formatSize } from "../../../../utils/src/index.ts";
 
 import { IMAGE_STYLES } from "./image.css";
 
@@ -386,7 +386,8 @@ class LazyLoadObserver {
  * @fires {Event} error - The image failed to load.
  * @fires {CustomEvent} progress - Network progress with detail `{ loaded, total, src }`.
  */
-const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+const HTMLElementBase = (globalThis.HTMLElement ??
+	class {}) as typeof HTMLElement;
 
 export class EosImage extends HTMLElementBase {
 	// 配置常量

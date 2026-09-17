@@ -17,7 +17,8 @@
  * @fires {CustomEvent} slide-active - 当前 slide 激活时触发
  * @fires {CustomEvent} slide-click - 点击 slide 时触发
  */
-const HTMLElementBase = (globalThis.HTMLElement ?? class {}) as typeof HTMLElement;
+const HTMLElementBase = (globalThis.HTMLElement ??
+	class {}) as typeof HTMLElement;
 
 export class EosCarousel extends HTMLElementBase {
 	// 内部状态

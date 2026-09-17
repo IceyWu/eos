@@ -1,10 +1,7 @@
 import { EosButton } from "./components/button";
 import { EosCarousel } from "./components/carousel";
 import { EosImage } from "./components/image";
-import {
-	EosImageGroup,
-	ImageGroup,
-} from "./components/image-group";
+import { EosImageGroup, ImageGroup } from "./components/image-group";
 import { EosProgressBar } from "./components/progress-bar";
 import { EosScrollbar } from "./components/scrollbar";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
@@ -15,9 +12,9 @@ export {
 	EosCarousel,
 	EosImage,
 	EosImageGroup,
-	ImageGroup,
 	EosProgressBar,
 	EosScrollbar,
+	ImageGroup,
 };
 
 /**
