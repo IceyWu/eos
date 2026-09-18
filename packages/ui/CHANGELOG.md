@@ -1,5 +1,11 @@
 # @eosjs/ui
 
+## 0.2.1
+
+### Patch Changes
+
+- bceeb3f: Refresh the package documentation, npm badges, and release verification workflow.
+
 ## 0.2.0
 
 ### Minor Changes
