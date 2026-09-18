@@ -2,6 +2,23 @@
 	"name": "@eosjs/utils",
 	"version": "0.1.5",
 	"description": "Utility functions for Eos Web Components",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"typescript",
+		"eosjs",
+		"utilities"
+	],
+	"homepage": "https://eosjs.netlify.app/",
+	"bugs": {
+		"url": "https://github.com/IceyWu/eos/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IceyWu/eos.git",
+		"directory": "packages/utils"
+	},
+	"license": "MIT",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",

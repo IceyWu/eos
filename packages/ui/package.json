@@ -1,6 +1,27 @@
 {
 	"name": "@eosjs/ui",
 	"version": "0.2.1",
+	"description": "轻量级、框架无关的 Web Components 组件库",
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"typescript",
+		"react",
+		"vue",
+		"angular",
+		"solid",
+		"preact"
+	],
+	"homepage": "https://eosjs.netlify.app/",
+	"bugs": {
+		"url": "https://github.com/IceyWu/eos/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IceyWu/eos.git",
+		"directory": "packages/ui"
+	},
+	"license": "MIT",
 	"type": "module",
 	"main": "./dist/bundle.js",
 	"module": "./dist/bundle.js",
