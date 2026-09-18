@@ -15,6 +15,8 @@
 
 <p align="center">
   <a href="https://github.com/IceyWu/eos"><img src="https://img.shields.io/badge/Web%20Components-Custom%20Elements-111827" alt="Web Components" /></a>
+  <a href="https://www.npmjs.com/package/@eosjs/ui"><img src="https://img.shields.io/npm/v/@eosjs/ui.svg" alt="@eosjs/ui on npm" /></a>
+  <a href="https://www.npmjs.com/package/@eosjs/ui"><img src="https://img.shields.io/npm/dm/@eosjs/ui.svg" alt="@eosjs/ui weekly downloads" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-6.0-3178C6" alt="TypeScript" /></a>
   <a href="https://pnpm.io/workspaces"><img src="https://img.shields.io/badge/pnpm-workspace-F69220" alt="pnpm workspace" /></a>
   <a href="https://github.com/IceyWu/eos"><img src="https://img.shields.io/badge/license-MIT-111827" alt="MIT license" /></a>
@@ -37,7 +39,7 @@ EOS UI is a lightweight component library built on the browser's native Web Comp
 pnpm add @eosjs/ui
 ```
 
-If you are working from this repository before a package release, install the workspace dependencies first and use the local package through the playgrounds or documentation app:
+For local development from this repository, install the workspace dependencies first and use the package through the playgrounds or documentation app:
 
 ```bash
 pnpm install

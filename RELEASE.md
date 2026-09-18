@@ -38,4 +38,4 @@ pnpm lint
 pnpm build
 ```
 
-Do not run `npm publish` or `pnpm publish` locally. Configure the repository's `NPM_TOKEN` secret before the first automated publish.
+Do not run `npm publish` or `pnpm publish` locally. Configure the repository's `NPM_TOKEN` secret before merging the release pull request.

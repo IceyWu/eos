@@ -19,6 +19,7 @@
 		"build": "pnpm build:utils && pnpm build:ui",
 		"build:utils": "pnpm --filter @eosjs/utils build",
 		"build:ui": "pnpm --filter @eosjs/ui build",
+		"release:publish": "pnpm build && pnpm changeset publish",
 		"build:docs": "pnpm build && pnpm --filter @eosjs/docs build",
 		"lint": "ultracite check",
 		"lint:fix": "ultracite fix",

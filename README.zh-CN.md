@@ -15,6 +15,8 @@
 
 <p align="center">
   <a href="https://github.com/IceyWu/eos"><img src="https://img.shields.io/badge/Web%20Components-Custom%20Elements-111827" alt="Web Components" /></a>
+  <a href="https://www.npmjs.com/package/@eosjs/ui"><img src="https://img.shields.io/npm/v/@eosjs/ui.svg" alt="@eosjs/ui npm 版本" /></a>
+  <a href="https://www.npmjs.com/package/@eosjs/ui"><img src="https://img.shields.io/npm/dm/@eosjs/ui.svg" alt="@eosjs/ui npm 下载量" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-6.0-3178C6" alt="TypeScript" /></a>
   <a href="https://pnpm.io/workspaces"><img src="https://img.shields.io/badge/pnpm-workspace-F69220" alt="pnpm workspace" /></a>
   <a href="https://github.com/IceyWu/eos"><img src="https://img.shields.io/badge/license-MIT-111827" alt="MIT 许可证" /></a>
@@ -37,7 +39,7 @@ EOS UI 基于浏览器原生 Web Components 技术构建。组件以自定义元
 pnpm add @eosjs/ui
 ```
 
-如果当前还在仓库内开发、尚未发布 npm 包，请先安装 workspace 依赖，再通过 playground 或文档应用使用本地组件包：
+如果你要从仓库源码进行本地开发，请先安装 workspace 依赖，再通过 playground 或文档应用使用本地组件包：
 
 ```bash
 pnpm install

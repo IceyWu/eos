@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@eosjs/ui.svg)](https://www.npmjs.com/package/@eosjs/ui)
 [![npm downloads](https://img.shields.io/npm/dm/@eosjs/ui.svg)](https://www.npmjs.com/package/@eosjs/ui)
-[![license](https://img.shields.io/npm/l/@eosjs/ui.svg)](https://github.com/IceyWu/lume/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/@eosjs/ui.svg)](https://github.com/IceyWu/eos/blob/main/LICENSE)
 
 基于原生 Web Components 技术构建的轻量级组件库，支持在任何框架中使用。
 
