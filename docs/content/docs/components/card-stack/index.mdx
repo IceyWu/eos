@@ -1,0 +1,43 @@
+---
+title: Card Stack
+description: A swipeable stack with reversible, pointer-driven transitions and bounded DOM rendering.
+category: Data Display
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## Card Stack
+
+The previous card peeks out on the left, the current card is largest and on top, and the next card peeks out on the right at a smaller size. During a mouse drag or touch swipe, the dragged card shrinks while its neighbour grows toward the centre. At a quarter of the card width, the dragged card moves below the incoming card; the new neighbour gradually appears behind it as dragging continues. Release to settle the card into the opposite side of the stack. A shorter drag springs back. Swipe right to return to the previous card. Desktop users can also use the 44px buttons or focus the stack and press the arrow keys.
+
+<Demo of={Basic} source={BasicSource} title="10,000-card data source" layout="center" />
+
+## API
+
+<Api name="CardStack" />
+
+Set `itemCount` and assign `renderItem(index)` on the DOM element. The callback must return an `HTMLElement`. The component mounts three adjacent cards at rest and at most one incoming card during a transition, so the caller can keep a large array, paginated cache, or other indexed source without creating one DOM node per record. Call `refresh()` after changing data at the current index. Prefetch neighbouring image URLs in your data layer if their loading time matters.
+
+```ts
+const stack = document.querySelector('eos-card-stack');
+stack.itemCount = records.length;
+stack.renderItem = (index) => createCard(records[index]);
+stack.addEventListener('change', (event) => console.log(event.detail.currentIndex));
+```
+
+| Member | Description |
+| --- | --- |
+| `item-count` | Number of items in the external source |
+| `initial-index` | Zero-based initial card; read only after connection |
+| `loop` | Wrap navigation at the ends |
+| `currentIndex` | Current zero-based index |
+| `next()`, `prev()`, `goTo(index)` | Navigate; adjacent moves animate |
+| `refresh()` | Recreate the visible three-card window |
+| `change` | `CustomEvent` with `{ currentIndex, previousIndex }` |
+| `--card-stack-height` | Stack height, default `420px` |
+| `--card-stack-card-width` | Card width, default `320px` |
+
+The component uses EOS semantic surface, border, foreground, focus, and motion rules in both themes. Content returned by `renderItem` should use the same tokens. Interactive controls inside a card are excluded from drag initiation; add `data-no-swipe` to any other interactive region.
+
+At the first card, the left side is empty and the next card peeks out on the right. At the last card, the right side is empty. Add `loop` only if you want the ends to wrap and all three positions to stay populated.

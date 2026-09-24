@@ -1,5 +1,6 @@
 import type {
   EosButton,
+  EosCardStack,
   EosCarousel,
   EosImage,
   EosImageGroup,
@@ -82,6 +83,50 @@ type BaseProps<T extends HTMLElement> = {
 };
 
 type BaseEvents = {};
+
+export type EosCardStackProps = {
+  /** Number of cards in the external data source */
+  "item-count"?: unknown | undefined;
+  /** Number of cards in the external data source */
+  undefined?: unknown | undefined;
+  /** Initial zero-based index */
+  "initial-index"?: unknown | undefined;
+  /** Wrap at either end */
+  loop?: unknown | undefined;
+  /**  */
+  itemCount?: EosCardStack["itemCount"] | undefined;
+  /**  */
+  initialIndex?: EosCardStack["initialIndex"] | undefined;
+  /**  */
+  renderItem?: EosCardStack["renderItem"] | undefined;
+
+  /** detail: { currentIndex, previousIndex } */
+  onchange?: ((e: CustomEvent) => void) | undefined;
+};
+
+export type EosCardStackSolidJsProps = {
+  /** Number of cards in the external data source */
+  "attr:item-count"?: unknown | undefined;
+  /** Number of cards in the external data source */
+  "prop:undefined"?: unknown | undefined;
+  /** Initial zero-based index */
+  "attr:initial-index"?: unknown | undefined;
+  /** Wrap at either end */
+  "bool:loop"?: unknown | undefined;
+  /**  */
+  "prop:itemCount"?: EosCardStack["itemCount"] | undefined;
+  /**  */
+  "prop:initialIndex"?: EosCardStack["initialIndex"] | undefined;
+  /**  */
+  "prop:renderItem"?: EosCardStack["renderItem"] | undefined;
+  /** detail: { currentIndex, previousIndex } */
+  "on:change"?: ((e: CustomEvent) => void) | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
 
 export type EosButtonProps = {
   /**  */
@@ -453,6 +498,7 @@ export type CustomElements = {
    * - `loading`: undefined (property only)
    */
   "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
+  "eos-card-stack": Partial<EosCardStackProps & BaseProps<EosCardStack> & BaseEvents>;
 
   /**
    *
@@ -673,6 +719,7 @@ export type CustomElementsSolidJs = {
   "eos-button": Partial<
     EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
   >;
+  "eos-card-stack": Partial<EosCardStackProps & EosCardStackSolidJsProps & BaseProps<EosCardStack> & BaseEvents>;
 
   /**
    *

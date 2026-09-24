@@ -1,0 +1,29 @@
+---
+title: 卡片组
+description: 支持鼠标和触控跟手滑动、右划回退及固定数量 DOM 的卡片组。
+category: 数据展示
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## 卡片组
+
+上一张较小并露在左侧，中央当前张最大且在顶层，下一张较小并露在右侧。拖动时当前卡片跟手缩小，目标卡片逐渐放大至中央尺寸；达到卡片宽度的四分之一时交换层级，新的相邻卡片随着继续拖动从侧后方显现。松手后卡片落到另一侧；距离不足则回弹。向右拖动可回到上一张。PC 端还可使用两侧按钮，或聚焦组件后按左右方向键。
+
+<Demo of={Basic} source={BasicSource} title="一万条数据演示" layout="center" />
+
+## API
+
+<Api name="CardStack" />
+
+通过 `itemCount` 声明总数，再给元素的 `renderItem(index)` 属性赋值，返回一张卡片的 `HTMLElement`。静止时只挂载当前卡片及前后相邻卡片，切换期间最多额外挂载一张即将进入的卡片；大量数据由调用方按索引保存或分页读取，不会一次性生成全部 DOM。当前数据变化后调用 `refresh()`。
+
+```ts
+const stack = document.querySelector('eos-card-stack');
+stack.itemCount = records.length;
+stack.renderItem = (index) => createCard(records[index]);
+stack.addEventListener('change', (event) => console.log(event.detail.currentIndex));
+```
+
+`initial-index` 设置初始索引。默认不循环：第一张左侧留空，最后一张右侧留空，相应按钮禁用；仅在需要首尾相接时添加 `loop`。`currentIndex` 读取当前索引；`next()`、`prev()`、`goTo(index)` 用于导航。相邻导航有动画，跨多张跳转直接更新。`change` 事件包含 `currentIndex` 和 `previousIndex`。可用 `--card-stack-height` 与 `--card-stack-card-width` 调整尺寸。卡片内容应使用 EOS 语义令牌；若卡片内有其他交互区域，可用 `data-no-swipe` 禁止从该区域发起拖动。

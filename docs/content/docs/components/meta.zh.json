@@ -4,6 +4,7 @@
     "---通用---",
     "button",
     "---数据展示---",
+	"card-stack",
     "carousel",
     "image",
     "image-group",

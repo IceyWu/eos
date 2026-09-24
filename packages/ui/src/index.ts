@@ -1,4 +1,5 @@
 import { EosButton } from "./components/button";
+import { EosCardStack } from "./components/card-stack";
 import { EosCarousel } from "./components/carousel";
 import { EosImage } from "./components/image";
 import { EosImageGroup, ImageGroup } from "./components/image-group";
@@ -9,6 +10,7 @@ import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
 export {
 	COMPONENT_CONFIG,
 	EosButton,
+	EosCardStack,
 	EosCarousel,
 	EosImage,
 	EosImageGroup,
@@ -22,6 +24,7 @@ export {
  */
 const COMPONENTS: ComponentRegistration[] = [
 	{ name: "button", component: EosButton },
+	{ name: "card-stack", component: EosCardStack },
 	{ name: "carousel", component: EosCarousel },
 	{ name: "image", component: EosImage },
 	{ name: "image-group", component: EosImageGroup },

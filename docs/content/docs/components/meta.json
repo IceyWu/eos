@@ -4,6 +4,7 @@
     "---General---",
     "button",
     "---Data Display---",
+	"card-stack",
     "carousel",
     "image",
     "image-group",
