@@ -43,5 +43,8 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      - name: Verify component exports
+        run: pnpm --filter @eosjs/ui test:exports
+
       - name: Type-check docs
         run: pnpm --filter @eosjs/docs types:check

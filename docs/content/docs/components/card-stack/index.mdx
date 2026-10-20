@@ -7,6 +7,12 @@ category: Data Display
 import Basic from './demos/index.tsx';
 import BasicSource from './demos/index.tsx?raw';
 
+## Import
+
+```ts
+import '@eosjs/ui/card-stack';
+```
+
 ## Card Stack
 
 The previous card peeks out on the left, the current card is largest and on top, and the next card peeks out on the right at a smaller size. During a mouse drag or touch swipe, the dragged card shrinks while its neighbour grows toward the centre. At a quarter of the card width, the dragged card moves below the incoming card; the new neighbour gradually appears behind it as dragging continues. Release to settle the card into the opposite side of the stack. A shorter drag springs back. Swipe right to return to the previous card. Desktop users can also use the 44px buttons or focus the stack and press the arrow keys.

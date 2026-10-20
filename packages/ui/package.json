@@ -34,6 +34,46 @@
 		},
 		"./jsx-types": {
 			"types": "./jsx-types.d.ts"
+		},
+		"./progress-bar": {
+			"types": "./dist/entries/progress-bar.d.ts",
+			"import": "./dist/progress-bar.js",
+			"default": "./dist/progress-bar.js"
+		},
+		"./image": {
+			"types": "./dist/entries/image.d.ts",
+			"import": "./dist/image.js",
+			"default": "./dist/image.js"
+		},
+		"./button": {
+			"types": "./dist/entries/button.d.ts",
+			"import": "./dist/button.js",
+			"default": "./dist/button.js"
+		},
+		"./card-stack": {
+			"types": "./dist/entries/card-stack.d.ts",
+			"import": "./dist/card-stack.js",
+			"default": "./dist/card-stack.js"
+		},
+		"./carousel": {
+			"types": "./dist/entries/carousel.d.ts",
+			"import": "./dist/carousel.js",
+			"default": "./dist/carousel.js"
+		},
+		"./image-group": {
+			"types": "./dist/entries/image-group.d.ts",
+			"import": "./dist/image-group.js",
+			"default": "./dist/image-group.js"
+		},
+		"./scrollbar": {
+			"types": "./dist/entries/scrollbar.d.ts",
+			"import": "./dist/scrollbar.js",
+			"default": "./dist/scrollbar.js"
+		},
+		"./config": {
+			"types": "./dist/config.d.ts",
+			"import": "./dist/config.js",
+			"default": "./dist/config.js"
 		}
 	},
 	"files": [
@@ -47,7 +87,8 @@
 		"analyze": "cem analyze && node ./scripts/patch-jsx-types.mjs",
 		"build": "pnpm run build:tsc && pnpm run build:bundle && pnpm run analyze",
 		"build:tsc": "tsc",
-		"build:bundle": "rollup -c"
+		"build:bundle": "rollup -c",
+		"test:exports": "node --test tests/exports.test.mjs"
 	},
 	"dependencies": {
 		"@eosjs/utils": "workspace:*",
@@ -65,5 +106,16 @@
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://registry.npmjs.org/"
-	}
+	},
+	"sideEffects": [
+		"./dist/bundle.js",
+		"./dist/bundle.min.js",
+		"./dist/button.js",
+		"./dist/card-stack.js",
+		"./dist/carousel.js",
+		"./dist/image.js",
+		"./dist/image-group.js",
+		"./dist/progress-bar.js",
+		"./dist/scrollbar.js"
+	]
 }

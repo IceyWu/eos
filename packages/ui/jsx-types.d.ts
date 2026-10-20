@@ -388,6 +388,12 @@ export type EosProgressBarProps = {
   position?: unknown | undefined;
   /**  */
   loading?: unknown | undefined;
+  /**  */
+  "aria-label"?: unknown | undefined;
+  /**  */
+  scrubbable?: unknown | undefined;
+  /** Localized labels, one per segment. No HTML is interpreted. */
+  segmentLabels?: EosProgressBar["segmentLabels"] | undefined;
 
   /**  */
   "onsegment-click"?: ((e: CustomEvent) => void) | undefined;
@@ -406,6 +412,12 @@ export type EosProgressBarSolidJsProps = {
   "attr:position"?: unknown | undefined;
   /**  */
   "attr:loading"?: unknown | undefined;
+  /**  */
+  "attr:aria-label"?: unknown | undefined;
+  /**  */
+  "attr:scrubbable"?: unknown | undefined;
+  /** Localized labels, one per segment. No HTML is interpreted. */
+  "prop:segmentLabels"?: EosProgressBar["segmentLabels"] | undefined;
   /**  */
   "on:segment-click"?: ((e: CustomEvent) => void) | undefined;
 

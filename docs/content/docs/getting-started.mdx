@@ -13,6 +13,34 @@ yarn add @eosjs/ui
 pnpm add @eosjs/ui
 ```
 
+## Selective imports
+
+Import the components used by each page. Entries register their elements and export component classes and public types:
+
+```ts
+import '@eosjs/ui/button';
+import '@eosjs/ui/image';
+import '@eosjs/ui/carousel';
+import type { EosImageGroupItem } from '@eosjs/ui/image-group';
+import type { CardStackRenderer } from '@eosjs/ui/card-stack';
+```
+
+| Entry | Automatically registered |
+| --- | --- |
+| `@eosjs/ui/button` | Button |
+| `@eosjs/ui/card-stack` | CardStack |
+| `@eosjs/ui/carousel` | Carousel, ProgressBar |
+| `@eosjs/ui/image` | Image |
+| `@eosjs/ui/image-group` | ImageGroup, Image |
+| `@eosjs/ui/progress-bar` | ProgressBar |
+| `@eosjs/ui/scrollbar` | Scrollbar |
+
+Carousel and ImageGroup register internal dependencies. Slotted components must still be imported by the caller. Repeated imports and mixing selective imports with the root entry do not register elements twice. `@eosjs/ui/config` exports configuration without loading components.
+
+`import '@eosjs/ui'` remains compatible and registers every component. Type-only imports do not register elements; `@eosjs/ui/jsx-types` is unchanged. Runtime entries are safe to import without a browser; element creation and rendering still happen on the client.
+
+> These entries have not been published yet. Use a built, locally linked package for now; existing npm releases do not include the new entries.
+
 ## Framework integration
 
 ### React

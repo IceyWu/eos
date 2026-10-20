@@ -1867,6 +1867,78 @@
             },
             {
               "kind": "field",
+              "name": "_bar",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_segments",
+              "type": {
+                "text": "HTMLButtonElement[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_fills",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_activeFill",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_labels",
+              "type": {
+                "text": "readonly string[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_scrubIndex",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_pointerId",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_suppressClick",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "_progress",
               "type": {
                 "text": "number"
@@ -1994,6 +2066,83 @@
               }
             },
             {
+              "kind": "field",
+              "name": "segmentLabels",
+              "type": {
+                "text": "readonly string[]"
+              },
+              "description": "Localized labels, one per segment. No HTML is interpreted."
+            },
+            {
+              "kind": "field",
+              "name": "progress",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "getSegment",
+              "return": {
+                "type": {
+                  "text": "HTMLButtonElement | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "A segment's native button, for tooltip anchoring and native events."
+            },
+            {
+              "kind": "method",
+              "name": "getSegmentIndexAt",
+              "return": {
+                "type": {
+                  "text": "number | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "clientX",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "clientY",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Resolve the nearest visible segment, including gaps and vertical layouts."
+            },
+            {
+              "kind": "method",
+              "name": "setState",
+              "parameters": [
+                {
+                  "name": "current",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "One playback clock can update the segment and its fraction without starting another RAF."
+            },
+            {
               "kind": "method",
               "name": "startProgress",
               "parameters": [
@@ -2008,19 +2157,22 @@
               "description": "开始当前段的进度动画"
             },
             {
+              "kind": "field",
+              "name": "advanceProgress",
+              "privacy": "private"
+            },
+            {
               "kind": "method",
               "name": "stopProgress",
-              "description": "停止进度动画"
+              "description": "Stop the internal clock and retain the displayed fraction."
             },
             {
               "kind": "method",
-              "name": "pauseProgress",
-              "description": "暂停当前进度动画并保留已完成的进度"
+              "name": "pauseProgress"
             },
             {
               "kind": "method",
-              "name": "resumeProgress",
-              "description": "恢复已暂停的进度动画"
+              "name": "resumeProgress"
             },
             {
               "kind": "method",
@@ -2033,7 +2185,7 @@
                   }
                 }
               ],
-              "description": "手动设置进度 0-100"
+              "description": "External-clock update: only the cached active fill's transform changes per frame."
             },
             {
               "kind": "method",
@@ -2055,6 +2207,25 @@
             },
             {
               "kind": "method",
+              "name": "labelSegment",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "segment",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "rebuildSegments",
               "privacy": "private"
             },
@@ -2066,6 +2237,49 @@
             {
               "kind": "method",
               "name": "updateFill",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "select",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handlePointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handlePointerMove",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handlePointerUp",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "cancelScrub",
               "privacy": "private"
             }
           ],
@@ -2092,6 +2306,12 @@
             },
             {
               "name": "loading"
+            },
+            {
+              "name": "aria-label"
+            },
+            {
+              "name": "scrubbable"
             }
           ],
           "superclass": {

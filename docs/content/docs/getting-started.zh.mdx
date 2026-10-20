@@ -13,6 +13,34 @@ yarn add @eosjs/ui
 pnpm add @eosjs/ui
 ```
 
+## 按需导入
+
+推荐按页面导入所需组件，自动注册对应元素，并导出组件类和公共类型：
+
+```ts
+import '@eosjs/ui/button';
+import '@eosjs/ui/image';
+import '@eosjs/ui/carousel';
+import type { EosImageGroupItem } from '@eosjs/ui/image-group';
+import type { CardStackRenderer } from '@eosjs/ui/card-stack';
+```
+
+| 入口 | 自动注册 |
+| --- | --- |
+| `@eosjs/ui/button` | Button |
+| `@eosjs/ui/card-stack` | CardStack |
+| `@eosjs/ui/carousel` | Carousel、ProgressBar |
+| `@eosjs/ui/image` | Image |
+| `@eosjs/ui/image-group` | ImageGroup、Image |
+| `@eosjs/ui/progress-bar` | ProgressBar |
+| `@eosjs/ui/scrollbar` | Scrollbar |
+
+Carousel、ImageGroup 自动注册内部依赖；插槽中的其他组件仍需调用方导入。重复导入或与总入口混用不会重复注册。`@eosjs/ui/config` 仅导出配置，不加载组件。
+
+`import '@eosjs/ui'` 保持兼容并注册全部组件。`import type` 不触发运行时注册，`@eosjs/ui/jsx-types` 保持不变。所有运行时入口可在无浏览器环境中导入；创建和渲染元素仍在客户端执行。
+
+> 按需入口尚未发布，目前请使用构建后的本地链接包。现有 npm 版本不包含这些新入口。
+
 ## 框架集成
 
 EOS 自定义元素可以直接用于 React、Vue、Angular 和原生 HTML。

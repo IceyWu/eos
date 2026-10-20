@@ -6,6 +6,15 @@ import { EosImageGroup, ImageGroup } from "./components/image-group";
 import { EosProgressBar } from "./components/progress-bar";
 import { EosScrollbar } from "./components/scrollbar";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
+import { registerComponent } from "./register";
+
+export type { CardStackRenderer } from "./components/card-stack";
+export type {
+	EosImageGroupItem,
+	EosImageGroupLayout,
+} from "./components/image-group";
+export type { ComponentRegistration } from "./config";
+export { registerComponent } from "./register";
 
 export {
 	COMPONENT_CONFIG,
@@ -37,38 +46,12 @@ const COMPONENTS: ComponentRegistration[] = [
  * 自动检查组件是否已注册，避免重复注册
  */
 export function registerComponents() {
-	try {
-		COMPONENTS.forEach(({ name, component }) => {
-			const tagName = COMPONENT_CONFIG.getTagName(name);
-			if (!customElements.get(tagName)) {
-				customElements.define(tagName, component);
-			}
-		});
-	} catch (error) {
-		console.error("Failed to register Eos components:", error);
-	}
-}
-
-/**
- * 注册单个组件
- * @param name 组件名称（不含前缀）
- * @param component 组件类
- */
-export function registerComponent(
-	name: string,
-	component: CustomElementConstructor,
-) {
-	try {
-		const tagName = COMPONENT_CONFIG.getTagName(name);
-		if (!customElements.get(tagName)) {
-			customElements.define(tagName, component);
-		}
-	} catch (error) {
-		console.error(`Failed to register component ${name}:`, error);
-	}
+	COMPONENTS.forEach(({ name, component }) =>
+		registerComponent(name, component),
+	);
 }
 
 // 自动注册所有组件
-if (typeof window !== "undefined") {
+if (typeof customElements !== "undefined") {
 	registerComponents();
 }

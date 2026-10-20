@@ -28,10 +28,14 @@ ProgressBar represents progress across a finite number of segments. It supports 
 | `variant` | `default \| dots \| tiktok` | `default` | Visual style of the indicator |
 | `position` | `top \| bottom \| left \| right` | `bottom` | Indicator orientation |
 | `loading` | `boolean` | `false` | Show a loading animation on the active segment |
+| `scrubbable` | `boolean` | `false` | Select the segment under the pointer when a drag is released |
+| `aria-label` | `string` | `Progress` | Accessible name for the segment navigation |
 
 ### Methods
 
 ```ts
+import '@eosjs/ui/progress-bar'; // registers only this component
+
 const progress = document.querySelector('eos-progress-bar');
 
 progress.startProgress({
@@ -41,19 +45,46 @@ progress.startProgress({
 progress.setProgress(45);
 progress.setLoading(true);
 progress.stopProgress();
+
+// External playback clock: no second RAF is started inside the component.
+progress.segmentLabels = ['Start', 'Day one', 'Museum', 'Summary'];
+progress.setState(2, 45); // segment index, percent in that segment
+progress.setAttribute('scrubbable', '');
 ```
+
+`setProgress()` and `setState()` stop the internal animation clock and retain the supplied fraction. Steady-state updates use the cached active fill and change only its transform. Changing `current` updates segment states; changing `total` rebuilds the segments. Moving the element between containers retains its nodes and progress.
+
+Segments are native buttons. Arrow keys, Home and End move focus; Enter and Space select. `segmentLabels` supplies localized accessible labels. `getSegment(index)` exposes a button for tooltip anchoring or CSS parts; `getSegmentIndexAt(clientX, clientY)` resolves the nearest visible segment.
+
 
 ### Events
 
 | Event | When it fires | `event.detail` |
 | --- | --- | --- |
-| `segment-click` | A segment is clicked | `{ index }` |
+| `segment-click` | A segment is clicked, activated by keyboard, or selected on drag release | `{ index }` |
 
 ### CSS custom properties
 
 | Property | Default | Description |
 | --- | --- | --- |
-| `--progress-bar-height` | `3px` | Segment height for horizontal indicators |
-| `--progress-bar-gap` | `3px` | Gap between segments |
+| `--progress-bar-height` | `4px` | Segment height for horizontal indicators |
+| `--progress-bar-gap` | `4px` | Gap between segments |
 | `--progress-bar-color` | `var(--eos-color-border)` | Inactive segment color |
 | `--progress-bar-active-color` | `var(--eos-color-accent)` | Active and completed segment color |
+| `--progress-bar-hit-size` | `44px` | Pointer target height (width for vertical bars) |
+
+CSS parts: `segment`, `track`, `fill`. Customize colors with the public properties; both light and dark semantic themes are supported. Dense playback navigation can reduce the hit size at the host while enabling scrubbing.
+
+### Browser regression checks
+
+`packages/ui/tests/progress-bar.browser.js` is a browser expression for a page where EOS UI is registered. It checks first manual update, stable DOM under repeated updates, bounds, lifecycle, keyboard, pointer scrubbing, animation ownership and both themes. It leaves `#eos-progress-verification` for screenshot review; remove the fixture afterwards. The loop timing it returns measures synchronous API updates only, not frame rate or end-to-end rendering performance.
+
+## Source Organization
+
+Following Button, Image, and CardStack, files are separated by responsibility:
+
+- `progress-bar.ts`: state, lifecycle, native interaction, and animation.
+- `progress-bar.css.ts`: exports `PROGRESS_BAR_STYLES` for theme tokens, variants, orientation, and reduced motion.
+- `index.ts`: class export; `src/entries/progress-bar.ts` provides selective registration.
+
+Styles are inserted when the shadow DOM is created. Progress updates reuse existing nodes without reinserting styles or rendering the template.

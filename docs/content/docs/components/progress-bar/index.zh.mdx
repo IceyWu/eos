@@ -21,12 +21,42 @@ import BasicSource from './demos/index.tsx?raw';
 
 ### 属性
 
-属性包括分段数量、当前进度、方向、视觉变体和是否允许点击。
+`total` 为总段数，`current` 为当前段下标（从 0 开始），`variant` 支持 `default`、`dots`、`tiktok`，`position` 控制水平或垂直方向。`loading` 显示加载状态；可选 `scrubbable` 支持拖动后松开选择分段；`aria-label` 设置导航名称。
 
 ### 方法
 
-元素提供用于更新和动画化进度的方法。
+```ts
+import '@eosjs/ui/progress-bar'; // 按需注册，不带入其他组件
+
+const progress = document.querySelector('eos-progress-bar');
+progress.total = 4;
+progress.segmentLabels = ['开场', '第一天', '博物馆', '回顾'];
+progress.setAttribute('scrubbable', '');
+progress.setState(2, 45); // 当前段下标、段内百分比
+```
+
+外部播放器应调用 `setState()`，由播放器统一计时；组件不会额外启动动画循环。连续更新只修改缓存中当前填充条的 `transform`；切换当前段才更新各段状态，改变总段数才重建节点。`setProgress()` 同样支持手动更新，并停止内部动画，避免两个时钟竞争。
+
+独立自动播放使用 `startProgress({ duration, onComplete })`，`pauseProgress()` / `resumeProgress()` 暂停恢复，`stopProgress()` 停止计时并保留当前进度。元素移动到另一个容器后保留节点与进度，移除时停止内部动画。
+
+`getSegment(index)` 返回分段原生按钮，供锚定提示等用途；`getSegmentIndexAt(clientX, clientY)` 返回坐标附近的可见分段下标。
 
 ### 事件
 
-点击分段或进度变化时会发出结构化事件。
+点击、Enter/Space 或拖动松开时触发 `segment-click`，`detail` 为 `{ index }`。进度逐帧更新不会触发事件。方向键、Home、End 仅移动焦点，激活按钮后才选择分段。
+
+### 样式与验证
+
+通过 `--progress-bar-height`（默认 4px）、`--progress-bar-gap`（默认 4px）、`--progress-bar-hit-size`（默认 44px）调整轨道与命中区域；颜色通过 `--progress-bar-color` / `--progress-bar-active-color` 继承语义主题。CSS Parts 为 `segment`、`track`、`fill`。
+
+浏览器回归脚本位于 `packages/ui/tests/progress-bar.browser.js`，在已注册 EOS UI 的页面执行，覆盖首次手动进度、密集分段、重复更新节点稳定性、边界值、生命周期、键盘、拖动和计时器互斥，并留下浅色/深色截图核对区域。脚本返回的耗时仅代表同步 API 更新，不能当作帧率或完整渲染性能。
+
+## 源码组织
+
+与 Button、Image、CardStack 一致，组件按职责拆分：
+
+- `progress-bar.ts`：状态、生命周期、原生交互和进度动画。
+- `progress-bar.css.ts`：导出 `PROGRESS_BAR_STYLES`，集中管理主题令牌、变体、方向及减少动效样式。
+- `index.ts`：组件类导出；`src/entries/progress-bar.ts` 提供按需注册入口。
+
+样式只在建立 Shadow DOM 时插入；进度更新继续复用已有节点，不重新插入样式或渲染模板。

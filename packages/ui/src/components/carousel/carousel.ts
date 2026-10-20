@@ -504,6 +504,7 @@ export class EosCarousel extends HTMLElementBase {
 	}
 
 	private handleKeydown(e: KeyboardEvent) {
+		if (e.defaultPrevented) return;
 		switch (e.key) {
 			case "ArrowLeft":
 				e.preventDefault();
