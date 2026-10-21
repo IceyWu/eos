@@ -108,6 +108,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"sideEffects": [
+		"./src/index.ts",
 		"./dist/bundle.js",
 		"./dist/bundle.min.js",
 		"./dist/button.js",

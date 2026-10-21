@@ -11,12 +11,12 @@ const HTMLElementBase = (globalThis.HTMLElement ??
 
 /** @customElement eos-button */
 export class EosButton extends HTMLElementBase {
-	private readonly shadow: ShadowRoot;
+	private readonly shadowRootElement: ShadowRoot;
 	private themeObserver?: MutationObserver;
 
 	constructor() {
 		super();
-		this.shadow = this.attachShadow({ mode: "open" });
+		this.shadowRootElement = this.attachShadow({ mode: "open" });
 	}
 
 	static get observedAttributes() {
@@ -95,7 +95,7 @@ export class EosButton extends HTMLElementBase {
 		const name = this.getAttribute("name");
 		const value = this.getAttribute("value");
 
-		this.shadow.innerHTML = `
+		this.shadowRootElement.innerHTML = `
 <style>${BUTTON_STYLES}</style>
 <button part="button" type="${this.getButtonType()}" ${disabled ? "disabled" : ""}
   ${ariaLabel ? `aria-label="${this.escapeAttribute(ariaLabel)}"` : ""}
