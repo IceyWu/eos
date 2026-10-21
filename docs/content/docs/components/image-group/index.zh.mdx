@@ -16,6 +16,8 @@ import '@eosjs/ui/image-group';
 ## 图片组布局
 
 图片组用于以紧凑布局展示相关图片，并支持数量溢出提示。
+`grid` 和 `pair` 布局会根据实际行数保持图片为方形；最后一行不足时，图片会居中排列。没有图片时组件不占用布局空间。
+默认图片间距为 4px、圆角为 5px，可分别通过 `--eos-image-group-gap` 和 `--eos-image-group-radius` 调整。
 
 <Demo of={Basic} source={BasicSource} title="图片组布局" layout="center" />
 

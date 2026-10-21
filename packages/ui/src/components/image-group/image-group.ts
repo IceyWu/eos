@@ -198,13 +198,12 @@ export class EosImageGroup extends HTMLElementBase {
 		const root = this.shadowRoot;
 		if (!root) return;
 		const items = this._items.slice(0, this._maxVisible);
+		this.toggleAttribute("hidden", items.length === 0);
 		const remaining = Math.max(0, this._items.length - items.length);
 		const { columns, rows } = this.getLayoutMetrics(items.length);
 		const remainder = items.length % columns;
 		const aspectRows =
-			(this._layout === "grid" && columns === 3) ||
-			(this._layout === "featured" && items.length > 2) ||
-			this._layout === "pair"
+			this._layout === "featured" && items.length > 2
 				? Math.min(rows, 2)
 				: rows;
 		const featuredRemainder = Math.max(0, items.length - 1) % 2;

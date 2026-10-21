@@ -8,13 +8,17 @@ ${EOS_THEME_TOKENS}
   width: 100%;
 }
 
+:host([hidden]) {
+  display: none;
+}
+
 .group {
   display: grid;
   gap: var(--eos-image-group-gap, 4px);
   aspect-ratio: var(--eos-image-group-columns) / var(--eos-image-group-aspect-rows);
   width: 100%;
   overflow: hidden;
-  border-radius: var(--eos-image-group-radius, 12px);
+  border-radius: var(--eos-image-group-radius, 5px);
 }
 
 .group.grid,
@@ -32,15 +36,21 @@ ${EOS_THEME_TOKENS}
 }
 
 .group.grid[data-columns="3"][data-remainder="1"] .tile:last-child {
-  grid-column: 1 / -1;
+  grid-column: 3 / 5;
 }
 
-.group.grid[data-columns="3"][data-remainder="2"] .tile:nth-last-child(-n + 2) {
-  grid-column: span 3;
+.group.grid[data-columns="3"][data-remainder="2"] .tile:nth-last-child(2) {
+  grid-column: 2 / 4;
+}
+
+.group.grid[data-columns="3"][data-remainder="2"] .tile:last-child {
+  grid-column: 4 / 6;
 }
 
 .group.pair[data-remainder="1"] .tile:last-child {
   grid-column: 1 / -1;
+  width: 50%;
+  justify-self: center;
 }
 
 .group.featured {
@@ -79,7 +89,7 @@ ${EOS_THEME_TOKENS}
   height: 100%;
   overflow: hidden;
   border: 0;
-  border-radius: var(--eos-image-group-radius, 12px);
+  border-radius: var(--eos-image-group-radius, 5px);
   padding: 0;
   background: var(--eos-color-surface-secondary);
   color: var(--eos-color-foreground);
@@ -113,8 +123,7 @@ ${EOS_THEME_TOKENS}
   display: block;
   width: 100%;
   height: 100%;
-  min-width: 0;
-  min-height: 0;
+  --eos-image-radius: var(--eos-image-group-radius, 5px);
   transition: transform 150ms cubic-bezier(0.2, 0, 0, 1);
 }
 

@@ -7,9 +7,9 @@ ${EOS_THEME_TOKENS}
   display: inline-block;
   position: relative;
   overflow: hidden;
-  min-width: 100px;
-  min-height: 100px;
-  border-radius: 12px;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--eos-image-radius, 12px);
   background: var(--eos-color-surface-secondary);
   color: var(--eos-color-foreground-muted);
   vertical-align: middle;
