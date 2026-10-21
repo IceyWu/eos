@@ -16,12 +16,12 @@ import SearchDialog from '@/components/search';
 import NotFound from './routes/not-found';
 import { i18n } from './lib/i18n';
 import { translations } from './lib/layout.shared';
-import { withDocsTrailingSlash } from './lib/shared';
+import { withDocsPrerenderPath } from './lib/shared';
 
 function EosLink({ href, prefetch, ...props }: React.ComponentProps<'a'> & { prefetch?: boolean }) {
   return (
     <RouterLink
-      to={withDocsTrailingSlash(href ?? '')}
+      to={withDocsPrerenderPath(href ?? '')}
       prefetch={prefetch ? 'intent' : 'none'}
       {...props}
     />

@@ -7,6 +7,7 @@ const getUrl = createGetUrl('/docs', i18n);
 
 export default {
   ssr: true,
+  routeDiscovery: { mode: 'initial' },
   async prerender({ getStaticPaths }) {
     const paths = new Set<string>();
 

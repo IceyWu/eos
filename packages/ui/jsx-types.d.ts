@@ -3,8 +3,8 @@ import type {
   EosCardStack,
   EosCarousel,
   EosImage,
-  EosImageGroup,
   EosProgressBar,
+  EosImageGroup,
   EosScrollbar,
 } from "@eosjs/ui";
 
@@ -84,6 +84,73 @@ type BaseProps<T extends HTMLElement> = {
 
 type BaseEvents = {};
 
+export type EosButtonProps = {
+  /**  */
+  "aria-label"?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  "aria-keyshortcuts"?: unknown | undefined;
+  /**  */
+  "aria-pressed"?: unknown | undefined;
+  /**  */
+  color?: unknown | undefined;
+  /**  */
+  disabled?: unknown | undefined;
+  /**  */
+  "full-width"?: unknown | undefined;
+  /**  */
+  "icon-only"?: unknown | undefined;
+  /**  */
+  loading?: unknown | undefined;
+  /**  */
+  name?: unknown | undefined;
+  /**  */
+  size?: unknown | undefined;
+  /**  */
+  type?: unknown | undefined;
+  /**  */
+  value?: unknown | undefined;
+  /**  */
+  variant?: unknown | undefined;
+};
+
+export type EosButtonSolidJsProps = {
+  /**  */
+  "attr:aria-label"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:aria-keyshortcuts"?: unknown | undefined;
+  /**  */
+  "attr:aria-pressed"?: unknown | undefined;
+  /**  */
+  "attr:color"?: unknown | undefined;
+  /**  */
+  "attr:disabled"?: unknown | undefined;
+  /**  */
+  "attr:full-width"?: unknown | undefined;
+  /**  */
+  "attr:icon-only"?: unknown | undefined;
+  /**  */
+  "attr:loading"?: unknown | undefined;
+  /**  */
+  "attr:name"?: unknown | undefined;
+  /**  */
+  "attr:size"?: unknown | undefined;
+  /**  */
+  "attr:type"?: unknown | undefined;
+  /**  */
+  "attr:value"?: unknown | undefined;
+  /**  */
+  "attr:variant"?: unknown | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
 export type EosCardStackProps = {
   /** Number of cards in the external data source */
   "item-count"?: unknown | undefined;
@@ -121,65 +188,6 @@ export type EosCardStackSolidJsProps = {
   "prop:renderItem"?: EosCardStack["renderItem"] | undefined;
   /** detail: { currentIndex, previousIndex } */
   "on:change"?: ((e: CustomEvent) => void) | undefined;
-
-  /** Set the innerHTML of the element */
-  innerHTML?: string | undefined;
-  /** Set the textContent of the element */
-  textContent?: string | number | undefined;
-};
-
-export type EosButtonProps = {
-  /**  */
-  "aria-label"?: unknown | undefined;
-  /**  */
-  undefined?: unknown | undefined;
-  /**  */
-  color?: unknown | undefined;
-  /**  */
-  disabled?: unknown | undefined;
-  /**  */
-  "full-width"?: unknown | undefined;
-  /**  */
-  "icon-only"?: unknown | undefined;
-  /**  */
-  loading?: unknown | undefined;
-  /**  */
-  name?: unknown | undefined;
-  /**  */
-  size?: unknown | undefined;
-  /**  */
-  type?: unknown | undefined;
-  /**  */
-  value?: unknown | undefined;
-  /**  */
-  variant?: unknown | undefined;
-};
-
-export type EosButtonSolidJsProps = {
-  /**  */
-  "attr:aria-label"?: unknown | undefined;
-  /**  */
-  "prop:undefined"?: unknown | undefined;
-  /**  */
-  "attr:color"?: unknown | undefined;
-  /**  */
-  "attr:disabled"?: unknown | undefined;
-  /**  */
-  "attr:full-width"?: unknown | undefined;
-  /**  */
-  "attr:icon-only"?: unknown | undefined;
-  /**  */
-  "attr:loading"?: unknown | undefined;
-  /**  */
-  "attr:name"?: unknown | undefined;
-  /**  */
-  "attr:size"?: unknown | undefined;
-  /**  */
-  "attr:type"?: unknown | undefined;
-  /**  */
-  "attr:value"?: unknown | undefined;
-  /**  */
-  "attr:variant"?: unknown | undefined;
 
   /** Set the innerHTML of the element */
   innerHTML?: string | undefined;
@@ -339,42 +347,6 @@ export type EosImageSolidJsProps = {
   textContent?: string | number | undefined;
 };
 
-export type EosImageGroupProps = {
-  /**  */
-  items?: unknown | undefined;
-  /**  */
-  undefined?: unknown | undefined;
-  /**  */
-  layout?: unknown | undefined;
-  /**  */
-  "max-visible"?: unknown | undefined;
-  /**  */
-  maxVisible?: EosImageGroup["maxVisible"] | undefined;
-
-  /**  */
-  "onimage-click"?: ((e: CustomEvent) => void) | undefined;
-};
-
-export type EosImageGroupSolidJsProps = {
-  /**  */
-  "attr:items"?: unknown | undefined;
-  /**  */
-  "prop:undefined"?: unknown | undefined;
-  /**  */
-  "attr:layout"?: unknown | undefined;
-  /**  */
-  "attr:max-visible"?: unknown | undefined;
-  /**  */
-  "prop:maxVisible"?: EosImageGroup["maxVisible"] | undefined;
-  /**  */
-  "on:image-click"?: ((e: CustomEvent) => void) | undefined;
-
-  /** Set the innerHTML of the element */
-  innerHTML?: string | undefined;
-  /** Set the textContent of the element */
-  textContent?: string | number | undefined;
-};
-
 export type EosProgressBarProps = {
   /**  */
   total?: unknown | undefined;
@@ -420,6 +392,42 @@ export type EosProgressBarSolidJsProps = {
   "prop:segmentLabels"?: EosProgressBar["segmentLabels"] | undefined;
   /**  */
   "on:segment-click"?: ((e: CustomEvent) => void) | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
+export type EosImageGroupProps = {
+  /**  */
+  items?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  layout?: unknown | undefined;
+  /**  */
+  "max-visible"?: unknown | undefined;
+  /**  */
+  maxVisible?: EosImageGroup["maxVisible"] | undefined;
+
+  /**  */
+  "onimage-click"?: ((e: CustomEvent) => void) | undefined;
+};
+
+export type EosImageGroupSolidJsProps = {
+  /**  */
+  "attr:items"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:layout"?: unknown | undefined;
+  /**  */
+  "attr:max-visible"?: unknown | undefined;
+  /**  */
+  "prop:maxVisible"?: EosImageGroup["maxVisible"] | undefined;
+  /**  */
+  "on:image-click"?: ((e: CustomEvent) => void) | undefined;
 
   /** Set the innerHTML of the element */
   innerHTML?: string | undefined;
@@ -496,6 +504,8 @@ export type CustomElements = {
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
    * - `aria-label`/`undefined`: undefined
+   * - `aria-keyshortcuts`/`undefined`: undefined
+   * - `aria-pressed`/`undefined`: undefined
    * - `color`/`undefined`: undefined
    * - `disabled`/`undefined`: undefined
    * - `full-width`/`undefined`: undefined
@@ -510,7 +520,43 @@ export type CustomElements = {
    * - `loading`: undefined (property only)
    */
   "eos-button": Partial<EosButtonProps & BaseProps<EosButton> & BaseEvents>;
-  "eos-card-stack": Partial<EosCardStackProps & BaseProps<EosCardStack> & BaseEvents>;
+
+  /**
+   * A swipeable, bounded-DOM stack of cards. Set `itemCount` and `renderItem` after
+   * creating the element; three cards rest in the stack, with one extra card
+   * mounted briefly while a new neighbour is revealed.
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `item-count`/`undefined`: Number of cards in the external data source
+   * - `initial-index`/`undefined`: Initial zero-based index
+   * - `loop`/`undefined`: Wrap at either end
+   * - `itemCount`: undefined (property only)
+   * - `initialIndex`: undefined (property only)
+   * - `loop`: undefined (property only)
+   * - `currentIndex`: undefined (property only) (readonly)
+   * - `renderItem`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `change`: detail: { currentIndex, previousIndex }
+   *
+   * ## Methods
+   *
+   * Methods that can be called to access component functionality.
+   *
+   * - `refresh() => void`: Rebuild the visible window after an external item changes.
+   * - `next() => void`: undefined
+   * - `prev() => void`: undefined
+   * - `goTo(index: number) => void`: Adjacent moves animate; distant jumps replace the visible window directly.
+   */
+  "eos-card-stack": Partial<
+    EosCardStackProps & BaseProps<EosCardStack> & BaseEvents
+  >;
 
   /**
    *
@@ -601,6 +647,52 @@ export type CustomElements = {
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
+   * - `total`/`undefined`: undefined
+   * - `current`/`undefined`: undefined
+   * - `variant`/`undefined`: undefined
+   * - `position`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
+   * - `aria-label`/`undefined`: undefined
+   * - `scrubbable`/`undefined`: undefined
+   * - `total`: undefined (property only)
+   * - `current`: undefined (property only)
+   * - `variant`: undefined (property only)
+   * - `position`: undefined (property only)
+   * - `loading`: undefined (property only)
+   * - `segmentLabels`: Localized labels, one per segment. No HTML is interpreted. (property only)
+   * - `progress`: undefined (property only) (readonly)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `segment-click`: undefined
+   *
+   * ## Methods
+   *
+   * Methods that can be called to access component functionality.
+   *
+   * - `getSegment(index: number) => HTMLButtonElement | undefined`: A segment's native button, for tooltip anchoring and native events.
+   * - `getSegmentIndexAt(clientX: number, clientY: number) => number | undefined`: Resolve the nearest visible segment, including gaps and vertical layouts.
+   * - `setState(current: number, progress: number) => void`: One playback clock can update the segment and its fraction without starting another RAF.
+   * - `startProgress(options?: { duration?: number; onComplete?: () => void }) => void`: 开始当前段的进度动画
+   * - `stopProgress() => void`: Stop the internal clock and retain the displayed fraction.
+   * - `pauseProgress() => void`: undefined
+   * - `resumeProgress() => void`: undefined
+   * - `setProgress(value: number) => void`: External-clock update: only the cached active fill's transform changes per frame.
+   * - `setLoading(v: boolean) => void`: 设置加载状态
+   */
+  "eos-progress-bar": Partial<
+    EosProgressBarProps & BaseProps<EosProgressBar> & BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
    * - `items`/`undefined`: undefined
    * - `layout`/`undefined`: undefined
    * - `max-visible`/`undefined`: undefined
@@ -616,45 +708,6 @@ export type CustomElements = {
    */
   "eos-image-group": Partial<
     EosImageGroupProps & BaseProps<EosImageGroup> & BaseEvents
-  >;
-
-  /**
-   *
-   *
-   * ## Attributes & Properties
-   *
-   * Component attributes and properties that can be applied to the element or by using JavaScript.
-   *
-   * - `total`/`undefined`: undefined
-   * - `current`/`undefined`: undefined
-   * - `variant`/`undefined`: undefined
-   * - `position`/`undefined`: undefined
-   * - `loading`/`undefined`: undefined
-   * - `total`: undefined (property only)
-   * - `current`: undefined (property only)
-   * - `variant`: undefined (property only)
-   * - `position`: undefined (property only)
-   * - `loading`: undefined (property only)
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `segment-click`: undefined
-   *
-   * ## Methods
-   *
-   * Methods that can be called to access component functionality.
-   *
-   * - `startProgress(options?: { duration?: number; onComplete?: () => void }) => void`: 开始当前段的进度动画
-   * - `stopProgress() => void`: 停止进度动画
-   * - `pauseProgress() => void`: 暂停当前进度动画并保留已完成的进度
-   * - `resumeProgress() => void`: 恢复已暂停的进度动画
-   * - `setProgress(value: number) => void`: 手动设置进度 0-100
-   * - `setLoading(v: boolean) => void`: 设置加载状态
-   */
-  "eos-progress-bar": Partial<
-    EosProgressBarProps & BaseProps<EosProgressBar> & BaseEvents
   >;
 
   /**
@@ -715,6 +768,8 @@ export type CustomElementsSolidJs = {
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
    * - `aria-label`/`undefined`: undefined
+   * - `aria-keyshortcuts`/`undefined`: undefined
+   * - `aria-pressed`/`undefined`: undefined
    * - `color`/`undefined`: undefined
    * - `disabled`/`undefined`: undefined
    * - `full-width`/`undefined`: undefined
@@ -731,7 +786,46 @@ export type CustomElementsSolidJs = {
   "eos-button": Partial<
     EosButtonProps & EosButtonSolidJsProps & BaseProps<EosButton> & BaseEvents
   >;
-  "eos-card-stack": Partial<EosCardStackProps & EosCardStackSolidJsProps & BaseProps<EosCardStack> & BaseEvents>;
+
+  /**
+   * A swipeable, bounded-DOM stack of cards. Set `itemCount` and `renderItem` after
+   * creating the element; three cards rest in the stack, with one extra card
+   * mounted briefly while a new neighbour is revealed.
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `item-count`/`undefined`: Number of cards in the external data source
+   * - `initial-index`/`undefined`: Initial zero-based index
+   * - `loop`/`undefined`: Wrap at either end
+   * - `itemCount`: undefined (property only)
+   * - `initialIndex`: undefined (property only)
+   * - `loop`: undefined (property only)
+   * - `currentIndex`: undefined (property only) (readonly)
+   * - `renderItem`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `change`: detail: { currentIndex, previousIndex }
+   *
+   * ## Methods
+   *
+   * Methods that can be called to access component functionality.
+   *
+   * - `refresh() => void`: Rebuild the visible window after an external item changes.
+   * - `next() => void`: undefined
+   * - `prev() => void`: undefined
+   * - `goTo(index: number) => void`: Adjacent moves animate; distant jumps replace the visible window directly.
+   */
+  "eos-card-stack": Partial<
+    EosCardStackProps &
+      EosCardStackSolidJsProps &
+      BaseProps<EosCardStack> &
+      BaseEvents
+  >;
 
   /**
    *
@@ -827,6 +921,55 @@ export type CustomElementsSolidJs = {
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
+   * - `total`/`undefined`: undefined
+   * - `current`/`undefined`: undefined
+   * - `variant`/`undefined`: undefined
+   * - `position`/`undefined`: undefined
+   * - `loading`/`undefined`: undefined
+   * - `aria-label`/`undefined`: undefined
+   * - `scrubbable`/`undefined`: undefined
+   * - `total`: undefined (property only)
+   * - `current`: undefined (property only)
+   * - `variant`: undefined (property only)
+   * - `position`: undefined (property only)
+   * - `loading`: undefined (property only)
+   * - `segmentLabels`: Localized labels, one per segment. No HTML is interpreted. (property only)
+   * - `progress`: undefined (property only) (readonly)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `segment-click`: undefined
+   *
+   * ## Methods
+   *
+   * Methods that can be called to access component functionality.
+   *
+   * - `getSegment(index: number) => HTMLButtonElement | undefined`: A segment's native button, for tooltip anchoring and native events.
+   * - `getSegmentIndexAt(clientX: number, clientY: number) => number | undefined`: Resolve the nearest visible segment, including gaps and vertical layouts.
+   * - `setState(current: number, progress: number) => void`: One playback clock can update the segment and its fraction without starting another RAF.
+   * - `startProgress(options?: { duration?: number; onComplete?: () => void }) => void`: 开始当前段的进度动画
+   * - `stopProgress() => void`: Stop the internal clock and retain the displayed fraction.
+   * - `pauseProgress() => void`: undefined
+   * - `resumeProgress() => void`: undefined
+   * - `setProgress(value: number) => void`: External-clock update: only the cached active fill's transform changes per frame.
+   * - `setLoading(v: boolean) => void`: 设置加载状态
+   */
+  "eos-progress-bar": Partial<
+    EosProgressBarProps &
+      EosProgressBarSolidJsProps &
+      BaseProps<EosProgressBar> &
+      BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
    * - `items`/`undefined`: undefined
    * - `layout`/`undefined`: undefined
    * - `max-visible`/`undefined`: undefined
@@ -844,48 +987,6 @@ export type CustomElementsSolidJs = {
     EosImageGroupProps &
       EosImageGroupSolidJsProps &
       BaseProps<EosImageGroup> &
-      BaseEvents
-  >;
-
-  /**
-   *
-   *
-   * ## Attributes & Properties
-   *
-   * Component attributes and properties that can be applied to the element or by using JavaScript.
-   *
-   * - `total`/`undefined`: undefined
-   * - `current`/`undefined`: undefined
-   * - `variant`/`undefined`: undefined
-   * - `position`/`undefined`: undefined
-   * - `loading`/`undefined`: undefined
-   * - `total`: undefined (property only)
-   * - `current`: undefined (property only)
-   * - `variant`: undefined (property only)
-   * - `position`: undefined (property only)
-   * - `loading`: undefined (property only)
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `segment-click`: undefined
-   *
-   * ## Methods
-   *
-   * Methods that can be called to access component functionality.
-   *
-   * - `startProgress(options?: { duration?: number; onComplete?: () => void }) => void`: 开始当前段的进度动画
-   * - `stopProgress() => void`: 停止进度动画
-   * - `pauseProgress() => void`: 暂停当前进度动画并保留已完成的进度
-   * - `resumeProgress() => void`: 恢复已暂停的进度动画
-   * - `setProgress(value: number) => void`: 手动设置进度 0-100
-   * - `setLoading(v: boolean) => void`: 设置加载状态
-   */
-  "eos-progress-bar": Partial<
-    EosProgressBarProps &
-      EosProgressBarSolidJsProps &
-      BaseProps<EosProgressBar> &
       BaseEvents
   >;
 

@@ -13,7 +13,7 @@ import {
 import { useDocsSearch } from 'fumadocs-core/search/client';
 import { staticClient } from 'fumadocs-core/search/client/orama-static';
 import { useI18n } from 'fumadocs-ui/contexts/i18n';
-import { withDocsTrailingSlash } from '@/lib/shared';
+import { withDocsPrerenderPath } from '@/lib/shared';
 
 export default function DefaultSearchDialog(props: SharedProps) {
   const { locale } = useI18n();
@@ -23,7 +23,7 @@ export default function DefaultSearchDialog(props: SharedProps) {
     }),
   });
   const items = query.data && query.data !== 'empty'
-    ? query.data.map((item) => ({ ...item, url: withDocsTrailingSlash(item.url) }))
+    ? query.data.map((item) => ({ ...item, url: withDocsPrerenderPath(item.url) }))
     : query.data;
 
   return (
