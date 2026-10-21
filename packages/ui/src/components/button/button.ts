@@ -22,6 +22,8 @@ export class EosButton extends HTMLElementBase {
 	static get observedAttributes() {
 		return [
 			"aria-label",
+			"aria-keyshortcuts",
+			"aria-pressed",
 			"color",
 			"disabled",
 			"full-width",
@@ -88,6 +90,8 @@ export class EosButton extends HTMLElementBase {
 	private render() {
 		const disabled = this.disabled || this.loading;
 		const ariaLabel = this.getAttribute("aria-label");
+		const ariaKeyshortcuts = this.getAttribute("aria-keyshortcuts");
+		const ariaPressed = this.getAttribute("aria-pressed");
 		const name = this.getAttribute("name");
 		const value = this.getAttribute("value");
 
@@ -95,6 +99,8 @@ export class EosButton extends HTMLElementBase {
 <style>${BUTTON_STYLES}</style>
 <button part="button" type="${this.getButtonType()}" ${disabled ? "disabled" : ""}
   ${ariaLabel ? `aria-label="${this.escapeAttribute(ariaLabel)}"` : ""}
+  ${ariaKeyshortcuts ? `aria-keyshortcuts="${this.escapeAttribute(ariaKeyshortcuts)}"` : ""}
+  ${ariaPressed ? `aria-pressed="${this.escapeAttribute(ariaPressed)}"` : ""}
   ${this.loading ? 'aria-busy="true"' : ""}
   ${name ? `name="${this.escapeAttribute(name)}"` : ""}
   ${value ? `value="${this.escapeAttribute(value)}"` : ""}>

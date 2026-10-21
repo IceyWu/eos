@@ -401,6 +401,10 @@ export class EosCarousel extends HTMLElementBase {
           right: 20px;
         }
 
+        :host([show-indicators="false"]) eos-progress-bar {
+          display: none;
+        }
+
         /* ── 虚拟化三槽渲染 ────────────────────────────────── */
         :host([data-virtual]) .slides-container {
           display: block;
