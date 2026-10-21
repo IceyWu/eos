@@ -1,5 +1,11 @@
 # @eosjs/ui
 
+## 0.3.1
+
+### Patch Changes
+
+- 4dd4c78: Keep the button's internal shadow root separate from public element properties so React attributes cannot overwrite it.
+
 ## 0.3.0
 
 ### Minor Changes
