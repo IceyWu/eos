@@ -1,5 +1,11 @@
 # @eosjs/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- b8592fd: Expose selective component entry points and add progress-bar controls, resilient image sizing, and accessibility options for buttons and carousels.
+
 ## 0.2.1
 
 ### Patch Changes
