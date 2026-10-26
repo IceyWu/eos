@@ -1,0 +1,108 @@
+---
+title: Select
+description: 具有罗盘弧线、四向自动定位和虚拟列表的跨框架下拉选择器。
+category: 通用
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## 介绍
+
+Select 的胶囊触发器保持在表单原有布局中。展开后，罗盘面板根据可用空间浮动到触发器旁边；左右落位使用纵向弧线，上下落位改用横向弧线与对应方向的刻度。固定指针和选中舱留在罗盘中心，滚动列表会将当前行吸附到中心。
+
+组件使用原生 Web Component，可接入 React、Vue、Angular 或原生 HTML。`@floating-ui/dom` 负责碰撞检测、方向选择以及页面滚动和窗口变化时的定位更新。面对大量选项时，组件只挂载视口内条目及少量前后缓冲数据。
+
+## 交互示例
+
+示例包含 10,000 条选项。点击方向调试按钮可预览四种罗盘布局。示例触发器保持紧凑并固定在预览中央，浮层只受页面可视区域约束，可以越过示例卡片展开；点击“恢复自动”后由组件自动落位。
+
+<Demo of={Basic} source={BasicSource} title="四向自动定位" layout="center" />
+
+## 基础用法
+
+```html
+<eos-select id="country" aria-label="国家" placeholder="选择国家"></eos-select>
+```
+
+```ts
+import '@eosjs/ui/select'; // 只注册 Select
+
+const select = document.querySelector('#country');
+select.options = [
+  { value: 'fr', label: 'France', prefix: '🇫🇷' },
+  { value: 'de', label: 'Germany', prefix: '🇩🇪' },
+  { value: 'it', label: 'Italy', prefix: '🇮🇹' },
+  { value: 'jp', label: 'Japan', prefix: '🇯🇵' },
+];
+select.value = 'it';
+select.addEventListener('change', (event) => {
+  const { value, option } = event.detail;
+  console.log(value, option.label);
+});
+```
+
+## API
+
+### 属性和属性值
+
+| 名称 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `options` | `readonly EosSelectOption[]` | `[]` | 选项数组，包含 `value`、`label` 和可选的 `prefix`、`disabled`。通过 JavaScript 属性赋值。 |
+| `value` | `string` | `''` | 当前选中项的值。 |
+| `open` | `boolean` | `false` | 是否展开浮层。 |
+| `disabled` | `boolean` | `false` | 禁用触发器和选择操作。 |
+| `placeholder` | `string` | `Select an option` | 未选择时显示的文字。 |
+| `full-width` | `boolean` | `false` | 让触发器填满所在区块。 |
+| `placement` | `auto \| top \| right \| bottom \| left` | `auto` | 浮层的期望方向；`auto` 会选择可用空间更大的方向。 |
+| `boundary` | `Element \| Element[] \| Rect` | Floating UI 裁剪祖先 | 可选的碰撞边界，通过 JavaScript 属性赋值。 |
+| `aria-label` | `string` | `Select an option` | 组合框的可访问名称。 |
+| `aria-labelledby` | `string` | — | 指向页面上可见标签的 ID。 |
+
+### 事件
+
+| 事件 | 详情 | 说明 |
+| --- | --- | --- |
+| `change` | `{ value: string, option: EosSelectOption }` | 提交了不同选项时触发；事件会冒泡并穿过 Shadow DOM 边界。 |
+
+### 键盘操作
+
+- `Enter` 或 `Space` 展开面板；面板打开时提交当前活动项。
+- 左右落位使用 `ArrowUp` / `ArrowDown`，上下落位使用 `ArrowLeft` / `ArrowRight` 移动活动项，并将它保持在罗盘中央。
+- `Home` 和 `End` 移动到第一个或最后一个可用选项。
+- `Escape` 关闭面板并将焦点还给触发器；`Tab` 关闭面板并按正常顺序移动焦点。
+- 输入字符可按选项标签前缀搜索。
+
+### 海量选项
+
+选项数据完整保留，但只渲染视口内条目和前后各三条缓冲项。滚动结束后，活动项或选中项会吸附到中央。请保证选项 `value` 唯一、`label` 稳定；数据更新时，重新设置 `options` 数组。
+
+### 浮层定位与主题
+
+面板使用 Floating UI DOM 定位引擎，负责自动落位、指定方向后的回退、视口避让、可用尺寸、位置更新和自定义碰撞边界。左右落位呈纵向罗盘弧线；上下落位呈横向弧线，刻度、列表虚拟滚动轴和方向键也随之切换。EOS 将指针与选中舱锁在罗盘中心。`placement` 属性指定期望方向；空间不足时由 Floating UI 选择回退方向。默认 `auto` 会选择可用空间更大的方向。触发器仍处于正常布局中，展开不会推挤表单内容。Light 和 Dark 表面使用 EOS 语义主题令牌，并遵循减少动效偏好。
+
+### 框架接入
+
+按需注册组件后，通过 JavaScript 属性赋值 `options`。React 中可以在 effect 内添加原生事件监听器；Vue 中可以使用模板引用或监听由组件冒泡的 `change` 事件。组件本身不依赖特定框架运行时。
+
+```tsx
+import { useEffect, useRef } from 'react';
+import '@eosjs/ui/select';
+
+export function CountryField() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const select = ref.current;
+    if (!select) return;
+    select.options = [{ value: 'jp', label: 'Japan' }];
+    const onChange = (event: Event) => {
+      console.log((event as CustomEvent).detail.value);
+    };
+    select.addEventListener('change', onChange);
+    return () => select.removeEventListener('change', onChange);
+  }, []);
+
+  return <eos-select ref={ref} aria-label="Country" />;
+}
+```

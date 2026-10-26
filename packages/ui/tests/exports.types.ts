@@ -12,6 +12,7 @@ import type {
 } from "@eosjs/ui/image-group";
 import type { EosProgressBar } from "@eosjs/ui/progress-bar";
 import type { EosScrollbar } from "@eosjs/ui/scrollbar";
+import type { EosSelect, EosSelectOption } from "@eosjs/ui/select";
 
 type Same<A, B> = [A, B] extends [B, A] ? true : false;
 type Assert<T extends true> = T;
@@ -24,6 +25,8 @@ export type EntryContracts = [
 	Assert<Same<ImageGroup, Root.EosImageGroup>>,
 	Assert<Same<EosProgressBar, Root.EosProgressBar>>,
 	Assert<Same<EosScrollbar, Root.EosScrollbar>>,
+	Assert<Same<EosSelect, Root.EosSelect>>,
+	Assert<Same<EosSelectOption, Root.EosSelectOption>>,
 	Assert<Same<CardStackRenderer, Root.CardStackRenderer>>,
 	Assert<Same<EosImageGroupItem, Root.EosImageGroupItem>>,
 	Assert<Same<EosImageGroupLayout, Root.EosImageGroupLayout>>,

@@ -1,6 +1,7 @@
 .component-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .demo-card { overflow: hidden; border: 1px solid var(--eos-color-border); border-radius: 24px; background: var(--eos-color-surface); box-shadow: 0 2px 4px var(--eos-shadow-field), 0 1px 2px var(--eos-shadow-field); }
 .demo-card--carousel { grid-column: span 2; }
+.demo-card--select { overflow: visible; }
 .demo-card-header { display: flex; align-items: center; justify-content: space-between; min-height: 72px; padding: 16px 20px; border-bottom: 1px solid var(--eos-color-separator); }
 .demo-card-header h2 { margin: 0; font-size: 18px; line-height: 28px; }
 .card-kicker { margin: 0 0 4px; color: var(--eos-color-foreground-muted); font: 500 11px/1.2 "SFMono-Regular", Consolas, monospace; letter-spacing: .08em; text-transform: uppercase; }
@@ -15,6 +16,10 @@
 .slide eos-image { display: block; width: 100%; height: 100%; }
 .slide-label { position: absolute; right: 16px; bottom: 14px; left: 16px; color: var(--eos-color-foreground-inverse, #fff); font-size: 14px; font-weight: 500; }
 .progress-demo { display: flex; flex-direction: column; gap: 24px; padding-block: 28px; }
+.select-demo { display: grid; min-block-size: 400px; align-content: start; padding-block-start: 28px; gap: 12px; }
+.select-debug-controls { position: fixed; z-index: 1200; inset-block-start: 12px; inset-inline-start: 50%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; max-inline-size: calc(100vw - 24px); padding: 8px 10px; border: 1px solid var(--eos-color-border); border-radius: 16px; background: var(--eos-color-surface); box-shadow: 0 2px 8px var(--eos-shadow-field); color: var(--eos-color-foreground-muted); font-size: 11px; transform: translateX(-50%); }
+.select-debug-controls button { min-block-size: 28px; padding-inline: 8px; border: 1px solid var(--eos-color-border); border-radius: 9999px; background: var(--eos-color-surface); color: var(--eos-color-foreground); font: inherit; cursor: pointer; }
+.select-debug-controls button:focus-visible { outline: 2px solid var(--eos-color-focus-ring); outline-offset: 2px; }
 .progress-row { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; gap: 16px; color: var(--eos-color-foreground-muted); font-size: 12px; }
 .progress-row eos-progress-bar { min-width: 0; width: 100%; }
 @media (max-width: 700px) { .component-grid { grid-template-columns: 1fr; } .demo-card--carousel { grid-column: auto; } .demo-card-header { padding-inline: 16px; } .demo-body, .carousel-demo { padding: 16px; } .button-demo { min-height: 140px; } .image-demo eos-image { height: 200px; } .progress-row { grid-template-columns: 64px minmax(0, 1fr); gap: 12px; } }

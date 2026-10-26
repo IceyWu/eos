@@ -6,6 +6,7 @@ import type {
   EosProgressBar,
   EosImageGroup,
   EosScrollbar,
+  EosSelect,
 } from "@eosjs/ui";
 
 /**
@@ -488,6 +489,62 @@ export type EosScrollbarSolidJsProps = {
   "prop:thumbRatio"?: EosScrollbar["thumbRatio"] | undefined;
   /**  */
   "on:scroll-change"?: ((e: CustomEvent) => void) | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
+export type EosSelectProps = {
+  /**  */
+  value?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  open?: unknown | undefined;
+  /**  */
+  disabled?: unknown | undefined;
+  /**  */
+  placeholder?: unknown | undefined;
+  /**  */
+  "aria-label"?: unknown | undefined;
+  /**  */
+  "aria-labelledby"?: unknown | undefined;
+  /**  */
+  placement?: unknown | undefined;
+  /**  */
+  options?: EosSelect["options"] | undefined;
+  /**  */
+  boundary?: EosSelect["boundary"] | undefined;
+
+  /**  */
+  onchange?: ((e: CustomEvent) => void) | undefined;
+};
+
+export type EosSelectSolidJsProps = {
+  /**  */
+  "attr:value"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:open"?: unknown | undefined;
+  /**  */
+  "attr:disabled"?: unknown | undefined;
+  /**  */
+  "attr:placeholder"?: unknown | undefined;
+  /**  */
+  "attr:aria-label"?: unknown | undefined;
+  /**  */
+  "attr:aria-labelledby"?: unknown | undefined;
+  /**  */
+  "attr:placement"?: unknown | undefined;
+  /**  */
+  "prop:options"?: EosSelect["options"] | undefined;
+  /**  */
+  "prop:boundary"?: EosSelect["boundary"] | undefined;
+  /**  */
+  "on:change"?: ((e: CustomEvent) => void) | undefined;
 
   /** Set the innerHTML of the element */
   innerHTML?: string | undefined;
@@ -1040,6 +1097,8 @@ export type CustomElementsSolidJs = {
       BaseProps<EosScrollbar> &
       BaseEvents
   >;
+  "eos-select": Partial<EosSelectProps & EosSelectSolidJsProps & BaseProps<EosSelect> & BaseEvents>;
+  "eos-select": Partial<EosSelectProps & BaseProps<EosSelect> & BaseEvents>;
 };
 
 export type CustomCssProperties = {};

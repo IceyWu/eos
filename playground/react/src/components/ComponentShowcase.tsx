@@ -3,6 +3,7 @@ import { CarouselDemo } from "./CarouselDemo";
 import { DemoCard } from "./DemoCard";
 import { ImageDemo } from "./ImageDemo";
 import { ProgressBarDemo } from "./ProgressBarDemo";
+import { SelectDemo } from "./SelectDemo";
 
 export const ComponentShowcase = () => {
 	return (
@@ -23,6 +24,14 @@ export const ComponentShowcase = () => {
 			</DemoCard>
 			<DemoCard kicker="Feedback" title="ProgressBar" meta="3 variants">
 				<ProgressBarDemo />
+			</DemoCard>
+			<DemoCard
+				kicker="Input"
+				title="Select"
+				meta="10,000 options"
+				className="demo-card--select"
+			>
+				<SelectDemo />
 			</DemoCard>
 		</section>
 	);

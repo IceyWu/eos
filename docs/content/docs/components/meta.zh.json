@@ -3,6 +3,7 @@
   "pages": [
     "---通用---",
     "button",
+    "select",
     "---数据展示---",
 	"card-stack",
     "carousel",

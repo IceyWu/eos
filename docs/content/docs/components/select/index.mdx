@@ -1,0 +1,108 @@
+---
+title: Select
+description: A compass inspired, framework agnostic select with automatic four side placement and virtualized options.
+category: General
+---
+
+import Basic from './demos/index.tsx';
+import BasicSource from './demos/index.tsx?raw';
+
+## Introduction
+
+Select keeps its compact pill trigger in the form layout. When opened, its compass panel floats beside the trigger and automatically chooses the side with the most room. The pointer stays fixed on the selected row while the option list scrolls and snaps that row to the center.
+
+The component is a native Web Component and can be used from React, Vue, Angular, or plain HTML. `@floating-ui/dom` handles collision-aware placement and updates the panel as the page scrolls or resizes. The component virtualizes long option lists and mounts only the visible rows plus a small overscan.
+
+## Interactive example
+
+This example contains 10,000 options. Use the placement controls to preview four compass layouts. The compact trigger stays centered in the preview; the panel is constrained by the page viewport and can extend beyond the demo card. **Restore** returns placement to automatic.
+
+<Demo of={Basic} source={BasicSource} title="Four side placement" layout="center" />
+
+## Basic usage
+
+```html
+<eos-select id="country" aria-label="Country" placeholder="Choose a country"></eos-select>
+```
+
+```ts
+import '@eosjs/ui/select'; // Register only Select
+
+const select = document.querySelector('#country');
+select.options = [
+  { value: 'fr', label: 'France', prefix: '🇫🇷' },
+  { value: 'de', label: 'Germany', prefix: '🇩🇪' },
+  { value: 'it', label: 'Italy', prefix: '🇮🇹' },
+  { value: 'jp', label: 'Japan', prefix: '🇯🇵' },
+];
+select.value = 'it';
+select.addEventListener('change', (event) => {
+  const { value, option } = event.detail;
+  console.log(value, option.label);
+});
+```
+
+## API
+
+### Properties and attributes
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `options` | `readonly EosSelectOption[]` | `[]` | Options with `value`, `label`, optional `prefix` and `disabled`. Set as a JavaScript property. |
+| `value` | `string` | `''` | Selected option value. |
+| `open` | `boolean` | `false` | Whether the floating panel is open. |
+| `disabled` | `boolean` | `false` | Disables the trigger and selection. |
+| `placeholder` | `string` | `Select an option` | Text shown before a value is selected. |
+| `full-width` | `boolean` | `false` | Makes the trigger fill its containing block. |
+| `placement` | `auto \| top \| right \| bottom \| left` | `auto` | Preferred floating panel side. `auto` chooses the side with the most available space. |
+| `boundary` | `Element \| Element[] \| Rect` | Floating UI clipping ancestors | Optional collision boundary passed to Floating UI. Set it as a JavaScript property. |
+| `aria-label` | `string` | `Select an option` | Accessible name for the combobox. |
+| `aria-labelledby` | `string` | — | ID reference for an external visible label. |
+
+### Events
+
+| Event | Detail | Description |
+| --- | --- | --- |
+| `change` | `{ value: string, option: EosSelectOption }` | Fires when a different option is committed. It bubbles and is composed across the shadow boundary. |
+
+### Keyboard interaction
+
+- `Enter` or `Space` opens the panel; while open, it commits the active option.
+- Up/down placements use `ArrowLeft` / `ArrowRight`; left/right placements use `ArrowUp` / `ArrowDown`. Both keep the active option centered in the compass.
+- `Home` and `End` move to the first or last enabled option.
+- `Escape` closes the panel and returns focus to the trigger; `Tab` closes it while continuing normal focus movement.
+- Typing characters searches option labels by prefix.
+
+### Large option lists
+
+Options are stored as data, while only the visible viewport rows and three rows of overscan are rendered. The active or selected row snaps to the center after scrolling. Keep option values unique and provide stable labels. For datasets that change, replace the `options` property with the updated array.
+
+### Placement and themes
+
+The panel uses Floating UI's DOM positioning engine with automatic placement, preferred placement with fallback, viewport shifting, available-size constraints, live updates, and custom collision boundaries. Left/right placements use a vertical compass arc; top/bottom placements use a horizontal arc with a matching tick axis and virtual scroll direction. EOS keeps the pointer and selection capsule fixed at the compass center. The `placement` property requests a side; Floating UI can fall back when there is insufficient room. Its default `auto` chooses the side with the most available space. The trigger remains in normal layout, so opening the list does not push form content. Light and dark surfaces use EOS semantic theme tokens. Reduced-motion preferences shorten the transitions.
+
+## Framework integration
+
+Register the element once, then assign `options` as a property. In React, attach a native event listener in an effect; in Vue, use a template ref or listen to the composed `change` event. The component itself has no framework runtime dependency.
+
+```tsx
+import { useEffect, useRef } from 'react';
+import '@eosjs/ui/select';
+
+export function CountryField() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const select = ref.current;
+    if (!select) return;
+    select.options = [{ value: 'jp', label: 'Japan' }];
+    const onChange = (event: Event) => {
+      console.log((event as CustomEvent).detail.value);
+    };
+    select.addEventListener('change', onChange);
+    return () => select.removeEventListener('change', onChange);
+  }, []);
+
+  return <eos-select ref={ref} aria-label="Country" />;
+}
+```

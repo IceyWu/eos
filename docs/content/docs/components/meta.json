@@ -3,6 +3,7 @@
   "pages": [
     "---General---",
     "button",
+    "select",
     "---Data Display---",
 	"card-stack",
     "carousel",

@@ -70,6 +70,11 @@
 			"import": "./dist/scrollbar.js",
 			"default": "./dist/scrollbar.js"
 		},
+		"./select": {
+			"types": "./dist/entries/select.d.ts",
+			"import": "./dist/select.js",
+			"default": "./dist/select.js"
+		},
 		"./config": {
 			"types": "./dist/config.d.ts",
 			"import": "./dist/config.js",
@@ -92,6 +97,7 @@
 	},
 	"dependencies": {
 		"@eosjs/utils": "workspace:*",
+		"@floating-ui/dom": "^1.8.0",
 		"blurhash": "^2.0.5"
 	},
 	"devDependencies": {
@@ -117,6 +123,7 @@
 		"./dist/image.js",
 		"./dist/image-group.js",
 		"./dist/progress-bar.js",
-		"./dist/scrollbar.js"
+		"./dist/scrollbar.js",
+		"./dist/select.js"
 	]
 }

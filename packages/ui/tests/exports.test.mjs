@@ -18,6 +18,7 @@ const classes = {
 	"image-group": "EosImageGroup",
 	"progress-bar": "EosProgressBar",
 	scrollbar: "EosScrollbar",
+	select: "EosSelect",
 };
 const run = (code) => execFileSync(process.execPath, ["--input-type=module"], {
 	cwd: packageRoot,
