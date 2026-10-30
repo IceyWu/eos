@@ -1,14 +1,12 @@
 import { EOS_THEME_TOKENS } from "../../styles/tokens.css";
 
-const SCENE_THEME_TOKENS = EOS_THEME_TOKENS
-	.replace(
-		':host([data-eos-theme="dark"])',
-		':host([data-eos-theme="dark"]), :host-context([data-eos-theme="dark"])',
-	)
-	.replace(
-		':host([data-eos-theme="light"])',
-		':host([data-eos-theme="light"]), :host-context([data-eos-theme="light"])',
-	);
+const SCENE_THEME_TOKENS = EOS_THEME_TOKENS.replace(
+	':host([data-eos-theme="dark"])',
+	':host([data-eos-theme="dark"]), :host-context([data-eos-theme="dark"])',
+).replace(
+	':host([data-eos-theme="light"])',
+	':host([data-eos-theme="light"]), :host-context([data-eos-theme="light"])',
+);
 
 export const SCENE_STYLES = `
 ${SCENE_THEME_TOKENS}

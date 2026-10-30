@@ -3,10 +3,10 @@ import type {
   EosCardStack,
   EosCarousel,
   EosImage,
-  EosProgressBar,
-  EosScene,
-  EosSceneItem,
   EosImageGroup,
+  EosProgressBar,
+  EosSceneItem,
+  EosScene,
   EosScrollbar,
   EosSelect,
 } from "@eosjs/ui";
@@ -350,6 +350,42 @@ export type EosImageSolidJsProps = {
   textContent?: string | number | undefined;
 };
 
+export type EosImageGroupProps = {
+  /**  */
+  items?: unknown | undefined;
+  /**  */
+  undefined?: unknown | undefined;
+  /**  */
+  layout?: unknown | undefined;
+  /**  */
+  "max-visible"?: unknown | undefined;
+  /**  */
+  maxVisible?: EosImageGroup["maxVisible"] | undefined;
+
+  /**  */
+  "onimage-click"?: ((e: CustomEvent) => void) | undefined;
+};
+
+export type EosImageGroupSolidJsProps = {
+  /**  */
+  "attr:items"?: unknown | undefined;
+  /**  */
+  "prop:undefined"?: unknown | undefined;
+  /**  */
+  "attr:layout"?: unknown | undefined;
+  /**  */
+  "attr:max-visible"?: unknown | undefined;
+  /**  */
+  "prop:maxVisible"?: EosImageGroup["maxVisible"] | undefined;
+  /**  */
+  "on:image-click"?: ((e: CustomEvent) => void) | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
 export type EosProgressBarProps = {
   /**  */
   total?: unknown | undefined;
@@ -402,61 +438,6 @@ export type EosProgressBarSolidJsProps = {
   textContent?: string | number | undefined;
 };
 
-export type EosImageGroupProps = {
-  /**  */
-  items?: unknown | undefined;
-  /**  */
-  undefined?: unknown | undefined;
-  /**  */
-  layout?: unknown | undefined;
-  /**  */
-  "max-visible"?: unknown | undefined;
-  /**  */
-  maxVisible?: EosImageGroup["maxVisible"] | undefined;
-
-  /**  */
-  "onimage-click"?: ((e: CustomEvent) => void) | undefined;
-};
-
-export type EosImageGroupSolidJsProps = {
-  /**  */
-  "attr:items"?: unknown | undefined;
-  /**  */
-  "prop:undefined"?: unknown | undefined;
-  /**  */
-  "attr:layout"?: unknown | undefined;
-  /**  */
-  "attr:max-visible"?: unknown | undefined;
-  /**  */
-  "prop:maxVisible"?: EosImageGroup["maxVisible"] | undefined;
-  /**  */
-  "on:image-click"?: ((e: CustomEvent) => void) | undefined;
-
-  /** Set the innerHTML of the element */
-  innerHTML?: string | undefined;
-  /** Set the textContent of the element */
-  textContent?: string | number | undefined;
-};
-
-export type EosSceneProps = {
-  /** Accessible name for the scene content. */
-  "aria-label"?: unknown | undefined;
-  /** Accessible name for the scene content. */
-  undefined?: unknown | undefined;
-};
-
-export type EosSceneSolidJsProps = {
-  /** Accessible name for the scene content. */
-  "attr:aria-label"?: unknown | undefined;
-  /** Accessible name for the scene content. */
-  "prop:undefined"?: unknown | undefined;
-
-  /** Set the innerHTML of the element */
-  innerHTML?: string | undefined;
-  /** Set the textContent of the element */
-  textContent?: string | number | undefined;
-};
-
 export type EosSceneItemProps = {
   /** Normalized horizontal scene coordinate from 0 to 1. */
   x?: unknown | undefined;
@@ -481,6 +462,25 @@ export type EosSceneItemSolidJsProps = {
   "attr:z-index"?: unknown | undefined;
   /** The item edge, corner, or center aligned with x/y. */
   "attr:anchor"?: unknown | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
+export type EosSceneProps = {
+  /** Accessible name for the scene content. */
+  "aria-label"?: unknown | undefined;
+  /** Accessible name for the scene content. */
+  undefined?: unknown | undefined;
+};
+
+export type EosSceneSolidJsProps = {
+  /** Accessible name for the scene content. */
+  "attr:aria-label"?: unknown | undefined;
+  /** Accessible name for the scene content. */
+  "prop:undefined"?: unknown | undefined;
 
   /** Set the innerHTML of the element */
   innerHTML?: string | undefined;
@@ -756,6 +756,30 @@ export type CustomElements = {
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
+   * - `items`/`undefined`: undefined
+   * - `layout`/`undefined`: undefined
+   * - `max-visible`/`undefined`: undefined
+   * - `items`: undefined (property only)
+   * - `layout`: undefined (property only)
+   * - `maxVisible`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `image-click`: undefined
+   */
+  "eos-image-group": Partial<
+    EosImageGroupProps & BaseProps<EosImageGroup> & BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
    * - `total`/`undefined`: undefined
    * - `current`/`undefined`: undefined
    * - `variant`/`undefined`: undefined
@@ -802,22 +826,28 @@ export type CustomElements = {
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `items`/`undefined`: undefined
-   * - `layout`/`undefined`: undefined
-   * - `max-visible`/`undefined`: undefined
-   * - `items`: undefined (property only)
-   * - `layout`: undefined (property only)
-   * - `maxVisible`: undefined (property only)
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `image-click`: undefined
+   * - `x`/`undefined`: Normalized horizontal scene coordinate from 0 to 1.
+   * - `y`/`undefined`: Normalized vertical scene coordinate from 0 to 1.
+   * - `z-index`/`undefined`: Stacking order among scene items.
+   * - `anchor`/`undefined`: The item edge, corner, or center aligned with x/y.
+   * - `x`: Normalized horizontal coordinate. (property only)
+   * - `y`: Normalized vertical coordinate. (property only)
+   * - `anchor`: Item alignment around its x/y coordinate. (property only)
    */
-  "eos-image-group": Partial<
-    EosImageGroupProps & BaseProps<EosImageGroup> & BaseEvents
+  "eos-scene-item": Partial<
+    EosSceneItemProps & BaseProps<EosSceneItem> & BaseEvents
   >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `aria-label`/`undefined`: Accessible name for the scene content.
+   */
+  "eos-scene": Partial<EosSceneProps & BaseProps<EosScene> & BaseEvents>;
 
   /**
    *
@@ -866,8 +896,35 @@ export type CustomElements = {
   "eos-scrollbar": Partial<
     EosScrollbarProps & BaseProps<EosScrollbar> & BaseEvents
   >;
-  "eos-scene": Partial<EosSceneProps & BaseProps<EosScene> & BaseEvents>;
-  "eos-scene-item": Partial<EosSceneItemProps & BaseProps<EosSceneItem> & BaseEvents>;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `value`/`undefined`: undefined
+   * - `open`/`undefined`: undefined
+   * - `disabled`/`undefined`: undefined
+   * - `placeholder`/`undefined`: undefined
+   * - `aria-label`/`undefined`: undefined
+   * - `aria-labelledby`/`undefined`: undefined
+   * - `placement`/`undefined`: undefined
+   * - `options`: undefined (property only)
+   * - `value`: undefined (property only)
+   * - `open`: undefined (property only)
+   * - `disabled`: undefined (property only)
+   * - `placement`: undefined (property only)
+   * - `boundary`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `change`: undefined
+   */
+  "eos-select": Partial<EosSelectProps & BaseProps<EosSelect> & BaseEvents>;
 };
 
 export type CustomElementsSolidJs = {
@@ -1032,6 +1089,33 @@ export type CustomElementsSolidJs = {
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
+   * - `items`/`undefined`: undefined
+   * - `layout`/`undefined`: undefined
+   * - `max-visible`/`undefined`: undefined
+   * - `items`: undefined (property only)
+   * - `layout`: undefined (property only)
+   * - `maxVisible`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `image-click`: undefined
+   */
+  "eos-image-group": Partial<
+    EosImageGroupProps &
+      EosImageGroupSolidJsProps &
+      BaseProps<EosImageGroup> &
+      BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
    * - `total`/`undefined`: undefined
    * - `current`/`undefined`: undefined
    * - `variant`/`undefined`: undefined
@@ -1081,24 +1165,32 @@ export type CustomElementsSolidJs = {
    *
    * Component attributes and properties that can be applied to the element or by using JavaScript.
    *
-   * - `items`/`undefined`: undefined
-   * - `layout`/`undefined`: undefined
-   * - `max-visible`/`undefined`: undefined
-   * - `items`: undefined (property only)
-   * - `layout`: undefined (property only)
-   * - `maxVisible`: undefined (property only)
-   *
-   * ## Events
-   *
-   * Events that will be emitted by the component.
-   *
-   * - `image-click`: undefined
+   * - `x`/`undefined`: Normalized horizontal scene coordinate from 0 to 1.
+   * - `y`/`undefined`: Normalized vertical scene coordinate from 0 to 1.
+   * - `z-index`/`undefined`: Stacking order among scene items.
+   * - `anchor`/`undefined`: The item edge, corner, or center aligned with x/y.
+   * - `x`: Normalized horizontal coordinate. (property only)
+   * - `y`: Normalized vertical coordinate. (property only)
+   * - `anchor`: Item alignment around its x/y coordinate. (property only)
    */
-  "eos-image-group": Partial<
-    EosImageGroupProps &
-      EosImageGroupSolidJsProps &
-      BaseProps<EosImageGroup> &
+  "eos-scene-item": Partial<
+    EosSceneItemProps &
+      EosSceneItemSolidJsProps &
+      BaseProps<EosSceneItem> &
       BaseEvents
+  >;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `aria-label`/`undefined`: Accessible name for the scene content.
+   */
+  "eos-scene": Partial<
+    EosSceneProps & EosSceneSolidJsProps & BaseProps<EosScene> & BaseEvents
   >;
 
   /**
@@ -1151,10 +1243,37 @@ export type CustomElementsSolidJs = {
       BaseProps<EosScrollbar> &
       BaseEvents
   >;
-  "eos-select": Partial<EosSelectProps & EosSelectSolidJsProps & BaseProps<EosSelect> & BaseEvents>;
-  "eos-select": Partial<EosSelectProps & BaseProps<EosSelect> & BaseEvents>;
-  "eos-scene": Partial<EosSceneProps & EosSceneSolidJsProps & BaseProps<EosScene> & BaseEvents>;
-  "eos-scene-item": Partial<EosSceneItemProps & EosSceneItemSolidJsProps & BaseProps<EosSceneItem> & BaseEvents>;
+
+  /**
+   *
+   *
+   * ## Attributes & Properties
+   *
+   * Component attributes and properties that can be applied to the element or by using JavaScript.
+   *
+   * - `value`/`undefined`: undefined
+   * - `open`/`undefined`: undefined
+   * - `disabled`/`undefined`: undefined
+   * - `placeholder`/`undefined`: undefined
+   * - `aria-label`/`undefined`: undefined
+   * - `aria-labelledby`/`undefined`: undefined
+   * - `placement`/`undefined`: undefined
+   * - `options`: undefined (property only)
+   * - `value`: undefined (property only)
+   * - `open`: undefined (property only)
+   * - `disabled`: undefined (property only)
+   * - `placement`: undefined (property only)
+   * - `boundary`: undefined (property only)
+   *
+   * ## Events
+   *
+   * Events that will be emitted by the component.
+   *
+   * - `change`: undefined
+   */
+  "eos-select": Partial<
+    EosSelectProps & EosSelectSolidJsProps & BaseProps<EosSelect> & BaseEvents
+  >;
 };
 
 export type CustomCssProperties = {};

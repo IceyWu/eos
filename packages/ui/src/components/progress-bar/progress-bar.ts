@@ -329,24 +329,27 @@ export class EosProgressBar extends HTMLElementBase {
 	// ── 内部方法 ──────────────────────────────────────────
 
 	private render() {
-		if (!this.shadowRoot) return;
-		this.shadowRoot.innerHTML = `
+		const root = this.shadowRoot;
+		if (!root) return;
+		root.innerHTML = `
 			<style>${PROGRESS_BAR_STYLES}</style>
 			<div class="bar" role="group"></div>
 		`;
-		this._bar = this.shadowRoot.querySelector<HTMLElement>(".bar");
-		this._bar!.className = `bar variant-${this.variant} pos-${this.position}`;
-		this._bar!.setAttribute(
+		const bar = root.querySelector<HTMLElement>(".bar");
+		if (!bar) return;
+		this._bar = bar;
+		bar.className = `bar variant-${this.variant} pos-${this.position}`;
+		bar.setAttribute(
 			"aria-label",
 			this.getAttribute("aria-label") || "Progress",
 		);
-		this._bar!.addEventListener("click", this.handleClick);
-		this._bar!.addEventListener("keydown", this.handleKeydown);
-		this._bar!.addEventListener("pointerdown", this.handlePointerDown);
-		this._bar!.addEventListener("pointermove", this.handlePointerMove);
-		this._bar!.addEventListener("pointerup", this.handlePointerUp);
-		this._bar!.addEventListener("pointercancel", this.cancelScrub);
-		this._bar!.addEventListener("lostpointercapture", this.cancelScrub);
+		bar.addEventListener("click", this.handleClick);
+		bar.addEventListener("keydown", this.handleKeydown);
+		bar.addEventListener("pointerdown", this.handlePointerDown);
+		bar.addEventListener("pointermove", this.handlePointerMove);
+		bar.addEventListener("pointerup", this.handlePointerUp);
+		bar.addEventListener("pointercancel", this.cancelScrub);
+		bar.addEventListener("lostpointercapture", this.cancelScrub);
 	}
 
 	private labelSegment(segment: HTMLElement, index: number) {

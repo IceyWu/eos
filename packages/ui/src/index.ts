@@ -4,9 +4,9 @@ import { EosCarousel } from "./components/carousel";
 import { EosImage } from "./components/image";
 import { EosImageGroup, ImageGroup } from "./components/image-group";
 import { EosProgressBar } from "./components/progress-bar";
+import { EosScene, EosSceneItem } from "./components/scene";
 import { EosScrollbar } from "./components/scrollbar";
 import { EosSelect } from "./components/select";
-import { EosScene, EosSceneItem } from "./components/scene";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
 import { registerComponent } from "./register";
 
@@ -15,13 +15,13 @@ export type {
 	EosImageGroupItem,
 	EosImageGroupLayout,
 } from "./components/image-group";
+export type { EosSceneAnchor } from "./components/scene";
 export type {
 	EosSelectBoundary,
 	EosSelectOption,
 	EosSelectPlacement,
 } from "./components/select";
 export type { ComponentRegistration } from "./config";
-export type { EosSceneAnchor } from "./components/scene";
 export { registerComponent } from "./register";
 
 export {
@@ -32,10 +32,10 @@ export {
 	EosImage,
 	EosImageGroup,
 	EosProgressBar,
-	EosScrollbar,
-	EosSelect,
 	EosScene,
 	EosSceneItem,
+	EosScrollbar,
+	EosSelect,
 	ImageGroup,
 };
 

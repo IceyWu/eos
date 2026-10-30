@@ -11,9 +11,9 @@ import type {
 	ImageGroup,
 } from "@eosjs/ui/image-group";
 import type { EosProgressBar } from "@eosjs/ui/progress-bar";
+import type { EosScene, EosSceneItem } from "@eosjs/ui/scene";
 import type { EosScrollbar } from "@eosjs/ui/scrollbar";
 import type { EosSelect, EosSelectOption } from "@eosjs/ui/select";
-import type { EosScene, EosSceneItem } from "@eosjs/ui/scene";
 
 type Same<A, B> = [A, B] extends [B, A] ? true : false;
 type Assert<T extends true> = T;

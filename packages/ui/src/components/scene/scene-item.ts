@@ -33,8 +33,10 @@ export class EosSceneItem extends HTMLElementBase {
 	}
 
 	connectedCallback() {
-		if (!this.shadowRoot?.hasChildNodes()) {
-			this.shadowRoot!.innerHTML = `
+		const root = this.shadowRoot;
+		if (!root) return;
+		if (!root.hasChildNodes()) {
+			root.innerHTML = `
 				<style>${SCENE_ITEM_STYLES}</style>
 				<div class="content"><slot></slot></div>
 			`;
@@ -65,17 +67,20 @@ export class EosSceneItem extends HTMLElementBase {
 	/** Item alignment around its x/y coordinate. */
 	get anchor(): EosSceneAnchor {
 		const value = this.getAttribute("anchor") as EosSceneAnchor | null;
-		return value && [
-			"center",
-			"top-left",
-			"top",
-			"top-right",
-			"right",
-			"bottom-right",
-			"bottom",
-			"bottom-left",
-			"left",
-		].includes(value) ? value : "center";
+		return value &&
+			[
+				"center",
+				"top-left",
+				"top",
+				"top-right",
+				"right",
+				"bottom-right",
+				"bottom",
+				"bottom-left",
+				"left",
+			].includes(value)
+			? value
+			: "center";
 	}
 	set anchor(value: EosSceneAnchor) {
 		this.setAttribute("anchor", value);
@@ -88,9 +93,16 @@ export class EosSceneItem extends HTMLElementBase {
 
 	private updatePosition() {
 		if (!this.isConnected) return;
-		const formatPercent = (value: number) => `${Number((value * 100).toFixed(4))}%`;
-		this.style.setProperty("--eos-scene-item-x", formatPercent(this.readCoordinate("x")));
-		this.style.setProperty("--eos-scene-item-y", formatPercent(this.readCoordinate("y")));
+		const formatPercent = (value: number) =>
+			`${Number((value * 100).toFixed(4))}%`;
+		this.style.setProperty(
+			"--eos-scene-item-x",
+			formatPercent(this.readCoordinate("x")),
+		);
+		this.style.setProperty(
+			"--eos-scene-item-y",
+			formatPercent(this.readCoordinate("y")),
+		);
 		const shifts: Record<string, [string, string]> = {
 			center: ["-50%", "-50%"],
 			"top-left": ["0%", "0%"],
@@ -111,5 +123,4 @@ export class EosSceneItem extends HTMLElementBase {
 			String(Number.isFinite(zIndex) ? zIndex : 1),
 		);
 	}
-
 }

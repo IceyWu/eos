@@ -34,7 +34,7 @@
           "members": [
             {
               "kind": "field",
-              "name": "shadow",
+              "name": "shadowRootElement",
               "type": {
                 "text": "ShadowRoot"
               },
@@ -814,7 +814,7 @@
               "kind": "field",
               "name": "progressBar",
               "type": {
-                "text": "| import(\"../progress-bar/progress-bar\").EosProgressBar\r\n\t\t| null"
+                "text": "| import(\"../progress-bar/progress-bar\").EosProgressBar\n\t\t| null"
               },
               "privacy": "private",
               "description": "获取内部 eos-progress-bar 实例",
@@ -982,13 +982,13 @@
               "kind": "method",
               "name": "evaluateVirtualMode",
               "privacy": "private",
-              "description": "根据当前 slide 数与 threshold 决定是否启用虚拟三槽模式。\r\n启用时在 host 元素挂载 data-virtual 属性（触发 CSS 切换），\r\n关闭时摘除该属性并清空槽位缓存。"
+              "description": "根据当前 slide 数与 threshold 决定是否启用虚拟三槽模式。\n启用时在 host 元素挂载 data-virtual 属性（触发 CSS 切换），\n关闭时摘除该属性并清空槽位缓存。"
             },
             {
               "kind": "method",
               "name": "initVirtualDivs",
               "privacy": "private",
-              "description": "初始化三个复用 DOM 槽位，使用 cloneNode(true) 从 slot 拷贝真实元素。\r\n支持任意内容：img / video / 自定义 HTML，无需特殊配置。\r\n若 slot 尚未完成分配（assignedElements 为空），延迟一帧重试。"
+              "description": "初始化三个复用 DOM 槽位，使用 cloneNode(true) 从 slot 拷贝真实元素。\n支持任意内容：img / video / 自定义 HTML，无需特殊配置。\n若 slot 尚未完成分配（assignedElements 为空），延迟一帧重试。"
             },
             {
               "kind": "method",
@@ -1008,7 +1008,7 @@
                   }
                 }
               ],
-              "description": "将 slot 中第 index 个元素克隆（深复制）到目标虚拟槽位 div 内。\r\ncloneNode(true) 保留完整 DOM 结构及内联事件，适配图片/视频/任意内容。\r\n激活懒加载：把克隆节点内 data-src 赋给 src，只在真正展示时才触发加载。"
+              "description": "将 slot 中第 index 个元素克隆（深复制）到目标虚拟槽位 div 内。\ncloneNode(true) 保留完整 DOM 结构及内联事件，适配图片/视频/任意内容。\n激活懒加载：把克隆节点内 data-src 赋给 src，只在真正展示时才触发加载。"
             },
             {
               "kind": "method",
@@ -1028,13 +1028,13 @@
                   }
                 }
               ],
-              "description": "三槽位切换动画（核心虚拟化逻辑）。\r\n只有 3 个真实 DOM 节点在循环复用，无论数据量多大 DOM 规模恒定。"
+              "description": "三槽位切换动画（核心虚拟化逻辑）。\n只有 3 个真实 DOM 节点在循环复用，无论数据量多大 DOM 规模恒定。"
             },
             {
               "kind": "method",
               "name": "renderProgressBar",
               "privacy": "private",
-              "description": "渲染进度条（增量更新）\r\n仅在 segment 数量变化时重建 DOM，其余情况只修改 class，避免不必要的回流"
+              "description": "渲染进度条（增量更新）\n仅在 segment 数量变化时重建 DOM，其余情况只修改 class，避免不必要的回流"
             },
             {
               "kind": "method",
@@ -1092,7 +1092,7 @@
                   }
                 }
               ],
-              "description": "设置当前 slide 为加载中状态（波纹动画）\r\n调用 startSlideProgress 时会自动结束加载状态"
+              "description": "设置当前 slide 为加载中状态（波纹动画）\n调用 startSlideProgress 时会自动结束加载状态"
             },
             {
               "kind": "method",
@@ -1561,6 +1561,261 @@
           "declaration": {
             "name": "EosImage",
             "module": "./image"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/api.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "ImageGroup",
+          "return": {
+            "type": {
+              "text": "null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "_props",
+              "type": {
+                "text": "ImageGroupProps"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ImageGroup",
+          "declaration": {
+            "name": "ImageGroup",
+            "module": "src/components/image-group/api.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/image-group.css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "IMAGE_GROUP_STYLES",
+          "default": "` ${EOS_THEME_TOKENS} :host { display: block; width: 100%; } :host([hidden]) { display: none; } .group { display: grid; gap: var(--eos-image-group-gap, 4px); aspect-ratio: var(--eos-image-group-columns) / var(--eos-image-group-aspect-rows); width: 100%; overflow: hidden; border-radius: var(--eos-image-group-radius, 5px); } .group.grid, .group.pair { grid-template-columns: repeat(var(--eos-image-group-columns), minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] { grid-template-columns: repeat(6, minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] .tile { grid-column: span 2; } .group.grid[data-columns=\"3\"][data-remainder=\"1\"] .tile:last-child { grid-column: 3 / 5; } .group.grid[data-columns=\"3\"][data-remainder=\"2\"] .tile:nth-last-child(2) { grid-column: 2 / 4; } .group.grid[data-columns=\"3\"][data-remainder=\"2\"] .tile:last-child { grid-column: 4 / 6; } .group.pair[data-remainder=\"1\"] .tile:last-child { grid-column: 1 / -1; width: 50%; justify-self: center; } .group.featured { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.featured[data-count=\"1\"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"2\"] { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"3\"] { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } .group.featured[data-count]:not([data-count=\"1\"]):not([data-count=\"2\"]) .tile:first-child { grid-row: 1 / -1; } .group.featured[data-featured-remainder=\"1\"]:not([data-count=\"2\"]) .tile:last-child { grid-column: 2 / 4; } .tile { position: relative; isolation: isolate; box-sizing: border-box; min-width: 0; min-height: 0; height: 100%; overflow: hidden; border: 0; border-radius: var(--eos-image-group-radius, 5px); padding: 0; background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground); cursor: pointer; } .tile.has-overflow::before { position: absolute; z-index: 2; inset: 0; border-radius: inherit; background: var(--eos-image-group-overlay, rgb(0 0 0 / 32%)); content: \"\"; pointer-events: none; } .tile::after { position: absolute; z-index: 3; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--eos-image-group-border, rgb(0 0 0 / 10%)); content: \"\"; pointer-events: none; } .tile eos-image { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; --eos-image-radius: var(--eos-image-group-radius, 5px); transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); } .tile:hover eos-image { transform: scale(1.03); } .tile:focus-visible { z-index: 1; outline: 2px solid var(--eos-color-focus-ring); outline-offset: -2px; } .count { position: absolute; z-index: 4; inset-block-start: 50%; inset-inline-start: 50%; min-width: 36px; transform: translate(-50%, -50%); padding: 3px 10px; border-radius: 999px; background: var(--eos-image-group-count-background, var(--eos-color-surface)); color: var(--eos-image-group-count-foreground, var(--eos-color-foreground)); box-shadow: 0 1px 4px var(--eos-image-group-count-shadow, rgb(0 0 0 / 18%)); font: 600 13px/18px var(--eos-font-family); text-align: center; white-space: nowrap; pointer-events: none; } @media (prefers-reduced-motion: reduce) { .tile eos-image { transition: none; } } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "IMAGE_GROUP_STYLES",
+          "declaration": {
+            "name": "IMAGE_GROUP_STYLES",
+            "module": "src/components/image-group/image-group.css.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/image-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EosImageGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_items",
+              "type": {
+                "text": "EosImageGroupItem[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_layout",
+              "type": {
+                "text": "EosImageGroupLayout"
+              },
+              "privacy": "private",
+              "default": "\"grid\""
+            },
+            {
+              "kind": "field",
+              "name": "_maxVisible",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "9"
+            },
+            {
+              "kind": "field",
+              "name": "themeObserver",
+              "type": {
+                "text": "MutationObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "renderQueued",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "items"
+            },
+            {
+              "kind": "field",
+              "name": "layout"
+            },
+            {
+              "kind": "field",
+              "name": "maxVisible"
+            },
+            {
+              "kind": "method",
+              "name": "readAttributes",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncTheme",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleRender",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setImageAttribute",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "image",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "boolean | number | string | undefined"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getLayoutMetrics",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "itemCount",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "image-click",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "items"
+            },
+            {
+              "name": "layout"
+            },
+            {
+              "name": "max-visible"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElementBase",
+            "module": "src/components/image-group/image-group.ts"
+          },
+          "tagName": "eos-image-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImageGroup",
+          "declaration": {
+            "name": "EosImageGroup",
+            "module": "src/components/image-group/image-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/image-group/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EosImageGroupItem",
+          "declaration": {
+            "name": "EosImageGroupItem",
+            "module": "./image-group"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EosImageGroupLayout",
+          "declaration": {
+            "name": "EosImageGroupLayout",
+            "module": "./image-group"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EosImageGroup",
+          "declaration": {
+            "name": "EosImageGroup",
+            "module": "./image-group"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ImageGroup",
+          "declaration": {
+            "name": "EosImageGroup",
+            "module": "./image-group"
           }
         }
       ]
@@ -2107,255 +2362,209 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/image-group/api.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "ImageGroup",
-          "return": {
-            "type": {
-              "text": "null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "_props",
-              "type": {
-                "text": "ImageGroupProps"
-              }
-            }
-          ]
-        }
-      ],
+      "path": "src/components/scene/index.ts",
+      "declarations": [],
       "exports": [
         {
           "kind": "js",
-          "name": "ImageGroup",
+          "name": "EosScene",
           "declaration": {
-            "name": "ImageGroup",
-            "module": "src/components/image-group/api.ts"
+            "name": "EosScene",
+            "module": "./scene"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EosSceneAnchor",
+          "declaration": {
+            "name": "EosSceneAnchor",
+            "module": "./scene-item"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EosSceneItem",
+          "declaration": {
+            "name": "EosSceneItem",
+            "module": "./scene-item"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/image-group/image-group.css.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "IMAGE_GROUP_STYLES",
-          "default": "` ${EOS_THEME_TOKENS} :host { display: block; width: 100%; } :host([hidden]) { display: none; } .group { display: grid; gap: var(--eos-image-group-gap, 4px); aspect-ratio: var(--eos-image-group-columns) / var(--eos-image-group-aspect-rows); width: 100%; overflow: hidden; border-radius: var(--eos-image-group-radius, 5px); } .group.grid, .group.pair { grid-template-columns: repeat(var(--eos-image-group-columns), minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] { grid-template-columns: repeat(6, minmax(0, 1fr)); } .group.grid[data-columns=\"3\"] .tile { grid-column: span 2; } .group.grid[data-columns=\"3\"][data-remainder=\"1\"] .tile:last-child { grid-column: 3 / 5; } .group.grid[data-columns=\"3\"][data-remainder=\"2\"] .tile:nth-last-child(2) { grid-column: 2 / 4; } .group.grid[data-columns=\"3\"][data-remainder=\"2\"] .tile:last-child { grid-column: 4 / 6; } .group.pair[data-remainder=\"1\"] .tile:last-child { grid-column: 1 / -1; width: 50%; justify-self: center; } .group.featured { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--eos-image-group-rows), minmax(0, 1fr)); } .group.featured[data-count=\"1\"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"2\"] { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); } .group.featured[data-count=\"3\"] { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } .group.featured[data-count]:not([data-count=\"1\"]):not([data-count=\"2\"]) .tile:first-child { grid-row: 1 / -1; } .group.featured[data-featured-remainder=\"1\"]:not([data-count=\"2\"]) .tile:last-child { grid-column: 2 / 4; } .tile { position: relative; isolation: isolate; box-sizing: border-box; min-width: 0; min-height: 0; height: 100%; overflow: hidden; border: 0; border-radius: var(--eos-image-group-radius, 5px); padding: 0; background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground); cursor: pointer; } .tile.has-overflow::before { position: absolute; z-index: 2; inset: 0; border-radius: inherit; background: var(--eos-image-group-overlay, rgb(0 0 0 / 32%)); content: \"\"; pointer-events: none; } .tile::after { position: absolute; z-index: 3; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--eos-image-group-border, rgb(0 0 0 / 10%)); content: \"\"; pointer-events: none; } .tile eos-image { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; --eos-image-radius: var(--eos-image-group-radius, 5px); transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); } .tile:hover eos-image { transform: scale(1.03); } .tile:focus-visible { z-index: 1; outline: 2px solid var(--eos-color-focus-ring); outline-offset: -2px; } .count { position: absolute; z-index: 4; inset-block-start: 50%; inset-inline-start: 50%; min-width: 36px; transform: translate(-50%, -50%); padding: 3px 10px; border-radius: 999px; background: var(--eos-image-group-count-background, var(--eos-color-surface)); color: var(--eos-image-group-count-foreground, var(--eos-color-foreground)); box-shadow: 0 1px 4px var(--eos-image-group-count-shadow, rgb(0 0 0 / 18%)); font: 600 13px/18px var(--eos-font-family); text-align: center; white-space: nowrap; pointer-events: none; } @media (prefers-reduced-motion: reduce) { .tile eos-image { transition: none; } } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "IMAGE_GROUP_STYLES",
-          "declaration": {
-            "name": "IMAGE_GROUP_STYLES",
-            "module": "src/components/image-group/image-group.css.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/image-group/image-group.ts",
+      "path": "src/components/scene/scene-item.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "EosImageGroup",
+          "name": "EosSceneItem",
           "members": [
             {
               "kind": "field",
-              "name": "_items",
-              "type": {
-                "text": "EosImageGroupItem[]"
-              },
-              "privacy": "private",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "_layout",
-              "type": {
-                "text": "EosImageGroupLayout"
-              },
-              "privacy": "private",
-              "default": "\"grid\""
-            },
-            {
-              "kind": "field",
-              "name": "_maxVisible",
+              "name": "x",
               "type": {
                 "text": "number"
               },
-              "privacy": "private",
-              "default": "9"
+              "description": "Normalized horizontal coordinate."
             },
             {
               "kind": "field",
-              "name": "themeObserver",
+              "name": "y",
               "type": {
-                "text": "MutationObserver | undefined"
+                "text": "number"
               },
-              "privacy": "private"
+              "description": "Normalized vertical coordinate."
             },
             {
               "kind": "field",
-              "name": "renderQueued",
+              "name": "anchor",
               "type": {
-                "text": "boolean"
+                "text": "EosSceneAnchor"
               },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "items"
-            },
-            {
-              "kind": "field",
-              "name": "layout"
-            },
-            {
-              "kind": "field",
-              "name": "maxVisible"
+              "description": "Item alignment around its x/y coordinate."
             },
             {
               "kind": "method",
-              "name": "readAttributes",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncTheme",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "scheduleRender",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "setImageAttribute",
+              "name": "readCoordinate",
               "privacy": "private",
               "parameters": [
-                {
-                  "name": "image",
-                  "type": {
-                    "text": "Element"
-                  }
-                },
                 {
                   "name": "name",
                   "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "boolean | number | string | undefined"
+                    "text": "\"x\" | \"y\""
                   }
                 }
               ]
             },
             {
               "kind": "method",
-              "name": "getLayoutMetrics",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "itemCount",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "render",
+              "name": "updatePosition",
               "privacy": "private"
-            }
-          ],
-          "events": [
-            {
-              "name": "image-click",
-              "type": {
-                "text": "CustomEvent"
-              }
             }
           ],
           "attributes": [
             {
-              "name": "items"
+              "name": "x",
+              "type": {
+                "text": "number"
+              },
+              "description": "Normalized horizontal scene coordinate from 0 to 1."
             },
             {
-              "name": "layout"
+              "name": "y",
+              "type": {
+                "text": "number"
+              },
+              "description": "Normalized vertical scene coordinate from 0 to 1."
             },
             {
-              "name": "max-visible"
+              "name": "z-index",
+              "type": {
+                "text": "number"
+              },
+              "description": "Stacking order among scene items."
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "EosSceneAnchor"
+              },
+              "description": "The item edge, corner, or center aligned with x/y."
             }
           ],
           "superclass": {
             "name": "HTMLElementBase",
-            "module": "src/components/image-group/image-group.ts"
+            "module": "src/components/scene/scene-item.ts"
           },
-          "tagName": "eos-image-group",
+          "tagName": "eos-scene-item",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "EosImageGroup",
+          "name": "EosSceneItem",
           "declaration": {
-            "name": "EosImageGroup",
-            "module": "src/components/image-group/image-group.ts"
+            "name": "EosSceneItem",
+            "module": "src/components/scene/scene-item.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/image-group/index.ts",
-      "declarations": [],
+      "path": "src/components/scene/scene.css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "SCENE_STYLES",
+          "default": "` ${SCENE_THEME_TOKENS} :host { position: relative; display: block; width: 100%; aspect-ratio: var(--eos-scene-aspect-ratio, 16 / 9); overflow: hidden; border: 1px solid var(--eos-color-border); border-radius: var(--eos-scene-radius, 16px); background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground); isolation: isolate; cursor: inherit; } :host([hidden]) { display: none; } .viewport { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; } .plane { position: absolute; inset: 0; } .content { position: absolute; inset: 0; } slot[name=\"content\"] { display: block; width: 100%; height: 100%; } ::slotted([slot=\"content\"]) { display: block; width: 100%; height: 100%; } slot:not([name]) { position: absolute; inset: 0; pointer-events: none; } ::slotted(eos-scene-item) { pointer-events: auto; } `"
+        },
+        {
+          "kind": "variable",
+          "name": "SCENE_ITEM_STYLES",
+          "default": "` ${SCENE_THEME_TOKENS} :host { position: absolute; top: var(--eos-scene-item-y, 50%); left: var(--eos-scene-item-x, 50%); z-index: var(--eos-scene-item-z, 1); display: block; transform: translate(var(--eos-scene-item-shift-x, -50%), var(--eos-scene-item-shift-y, -50%)); color: var(--eos-color-foreground); pointer-events: auto; } :host([hidden]) { display: none; } .content { display: block; } `"
+        }
+      ],
       "exports": [
         {
           "kind": "js",
-          "name": "EosImageGroupItem",
+          "name": "SCENE_STYLES",
           "declaration": {
-            "name": "EosImageGroupItem",
-            "module": "./image-group"
+            "name": "SCENE_STYLES",
+            "module": "src/components/scene/scene.css.ts"
           }
         },
         {
           "kind": "js",
-          "name": "EosImageGroupLayout",
+          "name": "SCENE_ITEM_STYLES",
           "declaration": {
-            "name": "EosImageGroupLayout",
-            "module": "./image-group"
+            "name": "SCENE_ITEM_STYLES",
+            "module": "src/components/scene/scene.css.ts"
           }
-        },
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/scene/scene.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EosScene",
+          "members": [
+            {
+              "kind": "method",
+              "name": "syncAccessibility",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "aria-label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Accessible name for the scene content."
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElementBase",
+            "module": "src/components/scene/scene.ts"
+          },
+          "tagName": "eos-scene",
+          "customElement": true
+        }
+      ],
+      "exports": [
         {
           "kind": "js",
-          "name": "EosImageGroup",
+          "name": "EosScene",
           "declaration": {
-            "name": "EosImageGroup",
-            "module": "./image-group"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ImageGroup",
-          "declaration": {
-            "name": "EosImageGroup",
-            "module": "./image-group"
+            "name": "EosScene",
+            "module": "src/components/scene/scene.ts"
           }
         }
       ]
@@ -3054,11 +3263,33 @@
             },
             {
               "kind": "field",
-              "name": "_stopAutoUpdate",
+              "name": "_positionObserver",
               "type": {
-                "text": "() => void | undefined"
+                "text": "ResizeObserver | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_positionIntersectionObserver",
+              "type": {
+                "text": "IntersectionObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_positionUpdateHandler",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_positionFrame",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
             },
             {
               "kind": "field",
@@ -3131,6 +3362,31 @@
             },
             {
               "kind": "method",
+              "name": "scheduleFloatingPositionUpdate",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "getBoundaryElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getFloatingBounds",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "PositionRect"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "updateFloatingPosition",
               "privacy": "private",
               "parameters": [
@@ -3142,6 +3398,19 @@
                 },
                 {
                   "name": "panel",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "observeTriggerPosition",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "trigger",
                   "type": {
                     "text": "HTMLElement"
                   }
@@ -3450,215 +3719,6 @@
           "declaration": {
             "name": "EosSelect",
             "module": "src/components/select/select.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/scene/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosScene",
-          "declaration": {
-            "name": "EosScene",
-            "module": "./scene"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EosSceneItem",
-          "declaration": {
-            "name": "EosSceneItem",
-            "module": "./scene-item"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EosSceneAnchor",
-          "declaration": {
-            "name": "EosSceneAnchor",
-            "module": "./scene-item"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/scene/scene-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EosSceneItem",
-          "members": [
-            {
-              "kind": "field",
-              "name": "x",
-              "type": {
-                "text": "number"
-              },
-              "description": "Normalized horizontal coordinate."
-            },
-            {
-              "kind": "field",
-              "name": "y",
-              "type": {
-                "text": "number"
-              },
-              "description": "Normalized vertical coordinate."
-            },
-            {
-              "kind": "field",
-              "name": "anchor",
-              "type": {
-                "text": "EosSceneAnchor"
-              },
-              "description": "Item alignment around its x/y coordinate."
-            },
-            {
-              "kind": "method",
-              "name": "readCoordinate",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "\"x\" | \"y\""
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "updatePosition",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "x",
-              "type": {
-                "text": "number"
-              },
-              "description": "Normalized horizontal scene coordinate from 0 to 1."
-            },
-            {
-              "name": "y",
-              "type": {
-                "text": "number"
-              },
-              "description": "Normalized vertical scene coordinate from 0 to 1."
-            },
-            {
-              "name": "z-index",
-              "type": {
-                "text": "number"
-              },
-              "description": "Stacking order among scene items."
-            },
-            {
-              "name": "anchor",
-              "type": {
-                "text": "EosSceneAnchor"
-              },
-              "description": "The item edge, corner, or center aligned with x/y."
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElementBase",
-            "module": "src/components/scene/scene-item.ts"
-          },
-          "tagName": "eos-scene-item",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosSceneItem",
-          "declaration": {
-            "name": "EosSceneItem",
-            "module": "src/components/scene/scene-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/scene/scene.css.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "SCENE_STYLES",
-          "default": "` ${SCENE_THEME_TOKENS} :host { position: relative; display: block; width: 100%; aspect-ratio: var(--eos-scene-aspect-ratio, 16 / 9); overflow: hidden; border: 1px solid var(--eos-color-border); border-radius: var(--eos-scene-radius, 16px); background: var(--eos-color-surface-secondary); color: var(--eos-color-foreground); isolation: isolate; cursor: default; } :host([hidden]) { display: none; } .viewport { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; } .plane { position: absolute; inset: 0; } .content { position: absolute; inset: 0; } slot[name=\"content\"] { display: block; width: 100%; height: 100%; } ::slotted([slot=\"content\"]) { display: block; width: 100%; height: 100%; } slot:not([name]) { position: absolute; inset: 0; pointer-events: none; } ::slotted(eos-scene-item) { pointer-events: auto; } `"
-        },
-        {
-          "kind": "variable",
-          "name": "SCENE_ITEM_STYLES",
-          "default": "` ${SCENE_THEME_TOKENS} :host { position: absolute; top: var(--eos-scene-item-y, 50%); left: var(--eos-scene-item-x, 50%); z-index: var(--eos-scene-item-z, 1); display: block; transform: translate(var(--eos-scene-item-shift-x, -50%), var(--eos-scene-item-shift-y, -50%)); color: var(--eos-color-foreground); pointer-events: auto; } :host([hidden]) { display: none; } .content { display: block; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SCENE_STYLES",
-          "declaration": {
-            "name": "SCENE_STYLES",
-            "module": "src/components/scene/scene.css.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SCENE_ITEM_STYLES",
-          "declaration": {
-            "name": "SCENE_ITEM_STYLES",
-            "module": "src/components/scene/scene.css.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/scene/scene.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EosScene",
-          "members": [
-            {
-              "kind": "method",
-              "name": "syncAccessibility",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "aria-label",
-              "type": {
-                "text": "string"
-              },
-              "description": "Accessible name for the scene content."
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElementBase",
-            "module": "src/components/scene/scene.ts"
-          },
-          "tagName": "eos-scene",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EosScene",
-          "declaration": {
-            "name": "EosScene",
-            "module": "src/components/scene/scene.ts"
           }
         }
       ]

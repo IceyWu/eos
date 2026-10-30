@@ -17,8 +17,10 @@ export class EosScene extends HTMLElementBase {
 	}
 
 	connectedCallback() {
-		if (!this.shadowRoot?.hasChildNodes()) {
-			this.shadowRoot!.innerHTML = `
+		const root = this.shadowRoot;
+		if (!root) return;
+		if (!root.hasChildNodes()) {
+			root.innerHTML = `
 				<style>${SCENE_STYLES}</style>
 				<div class="viewport" part="viewport" role="group">
 					<div class="plane" part="plane">
@@ -38,10 +40,13 @@ export class EosScene extends HTMLElementBase {
 	private syncAccessibility() {
 		const viewport = this.shadowRoot?.querySelector<HTMLElement>(".viewport");
 		if (!viewport) return;
-		const chinese = (this.lang || document.documentElement.lang).toLowerCase().startsWith("zh");
+		const chinese = (this.lang || document.documentElement.lang)
+			.toLowerCase()
+			.startsWith("zh");
 		viewport.setAttribute(
 			"aria-label",
-			this.getAttribute("aria-label") || (chinese ? "场景内容" : "Scene content"),
+			this.getAttribute("aria-label") ||
+				(chinese ? "场景内容" : "Scene content"),
 		);
 	}
 }
