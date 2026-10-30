@@ -15,6 +15,13 @@ export default {
       paths.add(path);
     }
 
+    for (const locale of i18n.languages) {
+      const prefix = locale === i18n.defaultLanguage ? '' : `/${locale}`;
+      paths.add(`${prefix}/skills.md`);
+      paths.add(`${prefix}/llms.txt`);
+      paths.add(`${prefix}/llms-full.txt`);
+    }
+
     for await (const entry of glob('**/*.mdx', { cwd: 'content/docs' })) {
       const normalized = entry.replaceAll('\\', '/');
       if (i18n.languages.some((locale) => normalized.endsWith(`.${locale}.mdx`))) continue;

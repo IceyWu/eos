@@ -113,8 +113,8 @@ export default function Home({
   const { home } = config;
   const docsPath = (path: string) => withDocsPrerenderPath(`${config.prefix}${path}`);
   const skillsRawPath = `${config.prefix}/skills.md`;
-  const skillsPath = `${skillsRawPath}?view=browser`;
-  const llmsPath = `${config.prefix}/llms.txt?view=browser`;
+  const skillsPath = docsPath('/docs/skills');
+  const llmsPath = docsPath('/docs/llms');
   const [persona, setPersona] = useState<'agent' | 'human'>('agent');
   const [siteOrigin, setSiteOrigin] = useState('');
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
