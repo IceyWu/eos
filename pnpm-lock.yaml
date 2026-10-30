@@ -290,9 +290,6 @@ importers:
       '@eosjs/utils':
         specifier: workspace:*
         version: link:../utils
-      '@floating-ui/dom':
-        specifier: ^1.8.0
-        version: 1.8.0
       blurhash:
         specifier: ^2.0.5
         version: 2.0.5

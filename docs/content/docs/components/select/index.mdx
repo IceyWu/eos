@@ -11,7 +11,7 @@ import BasicSource from './demos/index.tsx?raw';
 
 Select keeps its compact pill trigger in the form layout. When opened, its compass panel floats beside the trigger and automatically chooses the side with the most room. The pointer stays fixed on the selected row while the option list scrolls and snaps that row to the center.
 
-The component is a native Web Component and can be used from React, Vue, Angular, or plain HTML. `@floating-ui/dom` handles collision-aware placement and updates the panel as the page scrolls or resizes. The component virtualizes long option lists and mounts only the visible rows plus a small overscan.
+The component is a native Web Component and can be used from React, Vue, Angular, or plain HTML. Its built-in positioning logic handles side selection, boundary collision, and position updates as the page scrolls or resizes. The component virtualizes long option lists and mounts only the visible rows plus a small overscan.
 
 ## Interactive example
 
@@ -55,7 +55,7 @@ select.addEventListener('change', (event) => {
 | `placeholder` | `string` | `Select an option` | Text shown before a value is selected. |
 | `full-width` | `boolean` | `false` | Makes the trigger fill its containing block. |
 | `placement` | `auto \| top \| right \| bottom \| left` | `auto` | Preferred floating panel side. `auto` chooses the side with the most available space. |
-| `boundary` | `Element \| Element[] \| Rect` | Floating UI clipping ancestors | Optional collision boundary passed to Floating UI. Set it as a JavaScript property. |
+| `boundary` | `Element \| Element[] \| Rect` | Viewport | Optional collision boundary. Set it as a JavaScript property; multiple boundaries are intersected. |
 | `aria-label` | `string` | `Select an option` | Accessible name for the combobox. |
 | `aria-labelledby` | `string` | — | ID reference for an external visible label. |
 
@@ -79,7 +79,7 @@ Options are stored as data, while only the visible viewport rows and three rows 
 
 ### Placement and themes
 
-The panel uses Floating UI's DOM positioning engine with automatic placement, preferred placement with fallback, viewport shifting, available-size constraints, live updates, and custom collision boundaries. Left/right placements use a vertical compass arc; top/bottom placements use a horizontal arc with a matching tick axis and virtual scroll direction. EOS keeps the pointer and selection capsule fixed at the compass center. The `placement` property requests a side; Floating UI can fall back when there is insufficient room. Its default `auto` chooses the side with the most available space. The trigger remains in normal layout, so opening the list does not push form content. Light and dark surfaces use EOS semantic theme tokens. Reduced-motion preferences shorten the transitions.
+The panel uses built-in positioning logic for automatic placement, preferred placement with fallback, viewport shifting, available-size constraints, live updates, and custom collision boundaries. Left/right placements use a vertical compass arc; top/bottom placements use a horizontal arc with a matching tick axis and virtual scroll direction. EOS keeps the pointer and selection capsule fixed at the compass center. The `placement` property requests a side; the component can fall back when there is insufficient room. Its default `auto` chooses the side with the most available space. The `boundary` property constrains collision handling to an element or rectangle. The trigger remains in normal layout, so opening the list does not push form content. Light and dark surfaces use EOS semantic theme tokens. Reduced-motion preferences shorten the transitions.
 
 ## Framework integration
 

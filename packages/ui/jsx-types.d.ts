@@ -4,6 +4,8 @@ import type {
   EosCarousel,
   EosImage,
   EosProgressBar,
+  EosScene,
+  EosSceneItem,
   EosImageGroup,
   EosScrollbar,
   EosSelect,
@@ -436,6 +438,56 @@ export type EosImageGroupSolidJsProps = {
   textContent?: string | number | undefined;
 };
 
+export type EosSceneProps = {
+  /** Accessible name for the scene content. */
+  "aria-label"?: unknown | undefined;
+  /** Accessible name for the scene content. */
+  undefined?: unknown | undefined;
+};
+
+export type EosSceneSolidJsProps = {
+  /** Accessible name for the scene content. */
+  "attr:aria-label"?: unknown | undefined;
+  /** Accessible name for the scene content. */
+  "prop:undefined"?: unknown | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
+export type EosSceneItemProps = {
+  /** Normalized horizontal scene coordinate from 0 to 1. */
+  x?: unknown | undefined;
+  /** Normalized horizontal scene coordinate from 0 to 1. */
+  undefined?: unknown | undefined;
+  /** Normalized vertical scene coordinate from 0 to 1. */
+  y?: unknown | undefined;
+  /** Stacking order among scene items. */
+  "z-index"?: unknown | undefined;
+  /** The item edge, corner, or center aligned with x/y. */
+  anchor?: unknown | undefined;
+};
+
+export type EosSceneItemSolidJsProps = {
+  /** Normalized horizontal scene coordinate from 0 to 1. */
+  "attr:x"?: unknown | undefined;
+  /** Normalized horizontal scene coordinate from 0 to 1. */
+  "prop:undefined"?: unknown | undefined;
+  /** Normalized vertical scene coordinate from 0 to 1. */
+  "attr:y"?: unknown | undefined;
+  /** Stacking order among scene items. */
+  "attr:z-index"?: unknown | undefined;
+  /** The item edge, corner, or center aligned with x/y. */
+  "attr:anchor"?: unknown | undefined;
+
+  /** Set the innerHTML of the element */
+  innerHTML?: string | undefined;
+  /** Set the textContent of the element */
+  textContent?: string | number | undefined;
+};
+
 export type EosScrollbarProps = {
   /**  */
   direction?: unknown | undefined;
@@ -814,6 +866,8 @@ export type CustomElements = {
   "eos-scrollbar": Partial<
     EosScrollbarProps & BaseProps<EosScrollbar> & BaseEvents
   >;
+  "eos-scene": Partial<EosSceneProps & BaseProps<EosScene> & BaseEvents>;
+  "eos-scene-item": Partial<EosSceneItemProps & BaseProps<EosSceneItem> & BaseEvents>;
 };
 
 export type CustomElementsSolidJs = {
@@ -1099,6 +1153,8 @@ export type CustomElementsSolidJs = {
   >;
   "eos-select": Partial<EosSelectProps & EosSelectSolidJsProps & BaseProps<EosSelect> & BaseEvents>;
   "eos-select": Partial<EosSelectProps & BaseProps<EosSelect> & BaseEvents>;
+  "eos-scene": Partial<EosSceneProps & EosSceneSolidJsProps & BaseProps<EosScene> & BaseEvents>;
+  "eos-scene-item": Partial<EosSceneItemProps & EosSceneItemSolidJsProps & BaseProps<EosSceneItem> & BaseEvents>;
 };
 
 export type CustomCssProperties = {};

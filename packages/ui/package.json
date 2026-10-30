@@ -75,6 +75,11 @@
 			"import": "./dist/select.js",
 			"default": "./dist/select.js"
 		},
+		"./scene": {
+			"types": "./dist/entries/scene.d.ts",
+			"import": "./dist/scene.js",
+			"default": "./dist/scene.js"
+		},
 		"./config": {
 			"types": "./dist/config.d.ts",
 			"import": "./dist/config.js",
@@ -97,7 +102,6 @@
 	},
 	"dependencies": {
 		"@eosjs/utils": "workspace:*",
-		"@floating-ui/dom": "^1.8.0",
 		"blurhash": "^2.0.5"
 	},
 	"devDependencies": {
@@ -124,6 +128,7 @@
 		"./dist/image-group.js",
 		"./dist/progress-bar.js",
 		"./dist/scrollbar.js",
-		"./dist/select.js"
+		"./dist/select.js",
+		"./dist/scene.js"
 	]
 }

@@ -11,7 +11,7 @@ import BasicSource from './demos/index.tsx?raw';
 
 Select 的胶囊触发器保持在表单原有布局中。展开后，罗盘面板根据可用空间浮动到触发器旁边；左右落位使用纵向弧线，上下落位改用横向弧线与对应方向的刻度。固定指针和选中舱留在罗盘中心，滚动列表会将当前行吸附到中心。
 
-组件使用原生 Web Component，可接入 React、Vue、Angular 或原生 HTML。`@floating-ui/dom` 负责碰撞检测、方向选择以及页面滚动和窗口变化时的定位更新。面对大量选项时，组件只挂载视口内条目及少量前后缓冲数据。
+组件使用原生 Web Component，可接入 React、Vue、Angular 或原生 HTML。组件内置浮层定位逻辑，负责方向选择、边界避让以及页面滚动和窗口变化时的位置更新。面对大量选项时，组件只挂载视口内条目及少量前后缓冲数据。
 
 ## 交互示例
 
@@ -55,7 +55,7 @@ select.addEventListener('change', (event) => {
 | `placeholder` | `string` | `Select an option` | 未选择时显示的文字。 |
 | `full-width` | `boolean` | `false` | 让触发器填满所在区块。 |
 | `placement` | `auto \| top \| right \| bottom \| left` | `auto` | 浮层的期望方向；`auto` 会选择可用空间更大的方向。 |
-| `boundary` | `Element \| Element[] \| Rect` | Floating UI 裁剪祖先 | 可选的碰撞边界，通过 JavaScript 属性赋值。 |
+| `boundary` | `Element \| Element[] \| Rect` | 视口 | 可选的碰撞边界，通过 JavaScript 属性赋值；多个边界取交集。 |
 | `aria-label` | `string` | `Select an option` | 组合框的可访问名称。 |
 | `aria-labelledby` | `string` | — | 指向页面上可见标签的 ID。 |
 
@@ -79,7 +79,7 @@ select.addEventListener('change', (event) => {
 
 ### 浮层定位与主题
 
-面板使用 Floating UI DOM 定位引擎，负责自动落位、指定方向后的回退、视口避让、可用尺寸、位置更新和自定义碰撞边界。左右落位呈纵向罗盘弧线；上下落位呈横向弧线，刻度、列表虚拟滚动轴和方向键也随之切换。EOS 将指针与选中舱锁在罗盘中心。`placement` 属性指定期望方向；空间不足时由 Floating UI 选择回退方向。默认 `auto` 会选择可用空间更大的方向。触发器仍处于正常布局中，展开不会推挤表单内容。Light 和 Dark 表面使用 EOS 语义主题令牌，并遵循减少动效偏好。
+面板由组件内置的定位逻辑处理自动落位、指定方向后的回退、边界避让、可用尺寸和位置更新。左右落位呈纵向罗盘弧线；上下落位呈横向弧线，刻度、列表虚拟滚动轴和方向键也随之切换。EOS 将指针与选中舱锁在罗盘中心。`placement` 属性指定期望方向；空间不足时组件会选择可用空间更合适的方向。默认 `auto` 会选择可用空间更大的方向。`boundary` 可将避让限制到指定元素或矩形区域。触发器仍处于正常布局中，展开不会推挤表单内容。Light 和 Dark 表面使用 EOS 语义主题令牌，并遵循减少动效偏好。
 
 ### 框架接入
 

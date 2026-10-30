@@ -6,6 +6,7 @@ import { EosImageGroup, ImageGroup } from "./components/image-group";
 import { EosProgressBar } from "./components/progress-bar";
 import { EosScrollbar } from "./components/scrollbar";
 import { EosSelect } from "./components/select";
+import { EosScene, EosSceneItem } from "./components/scene";
 import { COMPONENT_CONFIG, type ComponentRegistration } from "./config";
 import { registerComponent } from "./register";
 
@@ -20,6 +21,7 @@ export type {
 	EosSelectPlacement,
 } from "./components/select";
 export type { ComponentRegistration } from "./config";
+export type { EosSceneAnchor } from "./components/scene";
 export { registerComponent } from "./register";
 
 export {
@@ -32,6 +34,8 @@ export {
 	EosProgressBar,
 	EosScrollbar,
 	EosSelect,
+	EosScene,
+	EosSceneItem,
 	ImageGroup,
 };
 
@@ -47,6 +51,8 @@ const COMPONENTS: ComponentRegistration[] = [
 	{ name: "progress-bar", component: EosProgressBar },
 	{ name: "scrollbar", component: EosScrollbar },
 	{ name: "select", component: EosSelect },
+	{ name: "scene", component: EosScene },
+	{ name: "scene-item", component: EosSceneItem },
 ];
 
 /**

@@ -1,12 +1,3 @@
-import {
-	autoPlacement,
-	autoUpdate,
-	computePosition,
-	flip,
-	offset,
-	shift,
-	size,
-} from "@floating-ui/dom";
 import { SELECT_STYLES } from "./select.css";
 
 /** An option accepted by EosSelect. Labels, values and prefixes are rendered as text. */
@@ -22,6 +13,35 @@ export type EosSelectBoundary =
 	| Element
 	| Element[]
 	| { x: number; y: number; width: number; height: number };
+
+type FloatingSide = Exclude<EosSelectPlacement, "auto">;
+type PositionRect = {
+	left: number;
+	top: number;
+	right: number;
+	bottom: number;
+};
+
+const FLOATING_SIDES: readonly FloatingSide[] = [
+	"left",
+	"right",
+	"top",
+	"bottom",
+];
+const FLOATING_GAP = 12;
+const FLOATING_PADDING = 12;
+
+function intersectRects(rects: readonly PositionRect[]): PositionRect {
+	return rects.reduce(
+		(result, rect) => ({
+			left: Math.max(result.left, rect.left),
+			top: Math.max(result.top, rect.top),
+			right: Math.min(result.right, rect.right),
+			bottom: Math.min(result.bottom, rect.bottom),
+		}),
+		{ left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight },
+	);
+}
 
 /**
  * EOS Select
@@ -67,7 +87,10 @@ export class EosSelect extends HTMLElementBase {
 	private _lastScrollTop = 0;
 	private _lastScrollLeft = 0;
 	private _scrollDirection = 1;
-	private _stopAutoUpdate?: () => void;
+	private _positionObserver?: ResizeObserver;
+	private _positionIntersectionObserver?: IntersectionObserver;
+	private _positionUpdateHandler = () => this.scheduleFloatingPositionUpdate();
+	private _positionFrame = 0;
 	private _positionRequest = 0;
 	private _boundary?: EosSelectBoundary;
 
@@ -156,11 +179,7 @@ export class EosSelect extends HTMLElementBase {
 	}
 	set boundary(value: EosSelectBoundary | undefined) {
 		this._boundary = value;
-		if (this.open) {
-			const trigger = this.root.querySelector<HTMLElement>(".trigger");
-			const panel = this.root.querySelector<HTMLElement>(".panel");
-			if (trigger && panel) void this.updateFloatingPosition(trigger, panel);
-		}
+		if (this.open) this.startFloatingPositioning();
 	}
 
 	private get selectedIndex() {
@@ -257,63 +276,232 @@ export class EosSelect extends HTMLElementBase {
 		this.stopFloatingPositioning();
 		panel.removeAttribute("data-positioned");
 		panel.dataset.placement = "left";
-		this._stopAutoUpdate = autoUpdate(trigger, panel, () => {
-			void this.updateFloatingPosition(trigger, panel);
-		});
+		document.addEventListener("scroll", this._positionUpdateHandler, true);
+		window.addEventListener("resize", this._positionUpdateHandler);
+		window.visualViewport?.addEventListener(
+			"resize",
+			this._positionUpdateHandler,
+		);
+		window.visualViewport?.addEventListener(
+			"scroll",
+			this._positionUpdateHandler,
+		);
+		this._positionObserver = new ResizeObserver(this._positionUpdateHandler);
+		this._positionObserver.observe(trigger);
+		this._positionObserver.observe(panel);
+		for (const boundary of this.getBoundaryElements())
+			this._positionObserver.observe(boundary);
+		this.updateFloatingPosition(trigger, panel);
 	}
 
 	private stopFloatingPositioning() {
 		this._positionRequest++;
-		this._stopAutoUpdate?.();
-		this._stopAutoUpdate = undefined;
+		cancelAnimationFrame(this._positionFrame);
+		this._positionFrame = 0;
+		document.removeEventListener("scroll", this._positionUpdateHandler, true);
+		window.removeEventListener("resize", this._positionUpdateHandler);
+		window.visualViewport?.removeEventListener(
+			"resize",
+			this._positionUpdateHandler,
+		);
+		window.visualViewport?.removeEventListener(
+			"scroll",
+			this._positionUpdateHandler,
+		);
+		this._positionObserver?.disconnect();
+		this._positionObserver = undefined;
+		this._positionIntersectionObserver?.disconnect();
+		this._positionIntersectionObserver = undefined;
 	}
 
-	private async updateFloatingPosition(
-		trigger: HTMLElement,
-		panel: HTMLElement,
-	) {
-		const request = ++this._positionRequest;
-		const overflowOptions = {
-			...(this._boundary ? { boundary: this._boundary } : {}),
-			padding: 12,
-		};
-		try {
-			const result = await computePosition(trigger, panel, {
-				strategy: "fixed",
-				placement: this.placement === "auto" ? "left" : this.placement,
-				middleware: [
-					offset(12),
-					this.placement === "auto"
-						? autoPlacement({
-								...overflowOptions,
-								allowedPlacements: ["left", "right", "top", "bottom"],
-							})
-						: flip({
-								...overflowOptions,
-								fallbackPlacements: (
-									["left", "right", "top", "bottom"] as const
-								).filter((side) => side !== this.placement),
-							}),
-					shift(overflowOptions),
-					size({
-						...overflowOptions,
-						apply({ availableWidth, availableHeight, elements }) {
-							elements.floating.style.maxWidth = `${Math.max(0, Math.min(520, availableWidth))}px`;
-							elements.floating.style.maxHeight = `${Math.max(0, Math.min(280, availableHeight))}px`;
-						},
-					}),
-				],
-			});
-			if (!this.open || request !== this._positionRequest || !panel.isConnected)
-				return;
-			panel.style.left = `${result.x}px`;
-			panel.style.top = `${result.y}px`;
-			panel.dataset.placement = result.placement;
-			panel.dataset.positioned = "true";
-			this.measureViewport();
-		} catch (error) {
-			console.error("EOS Select could not position its floating panel", error);
+	private scheduleFloatingPositionUpdate() {
+		if (this._positionFrame || !this.open) return;
+		this._positionFrame = requestAnimationFrame(() => {
+			this._positionFrame = 0;
+			const trigger = this.root.querySelector<HTMLElement>(".trigger");
+			const panel = this.root.querySelector<HTMLElement>(".panel");
+			if (trigger && panel) this.updateFloatingPosition(trigger, panel);
+		});
+	}
+
+	private getBoundaryElements(): Element[] {
+		if (!this._boundary) return [];
+		const boundaries = Array.isArray(this._boundary)
+			? this._boundary
+			: [this._boundary];
+		return boundaries.filter(
+			(boundary): boundary is Element => boundary instanceof Element,
+		);
+	}
+
+	private getFloatingBounds(): PositionRect {
+		const visualViewport = window.visualViewport;
+		const viewport: PositionRect = visualViewport
+			? {
+					left: visualViewport.offsetLeft,
+					top: visualViewport.offsetTop,
+					right: visualViewport.offsetLeft + visualViewport.width,
+					bottom: visualViewport.offsetTop + visualViewport.height,
+				}
+			: {
+					left: 0,
+					top: 0,
+					right: window.innerWidth,
+					bottom: window.innerHeight,
+				};
+		const boundaries = this._boundary
+			? Array.isArray(this._boundary)
+				? this._boundary
+				: [this._boundary]
+			: [];
+		const rects: PositionRect[] = [viewport];
+		for (const boundary of boundaries) {
+			if (boundary instanceof Element) {
+				const rect = boundary.getBoundingClientRect();
+				rects.push({
+					left: rect.left,
+					top: rect.top,
+					right: rect.right,
+					bottom: rect.bottom,
+				});
+			} else {
+				rects.push({
+					left: boundary.x,
+					top: boundary.y,
+					right: boundary.x + boundary.width,
+					bottom: boundary.y + boundary.height,
+				});
+			}
 		}
+		return intersectRects(rects);
+	}
+
+	private updateFloatingPosition(trigger: HTMLElement, panel: HTMLElement) {
+		const request = ++this._positionRequest;
+		const bounds = this.getFloatingBounds();
+		const triggerRect = trigger.getBoundingClientRect();
+		const available = (side: FloatingSide) => {
+			const width = Math.max(
+				0,
+				bounds.right - bounds.left - FLOATING_PADDING * 2,
+			);
+			const height = Math.max(
+				0,
+				bounds.bottom - bounds.top - FLOATING_PADDING * 2,
+			);
+			if (side === "left")
+				return {
+					width: Math.min(
+						520,
+						triggerRect.left - bounds.left - FLOATING_GAP - FLOATING_PADDING,
+					),
+					height: Math.min(280, height),
+				};
+			if (side === "right")
+				return {
+					width: Math.min(
+						520,
+						bounds.right - triggerRect.right - FLOATING_GAP - FLOATING_PADDING,
+					),
+					height: Math.min(280, height),
+				};
+			if (side === "top")
+				return {
+					width: Math.min(520, width),
+					height: Math.min(
+						240,
+						triggerRect.top - bounds.top - FLOATING_GAP - FLOATING_PADDING,
+					),
+				};
+			return {
+				width: Math.min(520, width),
+				height: Math.min(
+					240,
+					bounds.bottom - triggerRect.bottom - FLOATING_GAP - FLOATING_PADDING,
+				),
+			};
+		};
+		const requested = this.placement;
+		const preferred: FloatingSide = requested === "auto" ? "left" : requested;
+		const required =
+			preferred === "top" || preferred === "bottom"
+				? { width: 280, height: 240 }
+				: { width: 280, height: 280 };
+		const fits = (side: FloatingSide) => {
+			const size = available(side);
+			return side === "left" || side === "right"
+				? size.width >= required.width && size.height >= required.height
+				: size.height >= required.height && size.width >= required.width;
+		};
+		const side =
+			requested !== "auto" && fits(preferred)
+				? preferred
+				: ([...FLOATING_SIDES].sort((a, b) => {
+						const sizeA = available(a);
+						const sizeB = available(b);
+						const areaA = Math.max(0, sizeA.width) * Math.max(0, sizeA.height);
+						const areaB = Math.max(0, sizeB.width) * Math.max(0, sizeB.height);
+						return areaB - areaA;
+					})[0] ?? preferred);
+		const size = available(side);
+		const maxWidth = Math.max(0, size.width);
+		const maxHeight = Math.max(0, size.height);
+		panel.style.maxWidth = `${maxWidth}px`;
+		panel.style.maxHeight = `${maxHeight}px`;
+		panel.dataset.placement = side;
+		const panelRect = panel.getBoundingClientRect();
+		let left =
+			side === "left"
+				? triggerRect.left - FLOATING_GAP - panelRect.width
+				: side === "right"
+					? triggerRect.right + FLOATING_GAP
+					: triggerRect.left + (triggerRect.width - panelRect.width) / 2;
+		let top =
+			side === "top"
+				? triggerRect.top - FLOATING_GAP - panelRect.height
+				: side === "bottom"
+					? triggerRect.bottom + FLOATING_GAP
+					: triggerRect.top + (triggerRect.height - panelRect.height) / 2;
+		left = Math.max(
+			bounds.left + FLOATING_PADDING,
+			Math.min(left, bounds.right - FLOATING_PADDING - panelRect.width),
+		);
+		top = Math.max(
+			bounds.top + FLOATING_PADDING,
+			Math.min(top, bounds.bottom - FLOATING_PADDING - panelRect.height),
+		);
+		if (!this.open || request !== this._positionRequest || !panel.isConnected)
+			return;
+		panel.style.left = `${left}px`;
+		panel.style.top = `${top}px`;
+		panel.dataset.positioned = "true";
+		this.measureViewport();
+		this.observeTriggerPosition(trigger);
+	}
+
+	private observeTriggerPosition(trigger: HTMLElement) {
+		this._positionIntersectionObserver?.disconnect();
+		const rect = trigger.getBoundingClientRect();
+		if (
+			rect.left < 0 ||
+			rect.top < 0 ||
+			rect.right > window.innerWidth ||
+			rect.bottom > window.innerHeight
+		)
+			return;
+		this._positionIntersectionObserver = new IntersectionObserver(
+			(entries) => {
+				if (entries.some((entry) => entry.intersectionRatio < 1)) {
+					this._positionIntersectionObserver?.disconnect();
+					this.scheduleFloatingPositionUpdate();
+				}
+			},
+			{
+				rootMargin: `-${rect.top}px -${window.innerWidth - rect.right}px -${window.innerHeight - rect.bottom}px -${rect.left}px`,
+				threshold: [1],
+			},
+		);
+		this._positionIntersectionObserver.observe(trigger);
 	}
 
 	private render() {

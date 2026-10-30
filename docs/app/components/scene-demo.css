@@ -1,0 +1,15 @@
+.scene-demo { --scene-surface: var(--color-fd-card, #fff); --scene-foreground: var(--color-fd-foreground, #18181b); --scene-muted: var(--color-fd-muted-foreground, #71717a); --scene-border: var(--color-fd-border, #dedee0); --scene-accent: #006fee; --scene-accent-foreground: #fcfcfc; }
+.dark .scene-demo, .eos-demo[data-eos-theme="dark"] .scene-demo { --scene-surface: #18181b; --scene-foreground: #fcfcfc; --scene-muted: #a1a1aa; --scene-border: #28282c; }
+.scene-demo eos-scene { --eos-scene-aspect-ratio: 3 / 2; --eos-scene-radius: 16px; }
+.scene-demo eos-image { --eos-image-radius: 0px; }
+.scene-demo__frame { transform-origin: top left; }
+.scene-pin--camp .scene-marker__label { left: calc(100% + 2px); }
+@container (max-width: 560px) { .scene-pin--camp .scene-marker__label { right: calc(100% + 2px); left: auto; } }
+.scene-card::after { position: absolute; inset-block-end: -8px; width: 16px; height: 8px; border: 1px solid var(--scene-border); background: var(--scene-surface); content: ""; }
+.scene-card--right::after { inset-inline: auto 16px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.scene-card--left::after { inset-inline: 16px auto; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.scene-card--below::after { inset-block: -8px auto; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.scene-demo__cursor-point { position: absolute; inset: 11px; }
+.scene-demo__cursor-point::before, .scene-demo__cursor-point::after { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; background: var(--scene-surface); content: ""; }
+.scene-demo__cursor-point::before { width: 2px; height: 30px; transform: translate(-50%, -50%); }
+.scene-demo__cursor-point::after { width: 30px; height: 2px; transform: translate(-50%, -50%); }

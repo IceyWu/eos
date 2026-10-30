@@ -9,7 +9,7 @@ import { rollup } from "rollup";
 const packageRoot = fileURLToPath(new URL("../", import.meta.url));
 const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url)));
 const components = readdirSync(new URL("../src/components/", import.meta.url));
-const dependencies = { carousel: ["progress-bar"], "image-group": ["image"] };
+const dependencies = { carousel: ["progress-bar"], "image-group": ["image"], scene: ["scene-item"] };
 const classes = {
 	button: "EosButton",
 	"card-stack": "EosCardStack",
@@ -19,6 +19,7 @@ const classes = {
 	"progress-bar": "EosProgressBar",
 	scrollbar: "EosScrollbar",
 	select: "EosSelect",
+	scene: "EosScene",
 };
 const run = (code) => execFileSync(process.execPath, ["--input-type=module"], {
 	cwd: packageRoot,
@@ -57,7 +58,7 @@ assert.equal(registered.get('eos-${name}'), entry.${classes[name]});
 const root = await import('@eosjs/ui');
 root.registerComponents();
 assert.equal(root.${classes[name]}, entry.${classes[name]});
-assert.equal(registered.size, ${components.length});
+assert.equal(registered.size, ${components.length + 1});
 `);
 	});
 	test(`${name}: side-effect-only import survives consumer bundling`, async () => {

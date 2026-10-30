@@ -22,7 +22,7 @@ export function Demo({ of: Component, source: initialSource, title, layout, loca
     window.setTimeout(() => setCopied(false), 1200);
   };
   return (
-    <section className={`eos-demo eos-demo--${layout ?? 'default'}`} data-demo-appearance={appearance} aria-label={title ?? labels.interactiveExample}>
+    <section className={`eos-demo eos-demo--${layout ?? 'default'}`} data-demo-appearance={appearance} data-eos-theme={appearance} aria-label={title ?? labels.interactiveExample}>
       <header className="eos-demo__caption">
         {title ? <h3>{title}</h3> : <span />}
         <div className="eos-demo__actions" role="toolbar" aria-label={labels.controls}>

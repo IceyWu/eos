@@ -8,6 +8,8 @@ declare namespace React {
     'eos-image-group': React.HTMLAttributes<HTMLElement> & Record<string, unknown>;
     'eos-progress-bar': React.HTMLAttributes<HTMLElement> & Record<string, unknown>;
     'eos-scrollbar': React.HTMLAttributes<HTMLElement> & Record<string, unknown>;
+    'eos-scene': React.HTMLAttributes<HTMLElement> & Record<string, unknown>;
+    'eos-scene-item': React.HTMLAttributes<HTMLElement> & Record<string, unknown>;
     }
   }
 }
