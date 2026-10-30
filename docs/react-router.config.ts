@@ -24,6 +24,15 @@ export default {
       paths.add(`/llms.mdx/docs/${[...slugs, 'content.md'].join('/')}`);
     }
 
+    for await (const entry of glob('**/demos/*.tsx', { cwd: 'content/docs' })) {
+      const demoId = entry
+        .replaceAll('\\', '/')
+        .replace(/\.tsx$/, '')
+        .replaceAll('/', '-')
+        .toLowerCase();
+      paths.add(`/~demos/${demoId}`);
+    }
+
     return [...paths];
   },
 } satisfies Config;

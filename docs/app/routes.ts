@@ -1,6 +1,7 @@
 import { index, route, type RouteConfig } from '@react-router/dev/routes';
 
 export default [
+  route('~demos/:demoId', 'routes/demo-preview.tsx'),
   route(':lang?/docs/*', 'routes/docs.tsx'),
   route(':lang?', 'routes/home.tsx'),
   route('api/search', 'routes/search.ts'),
