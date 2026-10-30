@@ -1,5 +1,11 @@
 # @eosjs/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 8e16d43: 新增 Select 和 Scene 组件，并完善组件导出与交互能力。
+
 ## 0.3.1
 
 ### Patch Changes

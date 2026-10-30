@@ -1,6 +1,6 @@
 {
 	"name": "@eosjs/ui",
-	"version": "0.3.1",
+	"version": "0.4.0",
 	"description": "轻量级、框架无关的 Web Components 组件库",
 	"keywords": [
 		"web-components",
