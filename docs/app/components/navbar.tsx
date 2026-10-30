@@ -8,14 +8,15 @@ import { LanguageSelect, LanguageSelectText } from 'fumadocs-ui/layouts/shared/s
 import { ThemeSwitch } from 'fumadocs-ui/layouts/shared/slots/theme-switch';
 import { gitConfig, appName, withDocsPrerenderPath } from '@/lib/shared';
 import { getLocaleConfig, localizePath } from '@/lib/i18n';
+import eosLogoUrl from '../../../assets/eos-logo.svg?url';
 
-export default function EosNavbar({ locale = 'en' }: { locale?: string }) {
+export default function EosNavbar({ locale = 'en', workspace = false }: { locale?: string; workspace?: boolean }) {
   const { pathname } = useLocation();
   const [atTop, setAtTop] = useState(true);
   const { prefix } = getLocaleConfig(locale);
   const links = [
     [locale === 'zh' ? '首页' : 'Home', prefix || '/', 'url'],
-    [locale === 'zh' ? '组件' : 'Components', withDocsPrerenderPath(localizePath(locale, '/docs/components/button')), 'nested-url'],
+    [locale === 'zh' ? '组件' : 'Components', withDocsPrerenderPath(localizePath(locale, '/docs/components')), 'nested-url'],
   ] as const;
 
   useEffect(() => {
@@ -27,9 +28,11 @@ export default function EosNavbar({ locale = 'en' }: { locale?: string }) {
 
   return <header className="eos-topbar" data-transparent={atTop ? '' : undefined}>
     <div className="eos-topbar__inner">
-      <Link className="eos-topbar__brand" to={prefix || '/'}><span className="eos-topbar__mark">✦</span><strong>{appName}</strong></Link>
-      <span className="eos-topbar__divider">/</span>
-      <nav className="eos-topbar__links" aria-label={locale === 'zh' ? '主导航' : 'Primary navigation'}>{links.map(([label, url, active]) => <Link key={url} className={(active === 'url' ? pathname === url : pathname.startsWith(url)) ? 'is-active' : undefined} to={url}>{label}</Link>)}</nav>
+      <Link className="eos-topbar__brand" to={prefix || '/'}><img alt="" className="eos-topbar__mark" src={eosLogoUrl} /><strong>{appName}</strong></Link>
+      {!workspace && <>
+        <span className="eos-topbar__divider">/</span>
+        <nav className="eos-topbar__links" aria-label={locale === 'zh' ? '主导航' : 'Primary navigation'}>{links.map(([label, url, active]) => <Link key={url} className={(active === 'url' ? pathname === url : pathname.startsWith(url)) ? 'is-active' : undefined} to={url}>{label}</Link>)}</nav>
+      </>}
       <div className="eos-topbar__tools">
         <FullSearchTrigger className="eos-topbar__search" />
         <LanguageSelect className="eos-topbar__language"><Languages size={16} /><LanguageSelectText /></LanguageSelect>

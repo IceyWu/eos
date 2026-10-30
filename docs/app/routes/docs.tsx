@@ -14,26 +14,8 @@ import { useFumadocsLoader } from 'fumadocs-core/source/client';
 import { useMDXComponents } from '@/components/mdx';
 import { use } from 'react';
 import { getPageMarkdownUrl, gitConfig } from '@/lib/shared';
-import type * as PageTree from 'fumadocs-core/page-tree';
 import { getLocaleConfig, i18n } from '@/lib/i18n';
-
-function preparePageTree(tree: PageTree.Root): PageTree.Root {
-  const normalize = (node: PageTree.Node): PageTree.Node => {
-    if (node.type !== 'folder') return node;
-
-    const children = node.children.map(normalize);
-    return {
-      ...node,
-      children,
-      ...(node.index && children.length === 0 ? { collapsible: false } : {}),
-    };
-  };
-
-  return {
-    ...tree,
-    children: tree.children.map(normalize),
-  };
-}
+import { preparePageTree } from '@/lib/page-tree';
 
 export async function loader({ params }: Route.LoaderArgs) {
   const slugs = params['*'].split('/').filter((v) => v.length > 0);
@@ -42,7 +24,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   if (!page) throw new Response('Not found', { status: 404 });
 
   const pageTree = await source.serializePageTree(
-    preparePageTree(source.getPageTree(locale)),
+    preparePageTree(source.getPageTree(locale), locale),
   );
 
   return {
@@ -92,7 +74,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
   const { pageTree, path, markdownUrl, locale } = useFumadocsLoader(loaderData);
 
   return (
-    <DocsLayout {...baseOptions(locale)} sidebar={{ collapsible: false }} tree={pageTree}>
+    <DocsLayout {...baseOptions(locale, true)} sidebar={{ collapsible: false }} tree={pageTree}>
       <Content path={path} locale={locale} markdownUrl={markdownUrl} />
     </DocsLayout>
   );

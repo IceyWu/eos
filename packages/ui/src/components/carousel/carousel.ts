@@ -27,6 +27,7 @@ export class EosCarousel extends HTMLElementBase {
 	private totalSlides: number = 0;
 	private isPlaying: boolean = false;
 	private autoplayTimer: number | null = null;
+	private motionPreference: MediaQueryList | null = null;
 	private touchStartX: number = 0;
 	private touchEndX: number = 0;
 	private isTransitioning: boolean = false;
@@ -154,6 +155,13 @@ export class EosCarousel extends HTMLElementBase {
 	}
 
 	connectedCallback() {
+		this.motionPreference =
+			window.matchMedia?.("(prefers-reduced-motion: reduce)") ?? null;
+		this.motionPreference?.addEventListener(
+			"change",
+			this.handleMotionPreferenceChange,
+		);
+
 		// 设置初始索引
 		const initial = this.initialIndex;
 		if (initial > 0) {
@@ -165,8 +173,10 @@ export class EosCarousel extends HTMLElementBase {
 		this.setupEventListeners();
 
 		// 如果启用自动播放，则开始播放
-		if (this.autoplay) {
+		if (this.autoplay && !this.motionPreference?.matches) {
 			this.play();
+		} else if (this.autoplay) {
+			this.pause();
 		}
 	}
 
@@ -241,8 +251,19 @@ export class EosCarousel extends HTMLElementBase {
 	}
 
 	disconnectedCallback() {
+		this.motionPreference?.removeEventListener(
+			"change",
+			this.handleMotionPreferenceChange,
+		);
+		this.motionPreference = null;
 		this.cleanup();
 	}
+
+	private handleMotionPreferenceChange = () => {
+		if (!this.autoplay) return;
+		if (this.motionPreference?.matches) this.pause();
+		else this.play();
+	};
 
 	attributeChangedCallback(
 		name: string,
@@ -253,7 +274,7 @@ export class EosCarousel extends HTMLElementBase {
 
 		switch (name) {
 			case "autoplay":
-				if (this.autoplay) {
+				if (this.autoplay && !this.motionPreference?.matches) {
 					this.play();
 				} else {
 					this.pause();
@@ -439,6 +460,10 @@ export class EosCarousel extends HTMLElementBase {
           width: 100%;
           height: 100%;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+          :host { --carousel-transition: 0.01ms linear; }
+        }
       </style>
 
       <div class="carousel" role="region" aria-label="Carousel" aria-live="polite">
@@ -578,7 +603,12 @@ export class EosCarousel extends HTMLElementBase {
 		this.updateNavigationButtons();
 
 		// slot 就绪后启动自动播放（connectedCallback 时 totalSlides 为 0，play() 会被跳过）
-		if (this.autoplay && !this.isPlaying && this.totalSlides > 1) {
+		if (
+			this.autoplay &&
+			!this.motionPreference?.matches &&
+			!this.isPlaying &&
+			this.totalSlides > 1
+		) {
 			this.play();
 		}
 	}

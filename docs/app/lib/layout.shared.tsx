@@ -16,11 +16,11 @@ export const translations = i18n
     },
   });
 
-export function baseOptions(locale: string = i18n.defaultLanguage): BaseLayoutProps {
+export function baseOptions(locale: string = i18n.defaultLanguage, workspace = false): BaseLayoutProps {
   return {
     nav: {
       title: null,
-      component: <EosNavbar locale={locale} />,
+      component: <EosNavbar locale={locale} workspace={workspace} />,
     },
     i18n,
     slots: {

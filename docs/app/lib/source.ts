@@ -1,6 +1,6 @@
 import { llms, loader } from 'fumadocs-core/source';
 import { defineDocs } from 'fumadocs-mdx/macro';
-import { docsContentRoute, docsRoute } from './shared';
+import { docsContentRoute, docsRoute, getPageMarkdownUrl } from './shared';
 import { i18n } from './i18n';
 
 export const docs = defineDocs({
@@ -20,7 +20,7 @@ export const source = loader({
 });
 
 export const docsLlms = llms(source, {
-  renderPage: async (page) => `# ${page.data.title} (${page.url})
+  renderPage: async (page) => `# ${page.data.title} (${getPageMarkdownUrl(page).url})
 
 ${await page.data.getText('processed')}`,
 });

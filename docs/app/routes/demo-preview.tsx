@@ -19,7 +19,8 @@ export default function DemoPreview() {
 
   const locale = searchParams.get('locale') === 'zh' ? 'zh' : i18n.defaultLanguage;
   const appearance = searchParams.get('appearance') === 'dark' ? 'dark' : 'light';
-  const viewport = searchParams.get('viewport') === 'mobile' ? 'mobile' : 'responsive';
+  const requestedViewport = searchParams.get('viewport');
+  const viewport = ['tablet', 'mobile'].includes(requestedViewport ?? '') ? requestedViewport! : 'responsive';
   const requestedLayout = searchParams.get('layout');
   const layout = ['center', 'bare'].includes(requestedLayout ?? '') ? requestedLayout : 'default';
 

@@ -2,19 +2,25 @@
 
 import type { ComponentType } from 'react';
 import { useRef, useState } from 'react';
-import { Code2, Copy, ExternalLink, Monitor, Moon, RotateCcw, Smartphone, Sun } from 'lucide-react';
-import * as EditorModule from 'react-simple-code-editor';
+import { Code2, Copy, ExternalLink, Monitor, Moon, RotateCcw, Smartphone, Sun, Tablet } from 'lucide-react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 import { getLocaleConfig } from '@/lib/i18n';
 
-const Editor = ((EditorModule as any).default?.default ?? (EditorModule as any).default ?? EditorModule) as typeof EditorModule.default;
+function SourcePanel({ source, label }: { source: string; label: string }) {
+  const highlighted = Prism.highlight(source, Prism.languages.jsx, 'jsx');
+  return (
+    <div aria-label={label} className="eos-demo__source" role="region">
+      <pre><code className="language-jsx" dangerouslySetInnerHTML={{ __html: highlighted }} /></pre>
+    </div>
+  );
+}
 
 export function Demo({ id, of: Component, source: initialSource, title, layout, locale = 'en' }: { id: string; of: ComponentType; source?: string; title?: string; layout?: string; locale?: string }) {
   const labels = getLocaleConfig(locale).demo;
   const [sourceOpen, setSourceOpen] = useState(false);
   const [appearance, setAppearance] = useState<'light' | 'dark'>('light');
-  const [viewport, setViewport] = useState<'responsive' | 'mobile'>('responsive');
+  const [viewport, setViewport] = useState<'responsive' | 'tablet' | 'mobile'>('responsive');
   const [resetKey, setResetKey] = useState(0);
   const [copyMessage, setCopyMessage] = useState<'copied' | 'failed' | null>(null);
   const viewportMenu = useRef<HTMLDetailsElement>(null);
@@ -67,9 +73,10 @@ export function Demo({ id, of: Component, source: initialSource, title, layout, 
         <div className="eos-demo__actions" role="toolbar" aria-label={labels.controls}>
           <details className="eos-demo__menu" ref={viewportMenu}>
             <summary aria-label={`${labels.previewViewport}: ${labels[viewport]}`} title={`${labels.previewViewport}: ${labels[viewport]}`}><Monitor size={15} /></summary>
-            <div role="menu">
-              <button type="button" role="menuitem" aria-pressed={viewport === 'responsive'} onClick={() => { setViewport('responsive'); if (viewportMenu.current) viewportMenu.current.open = false; }}><Monitor size={14} /> {labels.responsive}</button>
-              <button type="button" role="menuitem" aria-pressed={viewport === 'mobile'} onClick={() => { setViewport('mobile'); if (viewportMenu.current) viewportMenu.current.open = false; }}><Smartphone size={14} /> {labels.mobile}</button>
+            <div aria-label={labels.previewViewport} role="group">
+              <button type="button" aria-pressed={viewport === 'responsive'} onClick={() => { setViewport('responsive'); if (viewportMenu.current) viewportMenu.current.open = false; }}><Monitor size={14} /> {labels.responsive}</button>
+              <button type="button" aria-pressed={viewport === 'tablet'} onClick={() => { setViewport('tablet'); if (viewportMenu.current) viewportMenu.current.open = false; }}><Tablet size={14} /> {labels.tablet}</button>
+              <button type="button" aria-pressed={viewport === 'mobile'} onClick={() => { setViewport('mobile'); if (viewportMenu.current) viewportMenu.current.open = false; }}><Smartphone size={14} /> {labels.mobile}</button>
             </div>
           </details>
           <button type="button" aria-label={appearance === 'light' ? labels.useDarkTheme : labels.useLightTheme} title={appearance === 'light' ? labels.useDarkTheme : labels.useLightTheme} onClick={() => setAppearance((value) => value === 'light' ? 'dark' : 'light')}>
@@ -86,7 +93,7 @@ export function Demo({ id, of: Component, source: initialSource, title, layout, 
       <div className="eos-demo__preview">
         <Component key={resetKey} />
       </div>
-      {sourceOpen ? <div className="eos-demo__source"><Editor value={source} readOnly onValueChange={() => {}} highlight={(code) => Prism.highlight(code, Prism.languages.jsx, 'jsx')} padding={16} textareaId={`eos-demo-editor-${id}`} /></div> : null}
+      {sourceOpen ? <SourcePanel label={labels.sourceCode} source={source} /> : null}
     </section>
   );
 }
